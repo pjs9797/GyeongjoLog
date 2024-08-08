@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  GyeongjoLog
-//
-//  Created by 박중선 on 8/7/24.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {

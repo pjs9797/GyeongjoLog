@@ -27,6 +27,33 @@
 		311E25172C63616A00C61202 /* Pretendard-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 311E25132C63616A00C61202 /* Pretendard-Regular.otf */; };
 		311E25182C63616A00C61202 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 311E25142C63616A00C61202 /* Pretendard-Medium.otf */; };
 		311E25192C63616A00C61202 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 311E25152C63616A00C61202 /* Pretendard-Bold.otf */; };
+		311E25232C636C1200C61202 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25222C636C1200C61202 /* UIViewController+Extension.swift */; };
+		311E25252C636C1E00C61202 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25242C636C1E00C61202 /* UINavigationController+Extension.swift */; };
+		311E25282C636CB400C61202 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25272C636CB400C61202 /* HistoryView.swift */; };
+		311E252A2C63966600C61202 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25292C63966600C61202 /* ColorManager.swift */; };
+		311E252F2C639C6000C61202 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E252E2C639C6000C61202 /* FilterButton.swift */; };
+		311E25312C639C7000C61202 /* SortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25302C639C7000C61202 /* SortButton.swift */; };
+		311E25342C639D4800C61202 /* HistoryTypeSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25332C639D4800C61202 /* HistoryTypeSegmentedControl.swift */; };
+		311E25362C639E8700C61202 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25352C639E8700C61202 /* ImageManager.swift */; };
+		311E25382C63AC5100C61202 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25372C63AC5100C61202 /* UIButton+Extension.swift */; };
+		311E253B2C63B46400C61202 /* MyEventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E253A2C63B46400C61202 /* MyEventCollectionViewCell.swift */; };
+		311E253D2C63B78800C61202 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E253C2C63B78800C61202 /* UILabel+Extension.swift */; };
+		311E253F2C64730E00C61202 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E253E2C64730E00C61202 /* HistoryViewController.swift */; };
+		311E25412C64734900C61202 /* HistoryReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25402C64734900C61202 /* HistoryReactor.swift */; };
+		311E25462C64759700C61202 /* AppStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25452C64759700C61202 /* AppStep.swift */; };
+		311E25482C6475A200C61202 /* AppFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25472C6475A200C61202 /* AppFlow.swift */; };
+		311E254E2C64866100C61202 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E254D2C64866100C61202 /* Event.swift */; };
+		311E25532C6488B200C61202 /* EventRealmObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25522C6488B200C61202 /* EventRealmObject.swift */; };
+		311E25552C648BFC00C61202 /* EventRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25542C648BFC00C61202 /* EventRepositoryInterface.swift */; };
+		311E25572C648C2E00C61202 /* EventUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25562C648C2E00C61202 /* EventUseCase.swift */; };
+		311E255B2C64917D00C61202 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E255A2C64917D00C61202 /* RealmManager.swift */; };
+		311E25602C64924B00C61202 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E255F2C64924B00C61202 /* EventRepository.swift */; };
+		311E25622C6495D000C61202 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25612C6495D000C61202 /* UserDefaultsManager.swift */; };
+		311E25642C649B6D00C61202 /* SelectDetailMyEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25632C649B6C00C61202 /* SelectDetailMyEventViewController.swift */; };
+		311E25662C649B7500C61202 /* SelectDetailMyEventReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25652C649B7500C61202 /* SelectDetailMyEventReactor.swift */; };
+		311E25682C64A7EE00C61202 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25672C64A7EE00C61202 /* Date+Extension.swift */; };
+		311E256B2C64AEBA00C61202 /* AddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E256A2C64AEBA00C61202 /* AddEventViewController.swift */; };
+		311E256D2C64AECA00C61202 /* AddEventReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E256C2C64AECA00C61202 /* AddEventReactor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +70,33 @@
 		311E25132C63616A00C61202 /* Pretendard-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Regular.otf"; sourceTree = "<group>"; };
 		311E25142C63616A00C61202 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		311E25152C63616A00C61202 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		311E25222C636C1200C61202 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		311E25242C636C1E00C61202 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
+		311E25272C636CB400C61202 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		311E25292C63966600C61202 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
+		311E252E2C639C6000C61202 /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
+		311E25302C639C7000C61202 /* SortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortButton.swift; sourceTree = "<group>"; };
+		311E25332C639D4800C61202 /* HistoryTypeSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTypeSegmentedControl.swift; sourceTree = "<group>"; };
+		311E25352C639E8700C61202 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		311E25372C63AC5100C61202 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		311E253A2C63B46400C61202 /* MyEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventCollectionViewCell.swift; sourceTree = "<group>"; };
+		311E253C2C63B78800C61202 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
+		311E253E2C64730E00C61202 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		311E25402C64734900C61202 /* HistoryReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryReactor.swift; sourceTree = "<group>"; };
+		311E25452C64759700C61202 /* AppStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStep.swift; sourceTree = "<group>"; };
+		311E25472C6475A200C61202 /* AppFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlow.swift; sourceTree = "<group>"; };
+		311E254D2C64866100C61202 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		311E25522C6488B200C61202 /* EventRealmObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRealmObject.swift; sourceTree = "<group>"; };
+		311E25542C648BFC00C61202 /* EventRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepositoryInterface.swift; sourceTree = "<group>"; };
+		311E25562C648C2E00C61202 /* EventUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventUseCase.swift; sourceTree = "<group>"; };
+		311E255A2C64917D00C61202 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		311E255F2C64924B00C61202 /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
+		311E25612C6495D000C61202 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
+		311E25632C649B6C00C61202 /* SelectDetailMyEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDetailMyEventViewController.swift; sourceTree = "<group>"; };
+		311E25652C649B7500C61202 /* SelectDetailMyEventReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDetailMyEventReactor.swift; sourceTree = "<group>"; };
+		311E25672C64A7EE00C61202 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		311E256A2C64AEBA00C61202 /* AddEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewController.swift; sourceTree = "<group>"; };
+		311E256C2C64AECA00C61202 /* AddEventReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventReactor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +153,8 @@
 		311E24EC2C634C4F00C61202 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				311E255E2C64923800C61202 /* Repository */,
+				311E25512C64887100C61202 /* RealmObject */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -106,7 +162,9 @@
 		311E24ED2C634C5400C61202 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				311E25422C64757E00C61202 /* Coordinator */,
 				311E250C2C635F9A00C61202 /* View */,
+				311E251A2C636B2100C61202 /* TabBar */,
 				311E250B2C635F5700C61202 /* History */,
 			);
 			path = Presentation;
@@ -115,6 +173,9 @@
 		311E24EE2C634C5D00C61202 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				311E254C2C6485C200C61202 /* RepositoryInterface */,
+				311E254B2C6485BD00C61202 /* UseCase */,
+				311E254A2C6485B200C61202 /* Entity */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -122,9 +183,15 @@
 		311E24EF2C634C6700C61202 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				311E251F2C636BE600C61202 /* Extension */,
+				311E251B2C636B7700C61202 /* CustomComponent */,
 				311E25112C63613800C61202 /* Fonts */,
 				311E250D2C6360C400C61202 /* FontManager.swift */,
+				311E25352C639E8700C61202 /* ImageManager.swift */,
+				311E25292C63966600C61202 /* ColorManager.swift */,
 				311E250F2C6360E600C61202 /* ConstantsManager.swift */,
+				311E255A2C64917D00C61202 /* RealmManager.swift */,
+				311E25612C6495D000C61202 /* UserDefaultsManager.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -150,6 +217,10 @@
 		311E250B2C635F5700C61202 /* History */ = {
 			isa = PBXGroup;
 			children = (
+				311E25692C64AE9E00C61202 /* AddEvent */,
+				311E25492C64815B00C61202 /* SelectDetailMyEvent */,
+				311E253E2C64730E00C61202 /* HistoryViewController.swift */,
+				311E25402C64734900C61202 /* HistoryReactor.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -157,6 +228,7 @@
 		311E250C2C635F9A00C61202 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				311E25262C636C7C00C61202 /* History */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -170,6 +242,151 @@
 				311E25122C63616A00C61202 /* Pretendard-SemiBold.otf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		311E251A2C636B2100C61202 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		311E251B2C636B7700C61202 /* CustomComponent */ = {
+			isa = PBXGroup;
+			children = (
+				311E25322C639D2E00C61202 /* UISegmentedControl */,
+				311E252D2C639BDC00C61202 /* UIButton */,
+			);
+			path = CustomComponent;
+			sourceTree = "<group>";
+		};
+		311E251F2C636BE600C61202 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				311E25242C636C1E00C61202 /* UINavigationController+Extension.swift */,
+				311E25222C636C1200C61202 /* UIViewController+Extension.swift */,
+				311E25372C63AC5100C61202 /* UIButton+Extension.swift */,
+				311E253C2C63B78800C61202 /* UILabel+Extension.swift */,
+				311E25672C64A7EE00C61202 /* Date+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		311E25262C636C7C00C61202 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				311E25392C63B3E500C61202 /* CollectionViewCell */,
+				311E25272C636CB400C61202 /* HistoryView.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		311E252D2C639BDC00C61202 /* UIButton */ = {
+			isa = PBXGroup;
+			children = (
+				311E252E2C639C6000C61202 /* FilterButton.swift */,
+				311E25302C639C7000C61202 /* SortButton.swift */,
+			);
+			path = UIButton;
+			sourceTree = "<group>";
+		};
+		311E25322C639D2E00C61202 /* UISegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				311E25332C639D4800C61202 /* HistoryTypeSegmentedControl.swift */,
+			);
+			path = UISegmentedControl;
+			sourceTree = "<group>";
+		};
+		311E25392C63B3E500C61202 /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				311E253A2C63B46400C61202 /* MyEventCollectionViewCell.swift */,
+			);
+			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		311E25422C64757E00C61202 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				311E25432C64758800C61202 /* Flow */,
+				311E25442C64758C00C61202 /* Step */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		311E25432C64758800C61202 /* Flow */ = {
+			isa = PBXGroup;
+			children = (
+				311E25472C6475A200C61202 /* AppFlow.swift */,
+			);
+			path = Flow;
+			sourceTree = "<group>";
+		};
+		311E25442C64758C00C61202 /* Step */ = {
+			isa = PBXGroup;
+			children = (
+				311E25452C64759700C61202 /* AppStep.swift */,
+			);
+			path = Step;
+			sourceTree = "<group>";
+		};
+		311E25492C64815B00C61202 /* SelectDetailMyEvent */ = {
+			isa = PBXGroup;
+			children = (
+				311E25632C649B6C00C61202 /* SelectDetailMyEventViewController.swift */,
+				311E25652C649B7500C61202 /* SelectDetailMyEventReactor.swift */,
+			);
+			path = SelectDetailMyEvent;
+			sourceTree = "<group>";
+		};
+		311E254A2C6485B200C61202 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				311E254D2C64866100C61202 /* Event.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		311E254B2C6485BD00C61202 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				311E25562C648C2E00C61202 /* EventUseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+		311E254C2C6485C200C61202 /* RepositoryInterface */ = {
+			isa = PBXGroup;
+			children = (
+				311E25542C648BFC00C61202 /* EventRepositoryInterface.swift */,
+			);
+			path = RepositoryInterface;
+			sourceTree = "<group>";
+		};
+		311E25512C64887100C61202 /* RealmObject */ = {
+			isa = PBXGroup;
+			children = (
+				311E25522C6488B200C61202 /* EventRealmObject.swift */,
+			);
+			path = RealmObject;
+			sourceTree = "<group>";
+		};
+		311E255E2C64923800C61202 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				311E255F2C64924B00C61202 /* EventRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		311E25692C64AE9E00C61202 /* AddEvent */ = {
+			isa = PBXGroup;
+			children = (
+				311E256A2C64AEBA00C61202 /* AddEventViewController.swift */,
+				311E256C2C64AECA00C61202 /* AddEventReactor.swift */,
+			);
+			path = AddEvent;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,11 +481,38 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				311E256B2C64AEBA00C61202 /* AddEventViewController.swift in Sources */,
+				311E25232C636C1200C61202 /* UIViewController+Extension.swift in Sources */,
+				311E25412C64734900C61202 /* HistoryReactor.swift in Sources */,
+				311E25282C636CB400C61202 /* HistoryView.swift in Sources */,
 				311E24DD2C634C2300C61202 /* ViewController.swift in Sources */,
+				311E25312C639C7000C61202 /* SortButton.swift in Sources */,
+				311E25682C64A7EE00C61202 /* Date+Extension.swift in Sources */,
+				311E25572C648C2E00C61202 /* EventUseCase.swift in Sources */,
+				311E25462C64759700C61202 /* AppStep.swift in Sources */,
 				311E24D92C634C2300C61202 /* AppDelegate.swift in Sources */,
+				311E25642C649B6D00C61202 /* SelectDetailMyEventViewController.swift in Sources */,
+				311E256D2C64AECA00C61202 /* AddEventReactor.swift in Sources */,
 				311E250E2C6360C400C61202 /* FontManager.swift in Sources */,
+				311E25252C636C1E00C61202 /* UINavigationController+Extension.swift in Sources */,
+				311E25622C6495D000C61202 /* UserDefaultsManager.swift in Sources */,
+				311E252A2C63966600C61202 /* ColorManager.swift in Sources */,
+				311E253D2C63B78800C61202 /* UILabel+Extension.swift in Sources */,
+				311E252F2C639C6000C61202 /* FilterButton.swift in Sources */,
 				311E25102C6360E600C61202 /* ConstantsManager.swift in Sources */,
+				311E25482C6475A200C61202 /* AppFlow.swift in Sources */,
 				311E24DB2C634C2300C61202 /* SceneDelegate.swift in Sources */,
+				311E25342C639D4800C61202 /* HistoryTypeSegmentedControl.swift in Sources */,
+				311E253B2C63B46400C61202 /* MyEventCollectionViewCell.swift in Sources */,
+				311E25662C649B7500C61202 /* SelectDetailMyEventReactor.swift in Sources */,
+				311E25362C639E8700C61202 /* ImageManager.swift in Sources */,
+				311E253F2C64730E00C61202 /* HistoryViewController.swift in Sources */,
+				311E25552C648BFC00C61202 /* EventRepositoryInterface.swift in Sources */,
+				311E25602C64924B00C61202 /* EventRepository.swift in Sources */,
+				311E254E2C64866100C61202 /* Event.swift in Sources */,
+				311E255B2C64917D00C61202 /* RealmManager.swift in Sources */,
+				311E25382C63AC5100C61202 /* UIButton+Extension.swift in Sources */,
+				311E25532C6488B200C61202 /* EventRealmObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
