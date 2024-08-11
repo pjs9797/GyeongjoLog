@@ -47,11 +47,14 @@ class EventUseCase {
     }
     
     // 이벤트 타입
-    func fetchEventTypes() -> Observable<[String]> {
+    func fetchEventTypes() -> Observable<[EventType]> {
         return repository.fetchEventTypes()
+            .map { eventTypesDict in
+                eventTypesDict.map { EventType(name: $0.0, color: $0.1) }
+            }
     }
     
-    func updateEventType(eventType: String) -> Completable {
-        return repository.updateEventType(eventType: eventType)
+    func updateEventType(eventType: String, color: String) -> Completable {
+        return repository.updateEventType(eventType: eventType, color: color)
     }
 }

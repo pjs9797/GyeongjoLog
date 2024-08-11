@@ -17,15 +17,7 @@ class EventRepository: EventRepositoryInterface {
     func deleteEvent(id: String) -> Completable {
         return realmManager.deleteObject(EventRealmObject.self, forPrimaryKey: id)
     }
-
-    func fetchEventTypes() -> Observable<[String]> {
-        return userDefaultsManager.fetchEventTypes()
-    }
-
-    func updateEventType(eventType: String) -> Completable {
-        return userDefaultsManager.updateEventType(eventType: eventType)
-    }
-
+    
     func updateEvent(event: Event) -> Completable {
         let updates: [String: Any] = [
             "name": event.name,
@@ -37,5 +29,13 @@ class EventRepository: EventRepositoryInterface {
             "memo": event.memo as Any
         ]
         return realmManager.updateObject(EventRealmObject.self, forPrimaryKey: event.id, with: updates)
+    }
+
+    func fetchEventTypes() -> Observable<[(String,String)]> {
+        return userDefaultsManager.fetchEventTypes()
+    }
+
+    func updateEventType(eventType: String, color: String) -> Completable {
+        return userDefaultsManager.updateEventType(eventType: eventType, color: color)
     }
 }

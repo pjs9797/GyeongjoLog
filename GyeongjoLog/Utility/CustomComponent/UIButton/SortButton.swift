@@ -13,12 +13,11 @@ class SortButton: UIButton {
     
     private func configureButton() {
         var config = UIButton.Configuration.plain()
+        config.title = "최신순"
         config.image = ImageManager.icon_dropdown
         config.imagePlacement = .trailing
+        config.baseForegroundColor = ColorManager.black
         self.configuration = config
-        
-        let fontAttributes = AttributedFontManager.Body01
-        let attributedTitle = NSAttributedString(string: "최신순", attributes: fontAttributes)
-        self.setAttributedTitle(attributedTitle, for: .normal)
+        self.titleLabel?.font = FontManager.Body01
     }
 }

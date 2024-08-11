@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		311E24D92C634C2300C61202 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E24D82C634C2300C61202 /* AppDelegate.swift */; };
 		311E24DB2C634C2300C61202 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E24DA2C634C2300C61202 /* SceneDelegate.swift */; };
-		311E24DD2C634C2300C61202 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E24DC2C634C2300C61202 /* ViewController.swift */; };
 		311E24E22C634C2500C61202 /* ImageAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 311E24E12C634C2500C61202 /* ImageAssets.xcassets */; };
 		311E24F42C634CAB00C61202 /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 311E24F32C634CAB00C61202 /* RxBlocking */; };
 		311E24F62C634CAB00C61202 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 311E24F52C634CAB00C61202 /* RxCocoa */; };
@@ -18,7 +17,6 @@
 		311E24FD2C634CBA00C61202 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 311E24FC2C634CBA00C61202 /* SnapKit */; };
 		311E25002C635EFA00C61202 /* RxFlow in Frameworks */ = {isa = PBXBuildFile; productRef = 311E24FF2C635EFA00C61202 /* RxFlow */; };
 		311E25032C635F0400C61202 /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 311E25022C635F0400C61202 /* ReactorKit */; };
-		311E25062C635F2600C61202 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 311E25052C635F2600C61202 /* Realm */; };
 		311E25082C635F2600C61202 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 311E25072C635F2600C61202 /* RealmSwift */; };
 		311E250A2C635F3900C61202 /* ColorAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 311E25092C635F3900C61202 /* ColorAssets.xcassets */; };
 		311E250E2C6360C400C61202 /* FontManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E250D2C6360C400C61202 /* FontManager.swift */; };
@@ -29,17 +27,16 @@
 		311E25192C63616A00C61202 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 311E25152C63616A00C61202 /* Pretendard-Bold.otf */; };
 		311E25232C636C1200C61202 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25222C636C1200C61202 /* UIViewController+Extension.swift */; };
 		311E25252C636C1E00C61202 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25242C636C1E00C61202 /* UINavigationController+Extension.swift */; };
-		311E25282C636CB400C61202 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25272C636CB400C61202 /* HistoryView.swift */; };
+		311E25282C636CB400C61202 /* EventHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25272C636CB400C61202 /* EventHistoryView.swift */; };
 		311E252A2C63966600C61202 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25292C63966600C61202 /* ColorManager.swift */; };
 		311E252F2C639C6000C61202 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E252E2C639C6000C61202 /* FilterButton.swift */; };
 		311E25312C639C7000C61202 /* SortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25302C639C7000C61202 /* SortButton.swift */; };
 		311E25342C639D4800C61202 /* HistoryTypeSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25332C639D4800C61202 /* HistoryTypeSegmentedControl.swift */; };
 		311E25362C639E8700C61202 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25352C639E8700C61202 /* ImageManager.swift */; };
-		311E25382C63AC5100C61202 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25372C63AC5100C61202 /* UIButton+Extension.swift */; };
 		311E253B2C63B46400C61202 /* MyEventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E253A2C63B46400C61202 /* MyEventCollectionViewCell.swift */; };
 		311E253D2C63B78800C61202 /* UILabel+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E253C2C63B78800C61202 /* UILabel+Extension.swift */; };
-		311E253F2C64730E00C61202 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E253E2C64730E00C61202 /* HistoryViewController.swift */; };
-		311E25412C64734900C61202 /* HistoryReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25402C64734900C61202 /* HistoryReactor.swift */; };
+		311E253F2C64730E00C61202 /* EventHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E253E2C64730E00C61202 /* EventHistoryViewController.swift */; };
+		311E25412C64734900C61202 /* EventHistoryReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25402C64734900C61202 /* EventHistoryReactor.swift */; };
 		311E25462C64759700C61202 /* AppStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25452C64759700C61202 /* AppStep.swift */; };
 		311E25482C6475A200C61202 /* AppFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25472C6475A200C61202 /* AppFlow.swift */; };
 		311E254E2C64866100C61202 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E254D2C64866100C61202 /* Event.swift */; };
@@ -54,13 +51,51 @@
 		311E25682C64A7EE00C61202 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25672C64A7EE00C61202 /* Date+Extension.swift */; };
 		311E256B2C64AEBA00C61202 /* AddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E256A2C64AEBA00C61202 /* AddEventViewController.swift */; };
 		311E256D2C64AECA00C61202 /* AddEventReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E256C2C64AECA00C61202 /* AddEventReactor.swift */; };
+		311E256F2C64AFBD00C61202 /* AddEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E256E2C64AFBD00C61202 /* AddEventView.swift */; };
+		311E25762C64D6A300C61202 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25752C64D6A300C61202 /* SearchView.swift */; };
+		311E25782C64D6B800C61202 /* SetEventDetailNameTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25772C64D6B800C61202 /* SetEventDetailNameTextFieldView.swift */; };
+		311E257C2C64E2C900C61202 /* EventAmountCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E257B2C64E2C900C61202 /* EventAmountCollectionViewCell.swift */; };
+		311E25812C64EE6300C61202 /* DimSheetPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25802C64EE6300C61202 /* DimSheetPresentationController.swift */; };
+		311E25832C64EF3D00C61202 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25822C64EF3D00C61202 /* UITextView+Extension.swift */; };
+		311E25852C65008D00C61202 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25842C65008D00C61202 /* TabBarController.swift */; };
+		311E25872C65021000C61202 /* EventHistoryFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25862C65021000C61202 /* EventHistoryFlow.swift */; };
+		311E25892C65021900C61202 /* EvnetHistoryStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25882C65021900C61202 /* EvnetHistoryStep.swift */; };
+		312A995C2C663F96001F5BB8 /* SetEventDetailTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312A995B2C663F96001F5BB8 /* SetEventDetailTextFieldView.swift */; };
+		312A995E2C663FCD001F5BB8 /* SetEventDetailButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312A995D2C663FCD001F5BB8 /* SetEventDetailButtonView.swift */; };
+		31FDB1652C6718A30010F3EC /* BottomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1642C6718A30010F3EC /* BottomButton.swift */; };
+		31FDB16B2C6785090010F3EC /* SelectEventTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB16A2C6785090010F3EC /* SelectEventTypeView.swift */; };
+		31FDB16D2C6785270010F3EC /* EventTypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB16C2C6785270010F3EC /* EventTypeCollectionViewCell.swift */; };
+		31FDB1702C6788700010F3EC /* SelectDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB16F2C6788700010F3EC /* SelectDateView.swift */; };
+		31FDB1742C6789820010F3EC /* SelectEventTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1732C6789820010F3EC /* SelectEventTypeViewController.swift */; };
+		31FDB1762C67898D0010F3EC /* SelectEventTypeReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1752C67898D0010F3EC /* SelectEventTypeReactor.swift */; };
+		31FDB17A2C67B9E20010F3EC /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1792C67B9E20010F3EC /* DatePickerView.swift */; };
+		31FDB17C2C67BA7D0010F3EC /* SelectDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB17B2C67BA7D0010F3EC /* SelectDateViewController.swift */; };
+		31FDB17E2C67BA840010F3EC /* SelectDateReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB17D2C67BA840010F3EC /* SelectDateReactor.swift */; };
+		31FDB1862C6865FB0010F3EC /* RelationshipCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1852C6865FB0010F3EC /* RelationshipCollectionViewCell.swift */; };
+		31FDB1882C6866790010F3EC /* SelectRelationshipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1872C6866790010F3EC /* SelectRelationshipView.swift */; };
+		31FDB18A2C6867320010F3EC /* SelectRelationshipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1892C6867320010F3EC /* SelectRelationshipViewController.swift */; };
+		31FDB18C2C68675D0010F3EC /* SelectRelationshipReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB18B2C68675D0010F3EC /* SelectRelationshipReactor.swift */; };
+		31FDB1922C68E3FC0010F3EC /* MyEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1912C68E3FC0010F3EC /* MyEventViewController.swift */; };
+		31FDB1942C68E41F0010F3EC /* OthersEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1932C68E41F0010F3EC /* OthersEventViewController.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		311E258B2C65BCD800C61202 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		311E24D52C634C2300C61202 /* GyeongjoLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GyeongjoLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		311E24D82C634C2300C61202 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		311E24DA2C634C2300C61202 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		311E24DC2C634C2300C61202 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		311E24E12C634C2500C61202 /* ImageAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ImageAssets.xcassets; sourceTree = "<group>"; };
 		311E24E62C634C2500C61202 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		311E25092C635F3900C61202 /* ColorAssets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ColorAssets.xcassets; sourceTree = "<group>"; };
@@ -72,17 +107,16 @@
 		311E25152C63616A00C61202 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		311E25222C636C1200C61202 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		311E25242C636C1E00C61202 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
-		311E25272C636CB400C61202 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		311E25272C636CB400C61202 /* EventHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHistoryView.swift; sourceTree = "<group>"; };
 		311E25292C63966600C61202 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		311E252E2C639C6000C61202 /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 		311E25302C639C7000C61202 /* SortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortButton.swift; sourceTree = "<group>"; };
 		311E25332C639D4800C61202 /* HistoryTypeSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTypeSegmentedControl.swift; sourceTree = "<group>"; };
 		311E25352C639E8700C61202 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
-		311E25372C63AC5100C61202 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		311E253A2C63B46400C61202 /* MyEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventCollectionViewCell.swift; sourceTree = "<group>"; };
 		311E253C2C63B78800C61202 /* UILabel+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extension.swift"; sourceTree = "<group>"; };
-		311E253E2C64730E00C61202 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
-		311E25402C64734900C61202 /* HistoryReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryReactor.swift; sourceTree = "<group>"; };
+		311E253E2C64730E00C61202 /* EventHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHistoryViewController.swift; sourceTree = "<group>"; };
+		311E25402C64734900C61202 /* EventHistoryReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHistoryReactor.swift; sourceTree = "<group>"; };
 		311E25452C64759700C61202 /* AppStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStep.swift; sourceTree = "<group>"; };
 		311E25472C6475A200C61202 /* AppFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlow.swift; sourceTree = "<group>"; };
 		311E254D2C64866100C61202 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -97,6 +131,32 @@
 		311E25672C64A7EE00C61202 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		311E256A2C64AEBA00C61202 /* AddEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewController.swift; sourceTree = "<group>"; };
 		311E256C2C64AECA00C61202 /* AddEventReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventReactor.swift; sourceTree = "<group>"; };
+		311E256E2C64AFBD00C61202 /* AddEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventView.swift; sourceTree = "<group>"; };
+		311E25752C64D6A300C61202 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		311E25772C64D6B800C61202 /* SetEventDetailNameTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetEventDetailNameTextFieldView.swift; sourceTree = "<group>"; };
+		311E257B2C64E2C900C61202 /* EventAmountCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAmountCollectionViewCell.swift; sourceTree = "<group>"; };
+		311E25802C64EE6300C61202 /* DimSheetPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimSheetPresentationController.swift; sourceTree = "<group>"; };
+		311E25822C64EF3D00C61202 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
+		311E25842C65008D00C61202 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		311E25862C65021000C61202 /* EventHistoryFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHistoryFlow.swift; sourceTree = "<group>"; };
+		311E25882C65021900C61202 /* EvnetHistoryStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvnetHistoryStep.swift; sourceTree = "<group>"; };
+		312A995B2C663F96001F5BB8 /* SetEventDetailTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetEventDetailTextFieldView.swift; sourceTree = "<group>"; };
+		312A995D2C663FCD001F5BB8 /* SetEventDetailButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetEventDetailButtonView.swift; sourceTree = "<group>"; };
+		31FDB1642C6718A30010F3EC /* BottomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomButton.swift; sourceTree = "<group>"; };
+		31FDB16A2C6785090010F3EC /* SelectEventTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectEventTypeView.swift; sourceTree = "<group>"; };
+		31FDB16C2C6785270010F3EC /* EventTypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTypeCollectionViewCell.swift; sourceTree = "<group>"; };
+		31FDB16F2C6788700010F3EC /* SelectDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateView.swift; sourceTree = "<group>"; };
+		31FDB1732C6789820010F3EC /* SelectEventTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectEventTypeViewController.swift; sourceTree = "<group>"; };
+		31FDB1752C67898D0010F3EC /* SelectEventTypeReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectEventTypeReactor.swift; sourceTree = "<group>"; };
+		31FDB1792C67B9E20010F3EC /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
+		31FDB17B2C67BA7D0010F3EC /* SelectDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateViewController.swift; sourceTree = "<group>"; };
+		31FDB17D2C67BA840010F3EC /* SelectDateReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateReactor.swift; sourceTree = "<group>"; };
+		31FDB1852C6865FB0010F3EC /* RelationshipCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationshipCollectionViewCell.swift; sourceTree = "<group>"; };
+		31FDB1872C6866790010F3EC /* SelectRelationshipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationshipView.swift; sourceTree = "<group>"; };
+		31FDB1892C6867320010F3EC /* SelectRelationshipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationshipViewController.swift; sourceTree = "<group>"; };
+		31FDB18B2C68675D0010F3EC /* SelectRelationshipReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationshipReactor.swift; sourceTree = "<group>"; };
+		31FDB1912C68E3FC0010F3EC /* MyEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventViewController.swift; sourceTree = "<group>"; };
+		31FDB1932C68E41F0010F3EC /* OthersEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthersEventViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +171,6 @@
 				311E24F62C634CAB00C61202 /* RxCocoa in Frameworks */,
 				311E24FA2C634CAB00C61202 /* RxSwift in Frameworks */,
 				311E24F42C634CAB00C61202 /* RxBlocking in Frameworks */,
-				311E25062C635F2600C61202 /* Realm in Frameworks */,
 				311E24FD2C634CBA00C61202 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,7 +203,6 @@
 				311E24EE2C634C5D00C61202 /* Domain */,
 				311E24ED2C634C5400C61202 /* Presentation */,
 				311E24EC2C634C4F00C61202 /* Data */,
-				311E24DC2C634C2300C61202 /* ViewController.swift */,
 				311E24E62C634C2500C61202 /* Info.plist */,
 			);
 			path = GyeongjoLog;
@@ -164,8 +222,9 @@
 			children = (
 				311E25422C64757E00C61202 /* Coordinator */,
 				311E250C2C635F9A00C61202 /* View */,
-				311E251A2C636B2100C61202 /* TabBar */,
-				311E250B2C635F5700C61202 /* History */,
+				31FDB17F2C685EDB0010F3EC /* ViewController */,
+				31FDB1802C685EE20010F3EC /* Reactor */,
+				311E25492C64815B00C61202 /* SelectDetailMyEvent */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -214,21 +273,10 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
-		311E250B2C635F5700C61202 /* History */ = {
-			isa = PBXGroup;
-			children = (
-				311E25692C64AE9E00C61202 /* AddEvent */,
-				311E25492C64815B00C61202 /* SelectDetailMyEvent */,
-				311E253E2C64730E00C61202 /* HistoryViewController.swift */,
-				311E25402C64734900C61202 /* HistoryReactor.swift */,
-			);
-			path = History;
-			sourceTree = "<group>";
-		};
 		311E250C2C635F9A00C61202 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				311E25262C636C7C00C61202 /* History */,
+				31FDB18F2C68E1360010F3EC /* Home */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -247,6 +295,7 @@
 		311E251A2C636B2100C61202 /* TabBar */ = {
 			isa = PBXGroup;
 			children = (
+				311E25842C65008D00C61202 /* TabBarController.swift */,
 			);
 			path = TabBar;
 			sourceTree = "<group>";
@@ -254,6 +303,9 @@
 		311E251B2C636B7700C61202 /* CustomComponent */ = {
 			isa = PBXGroup;
 			children = (
+				31FDB1782C67B9CF0010F3EC /* DatePickerView */,
+				311E257F2C64EE5400C61202 /* SheetPresentationController */,
+				311E25742C64D69400C61202 /* UIView */,
 				311E25322C639D2E00C61202 /* UISegmentedControl */,
 				311E252D2C639BDC00C61202 /* UIButton */,
 			);
@@ -265,20 +317,20 @@
 			children = (
 				311E25242C636C1E00C61202 /* UINavigationController+Extension.swift */,
 				311E25222C636C1200C61202 /* UIViewController+Extension.swift */,
-				311E25372C63AC5100C61202 /* UIButton+Extension.swift */,
 				311E253C2C63B78800C61202 /* UILabel+Extension.swift */,
 				311E25672C64A7EE00C61202 /* Date+Extension.swift */,
+				311E25822C64EF3D00C61202 /* UITextView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		311E25262C636C7C00C61202 /* History */ = {
+		311E25262C636C7C00C61202 /* EventHistory */ = {
 			isa = PBXGroup;
 			children = (
 				311E25392C63B3E500C61202 /* CollectionViewCell */,
-				311E25272C636CB400C61202 /* HistoryView.swift */,
+				311E25272C636CB400C61202 /* EventHistoryView.swift */,
 			);
-			path = History;
+			path = EventHistory;
 			sourceTree = "<group>";
 		};
 		311E252D2C639BDC00C61202 /* UIButton */ = {
@@ -286,6 +338,7 @@
 			children = (
 				311E252E2C639C6000C61202 /* FilterButton.swift */,
 				311E25302C639C7000C61202 /* SortButton.swift */,
+				31FDB1642C6718A30010F3EC /* BottomButton.swift */,
 			);
 			path = UIButton;
 			sourceTree = "<group>";
@@ -319,6 +372,7 @@
 			isa = PBXGroup;
 			children = (
 				311E25472C6475A200C61202 /* AppFlow.swift */,
+				311E25862C65021000C61202 /* EventHistoryFlow.swift */,
 			);
 			path = Flow;
 			sourceTree = "<group>";
@@ -327,6 +381,7 @@
 			isa = PBXGroup;
 			children = (
 				311E25452C64759700C61202 /* AppStep.swift */,
+				311E25882C65021900C61202 /* EvnetHistoryStep.swift */,
 			);
 			path = Step;
 			sourceTree = "<group>";
@@ -380,11 +435,151 @@
 			path = Repository;
 			sourceTree = "<group>";
 		};
-		311E25692C64AE9E00C61202 /* AddEvent */ = {
+		311E25742C64D69400C61202 /* UIView */ = {
 			isa = PBXGroup;
 			children = (
-				311E256A2C64AEBA00C61202 /* AddEventViewController.swift */,
+				311E25752C64D6A300C61202 /* SearchView.swift */,
+				311E25772C64D6B800C61202 /* SetEventDetailNameTextFieldView.swift */,
+				312A995B2C663F96001F5BB8 /* SetEventDetailTextFieldView.swift */,
+				312A995D2C663FCD001F5BB8 /* SetEventDetailButtonView.swift */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
+		311E257F2C64EE5400C61202 /* SheetPresentationController */ = {
+			isa = PBXGroup;
+			children = (
+				311E25802C64EE6300C61202 /* DimSheetPresentationController.swift */,
+			);
+			path = SheetPresentationController;
+			sourceTree = "<group>";
+		};
+		31FDB1662C671DF10010F3EC /* AddEvent */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB16E2C67884C0010F3EC /* SheetPresentationView */,
+				31FDB1672C671DFE0010F3EC /* CollectionViewCell */,
+				311E256E2C64AFBD00C61202 /* AddEventView.swift */,
+			);
+			path = AddEvent;
+			sourceTree = "<group>";
+		};
+		31FDB1672C671DFE0010F3EC /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB16C2C6785270010F3EC /* EventTypeCollectionViewCell.swift */,
+				31FDB1852C6865FB0010F3EC /* RelationshipCollectionViewCell.swift */,
+				311E257B2C64E2C900C61202 /* EventAmountCollectionViewCell.swift */,
+			);
+			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		31FDB16E2C67884C0010F3EC /* SheetPresentationView */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB16A2C6785090010F3EC /* SelectEventTypeView.swift */,
+				31FDB16F2C6788700010F3EC /* SelectDateView.swift */,
+				31FDB1872C6866790010F3EC /* SelectRelationshipView.swift */,
+			);
+			path = SheetPresentationView;
+			sourceTree = "<group>";
+		};
+		31FDB1782C67B9CF0010F3EC /* DatePickerView */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB1792C67B9E20010F3EC /* DatePickerView.swift */,
+			);
+			path = DatePickerView;
+			sourceTree = "<group>";
+		};
+		31FDB17F2C685EDB0010F3EC /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				311E251A2C636B2100C61202 /* TabBar */,
+				31FDB1822C685EF40010F3EC /* Home */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		31FDB1802C685EE20010F3EC /* Reactor */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB1812C685EE80010F3EC /* EventHistory */,
+			);
+			path = Reactor;
+			sourceTree = "<group>";
+		};
+		31FDB1812C685EE80010F3EC /* EventHistory */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB1842C685F430010F3EC /* SheetPresentation */,
+				311E25402C64734900C61202 /* EventHistoryReactor.swift */,
 				311E256C2C64AECA00C61202 /* AddEventReactor.swift */,
+			);
+			path = EventHistory;
+			sourceTree = "<group>";
+		};
+		31FDB1822C685EF40010F3EC /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB18E2C68D1D70010F3EC /* EventHistory */,
+				31FDB1902C68E1700010F3EC /* AddEvent */,
+				311E253E2C64730E00C61202 /* EventHistoryViewController.swift */,
+				311E256A2C64AEBA00C61202 /* AddEventViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		31FDB1832C685F370010F3EC /* SheetPresentation */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB1732C6789820010F3EC /* SelectEventTypeViewController.swift */,
+				31FDB17B2C67BA7D0010F3EC /* SelectDateViewController.swift */,
+				31FDB1892C6867320010F3EC /* SelectRelationshipViewController.swift */,
+			);
+			path = SheetPresentation;
+			sourceTree = "<group>";
+		};
+		31FDB1842C685F430010F3EC /* SheetPresentation */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB1752C67898D0010F3EC /* SelectEventTypeReactor.swift */,
+				31FDB17D2C67BA840010F3EC /* SelectDateReactor.swift */,
+				31FDB18B2C68675D0010F3EC /* SelectRelationshipReactor.swift */,
+			);
+			path = SheetPresentation;
+			sourceTree = "<group>";
+		};
+		31FDB18D2C68D1C40010F3EC /* PageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB1912C68E3FC0010F3EC /* MyEventViewController.swift */,
+				31FDB1932C68E41F0010F3EC /* OthersEventViewController.swift */,
+			);
+			path = PageViewController;
+			sourceTree = "<group>";
+		};
+		31FDB18E2C68D1D70010F3EC /* EventHistory */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB1832C685F370010F3EC /* SheetPresentation */,
+				31FDB18D2C68D1C40010F3EC /* PageViewController */,
+			);
+			path = EventHistory;
+			sourceTree = "<group>";
+		};
+		31FDB18F2C68E1360010F3EC /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				311E25262C636C7C00C61202 /* EventHistory */,
+				31FDB1662C671DF10010F3EC /* AddEvent */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		31FDB1902C68E1700010F3EC /* AddEvent */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			path = AddEvent;
 			sourceTree = "<group>";
@@ -399,6 +594,7 @@
 				311E24D12C634C2300C61202 /* Sources */,
 				311E24D22C634C2300C61202 /* Frameworks */,
 				311E24D32C634C2300C61202 /* Resources */,
+				311E258B2C65BCD800C61202 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -413,7 +609,6 @@
 				311E24FC2C634CBA00C61202 /* SnapKit */,
 				311E24FF2C635EFA00C61202 /* RxFlow */,
 				311E25022C635F0400C61202 /* ReactorKit */,
-				311E25052C635F2600C61202 /* Realm */,
 				311E25072C635F2600C61202 /* RealmSwift */,
 			);
 			productName = GyeongjoLog;
@@ -483,35 +678,59 @@
 			files = (
 				311E256B2C64AEBA00C61202 /* AddEventViewController.swift in Sources */,
 				311E25232C636C1200C61202 /* UIViewController+Extension.swift in Sources */,
-				311E25412C64734900C61202 /* HistoryReactor.swift in Sources */,
-				311E25282C636CB400C61202 /* HistoryView.swift in Sources */,
-				311E24DD2C634C2300C61202 /* ViewController.swift in Sources */,
+				311E25412C64734900C61202 /* EventHistoryReactor.swift in Sources */,
+				311E25872C65021000C61202 /* EventHistoryFlow.swift in Sources */,
+				311E25832C64EF3D00C61202 /* UITextView+Extension.swift in Sources */,
+				31FDB1742C6789820010F3EC /* SelectEventTypeViewController.swift in Sources */,
+				31FDB18C2C68675D0010F3EC /* SelectRelationshipReactor.swift in Sources */,
+				31FDB17A2C67B9E20010F3EC /* DatePickerView.swift in Sources */,
+				31FDB1942C68E41F0010F3EC /* OthersEventViewController.swift in Sources */,
+				31FDB1862C6865FB0010F3EC /* RelationshipCollectionViewCell.swift in Sources */,
+				311E25282C636CB400C61202 /* EventHistoryView.swift in Sources */,
+				311E25892C65021900C61202 /* EvnetHistoryStep.swift in Sources */,
 				311E25312C639C7000C61202 /* SortButton.swift in Sources */,
 				311E25682C64A7EE00C61202 /* Date+Extension.swift in Sources */,
 				311E25572C648C2E00C61202 /* EventUseCase.swift in Sources */,
 				311E25462C64759700C61202 /* AppStep.swift in Sources */,
+				311E25762C64D6A300C61202 /* SearchView.swift in Sources */,
+				31FDB1652C6718A30010F3EC /* BottomButton.swift in Sources */,
+				31FDB1882C6866790010F3EC /* SelectRelationshipView.swift in Sources */,
+				31FDB17C2C67BA7D0010F3EC /* SelectDateViewController.swift in Sources */,
 				311E24D92C634C2300C61202 /* AppDelegate.swift in Sources */,
+				31FDB17E2C67BA840010F3EC /* SelectDateReactor.swift in Sources */,
+				311E257C2C64E2C900C61202 /* EventAmountCollectionViewCell.swift in Sources */,
 				311E25642C649B6D00C61202 /* SelectDetailMyEventViewController.swift in Sources */,
 				311E256D2C64AECA00C61202 /* AddEventReactor.swift in Sources */,
 				311E250E2C6360C400C61202 /* FontManager.swift in Sources */,
 				311E25252C636C1E00C61202 /* UINavigationController+Extension.swift in Sources */,
+				31FDB1922C68E3FC0010F3EC /* MyEventViewController.swift in Sources */,
 				311E25622C6495D000C61202 /* UserDefaultsManager.swift in Sources */,
 				311E252A2C63966600C61202 /* ColorManager.swift in Sources */,
+				31FDB16B2C6785090010F3EC /* SelectEventTypeView.swift in Sources */,
 				311E253D2C63B78800C61202 /* UILabel+Extension.swift in Sources */,
 				311E252F2C639C6000C61202 /* FilterButton.swift in Sources */,
 				311E25102C6360E600C61202 /* ConstantsManager.swift in Sources */,
+				31FDB1702C6788700010F3EC /* SelectDateView.swift in Sources */,
+				311E25812C64EE6300C61202 /* DimSheetPresentationController.swift in Sources */,
 				311E25482C6475A200C61202 /* AppFlow.swift in Sources */,
 				311E24DB2C634C2300C61202 /* SceneDelegate.swift in Sources */,
 				311E25342C639D4800C61202 /* HistoryTypeSegmentedControl.swift in Sources */,
+				311E25782C64D6B800C61202 /* SetEventDetailNameTextFieldView.swift in Sources */,
 				311E253B2C63B46400C61202 /* MyEventCollectionViewCell.swift in Sources */,
 				311E25662C649B7500C61202 /* SelectDetailMyEventReactor.swift in Sources */,
 				311E25362C639E8700C61202 /* ImageManager.swift in Sources */,
-				311E253F2C64730E00C61202 /* HistoryViewController.swift in Sources */,
+				31FDB16D2C6785270010F3EC /* EventTypeCollectionViewCell.swift in Sources */,
+				311E253F2C64730E00C61202 /* EventHistoryViewController.swift in Sources */,
+				312A995C2C663F96001F5BB8 /* SetEventDetailTextFieldView.swift in Sources */,
 				311E25552C648BFC00C61202 /* EventRepositoryInterface.swift in Sources */,
+				31FDB18A2C6867320010F3EC /* SelectRelationshipViewController.swift in Sources */,
+				311E25852C65008D00C61202 /* TabBarController.swift in Sources */,
+				312A995E2C663FCD001F5BB8 /* SetEventDetailButtonView.swift in Sources */,
 				311E25602C64924B00C61202 /* EventRepository.swift in Sources */,
+				311E256F2C64AFBD00C61202 /* AddEventView.swift in Sources */,
 				311E254E2C64866100C61202 /* Event.swift in Sources */,
+				31FDB1762C67898D0010F3EC /* SelectEventTypeReactor.swift in Sources */,
 				311E255B2C64917D00C61202 /* RealmManager.swift in Sources */,
-				311E25382C63AC5100C61202 /* UIButton+Extension.swift in Sources */,
 				311E25532C6488B200C61202 /* EventRealmObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -571,7 +790,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -628,7 +847,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -652,6 +871,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -659,9 +879,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = MGComapany.GyeongjoLog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -679,6 +902,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -686,9 +910,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = MGComapany.GyeongjoLog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -752,8 +979,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.52.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -793,11 +1020,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 311E25012C635F0400C61202 /* XCRemoteSwiftPackageReference "ReactorKit" */;
 			productName = ReactorKit;
-		};
-		311E25052C635F2600C61202 /* Realm */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 311E25042C635F2600C61202 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = Realm;
 		};
 		311E25072C635F2600C61202 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;

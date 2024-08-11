@@ -13,12 +13,11 @@ class FilterButton: UIButton {
     
     private func configureButton() {
         var config = UIButton.Configuration.plain()
+        config.title = "필터"
         config.image = ImageManager.icon_filter
         config.imagePadding = 2*ConstantsManager.standardWidth
+        config.baseForegroundColor = ColorManager.black
         self.configuration = config
-        
-        let fontAttributes = AttributedFontManager.Body01
-        let attributedTitle = NSAttributedString(string: "필터", attributes: fontAttributes)
-        self.setAttributedTitle(attributedTitle, for: .normal)
+        self.titleLabel?.font = FontManager.Body01
     }
 }

@@ -5,10 +5,11 @@ extension UINavigationController {
         super.viewDidLoad()
         interactivePopGestureRecognizer?.delegate = self
         
-        let attributes = [ NSAttributedString.Key.font: FontManager.Heading01 ]
-
-        navigationBar.titleTextAttributes = attributes
-        navigationBar.tintColor = ColorManager.text01
+        navigationBar.titleTextAttributes = [
+            .font: FontManager.Heading01,
+            .foregroundColor: ColorManager.text01 ?? .black
+        ]
+        navigationBar.tintColor = ColorManager.black
     }
     
     public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {

@@ -6,7 +6,7 @@ class EventRealmObject: Object {
     @Persisted var name: String
     @Persisted var phoneNumber: String
     @Persisted var eventType: String
-    @Persisted var date: Date
+    @Persisted var date: String
     @Persisted var relationship: String
     @Persisted var amount: Double
     @Persisted var memo: String?

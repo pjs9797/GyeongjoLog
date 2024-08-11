@@ -8,25 +8,25 @@ struct ColorManager {
     static let naviconBlue = UIColor(named: "NaviconBlue")
     
     // 흑백 색상
-    static let black = UIColor(named: "Black")
-    static let white = UIColor(named: "White")
+    static let black = UIColor(named: "BlackCustom")
+    static let white = UIColor(named: "WhiteCustom")
     
     // 선택 색상
     static let blueGreen = UIColor(named: "Blue-Green")
     static let blueSelection = UIColor(named: "Blue-Selection")
     static let cobaltBlue = UIColor(named: "CobaltBlue")
     static let graySelect = UIColor(named: "Gray-Select")
-    static let green = UIColor(named: "Green")
+    static let green = UIColor(named: "GreenCustom")
     static let lightGraySelection = UIColor(named: "LightGray-Selection")
     static let lightGreen = UIColor(named: "LightGreen")
     static let lightPink = UIColor(named: "LightPink")
     static let lightPurple = UIColor(named: "LightPurple")
-    static let orange = UIColor(named: "Orange")
-    static let pink = UIColor(named: "Pink")
-    static let purple = UIColor(named: "Purple")
-    static let red = UIColor(named: "Red")
+    static let orange = UIColor(named: "OrangeCustom")
+    static let pink = UIColor(named: "PinkCustom")
+    static let purple = UIColor(named: "PurpleCustom")
+    static let red = UIColor(named: "RedCustom")
     static let skyBlue = UIColor(named: "SkyBlue")
-    static let yellow = UIColor(named: "Yellow")
+    static let yellow = UIColor(named: "YellowCustom")
     
     // 회색 계열
     static let blueGray01 = UIColor(named: "BlueGary-01")
@@ -36,7 +36,7 @@ struct ColorManager {
     static let lightGrayFrame = UIColor(named: "LightGary-Frame")
     
     // 주요 색상
-    static let blue = UIColor(named: "Blue")
+    static let blue = UIColor(named: "BlueCustom")
     static let lightBlue = UIColor(named: "LightBlue")
     
     // 텍스트 색상
