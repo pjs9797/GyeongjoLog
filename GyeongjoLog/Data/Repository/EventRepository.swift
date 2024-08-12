@@ -8,6 +8,11 @@ class EventRepository: EventRepositoryInterface {
         return realmManager.fetchObjects(EventRealmObject.self)
             .map { $0.map { $0.toDomain() } }
     }
+    
+    func fetchSingleEvent(id: String) -> Observable<Event?> {
+        return realmManager.fetchSingleObject(EventRealmObject.self, forPrimaryKey: id)
+            .map { $0?.toDomain() }
+    }
 
     func saveEvent(event: Event) -> Completable {
         let realmObject = EventRealmObject.fromDomain(event)

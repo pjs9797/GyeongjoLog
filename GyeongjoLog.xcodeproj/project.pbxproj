@@ -27,7 +27,7 @@
 		311E25192C63616A00C61202 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 311E25152C63616A00C61202 /* Pretendard-Bold.otf */; };
 		311E25232C636C1200C61202 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25222C636C1200C61202 /* UIViewController+Extension.swift */; };
 		311E25252C636C1E00C61202 /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25242C636C1E00C61202 /* UINavigationController+Extension.swift */; };
-		311E25282C636CB400C61202 /* EventHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25272C636CB400C61202 /* EventHistoryView.swift */; };
+		311E25282C636CB400C61202 /* MyEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25272C636CB400C61202 /* MyEventView.swift */; };
 		311E252A2C63966600C61202 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25292C63966600C61202 /* ColorManager.swift */; };
 		311E252F2C639C6000C61202 /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E252E2C639C6000C61202 /* FilterButton.swift */; };
 		311E25312C639C7000C61202 /* SortButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25302C639C7000C61202 /* SortButton.swift */; };
@@ -46,8 +46,6 @@
 		311E255B2C64917D00C61202 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E255A2C64917D00C61202 /* RealmManager.swift */; };
 		311E25602C64924B00C61202 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E255F2C64924B00C61202 /* EventRepository.swift */; };
 		311E25622C6495D000C61202 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25612C6495D000C61202 /* UserDefaultsManager.swift */; };
-		311E25642C649B6D00C61202 /* SelectDetailMyEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25632C649B6C00C61202 /* SelectDetailMyEventViewController.swift */; };
-		311E25662C649B7500C61202 /* SelectDetailMyEventReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25652C649B7500C61202 /* SelectDetailMyEventReactor.swift */; };
 		311E25682C64A7EE00C61202 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25672C64A7EE00C61202 /* Date+Extension.swift */; };
 		311E256B2C64AEBA00C61202 /* AddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E256A2C64AEBA00C61202 /* AddEventViewController.swift */; };
 		311E256D2C64AECA00C61202 /* AddEventReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E256C2C64AECA00C61202 /* AddEventReactor.swift */; };
@@ -77,6 +75,14 @@
 		31FDB18C2C68675D0010F3EC /* SelectRelationshipReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB18B2C68675D0010F3EC /* SelectRelationshipReactor.swift */; };
 		31FDB1922C68E3FC0010F3EC /* MyEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1912C68E3FC0010F3EC /* MyEventViewController.swift */; };
 		31FDB1942C68E41F0010F3EC /* OthersEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1932C68E41F0010F3EC /* OthersEventViewController.swift */; };
+		31FDB1962C68F0010010F3EC /* OthersEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1952C68F0010010F3EC /* OthersEventView.swift */; };
+		31FDB1982C68F1710010F3EC /* EventSummaryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1972C68F1710010F3EC /* EventSummaryCollectionViewCell.swift */; };
+		31FDB19C2C69AB2D0010F3EC /* MyEventReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB19B2C69AB2D0010F3EC /* MyEventReactor.swift */; };
+		31FDB19F2C69AB470010F3EC /* OthersEventReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB19E2C69AB470010F3EC /* OthersEventReactor.swift */; };
+		31FDB1A12C69B7A30010F3EC /* SortOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1A02C69B7A30010F3EC /* SortOption.swift */; };
+		31FDB1A42C69C1480010F3EC /* MyEventSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1A32C69C1480010F3EC /* MyEventSummaryView.swift */; };
+		31FDB1A72C69C18B0010F3EC /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1A62C69C18B0010F3EC /* CalendarView.swift */; };
+		31FDB1AA2C69C1AD0010F3EC /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 31FDB1A92C69C1AD0010F3EC /* FSCalendar */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -107,7 +113,7 @@
 		311E25152C63616A00C61202 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		311E25222C636C1200C61202 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		311E25242C636C1E00C61202 /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
-		311E25272C636CB400C61202 /* EventHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHistoryView.swift; sourceTree = "<group>"; };
+		311E25272C636CB400C61202 /* MyEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventView.swift; sourceTree = "<group>"; };
 		311E25292C63966600C61202 /* ColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorManager.swift; sourceTree = "<group>"; };
 		311E252E2C639C6000C61202 /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 		311E25302C639C7000C61202 /* SortButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortButton.swift; sourceTree = "<group>"; };
@@ -126,8 +132,6 @@
 		311E255A2C64917D00C61202 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		311E255F2C64924B00C61202 /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
 		311E25612C6495D000C61202 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
-		311E25632C649B6C00C61202 /* SelectDetailMyEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDetailMyEventViewController.swift; sourceTree = "<group>"; };
-		311E25652C649B7500C61202 /* SelectDetailMyEventReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDetailMyEventReactor.swift; sourceTree = "<group>"; };
 		311E25672C64A7EE00C61202 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		311E256A2C64AEBA00C61202 /* AddEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewController.swift; sourceTree = "<group>"; };
 		311E256C2C64AECA00C61202 /* AddEventReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventReactor.swift; sourceTree = "<group>"; };
@@ -157,6 +161,13 @@
 		31FDB18B2C68675D0010F3EC /* SelectRelationshipReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectRelationshipReactor.swift; sourceTree = "<group>"; };
 		31FDB1912C68E3FC0010F3EC /* MyEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventViewController.swift; sourceTree = "<group>"; };
 		31FDB1932C68E41F0010F3EC /* OthersEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthersEventViewController.swift; sourceTree = "<group>"; };
+		31FDB1952C68F0010010F3EC /* OthersEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthersEventView.swift; sourceTree = "<group>"; };
+		31FDB1972C68F1710010F3EC /* EventSummaryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSummaryCollectionViewCell.swift; sourceTree = "<group>"; };
+		31FDB19B2C69AB2D0010F3EC /* MyEventReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventReactor.swift; sourceTree = "<group>"; };
+		31FDB19E2C69AB470010F3EC /* OthersEventReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthersEventReactor.swift; sourceTree = "<group>"; };
+		31FDB1A02C69B7A30010F3EC /* SortOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOption.swift; sourceTree = "<group>"; };
+		31FDB1A32C69C1480010F3EC /* MyEventSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventSummaryView.swift; sourceTree = "<group>"; };
+		31FDB1A62C69C18B0010F3EC /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +179,7 @@
 				311E24F82C634CAB00C61202 /* RxRelay in Frameworks */,
 				311E25032C635F0400C61202 /* ReactorKit in Frameworks */,
 				311E25082C635F2600C61202 /* RealmSwift in Frameworks */,
+				31FDB1AA2C69C1AD0010F3EC /* FSCalendar in Frameworks */,
 				311E24F62C634CAB00C61202 /* RxCocoa in Frameworks */,
 				311E24FA2C634CAB00C61202 /* RxSwift in Frameworks */,
 				311E24F42C634CAB00C61202 /* RxBlocking in Frameworks */,
@@ -224,7 +236,6 @@
 				311E250C2C635F9A00C61202 /* View */,
 				31FDB17F2C685EDB0010F3EC /* ViewController */,
 				31FDB1802C685EE20010F3EC /* Reactor */,
-				311E25492C64815B00C61202 /* SelectDetailMyEvent */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -328,7 +339,8 @@
 			isa = PBXGroup;
 			children = (
 				311E25392C63B3E500C61202 /* CollectionViewCell */,
-				311E25272C636CB400C61202 /* EventHistoryView.swift */,
+				311E25272C636CB400C61202 /* MyEventView.swift */,
+				31FDB1952C68F0010010F3EC /* OthersEventView.swift */,
 			);
 			path = EventHistory;
 			sourceTree = "<group>";
@@ -355,6 +367,7 @@
 			isa = PBXGroup;
 			children = (
 				311E253A2C63B46400C61202 /* MyEventCollectionViewCell.swift */,
+				31FDB1972C68F1710010F3EC /* EventSummaryCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -386,19 +399,11 @@
 			path = Step;
 			sourceTree = "<group>";
 		};
-		311E25492C64815B00C61202 /* SelectDetailMyEvent */ = {
-			isa = PBXGroup;
-			children = (
-				311E25632C649B6C00C61202 /* SelectDetailMyEventViewController.swift */,
-				311E25652C649B7500C61202 /* SelectDetailMyEventReactor.swift */,
-			);
-			path = SelectDetailMyEvent;
-			sourceTree = "<group>";
-		};
 		311E254A2C6485B200C61202 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
 				311E254D2C64866100C61202 /* Event.swift */,
+				31FDB1A02C69B7A30010F3EC /* SortOption.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -505,6 +510,7 @@
 			isa = PBXGroup;
 			children = (
 				31FDB1812C685EE80010F3EC /* EventHistory */,
+				31FDB1992C69AAC90010F3EC /* AddEvent */,
 			);
 			path = Reactor;
 			sourceTree = "<group>";
@@ -512,9 +518,8 @@
 		31FDB1812C685EE80010F3EC /* EventHistory */ = {
 			isa = PBXGroup;
 			children = (
-				31FDB1842C685F430010F3EC /* SheetPresentation */,
+				31FDB19A2C69AB020010F3EC /* PageReactor */,
 				311E25402C64734900C61202 /* EventHistoryReactor.swift */,
-				311E256C2C64AECA00C61202 /* AddEventReactor.swift */,
 			);
 			path = EventHistory;
 			sourceTree = "<group>";
@@ -524,8 +529,6 @@
 			children = (
 				31FDB18E2C68D1D70010F3EC /* EventHistory */,
 				31FDB1902C68E1700010F3EC /* AddEvent */,
-				311E253E2C64730E00C61202 /* EventHistoryViewController.swift */,
-				311E256A2C64AEBA00C61202 /* AddEventViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -562,8 +565,8 @@
 		31FDB18E2C68D1D70010F3EC /* EventHistory */ = {
 			isa = PBXGroup;
 			children = (
-				31FDB1832C685F370010F3EC /* SheetPresentation */,
 				31FDB18D2C68D1C40010F3EC /* PageViewController */,
+				311E253E2C64730E00C61202 /* EventHistoryViewController.swift */,
 			);
 			path = EventHistory;
 			sourceTree = "<group>";
@@ -571,6 +574,8 @@
 		31FDB18F2C68E1360010F3EC /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				31FDB1A52C69C1800010F3EC /* CalendarView */,
+				31FDB1A22C69C1350010F3EC /* MyEventSummary */,
 				311E25262C636C7C00C61202 /* EventHistory */,
 				31FDB1662C671DF10010F3EC /* AddEvent */,
 			);
@@ -580,8 +585,44 @@
 		31FDB1902C68E1700010F3EC /* AddEvent */ = {
 			isa = PBXGroup;
 			children = (
+				31FDB1832C685F370010F3EC /* SheetPresentation */,
+				311E256A2C64AEBA00C61202 /* AddEventViewController.swift */,
 			);
 			path = AddEvent;
+			sourceTree = "<group>";
+		};
+		31FDB1992C69AAC90010F3EC /* AddEvent */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB1842C685F430010F3EC /* SheetPresentation */,
+				311E256C2C64AECA00C61202 /* AddEventReactor.swift */,
+			);
+			path = AddEvent;
+			sourceTree = "<group>";
+		};
+		31FDB19A2C69AB020010F3EC /* PageReactor */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB19B2C69AB2D0010F3EC /* MyEventReactor.swift */,
+				31FDB19E2C69AB470010F3EC /* OthersEventReactor.swift */,
+			);
+			path = PageReactor;
+			sourceTree = "<group>";
+		};
+		31FDB1A22C69C1350010F3EC /* MyEventSummary */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB1A32C69C1480010F3EC /* MyEventSummaryView.swift */,
+			);
+			path = MyEventSummary;
+			sourceTree = "<group>";
+		};
+		31FDB1A52C69C1800010F3EC /* CalendarView */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB1A62C69C18B0010F3EC /* CalendarView.swift */,
+			);
+			path = CalendarView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -610,6 +651,7 @@
 				311E24FF2C635EFA00C61202 /* RxFlow */,
 				311E25022C635F0400C61202 /* ReactorKit */,
 				311E25072C635F2600C61202 /* RealmSwift */,
+				31FDB1A92C69C1AD0010F3EC /* FSCalendar */,
 			);
 			productName = GyeongjoLog;
 			productReference = 311E24D52C634C2300C61202 /* GyeongjoLog.app */;
@@ -645,6 +687,7 @@
 				311E24FE2C635EFA00C61202 /* XCRemoteSwiftPackageReference "RxFlow" */,
 				311E25012C635F0400C61202 /* XCRemoteSwiftPackageReference "ReactorKit" */,
 				311E25042C635F2600C61202 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				31FDB1A82C69C1AD0010F3EC /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = 311E24D62C634C2300C61202 /* Products */;
 			projectDirPath = "";
@@ -686,7 +729,7 @@
 				31FDB17A2C67B9E20010F3EC /* DatePickerView.swift in Sources */,
 				31FDB1942C68E41F0010F3EC /* OthersEventViewController.swift in Sources */,
 				31FDB1862C6865FB0010F3EC /* RelationshipCollectionViewCell.swift in Sources */,
-				311E25282C636CB400C61202 /* EventHistoryView.swift in Sources */,
+				311E25282C636CB400C61202 /* MyEventView.swift in Sources */,
 				311E25892C65021900C61202 /* EvnetHistoryStep.swift in Sources */,
 				311E25312C639C7000C61202 /* SortButton.swift in Sources */,
 				311E25682C64A7EE00C61202 /* Date+Extension.swift in Sources */,
@@ -694,19 +737,22 @@
 				311E25462C64759700C61202 /* AppStep.swift in Sources */,
 				311E25762C64D6A300C61202 /* SearchView.swift in Sources */,
 				31FDB1652C6718A30010F3EC /* BottomButton.swift in Sources */,
+				31FDB19F2C69AB470010F3EC /* OthersEventReactor.swift in Sources */,
 				31FDB1882C6866790010F3EC /* SelectRelationshipView.swift in Sources */,
 				31FDB17C2C67BA7D0010F3EC /* SelectDateViewController.swift in Sources */,
 				311E24D92C634C2300C61202 /* AppDelegate.swift in Sources */,
 				31FDB17E2C67BA840010F3EC /* SelectDateReactor.swift in Sources */,
 				311E257C2C64E2C900C61202 /* EventAmountCollectionViewCell.swift in Sources */,
-				311E25642C649B6D00C61202 /* SelectDetailMyEventViewController.swift in Sources */,
+				31FDB1982C68F1710010F3EC /* EventSummaryCollectionViewCell.swift in Sources */,
 				311E256D2C64AECA00C61202 /* AddEventReactor.swift in Sources */,
 				311E250E2C6360C400C61202 /* FontManager.swift in Sources */,
 				311E25252C636C1E00C61202 /* UINavigationController+Extension.swift in Sources */,
 				31FDB1922C68E3FC0010F3EC /* MyEventViewController.swift in Sources */,
 				311E25622C6495D000C61202 /* UserDefaultsManager.swift in Sources */,
+				31FDB19C2C69AB2D0010F3EC /* MyEventReactor.swift in Sources */,
 				311E252A2C63966600C61202 /* ColorManager.swift in Sources */,
 				31FDB16B2C6785090010F3EC /* SelectEventTypeView.swift in Sources */,
+				31FDB1A12C69B7A30010F3EC /* SortOption.swift in Sources */,
 				311E253D2C63B78800C61202 /* UILabel+Extension.swift in Sources */,
 				311E252F2C639C6000C61202 /* FilterButton.swift in Sources */,
 				311E25102C6360E600C61202 /* ConstantsManager.swift in Sources */,
@@ -714,12 +760,14 @@
 				311E25812C64EE6300C61202 /* DimSheetPresentationController.swift in Sources */,
 				311E25482C6475A200C61202 /* AppFlow.swift in Sources */,
 				311E24DB2C634C2300C61202 /* SceneDelegate.swift in Sources */,
+				31FDB1962C68F0010010F3EC /* OthersEventView.swift in Sources */,
 				311E25342C639D4800C61202 /* HistoryTypeSegmentedControl.swift in Sources */,
+				31FDB1A42C69C1480010F3EC /* MyEventSummaryView.swift in Sources */,
 				311E25782C64D6B800C61202 /* SetEventDetailNameTextFieldView.swift in Sources */,
 				311E253B2C63B46400C61202 /* MyEventCollectionViewCell.swift in Sources */,
-				311E25662C649B7500C61202 /* SelectDetailMyEventReactor.swift in Sources */,
 				311E25362C639E8700C61202 /* ImageManager.swift in Sources */,
 				31FDB16D2C6785270010F3EC /* EventTypeCollectionViewCell.swift in Sources */,
+				31FDB1A72C69C18B0010F3EC /* CalendarView.swift in Sources */,
 				311E253F2C64730E00C61202 /* EventHistoryViewController.swift in Sources */,
 				312A995C2C663F96001F5BB8 /* SetEventDetailTextFieldView.swift in Sources */,
 				311E25552C648BFC00C61202 /* EventRepositoryInterface.swift in Sources */,
@@ -983,6 +1031,14 @@
 				minimumVersion = 10.52.3;
 			};
 		};
+		31FDB1A82C69C1AD0010F3EC /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.8.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1025,6 +1081,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 311E25042C635F2600C61202 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		31FDB1A92C69C1AD0010F3EC /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31FDB1A82C69C1AD0010F3EC /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

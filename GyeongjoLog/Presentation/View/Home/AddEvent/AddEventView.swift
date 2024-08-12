@@ -54,7 +54,7 @@ class AddEventView: UIView {
     }()
     let addEventButton: BottomButton = {
         let button = BottomButton()
-        button.setButtonTitle("추가하기")
+        button.setTitle("추가하기", for: .normal)
         return button
     }()
     

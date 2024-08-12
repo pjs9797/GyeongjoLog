@@ -43,4 +43,15 @@ class UserDefaultsManager {
             return Disposables.create()
         }
     }
+    
+    func fetchColor(forEventType eventType: String) -> String? {
+        let eventTypes = fetchEventTypesSync()
+        return eventTypes.first(where: { $0.0 == eventType })?.1
+    }
+    
+    private func fetchEventTypesSync() -> [(String, String)] {
+        let defaults = UserDefaults.standard
+        let savedEventTypesArray = defaults.array(forKey: eventTypeKey) as? [[String]] ?? defaultEventTypes.map { [$0.0, $0.1] }
+        return savedEventTypesArray.map { ($0[0], $0[1]) }
+    }
 }

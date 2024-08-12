@@ -30,6 +30,7 @@ class AddEventViewController: UIViewController, ReactorKit.View {
         super.viewDidLoad()
         
         view.backgroundColor = ColorManager.white
+        hideKeyboard(disposeBag: disposeBag)
         self.setNavigationbar()
     }
     
@@ -157,9 +158,16 @@ extension AddEventViewController {
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isEditing in
                 self?.addEventView.nameView.bottomBorderView.isHidden = !isEditing
-                if !isEditing {
+                self?.addEventView.nameView.clearButton.isHidden = !isEditing
+                self?.addEventView.nameView.pencilImageView.isHidden = isEditing
+                if self?.addEventView.nameView.nameTextField.text == "" {
                     self?.addEventView.nameView.clearButton.isHidden = true
                     self?.addEventView.nameView.pencilImageView.isHidden = false
+                }
+                if isEditing {
+                    self?.addEventView.nameView.updateWidthForEditing()
+                }
+                if !isEditing {
                     self?.addEventView.nameView.updateWidthForNonEditing()
                 }
             })

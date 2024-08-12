@@ -41,10 +41,23 @@ class EventHistoryFlow: Flow {
     }
     
     private func navigateToHistoryViewController() -> FlowContributors {
-        let reactor = EventHistoryReactor(eventUseCase: self.eventUseCase)
-        let viewController = EventHistoryViewController(with: reactor)
+        let myEventReactor = MyEventReactor(eventUseCase: self.eventUseCase)
+        let myEventViewController = MyEventViewController(with: myEventReactor)
+        
+        let othersEventReactor = OthersEventReactor(eventUseCase: self.eventUseCase)
+        let othersEventViewController = OthersEventViewController(with: othersEventReactor)
+        
+        let reactor = EventHistoryReactor()
+        let viewController = EventHistoryViewController(with: reactor, viewControllers: [myEventViewController,othersEventViewController])
         self.rootViewController.pushViewController(viewController, animated: true)
-        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+        
+        return .multiple(flowContributors: [
+            .contribute(withNextPresentable: viewController, withNextStepper: reactor),
+            .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: myEventReactor),
+            .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: othersEventReactor),
+            .contribute(withNextPresentable: myEventViewController, withNextStepper: myEventReactor),
+            .contribute(withNextPresentable: othersEventViewController, withNextStepper: othersEventReactor)
+        ])
     }
     
     private func navigateToAddEventViewController() -> FlowContributors {
@@ -52,6 +65,7 @@ class EventHistoryFlow: Flow {
         let viewController = AddEventViewController(with: reactor)
         viewController.hidesBottomBarWhenPushed = true
         self.rootViewController.pushViewController(viewController, animated: true)
+        
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     

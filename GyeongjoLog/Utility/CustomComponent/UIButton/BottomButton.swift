@@ -1,7 +1,6 @@
 import UIKit
 
 class BottomButton: UIButton {
-    var config = UIButton.Configuration.plain()
     
     init() {
         super.init(frame: .zero)
@@ -16,14 +15,9 @@ class BottomButton: UIButton {
     private func configureButton() {
         self.backgroundColor = ColorManager.lightGray01
         self.layer.cornerRadius = 8*ConstantsManager.standardHeight
-    }
-    
-    func setButtonTitle(_ title: String) {
-        var titleContainer = AttributeContainer()
-        titleContainer.font = FontManager.Body03
-        config.attributedTitle = AttributedString(title, attributes: titleContainer)
-        config.baseForegroundColor = ColorManager.white
-        self.configuration = config
+        self.titleLabel?.font = FontManager.Body03
+        self.setTitleColor(ColorManager.white, for: .normal)
+        self.setTitleColor(ColorManager.white?.withAlphaComponent(0.8), for: .highlighted)
     }
     
     func isNotEnable(){

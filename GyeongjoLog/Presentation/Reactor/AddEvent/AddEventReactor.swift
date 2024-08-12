@@ -121,13 +121,20 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
                               amount: amount,
                               memo: nil) // memo 처리 필요 시 추가
             self.steps.accept(EventHistoryStep.popViewController)
-            return eventUseCase.saveEvent(event: event)
-                .andThen(Completable.create { completable in
-                    self.steps.accept(EventHistoryStep.popViewController)
-                    completable(.completed)
-                    return Disposables.create()
-                })
-                .andThen(.empty())
+            return RealmManager.shared.saveRandomEvents()
+                    .andThen(Completable.create { completable in
+                        self.steps.accept(EventHistoryStep.popViewController)
+                        completable(.completed)
+                        return Disposables.create()
+                    })
+                    .andThen(.empty())
+//            return eventUseCase.saveEvent(event: event)
+//                .andThen(Completable.create { completable in
+//                    self.steps.accept(EventHistoryStep.popViewController)
+//                    completable(.completed)
+//                    return Disposables.create()
+//                })
+//                .andThen(.empty())
             
             // 이름 뷰
         case .nameViewTapped:

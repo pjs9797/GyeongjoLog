@@ -5,32 +5,25 @@ import RxFlow
 class EventHistoryReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
-    private let eventUseCase: EventUseCase
-    
-    init(eventUseCase: EventUseCase) {
-        self.eventUseCase = eventUseCase
-    }
     
     enum Action {
         // 버튼 탭
         case calendarButtonTapped
         case plusButtonTapped
-        case filterButtonTapped
-        case sortButtonTapped
         
-        // 컬렉션뷰 셀 탭
-        case selectMyEvent(Int)
-        
-        // 나의 경조사 컬렉션뷰 셀 데이터 로드
-        case loadMyEvent
+        // 페이징 처리
+        case selectSegment(Int)
+        case setPreviousIndex(Int)
     }
     
     enum Mutation {
-        case setMyEvent([MyEvent])
+        case setSelectedItem(Int)
+        case setPreviousIndex(Int)
     }
     
     struct State {
-        var myEvents: [MyEvent] = []
+        var selectedItem: Int = 0
+        var previousIndex: Int = 0
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -41,30 +34,22 @@ class EventHistoryReactor: ReactorKit.Reactor, Stepper {
         case .plusButtonTapped:
             self.steps.accept(EventHistoryStep.navigateToAddEventViewController)
             return .empty()
-        case .filterButtonTapped:
-            return .empty()
-        case .sortButtonTapped:
-            return .empty()
             
-            // 컬렉션뷰 셀 탭
-        case .selectMyEvent(let index):
-            return .empty()
-            
-            // 나의 경조사 컬렉션뷰 셀 데이터 처리
-        case .loadMyEvent:
-            return self.eventUseCase.fetchMyEvents()
-                .map{ myEvents in
-                    print(myEvents)
-                    return .setMyEvent(myEvents)
-                }
+            // 페이징 처리
+        case .selectSegment(let index):
+            return .just(.setSelectedItem(index))
+        case .setPreviousIndex(let index):
+            return .just(.setPreviousIndex(index))
         }
     }
     
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         switch mutation {
-        case .setMyEvent(let myEvents):
-            newState.myEvents = myEvents
+        case .setSelectedItem(let index):
+            newState.selectedItem = index
+        case .setPreviousIndex(let index):
+            newState.previousIndex = index
         }
         return newState
     }

@@ -7,31 +7,79 @@ class EventUseCase {
         self.repository = repository
     }
     
-    // 나의 경조사 목록 (건수)
-    func fetchMyEvents() -> Observable<[MyEvent]> {
+    // 나의 경조사 목록
+    func fetchMyEvents(filterEventType: String? = nil, sortBy: MyEventSortOption = .date) -> Observable<[MyEvent]> {
         return repository.fetchEvents().map { events in
-            let groupedEvents = Dictionary(grouping: events) { EventKey(eventType: $0.eventType, date: $0.date) }
-            return groupedEvents.map { (key, value) in
+            let filteredEvents = events
+                .filter { $0.amount >= 0 }
+                .filter { event in
+                    guard let filterEventType = filterEventType else { return true }
+                    return event.eventType == filterEventType
+                }
+            
+            let groupedEvents = Dictionary(grouping: filteredEvents) { EventKey(eventType: $0.eventType, date: $0.date) }
+            let myEvents = groupedEvents.map { (key, value) in
                 MyEvent(eventType: key.eventType, date: key.date, eventCnt: value.count, idList: value.map { $0.id })
             }
-            .sorted { $0.date > $1.date }
+            
+            switch sortBy {
+            case .date:
+                return myEvents.sorted { $0.date > $1.date }
+            case .eventCnt:
+                return myEvents.sorted { $0.eventCnt > $1.eventCnt }
+            }
         }
     }
     
-    // 나의 경조사, 타인 경조사 요약 정보 (금액)
-    func fetchEventSummaries(ids: [String]) -> Observable<[EventSummary]> {
+    // 나의 경조사 요약 목록
+    func fetchMyEventSummaries(ids: [String], filterEventType: String? = nil, sortBy: EventSummarySortOption = .date) -> Observable<[EventSummary]> {
         return repository.fetchEvents().map { events in
-            events.filter { ids.contains($0.id) }
-                .map { event in
-                    EventSummary(id: event.id, eventType: event.eventType, name: event.name, date: event.date, amount: event.amount)
+            let filteredEvents = events
+                .filter { ids.contains($0.id) && $0.amount >= 0 }
+                .filter { event in
+                    guard let filterEventType = filterEventType else { return true }
+                    return event.eventType == filterEventType
                 }
-                .sorted { $0.date > $1.date }
+            
+            let eventSummaries = filteredEvents.map { event in
+                EventSummary(id: event.id, eventType: event.eventType, name: event.name, date: event.date, amount: event.amount)
+            }
+            
+            switch sortBy {
+            case .date:
+                return eventSummaries.sorted { $0.date > $1.date }
+            case .amount:
+                return eventSummaries.sorted { $0.amount > $1.amount }
+            }
+        }
+    }
+    
+    // 타인 경조사 요약 목록
+    func fetchOtherEventSummaries(filterEventType: String? = nil, sortBy: EventSummarySortOption = .date) -> Observable<[EventSummary]> {
+        return repository.fetchEvents().map { events in
+            let filteredEvents = events
+                .filter { $0.amount < 0 }
+                .filter { event in
+                    guard let filterEventType = filterEventType else { return true }
+                    return event.eventType == filterEventType
+                }
+            
+            let eventSummaries = filteredEvents.map { event in
+                EventSummary(id: event.id, eventType: event.eventType, name: event.name, date: event.date, amount: event.amount)
+            }
+            
+            switch sortBy {
+            case .date:
+                return eventSummaries.sorted { $0.date > $1.date }
+            case .amount:
+                return eventSummaries.sorted { $0.amount > $1.amount }
+            }
         }
     }
 
     // 이벤트
-    func fetchEvents() -> Observable<[Event]> {
-        return repository.fetchEvents()
+    func fetchSingleEvent(id: String) -> Observable<Event?> {
+        return repository.fetchSingleEvent(id: id)
     }
     
     func saveEvent(event: Event) -> Completable {

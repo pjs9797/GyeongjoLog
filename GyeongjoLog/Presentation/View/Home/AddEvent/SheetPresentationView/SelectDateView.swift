@@ -17,7 +17,7 @@ class SelectDateView: UIView {
     let datePickerView = DatePickerView()
     let selectDateButton: BottomButton = {
         let button = BottomButton()
-        button.setButtonTitle("선택하기")
+        button.setTitle("선택하기", for: .normal)
         button.isEnable()
         return button
     }()

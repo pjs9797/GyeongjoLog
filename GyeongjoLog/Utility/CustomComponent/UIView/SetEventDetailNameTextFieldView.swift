@@ -74,7 +74,17 @@ class SetEventDetailNameTextFieldView: UIView {
     
     func textFieldDidChange(_ text: String) {
         let textWidth = text.size(withAttributes: [.font: nameTextField.font!]).width
-        let totalWidth = textWidth + 57
+        let totalWidth = textWidth + 52
+        textFieldWidthConstraint?.update(offset: (textWidth+42)*ConstantsManager.standardWidth)
+        self.snp.updateConstraints { make in
+            make.width.equalTo(totalWidth*ConstantsManager.standardWidth)
+        }
+    }
+    
+    func updateWidthForEditing() {
+        let text = nameTextField.text ?? ""
+        let textWidth = text.size(withAttributes: [.font: nameTextField.font!]).width
+        let totalWidth = textWidth + 52
         textFieldWidthConstraint?.update(offset: (textWidth+42)*ConstantsManager.standardWidth)
         self.snp.updateConstraints { make in
             make.width.equalTo(totalWidth*ConstantsManager.standardWidth)
@@ -83,8 +93,15 @@ class SetEventDetailNameTextFieldView: UIView {
     
     func updateWidthForNonEditing() {
         let text = nameTextField.text ?? ""
-        let textWidth = text.size(withAttributes: [.font: nameTextField.font!]).width
-        let totalWidth = textWidth + 18
+        let textWidth: CGFloat
+        
+        if text.isEmpty {
+            textWidth = "이름".size(withAttributes: [.font: nameTextField.font!]).width
+        } else {
+            textWidth = text.size(withAttributes: [.font: nameTextField.font!]).width
+        }
+        
+        let totalWidth = textWidth + 15
         
         textFieldWidthConstraint?.update(offset: textWidth * ConstantsManager.standardWidth)
         self.snp.updateConstraints { make in

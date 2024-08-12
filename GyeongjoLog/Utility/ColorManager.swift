@@ -5,6 +5,7 @@ struct ColorManager {
     static let bgGray = UIColor(named: "Bg-Gray")
     static let bgLightBlue = UIColor(named: "Bg-LightBlue")
     static let bgWhite = UIColor(named: "Bg-White")
+    static let BgMain = UIColor(named: "Bg-Main")
     static let naviconBlue = UIColor(named: "NaviconBlue")
     
     // 흑백 색상

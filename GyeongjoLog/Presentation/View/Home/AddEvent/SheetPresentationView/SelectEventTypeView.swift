@@ -25,7 +25,7 @@ class SelectEventTypeView: UIView {
     }()
     let selectEventButton: BottomButton = {
         let button = BottomButton()
-        button.setButtonTitle("선택하기")
+        button.setTitle("선택하기", for: .normal)
         return button
     }()
     let addEventTypeButton: UIButton = {
