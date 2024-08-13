@@ -1,4 +1,5 @@
 import RxSwift
+import Foundation
 
 class EventUseCase {
     private let repository: EventRepository
@@ -42,7 +43,7 @@ class EventUseCase {
                 }
             
             let eventSummaries = filteredEvents.map { event in
-                EventSummary(id: event.id, eventType: event.eventType, name: event.name, date: event.date, amount: event.amount)
+                EventSummary(id: event.id, eventType: event.eventType, name: event.name, phoneNumber: event.phoneNumber, date: event.date, amount: event.amount)
             }
             
             switch sortBy {
@@ -65,7 +66,7 @@ class EventUseCase {
                 }
             
             let eventSummaries = filteredEvents.map { event in
-                EventSummary(id: event.id, eventType: event.eventType, name: event.name, date: event.date, amount: event.amount)
+                EventSummary(id: event.id, eventType: event.eventType, name: event.name, phoneNumber: event.phoneNumber, date: event.date, amount: event.amount)
             }
             
             switch sortBy {
@@ -75,6 +76,18 @@ class EventUseCase {
                 return eventSummaries.sorted { $0.amount > $1.amount }
             }
         }
+    }
+    
+    // 특정 월의 이벤트를 가져옴
+    func fetchEvents(forMonth date: Date) -> Observable<[Event]> {
+        return repository.fetchEvents()
+            .map { events in
+                let calendar = Calendar.current
+                return events.filter {
+                    let eventDate = $0.date.toDate()
+                    return calendar.isDate(eventDate, equalTo: date, toGranularity: .month)
+                }
+            }
     }
 
     // 이벤트

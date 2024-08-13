@@ -108,7 +108,7 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
         case .deleteButtonTapped:
             return .empty()
         case .addEventButtonTapped:
-            guard let amount = Double(currentState.amount) else {
+            guard let amount = Int(currentState.amount) else {
                 // amount 변환 실패 시 처리
                 return .empty()
             }

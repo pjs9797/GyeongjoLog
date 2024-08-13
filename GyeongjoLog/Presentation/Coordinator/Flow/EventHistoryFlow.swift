@@ -25,6 +25,8 @@ class EventHistoryFlow: Flow {
             return navigateToHistoryViewController()
         case .navigateToAddEventViewController:
             return navigateToAddEventViewController()
+        case .navigateToCalendarViewController:
+            return navigateToCalendarViewController()
             // 프레젠트
         case .presentToSelectEventTypeViewController(let eventTypeRelay):
             return presentToSelectEventTypeViewController(eventTypeRelay: eventTypeRelay)
@@ -63,6 +65,15 @@ class EventHistoryFlow: Flow {
     private func navigateToAddEventViewController() -> FlowContributors {
         let reactor = AddEventReactor(eventUseCase: self.eventUseCase)
         let viewController = AddEventViewController(with: reactor)
+        viewController.hidesBottomBarWhenPushed = true
+        self.rootViewController.pushViewController(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToCalendarViewController() -> FlowContributors {
+        let reactor = CalendarReactor(eventUseCase: self.eventUseCase)
+        let viewController = CalendarViewController(with: reactor)
         viewController.hidesBottomBarWhenPushed = true
         self.rootViewController.pushViewController(viewController, animated: true)
         

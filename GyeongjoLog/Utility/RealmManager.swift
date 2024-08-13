@@ -101,27 +101,78 @@ class RealmManager {
         
         var events: [Event] = []
         
-        for _ in 0..<200 {
+        for _ in 0..<50 {
             let randomEventType = eventTypes.randomElement() ?? "결혼식"
             let randomRelationship = relationships.randomElement() ?? "친구"
             
-            let randomYear = Int.random(in: 2024...2025)
-            let randomMonth = Int.random(in: 1...12)
-            let randomDay = Int.random(in: 1...28) // 임의로 28일까지 설정
+            let randomYear = Int.random(in: 2024...2024)
+            let randomMonth = Int.random(in: 8...8)
+            let randomDay = Int.random(in: 1...28)
             
             let date = String(format: "%04d.%02d.%02d", randomYear, randomMonth, randomDay)
             
-            let randomAmount = -Double.random(in: 50000...100000)
+            let randomAmount = -Int.random(in: 50000...100000)
             
             let event = Event(
                 id: UUID().uuidString,
-                name: "이름 \(UUID().uuidString.prefix(4))", // 임의의 이름
+                name: "이름 \(UUID().uuidString.prefix(4))",
                 phoneNumber: "010-\(Int.random(in: 1000...9999))-\(Int.random(in: 1000...9999))",
                 eventType: randomEventType,
                 date: date,
                 relationship: randomRelationship,
                 amount: randomAmount,
-                memo: nil // 필요한 경우 메모를 추가할 수 있습니다.
+                memo: nil
+            )
+            
+            events.append(event)
+        }
+        for _ in 0..<50 {
+            let randomEventType = eventTypes.randomElement() ?? "결혼식"
+            let randomRelationship = relationships.randomElement() ?? "친구"
+            
+            let randomYear = Int.random(in: 2024...2024)
+            let randomMonth = Int.random(in: 8...8)
+            let randomDay = Int.random(in: 1...28)
+            
+            let date = String(format: "%04d.%02d.%02d", randomYear, randomMonth, randomDay)
+            
+            let randomAmount = Int.random(in: 50000...100000)
+            
+            let event = Event(
+                id: UUID().uuidString,
+                name: "이름 \(UUID().uuidString.prefix(4))",
+                phoneNumber: "010-\(Int.random(in: 1000...9999))-\(Int.random(in: 1000...9999))",
+                eventType: randomEventType,
+                date: date,
+                relationship: randomRelationship,
+                amount: randomAmount,
+                memo: nil
+            )
+            
+            events.append(event)
+        }
+        
+        for _ in 0..<200 {
+            let randomEventType = eventTypes.randomElement() ?? "결혼식"
+            let randomRelationship = relationships.randomElement() ?? "친구"
+            
+            let randomYear = Int.random(in: 2024...2024)
+            let randomMonth = Int.random(in: 5...10)
+            let randomDay = Int.random(in: 1...28)
+            
+            let date = String(format: "%04d.%02d.%02d", randomYear, randomMonth, randomDay)
+            
+            let randomAmount = Int.random(in: -100000...100000)
+            
+            let event = Event(
+                id: UUID().uuidString,
+                name: "이름 \(UUID().uuidString.prefix(4))",
+                phoneNumber: "010-\(Int.random(in: 1000...9999))-\(Int.random(in: 1000...9999))",
+                eventType: randomEventType,
+                date: date,
+                relationship: randomRelationship,
+                amount: randomAmount,
+                memo: nil
             )
             
             events.append(event)

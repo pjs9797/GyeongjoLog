@@ -7,7 +7,7 @@ struct Event: Equatable {
     let eventType: String
     let date: String
     let relationship: String
-    let amount: Double
+    let amount: Int
     let memo: String?
 }
 
@@ -22,8 +22,9 @@ struct EventSummary: Equatable {
     let id: String
     let eventType: String
     let name: String
+    let phoneNumber: String
     let date: String
-    let amount: Double
+    let amount: Int
 }
 
 struct EventKey: Hashable {

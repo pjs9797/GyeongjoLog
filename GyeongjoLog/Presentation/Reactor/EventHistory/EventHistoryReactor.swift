@@ -30,6 +30,7 @@ class EventHistoryReactor: ReactorKit.Reactor, Stepper {
         switch action {
             // 버튼 탭
         case .calendarButtonTapped:
+            self.steps.accept(EventHistoryStep.navigateToCalendarViewController)
             return .empty()
         case .plusButtonTapped:
             self.steps.accept(EventHistoryStep.navigateToAddEventViewController)

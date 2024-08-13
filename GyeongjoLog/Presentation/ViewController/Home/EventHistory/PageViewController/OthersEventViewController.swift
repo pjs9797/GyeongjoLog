@@ -26,6 +26,7 @@ class OthersEventViewController: UIViewController, ReactorKit.View {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        hideKeyboard(disposeBag: disposeBag)
         view.backgroundColor = ColorManager.BgMain
         self.reactor?.action.onNext(.loadOthersEventSummary)
     }
@@ -48,15 +49,21 @@ extension OthersEventViewController {
             .map{ Reactor.Action.sortButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
+        othersEventView.searchView.searchTextField.rx.text.orEmpty
+            .map { Reactor.Action.updateSearchTextField($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
     func bindState(reactor: OthersEventReactor){
-        reactor.state.map { $0.othersEventSummaries }
+        reactor.state.map { $0.filteredEventSummaries }
             .distinctUntilChanged()
             .bind(to: othersEventView.othersEventCollectionView.rx.items(cellIdentifier: "EventSummaryCollectionViewCell", cellType: EventSummaryCollectionViewCell.self)) { index, othersEvent, cell in
 
                 cell.configure(with: othersEvent)
             }
             .disposed(by: disposeBag)
+        
     }
 }

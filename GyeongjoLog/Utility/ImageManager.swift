@@ -20,4 +20,8 @@ struct ImageManager {
     static let icon_delete = UIImage(named: "icon_delete")
     static let icon_write = UIImage(named: "icon_write")
     static let icon_x = UIImage(named: "icon_x")
+    
+    //calendar
+    static let calendar_left = UIImage(named: "calendar_left")
+    static let calendar_right = UIImage(named: "calendar_right")
 }

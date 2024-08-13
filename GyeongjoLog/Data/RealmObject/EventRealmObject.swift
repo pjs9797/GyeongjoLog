@@ -8,7 +8,7 @@ class EventRealmObject: Object {
     @Persisted var eventType: String
     @Persisted var date: String
     @Persisted var relationship: String
-    @Persisted var amount: Double
+    @Persisted var amount: Int
     @Persisted var memo: String?
 
     func toDomain() -> Event {

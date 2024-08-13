@@ -3,6 +3,7 @@ import RxSwift
 import SnapKit
 
 class EventSummaryCollectionViewCell: UICollectionViewCell {
+    var phoneNumber = ""
     let typeBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = ColorManager.bgGray
@@ -28,8 +29,6 @@ class EventSummaryCollectionViewCell: UICollectionViewCell {
     }()
     let amountLabel: UILabel = {
         let label = UILabel()
-        label.font = FontManager.Body03
-        label.textColor = ColorManager.blue
         return label
     }()
     
@@ -81,6 +80,7 @@ class EventSummaryCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with eventSummary: EventSummary) {
+        phoneNumber = eventSummary.phoneNumber
         if let colorName = UserDefaultsManager.shared.fetchColor(forEventType: eventSummary.eventType),
            let color = UIColor(named: colorName) {
             typeLabel.textColor = color
@@ -90,32 +90,33 @@ class EventSummaryCollectionViewCell: UICollectionViewCell {
         typeLabel.text = eventSummary.eventType
         nameLabel.text = eventSummary.name
         dateLabel.text = eventSummary.date
+        
         if eventSummary.amount > 0 {
-            amountLabel.textColor = ColorManager.blue
-            amountLabel.text = "\(eventSummary.amount)원"
+            setAmountLabel(amount: eventSummary.amount, color: ColorManager.blue)
         }
         else {
-            amountLabel.textColor = ColorManager.red
-            amountLabel.text = "\(eventSummary.amount)원"
+            setAmountLabel(amount: eventSummary.amount, color: ColorManager.red)
         }
+    }
+    
+    private func setAmountLabel(amount: Int, color: UIColor?){
+        let attributedString = NSMutableAttributedString()
+        var eventCntAttributes = AttributedFontManager.Heading0101
+        eventCntAttributes[.foregroundColor] = color
+        let eventCntString = NSAttributedString(
+            string: "\(amount)",
+            attributes: eventCntAttributes
+        )
         
-//        let attributedString = NSMutableAttributedString()
-//        var eventCntAttributes = AttributedFontManager.Heading02
-//        eventCntAttributes[.foregroundColor] = ColorManager.blue ?? .blue
-//        let eventCntString = NSAttributedString(
-//            string: "\(myEvent.eventCnt)",
-//            attributes: eventCntAttributes
-//        )
-//        
-//        var suffixAttributes = AttributedFontManager.SubHead02_SemiBold
-//        suffixAttributes[.foregroundColor] = ColorManager.text01 ?? .black
-//        let suffixString = NSAttributedString(
-//            string: "건",
-//            attributes: suffixAttributes
-//        )
-//
-//        attributedString.append(eventCntString)
-//        attributedString.append(suffixString)
-//        cntLabel.attributedText = attributedString
+        var suffixAttributes = AttributedFontManager.Body02
+        suffixAttributes[.foregroundColor] = ColorManager.text01 ?? .black
+        let suffixString = NSAttributedString(
+            string: "원",
+            attributes: suffixAttributes
+        )
+
+        attributedString.append(eventCntString)
+        attributedString.append(suffixString)
+        amountLabel.attributedText = attributedString
     }
 }
