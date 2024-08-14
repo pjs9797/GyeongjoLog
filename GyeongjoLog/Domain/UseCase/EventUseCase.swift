@@ -33,10 +33,10 @@ class EventUseCase {
     }
     
     // 나의 경조사 요약 목록
-    func fetchMyEventSummaries(ids: [String], filterEventType: String? = nil, sortBy: EventSummarySortOption = .date) -> Observable<[EventSummary]> {
+    func fetchMyEventSummaries(idList: [String], filterEventType: String? = nil, sortBy: EventSummarySortOption = .date) -> Observable<[EventSummary]> {
         return repository.fetchEvents().map { events in
             let filteredEvents = events
-                .filter { ids.contains($0.id) && $0.amount >= 0 }
+                .filter { idList.contains($0.id) && $0.amount >= 0 }
                 .filter { event in
                     guard let filterEventType = filterEventType else { return true }
                     return event.eventType == filterEventType

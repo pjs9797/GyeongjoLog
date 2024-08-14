@@ -3,6 +3,7 @@ import RxCocoa
 
 enum EventHistoryStep: Step {
     case navigateToHistoryViewController
+    case navigateToMyEventSummaryViewController(eventType: String, idList: [String])
     case navigateToAddEventViewController
     case navigateToCalendarViewController
     case presentToSelectEventTypeViewController(eventTypeRelay: PublishRelay<String>)

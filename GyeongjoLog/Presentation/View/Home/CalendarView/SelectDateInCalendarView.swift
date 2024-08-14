@@ -26,6 +26,7 @@ class SelectDateInCalendarView: UIView {
         let label = UILabel()
         label.font = FontManager.Body01
         label.textColor = ColorManager.text03
+        label.text = "총 금액"
         return label
     }()
     let realAllAmountLabel: UILabel = {

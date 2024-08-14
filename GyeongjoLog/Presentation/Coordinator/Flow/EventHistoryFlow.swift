@@ -23,6 +23,8 @@ class EventHistoryFlow: Flow {
             // 푸시
         case .navigateToHistoryViewController:
             return navigateToHistoryViewController()
+        case .navigateToMyEventSummaryViewController(let eventType, let idList):
+            return navigateToMyEventSummaryViewController(eventType: eventType, idList: idList)
         case .navigateToAddEventViewController:
             return navigateToAddEventViewController()
         case .navigateToCalendarViewController:
@@ -54,12 +56,21 @@ class EventHistoryFlow: Flow {
         self.rootViewController.pushViewController(viewController, animated: true)
         
         return .multiple(flowContributors: [
-            .contribute(withNextPresentable: viewController, withNextStepper: reactor),
             .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: myEventReactor),
             .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: othersEventReactor),
-            .contribute(withNextPresentable: myEventViewController, withNextStepper: myEventReactor),
-            .contribute(withNextPresentable: othersEventViewController, withNextStepper: othersEventReactor)
+//            .contribute(withNextPresentable: myEventViewController, withNextStepper: myEventReactor),
+//            .contribute(withNextPresentable: othersEventViewController, withNextStepper: othersEventReactor),
+            .contribute(withNextPresentable: viewController, withNextStepper: reactor),
         ])
+    }
+    
+    private func navigateToMyEventSummaryViewController(eventType: String, idList: [String]) -> FlowContributors {
+        let reactor = MyEventSummaryReactor(eventUseCase: self.eventUseCase, eventType: eventType, idList: idList)
+        let viewController = MyEventSummaryViewController(with: reactor)
+        viewController.hidesBottomBarWhenPushed = true
+        self.rootViewController.pushViewController(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
     private func navigateToAddEventViewController() -> FlowContributors {

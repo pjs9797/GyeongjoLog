@@ -41,6 +41,7 @@ class MyEventReactor: ReactorKit.Reactor, Stepper {
             
             // 컬렉션뷰 셀 탭
         case .selectMyEvent(let index):
+            self.steps.accept(EventHistoryStep.navigateToMyEventSummaryViewController(eventType: currentState.myEvents[index].eventType, idList: currentState.myEvents[index].idList))
             return .empty()
             
             // 나의 경조사 컬렉션뷰 셀 데이터 처리

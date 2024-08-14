@@ -5,7 +5,7 @@ class OthersEventView: UIView {
     let searchView = SearchView()
     let filterButton = FilterButton()
     let sortButton = SortButton()
-    let othersEventCollectionView: UICollectionView = {
+    let othersEventSummaryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 10*ConstantsManager.standardHeight
@@ -31,7 +31,7 @@ class OthersEventView: UIView {
     }
     
     private func layout() {
-        [searchView,filterButton,sortButton,othersEventCollectionView]
+        [searchView,filterButton,sortButton,othersEventSummaryCollectionView]
             .forEach{
                 addSubview($0)
             }
@@ -55,7 +55,7 @@ class OthersEventView: UIView {
             make.centerY.equalTo(filterButton)
         }
         
-        othersEventCollectionView.snp.makeConstraints { make in
+        othersEventSummaryCollectionView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
             make.top.equalTo(filterButton.snp.bottom).offset(14*ConstantsManager.standardHeight)

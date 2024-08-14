@@ -13,30 +13,57 @@ class CalendarReactor: Reactor, Stepper {
     }
     
     enum Action {
+        // 네비게이션 버튼
         case backButtonTapped
+        
+        // 달력 양 옆 버튼
         case changeMonth(Int)
+        
+        // 전체, 받은, 보낸 금액 버튼
         case filterEvents(AmountFilterType)
+        
+        // 날짜 선택
         case selectDate(Date)
+        
+        // 초기 데이터
         case loadEvents
     }
     
     enum Mutation {
+        // 데이터
         case setEvents([Event])
         case setFilteredEvents([Event])
+        
+        // 전체, 받은, 보낸 금액 버튼
         case setAmountFilterType(AmountFilterType)
+        
+        // 날짜 설정
         case setYearMonth(Date)
         case setSelectedDate(Date?)
+        
+        // 선택한 날짜에 대한 이벤트
         case setSelectedDateEvents([Event])
     }
     
     struct State {
+        // 연도 월 라벨
         var yearMonth: Date = Date()
+        
+        // 데이터
         var events: [Event] = []
         var filteredEvents: [Event] = []
+        
+        // 전체, 받은, 보낸 금액 버튼
         var amountFilterType: AmountFilterType = .all
+        
+        // 날짜 설정
         var selectedDate: Date?
-        var eventsByDate: [Date: [Event]] = [:]
         var selectedDateLabelText: String = ""
+        
+        // 해당 월에 대한 모든 데이터
+        var eventsByDate: [Date: [Event]] = [:]
+        
+        // 선택한 날짜에 대한 데이터
         var selectedDateEvents: [Event] = []
     }
     
@@ -54,19 +81,21 @@ class CalendarReactor: Reactor, Stepper {
                     .map { .setEvents($0) }
             ])
         case .filterEvents(let amountType):
+            // 버튼을 탭했을 때 이미 선택되어있는 날짜에 대한 이벤트
             let filteredEvents = filterEvents(amountType, events: currentState.events)
-                    let selectedDateEvents = currentState.selectedDate.flatMap { date in
-                        filterEvents(amountType, events: filteredEvents.filter {
-                            Calendar.current.isDate($0.date.toDate(), inSameDayAs: date)
-                        })
-                    } ?? []
-                    
-                    return .concat([
-                        .just(.setAmountFilterType(amountType)),
-                        .just(.setFilteredEvents(filteredEvents)),
-                        .just(.setSelectedDateEvents(selectedDateEvents))
-                    ])
+            let selectedDateEvents = currentState.selectedDate.flatMap { date in
+                filterEvents(amountType, events: filteredEvents.filter {
+                    Calendar.current.isDate($0.date.toDate(), inSameDayAs: date)
+                })
+            } ?? []
+            
+            return .concat([
+                .just(.setAmountFilterType(amountType)),
+                .just(.setFilteredEvents(filteredEvents)),
+                .just(.setSelectedDateEvents(selectedDateEvents))
+            ])
         case .selectDate(let date):
+            // 선택한 날짜에 대한 이벤트
             let filteredEvents = currentState.filteredEvents.filter {
                 Calendar.current.isDate($0.date.toDate(), inSameDayAs: date)
             }
@@ -116,6 +145,7 @@ class CalendarReactor: Reactor, Stepper {
         }
     }
     
+    // 월에 대한 모든 이벤트 가져옴
     private func calculateEventByDate(_ events: [Event]) -> [Date: [Event]] {
         var eventAmounts: [Date: [Event]] = [:]
         let calendar = Calendar.current

@@ -90,6 +90,9 @@
 		31FDB1B72C69FCDF0010F3EC /* CalendarReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1B62C69FCDF0010F3EC /* CalendarReactor.swift */; };
 		31FDB1B92C6A2ABD0010F3EC /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1B82C6A2ABD0010F3EC /* String+Extension.swift */; };
 		31FDB1BD2C6B689D0010F3EC /* FilterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1BC2C6B689D0010F3EC /* FilterOption.swift */; };
+		31FDB1BF2C6B865F0010F3EC /* MyEventSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1BE2C6B865F0010F3EC /* MyEventSummaryViewController.swift */; };
+		31FDB1C42C6B8B8B0010F3EC /* MyEventSummaryReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1C32C6B8B8B0010F3EC /* MyEventSummaryReactor.swift */; };
+		31FDB1C62C6BB3B70010F3EC /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1C52C6BB3B70010F3EC /* Int+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -182,6 +185,9 @@
 		31FDB1B62C69FCDF0010F3EC /* CalendarReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarReactor.swift; sourceTree = "<group>"; };
 		31FDB1B82C6A2ABD0010F3EC /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		31FDB1BC2C6B689D0010F3EC /* FilterOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOption.swift; sourceTree = "<group>"; };
+		31FDB1BE2C6B865F0010F3EC /* MyEventSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventSummaryViewController.swift; sourceTree = "<group>"; };
+		31FDB1C32C6B8B8B0010F3EC /* MyEventSummaryReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventSummaryReactor.swift; sourceTree = "<group>"; };
+		31FDB1C52C6BB3B70010F3EC /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -352,6 +358,7 @@
 				311E25392C63B3E500C61202 /* CollectionViewCell */,
 				311E25272C636CB400C61202 /* MyEventView.swift */,
 				31FDB1952C68F0010010F3EC /* OthersEventView.swift */,
+				31FDB1A32C69C1480010F3EC /* MyEventSummaryView.swift */,
 			);
 			path = EventHistory;
 			sourceTree = "<group>";
@@ -533,6 +540,7 @@
 			children = (
 				31FDB19A2C69AB020010F3EC /* PageReactor */,
 				311E25402C64734900C61202 /* EventHistoryReactor.swift */,
+				31FDB1C32C6B8B8B0010F3EC /* MyEventSummaryReactor.swift */,
 			);
 			path = EventHistory;
 			sourceTree = "<group>";
@@ -581,6 +589,7 @@
 			children = (
 				31FDB18D2C68D1C40010F3EC /* PageViewController */,
 				311E253E2C64730E00C61202 /* EventHistoryViewController.swift */,
+				31FDB1BE2C6B865F0010F3EC /* MyEventSummaryViewController.swift */,
 			);
 			path = EventHistory;
 			sourceTree = "<group>";
@@ -589,7 +598,6 @@
 			isa = PBXGroup;
 			children = (
 				31FDB1A52C69C1800010F3EC /* CalendarView */,
-				31FDB1A22C69C1350010F3EC /* MyEventSummary */,
 				311E25262C636C7C00C61202 /* EventHistory */,
 				31FDB1662C671DF10010F3EC /* AddEvent */,
 			);
@@ -621,14 +629,6 @@
 				31FDB19E2C69AB470010F3EC /* OthersEventReactor.swift */,
 			);
 			path = PageReactor;
-			sourceTree = "<group>";
-		};
-		31FDB1A22C69C1350010F3EC /* MyEventSummary */ = {
-			isa = PBXGroup;
-			children = (
-				31FDB1A32C69C1480010F3EC /* MyEventSummaryView.swift */,
-			);
-			path = MyEventSummary;
 			sourceTree = "<group>";
 		};
 		31FDB1A52C69C1800010F3EC /* CalendarView */ = {
@@ -682,6 +682,7 @@
 				311E25672C64A7EE00C61202 /* Date+Extension.swift */,
 				31FDB1AB2C69F6010010F3EC /* Color+Extension.swift */,
 				31FDB1B82C6A2ABD0010F3EC /* String+Extension.swift */,
+				31FDB1C52C6BB3B70010F3EC /* Int+Extension.swift */,
 			);
 			path = "Foundation+Extension";
 			sourceTree = "<group>";
@@ -787,6 +788,7 @@
 				311E25872C65021000C61202 /* EventHistoryFlow.swift in Sources */,
 				311E25832C64EF3D00C61202 /* UITextView+Extension.swift in Sources */,
 				31FDB1742C6789820010F3EC /* SelectEventTypeViewController.swift in Sources */,
+				31FDB1C62C6BB3B70010F3EC /* Int+Extension.swift in Sources */,
 				31FDB18C2C68675D0010F3EC /* SelectRelationshipReactor.swift in Sources */,
 				31FDB1AE2C69F69F0010F3EC /* SelectDateInCalendarView.swift in Sources */,
 				31FDB1B12C69F7170010F3EC /* EventSummaryTableViewCell.swift in Sources */,
@@ -820,6 +822,7 @@
 				311E252A2C63966600C61202 /* ColorManager.swift in Sources */,
 				31FDB16B2C6785090010F3EC /* SelectEventTypeView.swift in Sources */,
 				31FDB1A12C69B7A30010F3EC /* SortOption.swift in Sources */,
+				31FDB1C42C6B8B8B0010F3EC /* MyEventSummaryReactor.swift in Sources */,
 				311E253D2C63B78800C61202 /* UILabel+Extension.swift in Sources */,
 				311E252F2C639C6000C61202 /* FilterButton.swift in Sources */,
 				311E25102C6360E600C61202 /* ConstantsManager.swift in Sources */,
@@ -848,6 +851,7 @@
 				31FDB1762C67898D0010F3EC /* SelectEventTypeReactor.swift in Sources */,
 				311E255B2C64917D00C61202 /* RealmManager.swift in Sources */,
 				311E25532C6488B200C61202 /* EventRealmObject.swift in Sources */,
+				31FDB1BF2C6B865F0010F3EC /* MyEventSummaryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

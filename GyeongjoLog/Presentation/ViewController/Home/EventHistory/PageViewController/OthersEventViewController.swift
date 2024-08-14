@@ -59,7 +59,7 @@ extension OthersEventViewController {
     func bindState(reactor: OthersEventReactor){
         reactor.state.map { $0.filteredEventSummaries }
             .distinctUntilChanged()
-            .bind(to: othersEventView.othersEventCollectionView.rx.items(cellIdentifier: "EventSummaryCollectionViewCell", cellType: EventSummaryCollectionViewCell.self)) { index, othersEvent, cell in
+            .bind(to: othersEventView.othersEventSummaryCollectionView.rx.items(cellIdentifier: "EventSummaryCollectionViewCell", cellType: EventSummaryCollectionViewCell.self)) { index, othersEvent, cell in
 
                 cell.configure(with: othersEvent)
             }
