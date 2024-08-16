@@ -28,6 +28,22 @@ class MyEventViewController: UIViewController, ReactorKit.View {
         
         view.backgroundColor = ColorManager.BgMain
         self.reactor?.action.onNext(.loadMyEvent)
+        self.setupTapGestureToHideSortView()
+    }
+    
+    private func setupTapGestureToHideSortView() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleOutsideTap(_:)))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func handleOutsideTap(_ gesture: UITapGestureRecognizer) {
+        guard !myEventView.sortView.isHidden else { return }
+        let location = gesture.location(in: view)
+        if !myEventView.sortView.frame.contains(location) &&
+            !myEventView.sortButton.frame.contains(location){
+            self.reactor?.action.onNext(.hideSortView)
+        }
     }
 }
 
@@ -49,6 +65,16 @@ extension MyEventViewController {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        myEventView.sortView.firstSortButton.rx.tap
+            .map{ Reactor.Action.dateSortButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        myEventView.sortView.secondSortButton.rx.tap
+            .map{ Reactor.Action.cntSortButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         // 컬렉션뷰 셀 탭
         myEventView.myEventCollectionView.rx.itemSelected
             .map { Reactor.Action.selectMyEvent($0.item) }
@@ -63,7 +89,7 @@ extension MyEventViewController {
     }
     
     func bindState(reactor: MyEventReactor){
-        reactor.state.map { $0.filteredMyEvents }
+        reactor.state.map { $0.myEvents }
             .distinctUntilChanged()
             .bind(to: myEventView.myEventCollectionView.rx.items(cellIdentifier: "MyEventCollectionViewCell", cellType: MyEventCollectionViewCell.self)) { index, myEvent, cell in
 
@@ -74,6 +100,16 @@ extension MyEventViewController {
         reactor.state.map{ $0.filterTitle }
             .distinctUntilChanged()
             .bind(to: self.myEventView.filterButton.rx.title(for: .normal))
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.sortTitle }
+            .distinctUntilChanged()
+            .bind(to: self.myEventView.sortButton.rx.title(for: .normal))
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.isHiddenSortView }
+            .distinctUntilChanged()
+            .bind(to: self.myEventView.sortView.rx.isHidden)
             .disposed(by: disposeBag)
     }
 }

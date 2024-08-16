@@ -32,11 +32,27 @@ class MyEventSummaryViewController: UIViewController, ReactorKit.View {
         hideKeyboard(disposeBag: disposeBag)
         self.reactor?.action.onNext(.loadMyEventSummary)
         self.setNavigationbar()
+        self.setupTapGestureToHideSortView()
     }
     
     private func setNavigationbar() {
         navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItems = [plusButton,calendarButton]
+    }
+    
+    private func setupTapGestureToHideSortView() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleOutsideTap(_:)))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func handleOutsideTap(_ gesture: UITapGestureRecognizer) {
+        guard !myEventSummaryView.sortView.isHidden else { return }
+        let location = gesture.location(in: view)
+        if !myEventSummaryView.sortView.frame.contains(location) &&
+            !myEventSummaryView.sortButton.frame.contains(location) {
+            self.reactor?.action.onNext(.hideSortView)
+        }
     }
 }
 
@@ -73,9 +89,25 @@ extension MyEventSummaryViewController {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        myEventSummaryView.sortView.firstSortButton.rx.tap
+            .map{ Reactor.Action.dateSortButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        myEventSummaryView.sortView.secondSortButton.rx.tap
+            .map{ Reactor.Action.cntSortButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         myEventSummaryView.searchView.searchTextField.rx.text.orEmpty
             .map { Reactor.Action.updateSearchTextField($0) }
             .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        reactor.filterRelay
+            .bind(onNext: { [weak self] filter in
+                self?.reactor?.action.onNext(.loadFilteredMyEventSummary(filter))
+            })
             .disposed(by: disposeBag)
     }
     
@@ -87,7 +119,7 @@ extension MyEventSummaryViewController {
             })
             .disposed(by: disposeBag)
         
-        reactor.state.map { $0.filteredMyEventSummaries }
+        reactor.state.map { $0.myEventSummaries }
             .distinctUntilChanged()
             .bind(to: myEventSummaryView.myEventSummaryCollectionView.rx.items(cellIdentifier: "EventSummaryCollectionViewCell", cellType: EventSummaryCollectionViewCell.self)) { index, myEvent, cell in
 
@@ -107,9 +139,19 @@ extension MyEventSummaryViewController {
             .bind(to: self.myEventSummaryView.cntLabel.rx.text)
             .disposed(by: disposeBag)
         
-        reactor.state.map{ $0.filterTitle }
+        reactor.state.map{ $0.filterOption }
             .distinctUntilChanged()
             .bind(to: self.myEventSummaryView.filterButton.rx.title(for: .normal))
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.sortTitle }
+            .distinctUntilChanged()
+            .bind(to: self.myEventSummaryView.sortButton.rx.title(for: .normal))
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.isHiddenSortView }
+            .distinctUntilChanged()
+            .bind(to: self.myEventSummaryView.sortView.rx.isHidden)
             .disposed(by: disposeBag)
     }
 }

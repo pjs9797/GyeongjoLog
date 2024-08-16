@@ -67,9 +67,10 @@ class EventHistoryFlow: Flow {
         return .multiple(flowContributors: [
             .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: myEventReactor),
             .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: othersEventReactor),
-            .contribute(withNextPresentable: myEventViewController, withNextStepper: myEventReactor),
-            .contribute(withNextPresentable: othersEventViewController, withNextStepper: othersEventReactor),
             .contribute(withNextPresentable: viewController, withNextStepper: reactor),
+//            .contribute(withNextPresentable: myEventViewController, withNextStepper: myEventReactor),
+//            .contribute(withNextPresentable: othersEventViewController, withNextStepper: othersEventReactor),
+            
         ])
     }
     

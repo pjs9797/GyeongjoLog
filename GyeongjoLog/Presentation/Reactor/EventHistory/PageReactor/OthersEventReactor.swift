@@ -16,6 +16,9 @@ class OthersEventReactor: ReactorKit.Reactor, Stepper {
         // 버튼 탭
         case filterButtonTapped
         case sortButtonTapped
+        case dateSortButtonTapped
+        case cntSortButtonTapped
+        case hideSortView
         
         // 검색
         case updateSearchTextField(String)
@@ -27,16 +30,19 @@ class OthersEventReactor: ReactorKit.Reactor, Stepper {
     
     enum Mutation {
         case setOthersEventSummary([EventSummary])
-        case setFilteredEventSummaries([EventSummary])
-        case setFilterTitle(String)
         case setSearchQuery(String)
+        case setFilterOption(String)
+        case setSortOption(EventSummarySortOption)
+        case setSortViewHidden
     }
     
     struct State {
         var othersEventSummaries: [EventSummary] = []
-        var filteredEventSummaries: [EventSummary] = []
-        var filterTitle: String = "필터"
         var searchQuery: String = ""
+        var filterTitle: String = "필터"
+        var sortOption: EventSummarySortOption = .date
+        var sortTitle: String = "최신순"
+        var isHiddenSortView: Bool = true
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -46,26 +52,45 @@ class OthersEventReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(EventHistoryStep.presentToEventRelationshipFilterViewController(filterRelay: filterRelay))
             return .empty()
         case .sortButtonTapped:
-            return .empty()
+            return .just(.setSortViewHidden)
+        case .dateSortButtonTapped:
+            return self.eventUseCase.searchAndFilterOtherEventSummaries(filterRelationship: currentState.filterTitle, sortBy: .date)
+                .flatMap { events in
+                    return Observable.concat([
+                        .just(.setSortViewHidden),
+                        .just(.setSortOption(.date)),
+                        .just(.setOthersEventSummary(events))
+                    ])
+                }
+        case .cntSortButtonTapped:
+            return self.eventUseCase.searchAndFilterOtherEventSummaries(filterRelationship: currentState.filterTitle, sortBy: .amount)
+                .flatMap { events in
+                    return Observable.concat([
+                        .just(.setSortViewHidden),
+                        .just(.setSortOption(.amount)),
+                        .just(.setOthersEventSummary(events))
+                    ])
+                }
+        case .hideSortView:
+            return .just(.setSortViewHidden)
             
             // 검색
-        case .updateSearchTextField(let text):
-            return .concat([
-                .just(.setSearchQuery(text)),
-                .just(.setFilteredEventSummaries(filterAndSearchEvents(filter: currentState.filterTitle, query: text)))
-            ])
+        case .updateSearchTextField(let query):
+            return self.eventUseCase.searchAndFilterOtherEventSummaries(query: query, filterRelationship: currentState.filterTitle, sortBy: currentState.sortOption)
+                .map { .setOthersEventSummary($0) }
             
             // 나의 경조사 컬렉션뷰 셀 데이터 처리
         case .loadOthersEventSummary:
-            return self.eventUseCase.fetchOtherEventSummaries()
-                .map{ othersEventSummaries in
-                    return .setOthersEventSummary(othersEventSummaries)
-                }
+            return self.eventUseCase.searchAndFilterOtherEventSummaries(filterRelationship: currentState.filterTitle, sortBy: currentState.sortOption)
+                .map { .setOthersEventSummary($0) }
         case .loadFilteredOthersEventSummary(let filter):
-            return .concat([
-                .just(.setFilterTitle(filter)),
-                .just(.setFilteredEventSummaries(filterAndSearchEvents(filter: filter, query: currentState.searchQuery)))
-            ])
+            return self.eventUseCase.searchAndFilterOtherEventSummaries(query: currentState.searchQuery, filterRelationship: filter, sortBy: currentState.sortOption)
+                .flatMap { events in
+                    return Observable.concat([
+                        .just(.setFilterOption(filter)),
+                        .just(.setOthersEventSummary(events))
+                    ])
+                }
         }
     }
     
@@ -74,35 +99,16 @@ class OthersEventReactor: ReactorKit.Reactor, Stepper {
         switch mutation {
         case .setOthersEventSummary(let othersEventSummaries):
             newState.othersEventSummaries = othersEventSummaries
-            newState.filteredEventSummaries = othersEventSummaries
-        case .setFilteredEventSummaries(let filteredEventSummaries):
-            newState.filteredEventSummaries = filteredEventSummaries
-        case .setFilterTitle(let filter):
-            newState.filterTitle = filter
         case .setSearchQuery(let text):
             newState.searchQuery = text
+        case .setFilterOption(let filter):
+            newState.filterTitle = filter
+        case .setSortOption(let sortOption):
+            newState.sortOption = sortOption
+            newState.sortTitle = (sortOption == .date) ? "최신순" : "금액순"
+        case .setSortViewHidden:
+            newState.isHiddenSortView = !currentState.isHiddenSortView
         }
         return newState
-    }
-    
-    private func filterAndSearchEvents(filter: String, query: String) -> [EventSummary] {
-        var results = currentState.othersEventSummaries
-        
-        if filter != "필터" {
-            results = results.filter { $0.relationship == filter }
-        }
-        
-        if !query.isEmpty {
-            results = results.filter { self.isMatch(summary: $0, query: query) }
-        }
-        
-        return results
-    }
-    
-    private func isMatch(summary: EventSummary, query: String) -> Bool {
-        let lowercasedQuery = query.lowercased()
-        let formattedPhoneNumber = summary.phoneNumber.replacingOccurrences(of: "-", with: "")
-        let lowercasedName = summary.name.lowercased()
-        return lowercasedName.contains(lowercasedQuery) || formattedPhoneNumber.contains(lowercasedQuery)
     }
 }

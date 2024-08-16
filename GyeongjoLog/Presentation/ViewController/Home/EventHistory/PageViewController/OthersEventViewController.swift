@@ -29,6 +29,22 @@ class OthersEventViewController: UIViewController, ReactorKit.View {
         hideKeyboard(disposeBag: disposeBag)
         view.backgroundColor = ColorManager.BgMain
         self.reactor?.action.onNext(.loadOthersEventSummary)
+        self.setupTapGestureToHideSortView()
+    }
+    
+    private func setupTapGestureToHideSortView() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleOutsideTap(_:)))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func handleOutsideTap(_ gesture: UITapGestureRecognizer) {
+        guard !othersEventView.sortView.isHidden else { return }
+        let location = gesture.location(in: view)
+        if !othersEventView.sortView.frame.contains(location) &&
+            !othersEventView.sortButton.frame.contains(location) {
+            self.reactor?.action.onNext(.hideSortView)
+        }
     }
 }
 
@@ -50,6 +66,16 @@ extension OthersEventViewController {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        othersEventView.sortView.firstSortButton.rx.tap
+            .map{ Reactor.Action.dateSortButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        othersEventView.sortView.secondSortButton.rx.tap
+            .map{ Reactor.Action.cntSortButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         othersEventView.searchView.searchTextField.rx.text.orEmpty
             .map { Reactor.Action.updateSearchTextField($0) }
             .bind(to: reactor.action)
@@ -63,7 +89,7 @@ extension OthersEventViewController {
     }
     
     func bindState(reactor: OthersEventReactor){
-        reactor.state.map { $0.filteredEventSummaries }
+        reactor.state.map { $0.othersEventSummaries }
             .distinctUntilChanged()
             .bind(to: othersEventView.othersEventSummaryCollectionView.rx.items(cellIdentifier: "EventSummaryCollectionViewCell", cellType: EventSummaryCollectionViewCell.self)) { index, othersEvent, cell in
 
@@ -74,6 +100,16 @@ extension OthersEventViewController {
         reactor.state.map{ $0.filterTitle }
             .distinctUntilChanged()
             .bind(to: self.othersEventView.filterButton.rx.title(for: .normal))
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.sortTitle }
+            .distinctUntilChanged()
+            .bind(to: self.othersEventView.sortButton.rx.title(for: .normal))
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.isHiddenSortView }
+            .distinctUntilChanged()
+            .bind(to: self.othersEventView.sortView.rx.isHidden)
             .disposed(by: disposeBag)
     }
 }

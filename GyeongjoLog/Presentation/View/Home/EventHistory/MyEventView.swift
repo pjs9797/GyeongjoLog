@@ -2,13 +2,12 @@ import UIKit
 import SnapKit
 
 class MyEventView: UIView {
-    let filterButton: FilterButton = {
-        let button = FilterButton()
-        return button
-    }()
-    let sortButton: SortButton = {
-        let button = SortButton()
-        return button
+    let filterButton = FilterButton()
+    let sortButton = SortButton()
+    let sortView: SortView = {
+        let view = SortView()
+        view.secondSortButton.setTitle("건수", for: .normal)
+        return view
     }()
     let myEventCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -37,7 +36,7 @@ class MyEventView: UIView {
     }
     
     private func layout() {
-        [filterButton,sortButton,myEventCollectionView]
+        [filterButton,sortButton,myEventCollectionView,sortView]
             .forEach{
                 addSubview($0)
             }
@@ -52,6 +51,13 @@ class MyEventView: UIView {
             make.height.equalTo(17*ConstantsManager.standardHeight)
             make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
             make.centerY.equalTo(filterButton)
+        }
+        
+        sortView.snp.makeConstraints { make in
+            make.width.equalTo(140*ConstantsManager.standardWidth)
+            make.height.equalTo(130*ConstantsManager.standardHeight)
+            make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
+            make.top.equalTo(sortButton.snp.bottom).offset(8*ConstantsManager.standardHeight)
         }
         
         myEventCollectionView.snp.makeConstraints { make in

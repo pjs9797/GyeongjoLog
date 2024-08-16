@@ -5,6 +5,11 @@ class OthersEventView: UIView {
     let searchView = SearchView()
     let filterButton = FilterButton()
     let sortButton = SortButton()
+    let sortView: SortView = {
+        let view = SortView()
+        view.secondSortButton.setTitle("금액순", for: .normal)
+        return view
+    }()
     let othersEventSummaryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -31,7 +36,7 @@ class OthersEventView: UIView {
     }
     
     private func layout() {
-        [searchView,filterButton,sortButton,othersEventSummaryCollectionView]
+        [searchView,filterButton,sortButton,othersEventSummaryCollectionView,sortView]
             .forEach{
                 addSubview($0)
             }
@@ -53,6 +58,13 @@ class OthersEventView: UIView {
             make.height.equalTo(17*ConstantsManager.standardHeight)
             make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
             make.centerY.equalTo(filterButton)
+        }
+        
+        sortView.snp.makeConstraints { make in
+            make.width.equalTo(140*ConstantsManager.standardWidth)
+            make.height.equalTo(130*ConstantsManager.standardHeight)
+            make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
+            make.top.equalTo(sortButton.snp.bottom).offset(8*ConstantsManager.standardHeight)
         }
         
         othersEventSummaryCollectionView.snp.makeConstraints { make in

@@ -16,6 +16,9 @@ class MyEventReactor: ReactorKit.Reactor, Stepper {
         // 버튼 탭
         case filterButtonTapped
         case sortButtonTapped
+        case dateSortButtonTapped
+        case cntSortButtonTapped
+        case hideSortView
         
         // 컬렉션뷰 셀 탭
         case selectMyEvent(Int)
@@ -27,14 +30,17 @@ class MyEventReactor: ReactorKit.Reactor, Stepper {
     
     enum Mutation {
         case setMyEvent([MyEvent])
-        case setFilteredMyEvent([MyEvent])
-        case setFilterTitle(String)
+        case setFilterOption(String)
+        case setSortOption(MyEventSortOption)
+        case setSortViewHidden
     }
     
     struct State {
         var myEvents: [MyEvent] = []
-        var filteredMyEvents: [MyEvent] = []
         var filterTitle: String = "필터"
+        var sortOption: MyEventSortOption = .date
+        var sortTitle: String = "최신순"
+        var isHiddenSortView: Bool = true
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -44,7 +50,27 @@ class MyEventReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(EventHistoryStep.presentToEventTypeFilterViewController(filterRelay: self.filterRelay))
             return .empty()
         case .sortButtonTapped:
-            return .empty()
+            return .just(.setSortViewHidden)
+        case .dateSortButtonTapped:
+            return self.eventUseCase.fetchMyEvents(filterEventType: currentState.filterTitle, sortBy: .date)
+                .flatMap { events in
+                    return Observable.concat([
+                        .just(.setSortViewHidden),
+                        .just(.setSortOption(.date)),
+                        .just(.setMyEvent(events))
+                    ])
+                }
+        case .cntSortButtonTapped:
+            return self.eventUseCase.fetchMyEvents(filterEventType: currentState.filterTitle, sortBy: .eventCnt)
+                .flatMap { events in
+                    return Observable.concat([
+                        .just(.setSortViewHidden),
+                        .just(.setSortOption(.eventCnt)),
+                        .just(.setMyEvent(events))
+                    ])
+                }
+        case .hideSortView:
+            return .just(.setSortViewHidden)
             
             // 컬렉션뷰 셀 탭
         case .selectMyEvent(let index):
@@ -53,24 +79,16 @@ class MyEventReactor: ReactorKit.Reactor, Stepper {
             
             // 나의 경조사 컬렉션뷰 셀 데이터 처리
         case .loadMyEvent:
-            return self.eventUseCase.fetchMyEvents()
-                .map{ myEvents in
-                    return .setMyEvent(myEvents)
-                }
+            return eventUseCase.fetchMyEvents(filterEventType: currentState.filterTitle, sortBy: currentState.sortOption)
+                .map { .setMyEvent($0) }
         case .loadFilteredMyEvent(let filter):
-            if filter == "필터"{
-                return .concat([
-                    .just(.setFilterTitle("필터")),
-                    .just(.setFilteredMyEvent(currentState.myEvents))
-                ])
-            }
-            else {
-                let filteredEvents = currentState.myEvents.filter { $0.eventType == filter }
-                return .concat([
-                    .just(.setFilterTitle(filter)),
-                    .just(.setFilteredMyEvent(filteredEvents))
-                ])
-            }
+            return self.eventUseCase.fetchMyEvents(filterEventType: filter, sortBy: currentState.sortOption)
+                .flatMap { events in
+                    return Observable.concat([
+                        .just(.setFilterOption(filter)),
+                        .just(.setMyEvent(events))
+                    ])
+                }
         }
     }
     
@@ -79,11 +97,13 @@ class MyEventReactor: ReactorKit.Reactor, Stepper {
         switch mutation {
         case .setMyEvent(let myEvents):
             newState.myEvents = myEvents
-            newState.filteredMyEvents = myEvents
-        case .setFilteredMyEvent(let filteredEvents):
-            newState.filteredMyEvents = filteredEvents
-        case .setFilterTitle(let filter):
+        case .setFilterOption(let filter):
             newState.filterTitle = filter
+        case .setSortViewHidden:
+            newState.isHiddenSortView = !currentState.isHiddenSortView
+        case .setSortOption(let sortOption):
+            newState.sortOption = sortOption
+            newState.sortTitle = (sortOption == .date) ? "최신순" : "건수"
         }
         return newState
     }

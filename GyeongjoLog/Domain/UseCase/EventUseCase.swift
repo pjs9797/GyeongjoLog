@@ -3,78 +3,37 @@ import Foundation
 
 class EventUseCase {
     private let repository: EventRepository
-
+    
     init(repository: EventRepository) {
         self.repository = repository
     }
     
     // 나의 경조사 목록
-    func fetchMyEvents(filterEventType: String? = nil, sortBy: MyEventSortOption = .date) -> Observable<[MyEvent]> {
+    func fetchMyEvents(filterEventType: String = "필터", sortBy: MyEventSortOption = .date) -> Observable<[MyEvent]> {
         return repository.fetchEvents().map { events in
-            let filteredEvents = events
-                .filter { $0.amount >= 0 }
-                .filter { event in
-                    guard let filterEventType = filterEventType else { return true }
-                    return event.eventType == filterEventType
-                }
-            
-            let groupedEvents = Dictionary(grouping: filteredEvents) { EventKey(eventType: $0.eventType, date: $0.date) }
-            let myEvents = groupedEvents.map { (key, value) in
-                MyEvent(eventType: key.eventType, date: key.date, eventCnt: value.count, idList: value.map { $0.id })
-            }
-            
-            switch sortBy {
-            case .date:
-                return myEvents.sorted { $0.date > $1.date }
-            case .eventCnt:
-                return myEvents.sorted { $0.eventCnt > $1.eventCnt }
-            }
+            let filteredEvents = self.filterEventsAboutType(events: events, filterEventType: filterEventType, isPositive: true)
+            return self.sortMyEvents(events: filteredEvents, sortBy: sortBy)
         }
     }
     
     // 나의 경조사 요약 목록
-    func fetchMyEventSummaries(idList: [String], filterEventType: String? = nil, sortBy: EventSummarySortOption = .date) -> Observable<[EventSummary]> {
+    func fetchMyEventSummaries(idList: [String], query: String? = nil, filterRelationship: String = "필터", sortBy: EventSummarySortOption = .date) -> Observable<[EventSummary]> {
         return repository.fetchEvents().map { events in
-            let filteredEvents = events
-                .filter { idList.contains($0.id) && $0.amount >= 0 }
-                .filter { event in
-                    guard let filterEventType = filterEventType else { return true }
-                    return event.eventType == filterEventType
-                }
-            
-            let eventSummaries = filteredEvents.map { event in
-                EventSummary(id: event.id, eventType: event.eventType, name: event.name, phoneNumber: event.phoneNumber, date: event.date, relationship: event.relationship, amount: event.amount)
-            }
-            
-            switch sortBy {
-            case .date:
-                return eventSummaries.sorted { $0.date > $1.date }
-            case .amount:
-                return eventSummaries.sorted { $0.amount > $1.amount }
-            }
+            let idFilteredEvents = events.filter { idList.contains($0.id) }
+            let filteredEvents = self.filterEventsAboutRelationship(events: idFilteredEvents, filterRelationship: filterRelationship, isPositive: true)
+            let searchedEvents = self.searchEvents(events: filteredEvents, query: query ?? "")
+            let eventSummaries = self.convertToEventSummaries(events: searchedEvents)
+            return self.sortEventSummaries(events: eventSummaries, sortBy: sortBy)
         }
     }
     
     // 타인 경조사 요약 목록
-    func fetchOtherEventSummaries(filterEventType: String? = nil, sortBy: EventSummarySortOption = .date) -> Observable<[EventSummary]> {
+    func searchAndFilterOtherEventSummaries(query: String? = nil, filterRelationship: String = "필터", sortBy: EventSummarySortOption = .date) -> Observable<[EventSummary]> {
         return repository.fetchEvents().map { events in
-            let filteredEvents = events
-                .filter { $0.amount < 0 }
-                .filter { event in
-                    guard let filterEventType = filterEventType else { return true }
-                    return event.eventType == filterEventType
-                }
-            
-            let eventSummaries = filteredEvents.map { event in
-                EventSummary(id: event.id, eventType: event.eventType, name: event.name, phoneNumber: event.phoneNumber, date: event.date, relationship: event.relationship, amount: event.amount)
-            }
-            
-            switch sortBy {
-            case .date:
-                return eventSummaries.sorted { $0.date > $1.date }
-            case .amount:
-                return eventSummaries.sorted { $0.amount > $1.amount }
-            }
+            let filteredEvents = self.filterEventsAboutRelationship(events: events, filterRelationship: filterRelationship, isPositive: false)
+            let searchedEvents = self.searchEvents(events: filteredEvents, query: query ?? "")
+            let eventSummaries = self.convertToEventSummaries(events: searchedEvents)
+            return self.sortEventSummaries(events: eventSummaries, sortBy: sortBy)
         }
     }
     
@@ -89,7 +48,7 @@ class EventUseCase {
                 }
             }
     }
-
+    
     // 이벤트
     func fetchSingleEvent(id: String) -> Observable<Event?> {
         return repository.fetchSingleEvent(id: id)
@@ -115,7 +74,79 @@ class EventUseCase {
             }
     }
     
+    // 이벤트 타입 추가
     func updateEventType(eventType: String, color: String) -> Completable {
         return repository.updateEventType(eventType: eventType, color: color)
+    }
+    
+    // Event -> EventSummary 변환 로직
+    private func convertToEventSummaries(events: [Event]) -> [EventSummary] {
+        return events.map { event in
+            EventSummary(id: event.id, eventType: event.eventType, name: event.name, phoneNumber: event.phoneNumber, date: event.date, relationship: event.relationship, amount: event.amount)
+        }
+    }
+    
+    // 이벤트 필터링 로직 - 타입
+    private func filterEventsAboutType(events: [Event], filterEventType: String, isPositive: Bool) -> [Event] {
+        return events
+            .filter { isPositive ? $0.amount >= 0 : $0.amount < 0 }
+            .filter { event in
+                if filterEventType == "필터" {
+                    return true
+                }
+                else {
+                    return event.eventType == filterEventType
+                }
+            }
+    }
+    
+    // 이벤트 필터링 로직 - 관계
+    private func filterEventsAboutRelationship(events: [Event], filterRelationship: String, isPositive: Bool) -> [Event] {
+        return events
+            .filter { isPositive ? $0.amount >= 0 : $0.amount < 0 }
+            .filter { event in
+                if filterRelationship == "필터" {
+                    return true
+                }
+                else {
+                    return event.relationship == filterRelationship
+                }
+            }
+    }
+    
+    // 이벤트 검색 로직
+    private func searchEvents(events: [Event], query: String) -> [Event] {
+        guard !query.isEmpty else { return events }
+        
+        let lowercasedQuery = query.lowercased()
+        return events.filter { event in
+            let formattedPhoneNumber = event.phoneNumber.replacingOccurrences(of: "-", with: "")
+            let lowercasedName = event.name.lowercased()
+            return lowercasedName.contains(lowercasedQuery) || formattedPhoneNumber.contains(lowercasedQuery)
+        }
+    }
+    
+    // MyEvent 정렬 로직
+    private func sortMyEvents(events: [Event], sortBy: MyEventSortOption) -> [MyEvent] {
+        let groupedEvents = Dictionary(grouping: events) { EventKey(eventType: $0.eventType, date: $0.date) }
+        let myEvents = groupedEvents.map { (key, value) in
+            MyEvent(eventType: key.eventType, date: key.date, eventCnt: value.count, idList: value.map { $0.id })
+        }
+        switch sortBy {
+        case .date:
+            return myEvents.sorted { $0.date > $1.date }
+        case .eventCnt:
+            return myEvents.sorted { $0.eventCnt > $1.eventCnt }
+        }
+    }
+    
+    // EventSummary 정렬 로직
+    private func sortEventSummaries(events: [EventSummary], sortBy: EventSummarySortOption) -> [EventSummary] {
+        switch sortBy {
+        case .date:
+            return events.sorted { $0.date > $1.date }
+        case .amount:
+            return events.sorted { $0.amount > $1.amount }
+        }
     }
 }

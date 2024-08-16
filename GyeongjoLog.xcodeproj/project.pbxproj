@@ -89,7 +89,7 @@
 		31FDB1B42C69FCCF0010F3EC /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1B32C69FCCF0010F3EC /* CalendarViewController.swift */; };
 		31FDB1B72C69FCDF0010F3EC /* CalendarReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1B62C69FCDF0010F3EC /* CalendarReactor.swift */; };
 		31FDB1B92C6A2ABD0010F3EC /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1B82C6A2ABD0010F3EC /* String+Extension.swift */; };
-		31FDB1BD2C6B689D0010F3EC /* FilterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1BC2C6B689D0010F3EC /* FilterOption.swift */; };
+		31FDB1BD2C6B689D0010F3EC /* AmountFilterOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1BC2C6B689D0010F3EC /* AmountFilterOption.swift */; };
 		31FDB1BF2C6B865F0010F3EC /* MyEventSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1BE2C6B865F0010F3EC /* MyEventSummaryViewController.swift */; };
 		31FDB1C42C6B8B8B0010F3EC /* MyEventSummaryReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1C32C6B8B8B0010F3EC /* MyEventSummaryReactor.swift */; };
 		31FDB1C62C6BB3B70010F3EC /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1C52C6BB3B70010F3EC /* Int+Extension.swift */; };
@@ -100,6 +100,7 @@
 		31FDB1D32C6D985F0010F3EC /* EventRelationshipFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1D22C6D985F0010F3EC /* EventRelationshipFilterView.swift */; };
 		31FDB1D52C6D98850010F3EC /* EventRelationshipFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1D42C6D98850010F3EC /* EventRelationshipFilterViewController.swift */; };
 		31FDB1D72C6D98910010F3EC /* EventRelationshipFilterReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1D62C6D98910010F3EC /* EventRelationshipFilterReactor.swift */; };
+		31FDB1D92C6F01E80010F3EC /* SortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1D82C6F01E80010F3EC /* SortView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -191,7 +192,7 @@
 		31FDB1B32C69FCCF0010F3EC /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		31FDB1B62C69FCDF0010F3EC /* CalendarReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarReactor.swift; sourceTree = "<group>"; };
 		31FDB1B82C6A2ABD0010F3EC /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		31FDB1BC2C6B689D0010F3EC /* FilterOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOption.swift; sourceTree = "<group>"; };
+		31FDB1BC2C6B689D0010F3EC /* AmountFilterOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmountFilterOption.swift; sourceTree = "<group>"; };
 		31FDB1BE2C6B865F0010F3EC /* MyEventSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventSummaryViewController.swift; sourceTree = "<group>"; };
 		31FDB1C32C6B8B8B0010F3EC /* MyEventSummaryReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventSummaryReactor.swift; sourceTree = "<group>"; };
 		31FDB1C52C6BB3B70010F3EC /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
@@ -202,6 +203,7 @@
 		31FDB1D22C6D985F0010F3EC /* EventRelationshipFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRelationshipFilterView.swift; sourceTree = "<group>"; };
 		31FDB1D42C6D98850010F3EC /* EventRelationshipFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRelationshipFilterViewController.swift; sourceTree = "<group>"; };
 		31FDB1D62C6D98910010F3EC /* EventRelationshipFilterReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRelationshipFilterReactor.swift; sourceTree = "<group>"; };
+		31FDB1D82C6F01E80010F3EC /* SortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -438,7 +440,7 @@
 			children = (
 				311E254D2C64866100C61202 /* Event.swift */,
 				31FDB1A02C69B7A30010F3EC /* SortOption.swift */,
-				31FDB1BC2C6B689D0010F3EC /* FilterOption.swift */,
+				31FDB1BC2C6B689D0010F3EC /* AmountFilterOption.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -482,6 +484,7 @@
 				311E25772C64D6B800C61202 /* SetEventDetailNameTextFieldView.swift */,
 				312A995B2C663F96001F5BB8 /* SetEventDetailTextFieldView.swift */,
 				312A995D2C663FCD001F5BB8 /* SetEventDetailButtonView.swift */,
+				31FDB1D82C6F01E80010F3EC /* SortView.swift */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -861,7 +864,7 @@
 				311E257C2C64E2C900C61202 /* EventAmountCollectionViewCell.swift in Sources */,
 				31FDB1982C68F1710010F3EC /* EventSummaryCollectionViewCell.swift in Sources */,
 				311E256D2C64AECA00C61202 /* AddEventReactor.swift in Sources */,
-				31FDB1BD2C6B689D0010F3EC /* FilterOption.swift in Sources */,
+				31FDB1BD2C6B689D0010F3EC /* AmountFilterOption.swift in Sources */,
 				31FDB1D32C6D985F0010F3EC /* EventRelationshipFilterView.swift in Sources */,
 				311E250E2C6360C400C61202 /* FontManager.swift in Sources */,
 				311E25252C636C1E00C61202 /* UINavigationController+Extension.swift in Sources */,
@@ -902,6 +905,7 @@
 				311E254E2C64866100C61202 /* Event.swift in Sources */,
 				31FDB1762C67898D0010F3EC /* SelectEventTypeReactor.swift in Sources */,
 				311E255B2C64917D00C61202 /* RealmManager.swift in Sources */,
+				31FDB1D92C6F01E80010F3EC /* SortView.swift in Sources */,
 				311E25532C6488B200C61202 /* EventRealmObject.swift in Sources */,
 				31FDB1BF2C6B865F0010F3EC /* MyEventSummaryViewController.swift in Sources */,
 			);
