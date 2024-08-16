@@ -54,6 +54,12 @@ extension OthersEventViewController {
             .map { Reactor.Action.updateSearchTextField($0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
+        reactor.filterRelay
+            .bind(onNext: { [weak self] filter in
+                self?.reactor?.action.onNext(.loadFilteredOthersEventSummary(filter))
+            })
+            .disposed(by: disposeBag)
     }
     
     func bindState(reactor: OthersEventReactor){
@@ -65,5 +71,9 @@ extension OthersEventViewController {
             }
             .disposed(by: disposeBag)
         
+        reactor.state.map{ $0.filterTitle }
+            .distinctUntilChanged()
+            .bind(to: self.othersEventView.filterButton.rx.title(for: .normal))
+            .disposed(by: disposeBag)
     }
 }

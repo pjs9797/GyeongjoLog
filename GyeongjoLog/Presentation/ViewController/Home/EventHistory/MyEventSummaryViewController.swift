@@ -106,5 +106,10 @@ extension MyEventSummaryViewController {
             .distinctUntilChanged()
             .bind(to: self.myEventSummaryView.cntLabel.rx.text)
             .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.filterTitle }
+            .distinctUntilChanged()
+            .bind(to: self.myEventSummaryView.filterButton.rx.title(for: .normal))
+            .disposed(by: disposeBag)
     }
 }

@@ -43,7 +43,7 @@ class EventUseCase {
                 }
             
             let eventSummaries = filteredEvents.map { event in
-                EventSummary(id: event.id, eventType: event.eventType, name: event.name, phoneNumber: event.phoneNumber, date: event.date, amount: event.amount)
+                EventSummary(id: event.id, eventType: event.eventType, name: event.name, phoneNumber: event.phoneNumber, date: event.date, relationship: event.relationship, amount: event.amount)
             }
             
             switch sortBy {
@@ -66,7 +66,7 @@ class EventUseCase {
                 }
             
             let eventSummaries = filteredEvents.map { event in
-                EventSummary(id: event.id, eventType: event.eventType, name: event.name, phoneNumber: event.phoneNumber, date: event.date, amount: event.amount)
+                EventSummary(id: event.id, eventType: event.eventType, name: event.name, phoneNumber: event.phoneNumber, date: event.date, relationship: event.relationship, amount: event.amount)
             }
             
             switch sortBy {

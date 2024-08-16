@@ -1,10 +1,10 @@
 import UIKit
 import SnapKit
 
-class SelectRelationshipView: UIView {
-    let selectRelationshipLabel: UILabel = {
+class SelectEventTypeView: UIView {
+    let selectEventLabel: UILabel = {
         let label = UILabel()
-        label.text = "관계 선택"
+        label.text = "이벤트 선택"
         label.font = FontManager.SubHead04_SemiBold
         label.textColor = ColorManager.text01
         return label
@@ -14,18 +14,25 @@ class SelectRelationshipView: UIView {
         button.setImage(ImageManager.icon_x, for: .normal)
         return button
     }()
-    let relationshipCollectionView: UICollectionView = {
+    let eventTypeCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.minimumInteritemSpacing = 10*ConstantsManager.standardHeight
-        layout.minimumLineSpacing = 6*ConstantsManager.standardWidth
+        layout.minimumInteritemSpacing = 6*ConstantsManager.standardWidth
+        layout.minimumLineSpacing = 10*ConstantsManager.standardHeight
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(RelationshipCollectionViewCell.self, forCellWithReuseIdentifier: "RelationshipCollectionViewCell")
+        collectionView.register(EventTypeCollectionViewCell.self, forCellWithReuseIdentifier: "EventTypeCollectionViewCell")
         return collectionView
     }()
-    let selectRelationshipButton: BottomButton = {
+    let selectEventButton: BottomButton = {
         let button = BottomButton()
         button.setTitle("선택하기", for: .normal)
+        return button
+    }()
+    let addEventTypeButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("이벤트 추가하기", for: .normal)
+        button.titleLabel?.font = FontManager.Caption01
+        button.setTitleColor(ColorManager.text03, for: .normal)
         return button
     }()
     
@@ -40,33 +47,39 @@ class SelectRelationshipView: UIView {
     }
     
     private func layout() {
-        [selectRelationshipLabel,dismisButton,relationshipCollectionView,selectRelationshipButton]
+        [selectEventLabel,dismisButton,eventTypeCollectionView,selectEventButton,addEventTypeButton]
             .forEach{
                 addSubview($0)
             }
         
-        selectRelationshipLabel.snp.makeConstraints { make in
+        selectEventLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
             make.top.equalToSuperview().offset(20*ConstantsManager.standardHeight)
         }
         
         dismisButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
-            make.centerY.equalTo(selectRelationshipLabel)
+            make.centerY.equalTo(selectEventLabel)
         }
         
-        relationshipCollectionView.snp.makeConstraints { make in
+        eventTypeCollectionView.snp.makeConstraints { make in
             make.height.equalTo(100*ConstantsManager.standardHeight)
             make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
-            make.top.equalTo(selectRelationshipLabel.snp.bottom).offset(24*ConstantsManager.standardHeight)
+            make.top.equalTo(selectEventLabel.snp.bottom).offset(24*ConstantsManager.standardHeight)
         }
         
-        selectRelationshipButton.snp.makeConstraints { make in
+        selectEventButton.snp.makeConstraints { make in
             make.height.equalTo(48*ConstantsManager.standardHeight)
             make.leading.equalToSuperview().offset(20*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview().offset(-20*ConstantsManager.standardWidth)
-            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-26*ConstantsManager.standardHeight)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-42*ConstantsManager.standardHeight)
+        }
+        
+        addEventTypeButton.snp.makeConstraints { make in
+            make.width.equalTo(100*ConstantsManager.standardWidth)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(selectEventButton.snp.bottom).offset(16*ConstantsManager.standardHeight)
         }
     }
 }

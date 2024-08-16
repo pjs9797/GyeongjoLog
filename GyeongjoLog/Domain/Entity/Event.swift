@@ -24,6 +24,7 @@ struct EventSummary: Equatable {
     let name: String
     let phoneNumber: String
     let date: String
+    let relationship: String
     let amount: Int
 }
 

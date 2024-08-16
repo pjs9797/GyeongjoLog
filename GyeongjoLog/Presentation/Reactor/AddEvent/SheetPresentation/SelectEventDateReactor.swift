@@ -2,7 +2,7 @@ import ReactorKit
 import RxCocoa
 import RxFlow
 
-class SelectDateReactor: ReactorKit.Reactor, Stepper {
+class SelectEventDateReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
     private let eventUseCase: EventUseCase

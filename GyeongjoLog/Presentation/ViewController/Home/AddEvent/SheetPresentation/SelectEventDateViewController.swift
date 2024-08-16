@@ -3,11 +3,11 @@ import ReactorKit
 import RxSwift
 import RxCocoa
 
-class SelectDateViewController: DimSheetPresentationController, ReactorKit.View {
+class SelectEventDateViewController: DimSheetPresentationController, ReactorKit.View {
     var disposeBag = DisposeBag()
-    let selectDateView = SelectDateView()
+    let selectEventDateView = SelectEventDateView()
     
-    init(with reactor: SelectDateReactor) {
+    init(with reactor: SelectEventDateReactor) {
         super.init(nibName: nil, bundle: nil)
         
         self.reactor = reactor
@@ -20,7 +20,7 @@ class SelectDateViewController: DimSheetPresentationController, ReactorKit.View 
     override func loadView() {
         super.loadView()
         
-        view = selectDateView
+        view = selectEventDateView
     }
     
     override func viewDidLoad() {
@@ -30,25 +30,25 @@ class SelectDateViewController: DimSheetPresentationController, ReactorKit.View 
     }
 }
 
-extension SelectDateViewController {
-    func bind(reactor: SelectDateReactor) {
+extension SelectEventDateViewController {
+    func bind(reactor: SelectEventDateReactor) {
         bindAction(reactor: reactor)
         bindState(reactor: reactor)
     }
     
-    func bindAction(reactor: SelectDateReactor){
-        selectDateView.dismisButton.rx.tap
+    func bindAction(reactor: SelectEventDateReactor){
+        selectEventDateView.dismisButton.rx.tap
             .map{ Reactor.Action.dismissButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        selectDateView.selectDateButton.rx.tap
-            .map { reactor.eventDateRelay.accept(self.selectDateView.datePickerView.getSelectedDateString()) }
+        selectEventDateView.selectDateButton.rx.tap
+            .map { reactor.eventDateRelay.accept(self.selectEventDateView.datePickerView.getSelectedDateString()) }
             .map{ Reactor.Action.selectDateButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
     
-    func bindState(reactor: SelectDateReactor){
+    func bindState(reactor: SelectEventDateReactor){
     }
 }

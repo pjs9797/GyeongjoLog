@@ -6,6 +6,7 @@ class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
     let initialState: State
     var steps = PublishRelay<Step>()
     private let eventUseCase: EventUseCase
+    var filterRelay = PublishRelay<String>()
     
     init(eventUseCase: EventUseCase, eventType: String, idList:[String]) {
         self.eventUseCase = eventUseCase
@@ -27,11 +28,14 @@ class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
         
         // 나의 경조사 컬렉션뷰 셀 데이터 로드
         case loadMyEventSummary
+        case loadFilteredMyEventSummary(String)
     }
     
     enum Mutation {
         case setMyEventSummary([EventSummary])
         case setFilteredMyEventSummary([EventSummary])
+        case setFilterTitle(String)
+        case setSearchQuery(String)
     }
     
     struct State {
@@ -41,6 +45,8 @@ class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
         var filteredMyEventSummaries: [EventSummary] = []
         var amount: Int = 0
         var eventCnt: String = ""
+        var filterTitle: String = "필터"
+        var searchQuery: String = ""
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -58,21 +64,17 @@ class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
             
             // 버튼 탭
         case .filterButtonTapped:
+            self.steps.accept(EventHistoryStep.presentToEventRelationshipFilterViewController(filterRelay: filterRelay))
             return .empty()
         case .sortButtonTapped:
             return .empty()
             
             // 검색
         case .updateSearchTextField(let text):
-            if text.isEmpty {
-                return .just(.setFilteredMyEventSummary(currentState.myEventSummaries))
-            }
-            else {
-                let filteredSummaries = currentState.myEventSummaries.filter { summary in
-                    return self.isMatch(summary: summary, query: text)
-                }
-                return .just(.setFilteredMyEventSummary(filteredSummaries))
-            }
+            return .concat([
+                .just(.setSearchQuery(text)),
+                .just(.setFilteredMyEventSummary(filterAndSearchEvents(filter: currentState.filterTitle, query: text)))
+            ])
             
             // 나의 경조사 컬렉션뷰 셀 데이터 처리
         case .loadMyEventSummary:
@@ -80,6 +82,11 @@ class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
                 .map{ myEventSummaries in
                     return .setMyEventSummary(myEventSummaries)
                 }
+        case .loadFilteredMyEventSummary(let filter):
+            return .concat([
+                .just(.setFilterTitle(filter)),
+                .just(.setFilteredMyEventSummary(filterAndSearchEvents(filter: filter, query: currentState.searchQuery)))
+            ])
         }
     }
     
@@ -93,8 +100,26 @@ class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
             newState.eventCnt = "\(myEventSummaries.count)명의 내역입니다"
         case .setFilteredMyEventSummary(let filteredMyEventSummaries):
             newState.filteredMyEventSummaries = filteredMyEventSummaries
+        case .setFilterTitle(let filter):
+            newState.filterTitle = filter
+        case .setSearchQuery(let text):
+            newState.searchQuery = text
         }
         return newState
+    }
+    
+    private func filterAndSearchEvents(filter: String, query: String) -> [EventSummary] {
+        var results = currentState.myEventSummaries
+        
+        if filter != "필터" {
+            results = results.filter { $0.relationship == filter }
+        }
+        
+        if !query.isEmpty {
+            results = results.filter { self.isMatch(summary: $0, query: query) }
+        }
+        
+        return results
     }
     
     private func sumAllAmount(myEventSummaries: [EventSummary]) -> Int {

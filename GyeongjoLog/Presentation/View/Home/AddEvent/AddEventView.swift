@@ -13,8 +13,8 @@ class AddEventView: UIView {
     let amountCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.minimumInteritemSpacing = 10*ConstantsManager.standardHeight
-        layout.minimumLineSpacing = 6*ConstantsManager.standardWidth
+        layout.minimumInteritemSpacing = 6*ConstantsManager.standardWidth
+        layout.minimumLineSpacing = 10*ConstantsManager.standardHeight
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(EventAmountCollectionViewCell.self, forCellWithReuseIdentifier: "EventAmountCollectionViewCell")
         return collectionView

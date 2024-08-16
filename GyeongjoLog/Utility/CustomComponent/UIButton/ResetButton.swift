@@ -1,6 +1,6 @@
 import UIKit
 
-class SortButton: UIButton {
+class ResetButton: UIButton {
     init() {
         super.init(frame: .zero)
         
@@ -13,12 +13,15 @@ class SortButton: UIButton {
     
     private func configureButton() {
         var config = UIButton.Configuration.plain()
-        var titleAttr = AttributedString("최신순")
+        var titleAttr = AttributedString("초기화")
         titleAttr.font = FontManager.Body01
         config.attributedTitle = titleAttr
-        config.image = ImageManager.icon_dropdown
-        config.imagePlacement = .trailing
-        config.baseForegroundColor = ColorManager.black
+        config.image = ImageManager.icon_reset
+        config.imagePadding = 4*ConstantsManager.standardWidth
+        config.baseForegroundColor = ColorManager.text03
         self.configuration = config
+        
+        self.layer.borderWidth = 1
+        self.layer.borderColor = ColorManager.lightGrayFrame?.cgColor
     }
 }

@@ -54,15 +54,26 @@ extension MyEventViewController {
             .map { Reactor.Action.selectMyEvent($0.item) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
+        
+        reactor.filterRelay
+            .bind(onNext: { [weak self] filter in
+                self?.reactor?.action.onNext(.loadFilteredMyEvent(filter))
+            })
+            .disposed(by: disposeBag)
     }
     
     func bindState(reactor: MyEventReactor){
-        reactor.state.map { $0.myEvents }
+        reactor.state.map { $0.filteredMyEvents }
             .distinctUntilChanged()
             .bind(to: myEventView.myEventCollectionView.rx.items(cellIdentifier: "MyEventCollectionViewCell", cellType: MyEventCollectionViewCell.self)) { index, myEvent, cell in
 
                 cell.configure(with: myEvent)
             }
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.filterTitle }
+            .distinctUntilChanged()
+            .bind(to: self.myEventView.filterButton.rx.title(for: .normal))
             .disposed(by: disposeBag)
     }
 }

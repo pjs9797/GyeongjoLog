@@ -192,7 +192,7 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
             
             // 날짜 뷰
         case .dateViewTapped:
-            self.steps.accept(EventHistoryStep.presentToSelectDateViewController(eventDateRelay: eventDateRelay))
+            self.steps.accept(EventHistoryStep.presentToSelectEventDateViewController(eventDateRelay: eventDateRelay))
             return .concat([
                 .just(.setEditingSetNameView(false)),
                 .just(.setEditingPhoneNumberView(false)),

@@ -29,13 +29,21 @@ class EventHistoryFlow: Flow {
             return navigateToAddEventViewController()
         case .navigateToCalendarViewController:
             return navigateToCalendarViewController()
-            // 프레젠트
+            
+            // 프레젠트 - 필터
+        case .presentToEventTypeFilterViewController(let filterRelay):
+            return presentToEventTypeFilterViewController(filterRelay: filterRelay)
+        case .presentToEventRelationshipFilterViewController(let filterRelay):
+            return presentToEventRelationshipFilterViewController(filterRelay: filterRelay)
+            
+            // 프레젠트 - 추가 페이지
         case .presentToSelectEventTypeViewController(let eventTypeRelay):
             return presentToSelectEventTypeViewController(eventTypeRelay: eventTypeRelay)
-        case .presentToSelectDateViewController(let eventDateRelay):
-            return presentToSelectDateViewController(eventDateRelay: eventDateRelay)
+        case .presentToSelectEventDateViewController(let eventDateRelay):
+            return presentToSelectEventDateViewController(eventDateRelay: eventDateRelay)
         case .presentToSelectRelationshipViewController(let eventRelationshipRelay):
             return presentToSelectRelationshipViewController(eventRelationshipRelay: eventRelationshipRelay)
+            
             // 뒤로가기
         case .dismissSheetPresentationController:
             return dismissSheetPresentationController()
@@ -44,6 +52,7 @@ class EventHistoryFlow: Flow {
         }
     }
     
+    // 푸시
     private func navigateToHistoryViewController() -> FlowContributors {
         let myEventReactor = MyEventReactor(eventUseCase: self.eventUseCase)
         let myEventViewController = MyEventViewController(with: myEventReactor)
@@ -58,8 +67,8 @@ class EventHistoryFlow: Flow {
         return .multiple(flowContributors: [
             .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: myEventReactor),
             .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: othersEventReactor),
-//            .contribute(withNextPresentable: myEventViewController, withNextStepper: myEventReactor),
-//            .contribute(withNextPresentable: othersEventViewController, withNextStepper: othersEventReactor),
+            .contribute(withNextPresentable: myEventViewController, withNextStepper: myEventReactor),
+            .contribute(withNextPresentable: othersEventViewController, withNextStepper: othersEventReactor),
             .contribute(withNextPresentable: viewController, withNextStepper: reactor),
         ])
     }
@@ -91,6 +100,42 @@ class EventHistoryFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
+    // 프레젠트 - 필터
+    private func presentToEventTypeFilterViewController(filterRelay: PublishRelay<String>) -> FlowContributors {
+        let reactor = EventTypeFilterReactor(eventUseCase: self.eventUseCase, filterRelay: filterRelay)
+        let viewController = EventTypeFilterViewController(with: reactor)
+        if let sheet = viewController.sheetPresentationController {
+            let customDetent = UISheetPresentationController.Detent.custom { context in
+                return 340*ConstantsManager.standardHeight
+            }
+            
+            sheet.detents = [customDetent]
+            sheet.prefersGrabberVisible = false
+            sheet.preferredCornerRadius = 16*ConstantsManager.standardHeight
+        }
+        self.rootViewController.present(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func presentToEventRelationshipFilterViewController(filterRelay: PublishRelay<String>) -> FlowContributors {
+        let reactor = EventRelationshipFilterReactor(eventUseCase: self.eventUseCase, filterRelay: filterRelay)
+        let viewController = EventRelationshipFilterViewController(with: reactor)
+        if let sheet = viewController.sheetPresentationController {
+            let customDetent = UISheetPresentationController.Detent.custom { context in
+                return 340*ConstantsManager.standardHeight
+            }
+            
+            sheet.detents = [customDetent]
+            sheet.prefersGrabberVisible = false
+            sheet.preferredCornerRadius = 16*ConstantsManager.standardHeight
+        }
+        self.rootViewController.present(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    // 프레젠트 - 추가 페이지
     private func presentToSelectEventTypeViewController(eventTypeRelay: PublishRelay<String>) -> FlowContributors {
         let reactor = SelectEventTypeReactor(eventUseCase: self.eventUseCase, eventTypeRelay: eventTypeRelay)
         let viewController = SelectEventTypeViewController(with: reactor)
@@ -108,9 +153,9 @@ class EventHistoryFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func presentToSelectDateViewController(eventDateRelay: PublishRelay<String>) -> FlowContributors {
-        let reactor = SelectDateReactor(eventUseCase: self.eventUseCase, eventDateRelay: eventDateRelay)
-        let viewController = SelectDateViewController(with: reactor)
+    private func presentToSelectEventDateViewController(eventDateRelay: PublishRelay<String>) -> FlowContributors {
+        let reactor = SelectEventDateReactor(eventUseCase: self.eventUseCase, eventDateRelay: eventDateRelay)
+        let viewController = SelectEventDateViewController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
                 return 340*ConstantsManager.standardHeight
@@ -142,6 +187,7 @@ class EventHistoryFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
+    // 뒤로가기
     private func dismissSheetPresentationController() -> FlowContributors{
         self.rootViewController.dismiss(animated: true)
         
