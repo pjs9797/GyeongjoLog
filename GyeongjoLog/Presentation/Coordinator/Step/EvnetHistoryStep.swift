@@ -6,6 +6,7 @@ enum EventHistoryStep: Step {
     case navigateToHistoryViewController
     case navigateToMyEventSummaryViewController(eventType: String, idList: [String])
     case navigateToAddEventViewController
+    case navigateToAddNewEventTypeViewController
     case navigateToCalendarViewController
     
     // 프레젠트 - 필터

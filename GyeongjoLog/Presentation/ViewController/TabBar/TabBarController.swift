@@ -12,6 +12,8 @@ class TabBarController: UITabBarController {
     }
     
     private func setupTabBar() {
+        tabBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        tabBar.layer.cornerRadius = 16*ConstantsManager.standardHeight
         tabBar.backgroundColor = ColorManager.white
         tabBar.tintColor = ColorManager.blue
         tabBar.unselectedItemTintColor = ColorManager.text01

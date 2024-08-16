@@ -28,7 +28,7 @@ class SelectEventTypeView: UIView {
         button.setTitle("선택하기", for: .normal)
         return button
     }()
-    let addEventTypeButton: UIButton = {
+    let addNewEventTypeButton: UIButton = {
         let button = UIButton()
         button.setTitle("이벤트 추가하기", for: .normal)
         button.titleLabel?.font = FontManager.Caption01
@@ -47,7 +47,7 @@ class SelectEventTypeView: UIView {
     }
     
     private func layout() {
-        [selectEventLabel,dismisButton,eventTypeCollectionView,selectEventButton,addEventTypeButton]
+        [selectEventLabel,dismisButton,eventTypeCollectionView,selectEventButton,addNewEventTypeButton]
             .forEach{
                 addSubview($0)
             }
@@ -76,7 +76,7 @@ class SelectEventTypeView: UIView {
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-42*ConstantsManager.standardHeight)
         }
         
-        addEventTypeButton.snp.makeConstraints { make in
+        addNewEventTypeButton.snp.makeConstraints { make in
             make.width.equalTo(100*ConstantsManager.standardWidth)
             make.centerX.equalToSuperview()
             make.top.equalTo(selectEventButton.snp.bottom).offset(16*ConstantsManager.standardHeight)

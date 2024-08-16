@@ -16,6 +16,7 @@ class SelectEventTypeReactor: ReactorKit.Reactor, Stepper {
     enum Action {
         case dismissButtonTapped
         case selectEventButtonTapped
+        case addNewEventTypeButtonTapped
         case selectEventType(Int)
         case loadEventTypes
     }
@@ -40,6 +41,10 @@ class SelectEventTypeReactor: ReactorKit.Reactor, Stepper {
         case .selectEventButtonTapped:
             eventTypeRelay.accept(currentState.selectedEventType ?? "")
             self.steps.accept(EventHistoryStep.dismissSheetPresentationController)
+            return .empty()
+        case .addNewEventTypeButtonTapped:
+            self.steps.accept(EventHistoryStep.dismissSheetPresentationController)
+            self.steps.accept(EventHistoryStep.navigateToAddNewEventTypeViewController)
             return .empty()
         case .selectEventType(let index):
             let selectedEventType = currentState.eventTypes[index].name

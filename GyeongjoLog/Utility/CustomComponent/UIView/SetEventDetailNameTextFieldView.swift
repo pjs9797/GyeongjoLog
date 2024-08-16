@@ -10,7 +10,7 @@ class SetEventDetailNameTextFieldView: UIView {
         
         let placeholderText = "이름"
         var placeholderAttributes = AttributedFontManager.Heading02
-        placeholderAttributes[.foregroundColor] = ColorManager.textDisabled ?? .black
+        placeholderAttributes[.foregroundColor] = ColorManager.textDisabled ?? .gray
         textField.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: placeholderAttributes)
         
         return textField

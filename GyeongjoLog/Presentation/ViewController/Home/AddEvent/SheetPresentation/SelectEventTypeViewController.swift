@@ -51,6 +51,11 @@ extension SelectEventTypeViewController {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        selectEventTypeView.addNewEventTypeButton.rx.tap
+            .map{ Reactor.Action.addNewEventTypeButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         selectEventTypeView.eventTypeCollectionView.rx.itemSelected
             .map { Reactor.Action.selectEventType($0.item) }
             .bind(to: reactor.action)

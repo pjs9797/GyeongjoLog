@@ -7,7 +7,6 @@ import SnapKit
 class AddEventViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let backButton = UIBarButtonItem(image: ImageManager.icon_back, style: .plain, target: nil, action: nil)
-    let deleteButton = UIBarButtonItem(image: ImageManager.icon_trash, style: .plain, target: nil, action: nil)
     let addEventView = AddEventView()
     
     init(with reactor: AddEventReactor) {
@@ -37,7 +36,6 @@ class AddEventViewController: UIViewController, ReactorKit.View {
     private func setNavigationbar() {
         self.title = "내역추가"
         navigationItem.leftBarButtonItem = backButton
-        navigationItem.rightBarButtonItem = deleteButton
     }
 }
 

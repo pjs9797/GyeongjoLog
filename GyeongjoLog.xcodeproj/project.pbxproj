@@ -101,6 +101,10 @@
 		31FDB1D52C6D98850010F3EC /* EventRelationshipFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1D42C6D98850010F3EC /* EventRelationshipFilterViewController.swift */; };
 		31FDB1D72C6D98910010F3EC /* EventRelationshipFilterReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1D62C6D98910010F3EC /* EventRelationshipFilterReactor.swift */; };
 		31FDB1D92C6F01E80010F3EC /* SortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1D82C6F01E80010F3EC /* SortView.swift */; };
+		31FDB1DB2C6F5FB50010F3EC /* AddNewEventTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1DA2C6F5FB50010F3EC /* AddNewEventTypeView.swift */; };
+		31FDB1DD2C6F5FBD0010F3EC /* AddNewEventTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1DC2C6F5FBD0010F3EC /* AddNewEventTypeViewController.swift */; };
+		31FDB1DF2C6F5FCA0010F3EC /* AddNewEventTypeReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1DE2C6F5FCA0010F3EC /* AddNewEventTypeReactor.swift */; };
+		31FDB1E12C6F68660010F3EC /* SelectColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1E02C6F68660010F3EC /* SelectColorCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -204,6 +208,10 @@
 		31FDB1D42C6D98850010F3EC /* EventRelationshipFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRelationshipFilterViewController.swift; sourceTree = "<group>"; };
 		31FDB1D62C6D98910010F3EC /* EventRelationshipFilterReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRelationshipFilterReactor.swift; sourceTree = "<group>"; };
 		31FDB1D82C6F01E80010F3EC /* SortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortView.swift; sourceTree = "<group>"; };
+		31FDB1DA2C6F5FB50010F3EC /* AddNewEventTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewEventTypeView.swift; sourceTree = "<group>"; };
+		31FDB1DC2C6F5FBD0010F3EC /* AddNewEventTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewEventTypeViewController.swift; sourceTree = "<group>"; };
+		31FDB1DE2C6F5FCA0010F3EC /* AddNewEventTypeReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewEventTypeReactor.swift; sourceTree = "<group>"; };
+		31FDB1E02C6F68660010F3EC /* SelectColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -503,6 +511,7 @@
 				31FDB16E2C67884C0010F3EC /* SheetPresentation */,
 				31FDB1672C671DFE0010F3EC /* CollectionViewCell */,
 				311E256E2C64AFBD00C61202 /* AddEventView.swift */,
+				31FDB1DA2C6F5FB50010F3EC /* AddNewEventTypeView.swift */,
 			);
 			path = AddEvent;
 			sourceTree = "<group>";
@@ -513,6 +522,7 @@
 				31FDB16C2C6785270010F3EC /* EventTypeCollectionViewCell.swift */,
 				31FDB1852C6865FB0010F3EC /* RelationshipCollectionViewCell.swift */,
 				311E257B2C64E2C900C61202 /* EventAmountCollectionViewCell.swift */,
+				31FDB1E02C6F68660010F3EC /* SelectColorCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -630,6 +640,7 @@
 			children = (
 				31FDB1832C685F370010F3EC /* SheetPresentation */,
 				311E256A2C64AEBA00C61202 /* AddEventViewController.swift */,
+				31FDB1DC2C6F5FBD0010F3EC /* AddNewEventTypeViewController.swift */,
 			);
 			path = AddEvent;
 			sourceTree = "<group>";
@@ -639,6 +650,7 @@
 			children = (
 				31FDB1842C685F430010F3EC /* SheetPresentation */,
 				311E256C2C64AECA00C61202 /* AddEventReactor.swift */,
+				31FDB1DE2C6F5FCA0010F3EC /* AddNewEventTypeReactor.swift */,
 			);
 			path = AddEvent;
 			sourceTree = "<group>";
@@ -832,6 +844,7 @@
 				311E256B2C64AEBA00C61202 /* AddEventViewController.swift in Sources */,
 				311E25232C636C1200C61202 /* UIViewController+Extension.swift in Sources */,
 				31FDB1B72C69FCDF0010F3EC /* CalendarReactor.swift in Sources */,
+				31FDB1DD2C6F5FBD0010F3EC /* AddNewEventTypeViewController.swift in Sources */,
 				311E25412C64734900C61202 /* EventHistoryReactor.swift in Sources */,
 				311E25872C65021000C61202 /* EventHistoryFlow.swift in Sources */,
 				311E25832C64EF3D00C61202 /* UITextView+Extension.swift in Sources */,
@@ -847,6 +860,7 @@
 				31FDB1862C6865FB0010F3EC /* RelationshipCollectionViewCell.swift in Sources */,
 				311E25282C636CB400C61202 /* MyEventView.swift in Sources */,
 				311E25892C65021900C61202 /* EvnetHistoryStep.swift in Sources */,
+				31FDB1E12C6F68660010F3EC /* SelectColorCollectionViewCell.swift in Sources */,
 				311E25312C639C7000C61202 /* SortButton.swift in Sources */,
 				311E25682C64A7EE00C61202 /* Date+Extension.swift in Sources */,
 				311E25572C648C2E00C61202 /* EventUseCase.swift in Sources */,
@@ -856,6 +870,7 @@
 				31FDB1652C6718A30010F3EC /* BottomButton.swift in Sources */,
 				31FDB19F2C69AB470010F3EC /* OthersEventReactor.swift in Sources */,
 				31FDB1CC2C6C7B1A0010F3EC /* EventTypeFilterViewController.swift in Sources */,
+				31FDB1DF2C6F5FCA0010F3EC /* AddNewEventTypeReactor.swift in Sources */,
 				31FDB1882C6866790010F3EC /* SelectRelationshipView.swift in Sources */,
 				31FDB17C2C67BA7D0010F3EC /* SelectEventDateViewController.swift in Sources */,
 				311E24D92C634C2300C61202 /* AppDelegate.swift in Sources */,
@@ -867,6 +882,7 @@
 				31FDB1BD2C6B689D0010F3EC /* AmountFilterOption.swift in Sources */,
 				31FDB1D32C6D985F0010F3EC /* EventRelationshipFilterView.swift in Sources */,
 				311E250E2C6360C400C61202 /* FontManager.swift in Sources */,
+				31FDB1DB2C6F5FB50010F3EC /* AddNewEventTypeView.swift in Sources */,
 				311E25252C636C1E00C61202 /* UINavigationController+Extension.swift in Sources */,
 				31FDB1922C68E3FC0010F3EC /* MyEventViewController.swift in Sources */,
 				311E25622C6495D000C61202 /* UserDefaultsManager.swift in Sources */,
