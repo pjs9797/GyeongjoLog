@@ -97,18 +97,18 @@ class EventSummaryCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configure(with eventSummary: EventSummary) {
-        phoneNumber = eventSummary.phoneNumber
-        if let colorName = UserDefaultsManager.shared.fetchColor(forEventType: eventSummary.eventType),
+    func configure(with event: Event) {
+        phoneNumber = event.phoneNumber
+        if let colorName = UserDefaultsManager.shared.fetchColor(forEventType: event.eventType),
            let color = UIColor(named: colorName) {
             typeLabel.textColor = color
         } else {
             typeLabel.textColor = ColorManager.text01
         }
-        typeLabel.text = eventSummary.eventType
-        nameLabel.text = eventSummary.name
-        dateLabel.text = eventSummary.date
-        setAmountLabel(amount: eventSummary.amount)
+        typeLabel.text = event.eventType
+        nameLabel.text = event.name
+        dateLabel.text = event.date
+        setAmountLabel(amount: event.amount)
     }
     
     private func setAmountLabel(amount: Int){

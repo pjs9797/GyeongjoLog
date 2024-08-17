@@ -1,16 +1,25 @@
+import Foundation
 import ReactorKit
 import RxCocoa
 import RxFlow
 
 class SelectEventDateReactor: ReactorKit.Reactor, Stepper {
-    let initialState: State = State()
+    let initialState: State
     var steps = PublishRelay<Step>()
     private let eventUseCase: EventUseCase
     let eventDateRelay: PublishRelay<String>
     
-    init(eventUseCase: EventUseCase, eventDateRelay: PublishRelay<String>) {
+    init(eventUseCase: EventUseCase, eventDateRelay: PublishRelay<String>, initialDate: String?) {
         self.eventUseCase = eventUseCase
         self.eventDateRelay = eventDateRelay
+        
+        if let initialDate = initialDate {
+            self.initialState = State(selectedDate: initialDate)
+        } 
+        else {
+            let currentDate = DateFormatter.localizedString(from: Date(), dateStyle: .short, timeStyle: .none)
+            self.initialState = State(selectedDate: currentDate)
+        }
     }
     
     enum Action {
@@ -19,9 +28,11 @@ class SelectEventDateReactor: ReactorKit.Reactor, Stepper {
     }
     
     enum Mutation {
+        case setInitialDate(String)
     }
     
     struct State {
+        var selectedDate: String
     }
     
     func mutate(action: Action) -> Observable<Mutation> {

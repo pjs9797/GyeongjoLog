@@ -53,7 +53,7 @@ class SetEventDetailNameTextFieldView: UIView {
         }
         
         nameTextField.snp.makeConstraints { make in
-            textFieldWidthConstraint = make.width.equalTo(42).constraint
+            textFieldWidthConstraint = make.width.equalTo(42*ConstantsManager.standardWidth).constraint
             make.leading.equalToSuperview()
             make.centerY.equalToSuperview()
         }
@@ -75,7 +75,7 @@ class SetEventDetailNameTextFieldView: UIView {
     func textFieldDidChange(_ text: String) {
         let textWidth = text.size(withAttributes: [.font: nameTextField.font!]).width
         let totalWidth = textWidth + 52
-        textFieldWidthConstraint?.update(offset: (textWidth+42)*ConstantsManager.standardWidth)
+        textFieldWidthConstraint?.update(offset: (textWidth+46)*ConstantsManager.standardWidth)
         self.snp.updateConstraints { make in
             make.width.equalTo(totalWidth*ConstantsManager.standardWidth)
         }
@@ -85,7 +85,7 @@ class SetEventDetailNameTextFieldView: UIView {
         let text = nameTextField.text ?? ""
         let textWidth = text.size(withAttributes: [.font: nameTextField.font!]).width
         let totalWidth = textWidth + 52
-        textFieldWidthConstraint?.update(offset: (textWidth+42)*ConstantsManager.standardWidth)
+        textFieldWidthConstraint?.update(offset: (textWidth+46)*ConstantsManager.standardWidth)
         self.snp.updateConstraints { make in
             make.width.equalTo(totalWidth*ConstantsManager.standardWidth)
         }
@@ -103,7 +103,7 @@ class SetEventDetailNameTextFieldView: UIView {
         
         let totalWidth = textWidth + 15
         
-        textFieldWidthConstraint?.update(offset: textWidth * ConstantsManager.standardWidth)
+        textFieldWidthConstraint?.update(offset: (textWidth + 5) * ConstantsManager.standardWidth)
         self.snp.updateConstraints { make in
             make.width.equalTo(totalWidth * ConstantsManager.standardWidth)
         }

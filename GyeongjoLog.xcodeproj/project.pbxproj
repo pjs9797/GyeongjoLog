@@ -561,6 +561,7 @@
 		31FDB17F2C685EDB0010F3EC /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				31FDB1F42C70DF1B0010F3EC /* OnBoarding */,
 				311E251A2C636B2100C61202 /* TabBar */,
 				31FDB1822C685EF40010F3EC /* Home */,
 			);
@@ -570,9 +571,8 @@
 		31FDB1802C685EE20010F3EC /* Reactor */ = {
 			isa = PBXGroup;
 			children = (
-				31FDB1B52C69FCD40010F3EC /* Calendar */,
-				31FDB1812C685EE80010F3EC /* EventHistory */,
-				31FDB1992C69AAC90010F3EC /* AddEvent+DetailEvent */,
+				31FDB1F52C70DF310010F3EC /* OnBoarding */,
+				31FDB1F62C70DF3E0010F3EC /* Home */,
 			);
 			path = Reactor;
 			sourceTree = "<group>";
@@ -803,6 +803,30 @@
 				31FDB1F22C70631C0010F3EC /* AddMyEventSummaryReactor.swift */,
 			);
 			path = AddEvent;
+			sourceTree = "<group>";
+		};
+		31FDB1F42C70DF1B0010F3EC /* OnBoarding */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = OnBoarding;
+			sourceTree = "<group>";
+		};
+		31FDB1F52C70DF310010F3EC /* OnBoarding */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = OnBoarding;
+			sourceTree = "<group>";
+		};
+		31FDB1F62C70DF3E0010F3EC /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB1B52C69FCD40010F3EC /* Calendar */,
+				31FDB1812C685EE80010F3EC /* EventHistory */,
+				31FDB1992C69AAC90010F3EC /* AddEvent+DetailEvent */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

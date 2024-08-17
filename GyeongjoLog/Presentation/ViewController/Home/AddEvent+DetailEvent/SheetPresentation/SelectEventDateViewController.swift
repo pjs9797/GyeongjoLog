@@ -50,5 +50,18 @@ extension SelectEventDateViewController {
     }
     
     func bindState(reactor: SelectEventDateReactor){
+        reactor.state.map { $0.selectedDate }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] selectedDate in
+                let components = selectedDate.split(separator: ".").compactMap { Int($0) }
+                guard components.count == 3 else { return }
+                
+                self?.selectEventDateView.datePickerView.selectedYear = components[0]
+                self?.selectEventDateView.datePickerView.selectedMonth = components[1]
+                self?.selectEventDateView.datePickerView.selectedDay = components[2]
+                
+                self?.selectEventDateView.datePickerView.selectCurrentDate()
+            })
+            .disposed(by: disposeBag)
     }
 }

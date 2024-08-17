@@ -58,7 +58,7 @@ class DatePickerView: UIView, UIPickerViewDelegate, UIPickerViewDataSource {
         pickerView.reloadComponent(2) // 일 컴포넌트만 업데이트
     }
     
-    private func selectCurrentDate() {
+    func selectCurrentDate() {
         if let yearIndex = years.firstIndex(of: selectedYear) {
             pickerView.selectRow(yearIndex, inComponent: 0, animated: false)
         }

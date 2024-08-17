@@ -17,23 +17,24 @@ class EventUseCase {
     }
     
     // 나의 경조사 요약 목록
-    func fetchMyEventSummaries(idList: [String], query: String? = nil, filterRelationship: String = "필터", sortBy: EventSummarySortOption = .date) -> Observable<[EventSummary]> {
+    func fetchMyEventSummaries(eventType: String, date: String, query: String? = nil, filterRelationship: String = "필터", sortBy: EventSummarySortOption = .date) -> Observable<[Event]> {
         return repository.fetchEvents().map { events in
-            let idFilteredEvents = events.filter { idList.contains($0.id) }
-            let filteredEvents = self.filterEventsAboutRelationship(events: idFilteredEvents, filterRelationship: filterRelationship, isPositive: true)
+            let filteredByTypeAndDate = events.filter { event in
+                event.eventType == eventType && event.date == date
+            }
+            let filteredEvents = self.filterEventsAboutRelationship(events: filteredByTypeAndDate, filterRelationship: filterRelationship, isPositive: true)
             let searchedEvents = self.searchEvents(events: filteredEvents, query: query ?? "")
-            let eventSummaries = self.convertToEventSummaries(events: searchedEvents)
-            return self.sortEventSummaries(events: eventSummaries, sortBy: sortBy)
+            return self.sortEventSummaries(events: searchedEvents, sortBy: sortBy)
         }
     }
+
     
     // 타인 경조사 요약 목록
-    func searchAndFilterOtherEventSummaries(query: String? = nil, filterRelationship: String = "필터", sortBy: EventSummarySortOption = .date) -> Observable<[EventSummary]> {
+    func searchAndFilterOtherEventSummaries(query: String? = nil, filterRelationship: String = "필터", sortBy: EventSummarySortOption = .date) -> Observable<[Event]> {
         return repository.fetchEvents().map { events in
             let filteredEvents = self.filterEventsAboutRelationship(events: events, filterRelationship: filterRelationship, isPositive: false)
             let searchedEvents = self.searchEvents(events: filteredEvents, query: query ?? "")
-            let eventSummaries = self.convertToEventSummaries(events: searchedEvents)
-            return self.sortEventSummaries(events: eventSummaries, sortBy: sortBy)
+            return self.sortEventSummaries(events: searchedEvents, sortBy: sortBy)
         }
     }
     
@@ -77,13 +78,6 @@ class EventUseCase {
     // 이벤트 타입 추가
     func updateEventType(eventType: String, color: String) -> Completable {
         return repository.updateEventType(eventType: eventType, color: color)
-    }
-    
-    // Event -> EventSummary 변환 로직
-    private func convertToEventSummaries(events: [Event]) -> [EventSummary] {
-        return events.map { event in
-            EventSummary(id: event.id, name: event.name, phoneNumber: event.phoneNumber, eventType: event.eventType, date: event.date, relationship: event.relationship, amount: event.amount, memo: event.memo)
-        }
     }
     
     // 이벤트 필터링 로직 - 타입
@@ -130,7 +124,7 @@ class EventUseCase {
     private func sortMyEvents(events: [Event], sortBy: MyEventSortOption) -> [MyEvent] {
         let groupedEvents = Dictionary(grouping: events) { EventKey(eventType: $0.eventType, date: $0.date) }
         let myEvents = groupedEvents.map { (key, value) in
-            MyEvent(eventType: key.eventType, date: key.date, eventCnt: value.count, idList: value.map { $0.id })
+            MyEvent(eventType: key.eventType, date: key.date, eventCnt: value.count)
         }
         switch sortBy {
         case .date:
@@ -141,7 +135,7 @@ class EventUseCase {
     }
     
     // EventSummary 정렬 로직
-    private func sortEventSummaries(events: [EventSummary], sortBy: EventSummarySortOption) -> [EventSummary] {
+    private func sortEventSummaries(events: [Event], sortBy: EventSummarySortOption) -> [Event] {
         switch sortBy {
         case .date:
             return events.sorted { $0.date > $1.date }

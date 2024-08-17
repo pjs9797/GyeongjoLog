@@ -17,7 +17,7 @@ class BottomButton: UIButton {
         self.layer.cornerRadius = 8*ConstantsManager.standardHeight
         self.titleLabel?.font = FontManager.Body03
         self.setTitleColor(ColorManager.white, for: .normal)
-        self.setTitleColor(ColorManager.white?.withAlphaComponent(0.8), for: .highlighted)
+        self.setTitleColor(ColorManager.white?.withAlphaComponent(0.6), for: .highlighted)
     }
     
     func isNotEnable(){

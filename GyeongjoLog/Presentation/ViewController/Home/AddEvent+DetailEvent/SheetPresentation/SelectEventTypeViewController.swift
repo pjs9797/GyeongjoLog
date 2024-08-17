@@ -71,6 +71,18 @@ extension SelectEventTypeViewController {
             }
             .disposed(by: disposeBag)
         
+        reactor.state.compactMap { $0.selectedIndex }
+            .observe(on: MainScheduler.asyncInstance)
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] selectedIndex in
+                self?.selectEventTypeView.eventTypeCollectionView.selectItem(
+                    at: IndexPath(item: selectedIndex, section: 0),
+                    animated: false,
+                    scrollPosition: .centeredVertically
+                )
+            })
+            .disposed(by: disposeBag)
+        
         reactor.state.map{ $0.isEnableSelectEventButton }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isEnable in

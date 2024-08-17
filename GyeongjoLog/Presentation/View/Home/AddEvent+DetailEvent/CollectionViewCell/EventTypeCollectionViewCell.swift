@@ -58,5 +58,6 @@ class EventTypeCollectionViewCell: UICollectionViewCell {
         eventTypeLabel.text = eventType.name
         eventTypeLabel.textColor = UIColor(named: eventType.color) ?? ColorManager.text01
         originalTextColor = UIColor(named: eventType.color) ?? ColorManager.text01
+        updateUI()
     }
 }

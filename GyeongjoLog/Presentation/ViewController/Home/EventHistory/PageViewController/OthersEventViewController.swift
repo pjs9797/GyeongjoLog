@@ -28,8 +28,13 @@ class OthersEventViewController: UIViewController, ReactorKit.View {
         
         hideKeyboard(disposeBag: disposeBag)
         view.backgroundColor = ColorManager.BgMain
-        self.reactor?.action.onNext(.loadOthersEventSummary)
         self.setupTapGestureToHideSortView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.reactor?.action.onNext(.loadOthersEventSummary)
     }
     
     private func setupTapGestureToHideSortView() {
@@ -113,15 +118,11 @@ extension OthersEventViewController {
                     self?.othersEventView.othersEventSummaryCollectionView.isHidden = true
                     self?.othersEventView.noneOthersEventImageView.isHidden = false
                     self?.othersEventView.noneOthersEventLabel.isHidden = false
-                    self?.othersEventView.filterButton.isEnabled = false
-                    self?.othersEventView.sortButton.isEnabled = false
                 }
                 else {
                     self?.othersEventView.othersEventSummaryCollectionView.isHidden = false
                     self?.othersEventView.noneOthersEventImageView.isHidden = true
                     self?.othersEventView.noneOthersEventLabel.isHidden = true
-                    self?.othersEventView.filterButton.isEnabled = true
-                    self?.othersEventView.sortButton.isEnabled = true
                 }
             })
             .disposed(by: disposeBag)

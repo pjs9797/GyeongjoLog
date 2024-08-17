@@ -124,12 +124,12 @@ extension DetailEventViewController {
         
         // 전화번호 뷰
         addEventView.phoneNumberView.contentTextField.rx.controlEvent([.editingDidBegin])
-            .skip(1)
             .map{ Reactor.Action.phoneNumberViewTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         addEventView.phoneNumberView.contentTextField.rx.text.orEmpty
+            .skip(1)
             .bind(onNext: { [weak self] phoneNumber in
                 let filterPhoneNumber = String(phoneNumber.prefix(13))
                 self?.addEventView.phoneNumberView.contentTextField.text = filterPhoneNumber
@@ -180,12 +180,12 @@ extension DetailEventViewController {
         
         // 금액 뷰
         addEventView.amountView.contentTextField.rx.controlEvent([.editingDidBegin])
-            .skip(1)
             .map{ Reactor.Action.amountViewTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
         addEventView.amountView.contentTextField.rx.text.orEmpty
+            .skip(1)
             .map{ Reactor.Action.inputAmountText($0)}
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
@@ -262,6 +262,17 @@ extension DetailEventViewController {
                     self?.addEventView.nameView.clearButton.isHidden = false
                     self?.addEventView.nameView.pencilImageView.isHidden = true
                 }
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.name }
+            .take(1)
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] text in
+                self?.addEventView.nameView.updateWidthForNonEditing()
+                self?.addEventView.nameView.nameTextField.text = text
+                self?.addEventView.nameView.clearButton.isHidden = true
+                self?.addEventView.nameView.pencilImageView.isHidden = false
             })
             .disposed(by: disposeBag)
         

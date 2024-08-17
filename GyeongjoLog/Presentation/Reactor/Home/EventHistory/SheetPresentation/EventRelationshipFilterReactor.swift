@@ -3,14 +3,28 @@ import RxCocoa
 import RxFlow
 
 class EventRelationshipFilterReactor: ReactorKit.Reactor, Stepper {
-    let initialState: State = State()
+    var initialState: State
     var steps = PublishRelay<Step>()
     private let eventUseCase: EventUseCase
     let filterRelay: PublishRelay<String>
     
-    init(eventUseCase: EventUseCase, filterRelay: PublishRelay<String>) {
+    init(eventUseCase: EventUseCase, filterRelay: PublishRelay<String>, initialFilterType: String?) {
         self.eventUseCase = eventUseCase
         self.filterRelay = filterRelay
+        if let initialFilterType = initialFilterType {
+            self.initialState = State(
+                relationships: ["가족", "친구", "직장", "연인", "이웃", "지인"],
+                selectedRelationship: initialFilterType,
+                isEnableSelectRelationshipButton: true
+            )
+        } 
+        else {
+            self.initialState = State(
+                relationships: ["가족", "친구", "직장", "연인", "이웃", "지인"],
+                selectedRelationship: nil,
+                isEnableSelectRelationshipButton: false
+            )
+        }
     }
     
     enum Action {

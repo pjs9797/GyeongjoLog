@@ -32,7 +32,7 @@ class OthersEventReactor: ReactorKit.Reactor, Stepper {
     }
     
     enum Mutation {
-        case setOthersEventSummary([EventSummary])
+        case setOthersEventSummary([Event])
         case setSearchQuery(String)
         case setFilterOption(String)
         case setSortOption(EventSummarySortOption)
@@ -40,7 +40,7 @@ class OthersEventReactor: ReactorKit.Reactor, Stepper {
     }
     
     struct State {
-        var othersEventSummaries: [EventSummary] = []
+        var othersEventSummaries: [Event] = []
         var searchQuery: String = ""
         var filterTitle: String = "필터"
         var sortOption: EventSummarySortOption = .date
@@ -52,7 +52,8 @@ class OthersEventReactor: ReactorKit.Reactor, Stepper {
         switch action {
             // 버튼 탭
         case .filterButtonTapped:
-            self.steps.accept(EventHistoryStep.presentToEventRelationshipFilterViewController(filterRelay: filterRelay))
+            let currentFilterType = currentState.filterTitle == "필터" ? nil : currentState.filterTitle
+            self.steps.accept(EventHistoryStep.presentToEventRelationshipFilterViewController(filterRelay: filterRelay, initialFilterType: currentFilterType))
             return .empty()
         case .sortButtonTapped:
             return .just(.setSortViewHidden)

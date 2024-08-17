@@ -6,7 +6,7 @@ class CalendarView: UIView {
     let yearMonthButton: UIButton = {
         let button = UIButton()
         button.setTitleColor(ColorManager.text01, for: .normal)
-        button.setTitleColor(ColorManager.text01?.withAlphaComponent(0.8), for: .highlighted)
+        button.setTitleColor(ColorManager.text01?.withAlphaComponent(0.6), for: .highlighted)
         button.titleLabel?.font = FontManager.Heading02
         return button
     }()

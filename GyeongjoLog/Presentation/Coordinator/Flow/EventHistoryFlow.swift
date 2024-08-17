@@ -23,8 +23,8 @@ class EventHistoryFlow: Flow {
             // 푸시
         case .navigateToHistoryViewController:
             return navigateToHistoryViewController()
-        case .navigateToMyEventSummaryViewController(let eventType, let idList):
-            return navigateToMyEventSummaryViewController(eventType: eventType, idList: idList)
+        case .navigateToMyEventSummaryViewController(let eventType, let date):
+            return navigateToMyEventSummaryViewController(eventType: eventType, date: date)
         case .navigateToAddEventViewController(let addEventFlow):
             return navigateToAddEventViewController(addEventFlow: addEventFlow)
         case .navigateToAddMyEventSummaryViewController(let eventType, let date):
@@ -37,16 +37,16 @@ class EventHistoryFlow: Flow {
             return navigateToCalendarViewController()
             
             // 프레젠트 - 필터
-        case .presentToEventTypeFilterViewController(let filterRelay):
-            return presentToEventTypeFilterViewController(filterRelay: filterRelay)
-        case .presentToEventRelationshipFilterViewController(let filterRelay):
-            return presentToEventRelationshipFilterViewController(filterRelay: filterRelay)
+        case .presentToEventTypeFilterViewController(let filterRelay, let initialFilterType):
+            return presentToEventTypeFilterViewController(filterRelay: filterRelay, initialFilterType: initialFilterType)
+        case .presentToEventRelationshipFilterViewController(let filterRelay, let initialFilterType):
+            return presentToEventRelationshipFilterViewController(filterRelay: filterRelay, initialFilterType: initialFilterType)
             
             // 프레젠트 - 추가 페이지
-        case .presentToSelectEventTypeViewController(let eventTypeRelay):
-            return presentToSelectEventTypeViewController(eventTypeRelay: eventTypeRelay)
-        case .presentToSelectEventDateViewController(let eventDateRelay):
-            return presentToSelectEventDateViewController(eventDateRelay: eventDateRelay)
+        case .presentToSelectEventTypeViewController(let eventTypeRelay, let initialEventType):
+            return presentToSelectEventTypeViewController(eventTypeRelay: eventTypeRelay, initialEventType: initialEventType)
+        case .presentToSelectEventDateViewController(let eventDateRelay, let initialDate):
+            return presentToSelectEventDateViewController(eventDateRelay: eventDateRelay, initialDate: initialDate)
         case .presentToSelectRelationshipViewController(let eventRelationshipRelay):
             return presentToSelectRelationshipViewController(eventRelationshipRelay: eventRelationshipRelay)
             
@@ -74,14 +74,12 @@ class EventHistoryFlow: Flow {
             .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: myEventReactor),
             .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: othersEventReactor),
             .contribute(withNextPresentable: viewController, withNextStepper: reactor),
-//            .contribute(withNextPresentable: myEventViewController, withNextStepper: myEventReactor),
-//            .contribute(withNextPresentable: othersEventViewController, withNextStepper: othersEventReactor),
             
         ])
     }
     
-    private func navigateToMyEventSummaryViewController(eventType: String, idList: [String]) -> FlowContributors {
-        let reactor = MyEventSummaryReactor(eventUseCase: self.eventUseCase, eventType: eventType, idList: idList)
+    private func navigateToMyEventSummaryViewController(eventType: String, date: String) -> FlowContributors {
+        let reactor = MyEventSummaryReactor(eventUseCase: self.eventUseCase, eventType: eventType, date: date)
         let viewController = MyEventSummaryViewController(with: reactor)
         viewController.hidesBottomBarWhenPushed = true
         self.rootViewController.pushViewController(viewController, animated: true)
@@ -107,7 +105,7 @@ class EventHistoryFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func navigateToDetailEventViewController(addEventFlow: AddEventFlow, event: EventSummary) -> FlowContributors {
+    private func navigateToDetailEventViewController(addEventFlow: AddEventFlow, event: Event) -> FlowContributors {
         let reactor = DatailEventReactor(eventUseCase: self.eventUseCase, addEventFlow: addEventFlow, event: event)
         let viewController = DetailEventViewController(with: reactor)
         viewController.hidesBottomBarWhenPushed = true
@@ -135,8 +133,8 @@ class EventHistoryFlow: Flow {
     }
     
     // 프레젠트 - 필터
-    private func presentToEventTypeFilterViewController(filterRelay: PublishRelay<String>) -> FlowContributors {
-        let reactor = EventTypeFilterReactor(eventUseCase: self.eventUseCase, filterRelay: filterRelay)
+    private func presentToEventTypeFilterViewController(filterRelay: PublishRelay<String>, initialFilterType: String?) -> FlowContributors {
+        let reactor = EventTypeFilterReactor(eventUseCase: self.eventUseCase, filterRelay: filterRelay, initialFilterType: initialFilterType)
         let viewController = EventTypeFilterViewController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
@@ -152,8 +150,8 @@ class EventHistoryFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func presentToEventRelationshipFilterViewController(filterRelay: PublishRelay<String>) -> FlowContributors {
-        let reactor = EventRelationshipFilterReactor(eventUseCase: self.eventUseCase, filterRelay: filterRelay)
+    private func presentToEventRelationshipFilterViewController(filterRelay: PublishRelay<String>, initialFilterType: String?) -> FlowContributors {
+        let reactor = EventRelationshipFilterReactor(eventUseCase: self.eventUseCase, filterRelay: filterRelay, initialFilterType: initialFilterType)
         let viewController = EventRelationshipFilterViewController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
@@ -170,8 +168,8 @@ class EventHistoryFlow: Flow {
     }
     
     // 프레젠트 - 추가 페이지
-    private func presentToSelectEventTypeViewController(eventTypeRelay: PublishRelay<String>) -> FlowContributors {
-        let reactor = SelectEventTypeReactor(eventUseCase: self.eventUseCase, eventTypeRelay: eventTypeRelay)
+    private func presentToSelectEventTypeViewController(eventTypeRelay: PublishRelay<String>, initialEventType: String?) -> FlowContributors {
+        let reactor = SelectEventTypeReactor(eventUseCase: self.eventUseCase, eventTypeRelay: eventTypeRelay, initialEventType: initialEventType)
         let viewController = SelectEventTypeViewController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
@@ -187,8 +185,8 @@ class EventHistoryFlow: Flow {
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
-    private func presentToSelectEventDateViewController(eventDateRelay: PublishRelay<String>) -> FlowContributors {
-        let reactor = SelectEventDateReactor(eventUseCase: self.eventUseCase, eventDateRelay: eventDateRelay)
+    private func presentToSelectEventDateViewController(eventDateRelay: PublishRelay<String>, initialDate: String?) -> FlowContributors {
+        let reactor = SelectEventDateReactor(eventUseCase: self.eventUseCase, eventDateRelay: eventDateRelay, initialDate: initialDate)
         let viewController = SelectEventDateViewController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in

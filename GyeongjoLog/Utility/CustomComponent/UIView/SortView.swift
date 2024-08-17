@@ -6,7 +6,7 @@ class SortView: UIView {
         let button = UIButton()
         button.setTitle("최신순", for: .normal)
         button.setTitleColor(ColorManager.blue, for: .normal)
-        button.setTitleColor(ColorManager.blue?.withAlphaComponent(0.8), for: .normal)
+        button.setTitleColor(ColorManager.blue?.withAlphaComponent(0.6), for: .normal)
         button.titleLabel?.font = FontManager.Body0201
         return button
     }()
@@ -14,7 +14,7 @@ class SortView: UIView {
         let button = UIButton()
         button.setTitle("", for: .normal)
         button.setTitleColor(ColorManager.black, for: .normal)
-        button.setTitleColor(ColorManager.black?.withAlphaComponent(0.8), for: .normal)
+        button.setTitleColor(ColorManager.black?.withAlphaComponent(0.6), for: .normal)
         button.titleLabel?.font = FontManager.Body0201
         return button
     }()

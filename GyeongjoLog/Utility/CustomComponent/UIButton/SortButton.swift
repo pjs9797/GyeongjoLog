@@ -12,13 +12,11 @@ class SortButton: UIButton {
     }
     
     private func configureButton() {
-        var config = UIButton.Configuration.plain()
-        var titleAttr = AttributedString("최신순")
-        titleAttr.font = FontManager.Body01
-        config.attributedTitle = titleAttr
-        config.image = ImageManager.icon_dropdown
-        config.imagePlacement = .trailing
-        config.baseForegroundColor = ColorManager.black
-        self.configuration = config
+        self.setTitle("최신순", for: .normal)
+        self.titleLabel?.font = FontManager.Body01
+        self.setTitleColor(ColorManager.black, for: .normal)
+        self.setTitleColor(ColorManager.black?.withAlphaComponent(0.6), for: .highlighted)
+        self.setImage(ImageManager.icon_dropdown, for: .normal)
+        self.semanticContentAttribute = .forceRightToLeft
     }
 }

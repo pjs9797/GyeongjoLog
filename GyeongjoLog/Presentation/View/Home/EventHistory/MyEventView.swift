@@ -72,6 +72,16 @@ class MyEventView: UIView {
             make.top.equalTo(sortButton.snp.bottom).offset(8*ConstantsManager.standardHeight)
         }
         
+        noneMyEventImageView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-300*ConstantsManager.standardHeight)
+        }
+        
+        noneMyEventLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(noneMyEventImageView.snp.bottom).offset(18*ConstantsManager.standardHeight)
+        }
+        
         myEventCollectionView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)

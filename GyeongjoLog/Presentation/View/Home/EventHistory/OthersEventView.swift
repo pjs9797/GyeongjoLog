@@ -48,7 +48,7 @@ class OthersEventView: UIView {
     }
     
     private func layout() {
-        [searchView,filterButton,sortButton,othersEventSummaryCollectionView,sortView]
+        [searchView,filterButton,sortButton,noneOthersEventImageView,noneOthersEventLabel,othersEventSummaryCollectionView,sortView]
             .forEach{
                 addSubview($0)
             }
@@ -77,6 +77,16 @@ class OthersEventView: UIView {
             make.height.equalTo(130*ConstantsManager.standardHeight)
             make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
             make.top.equalTo(sortButton.snp.bottom).offset(8*ConstantsManager.standardHeight)
+        }
+        
+        noneOthersEventImageView.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(168*ConstantsManager.standardWidth)
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-228*ConstantsManager.standardHeight)
+        }
+        
+        noneOthersEventLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(noneOthersEventImageView.snp.bottom).offset(18*ConstantsManager.standardHeight)
         }
         
         othersEventSummaryCollectionView.snp.makeConstraints { make in

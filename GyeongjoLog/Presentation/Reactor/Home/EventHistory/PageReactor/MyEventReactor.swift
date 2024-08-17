@@ -47,7 +47,8 @@ class MyEventReactor: ReactorKit.Reactor, Stepper {
         switch action {
             // 버튼 탭
         case .filterButtonTapped:
-            self.steps.accept(EventHistoryStep.presentToEventTypeFilterViewController(filterRelay: self.filterRelay))
+            let currentFilterType = currentState.filterTitle == "필터" ? nil : currentState.filterTitle
+            self.steps.accept(EventHistoryStep.presentToEventTypeFilterViewController(filterRelay: self.filterRelay, initialFilterType: currentFilterType))
             return .empty()
         case .sortButtonTapped:
             return .just(.setSortViewHidden)
@@ -74,7 +75,7 @@ class MyEventReactor: ReactorKit.Reactor, Stepper {
             
             // 컬렉션뷰 셀 탭
         case .selectMyEvent(let index):
-            self.steps.accept(EventHistoryStep.navigateToMyEventSummaryViewController(eventType: currentState.myEvents[index].eventType, idList: currentState.myEvents[index].idList))
+            self.steps.accept(EventHistoryStep.navigateToMyEventSummaryViewController(eventType: currentState.myEvents[index].eventType, date: currentState.myEvents[index].date))
             return .empty()
             
             // 나의 경조사 컬렉션뷰 셀 데이터 처리

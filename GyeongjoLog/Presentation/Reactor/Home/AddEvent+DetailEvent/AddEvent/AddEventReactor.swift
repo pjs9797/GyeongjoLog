@@ -163,7 +163,10 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
                 .just(.setIsEnableAddEventButton)
             ])
         case .nameViewClearButtonTapped:
-            return .just(.setNameText(""))
+            return .concat([
+                .just(.setNameText("")),
+                .just(.setIsEnableAddEventButton)
+            ])
             
             // 전화번호 뷰
         case .phoneNumberViewTapped:
@@ -183,11 +186,15 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
                 .just(.setIsEnableAddEventButton)
             ])
         case .phoneNumberViewClearButtonTapped:
-            return .just(.setPhoneNumberText(""))
+            return .concat([
+                .just(.setPhoneNumberText("")),
+                .just(.setIsEnableAddEventButton)
+            ])
             
             // 이벤트 타입 뷰
         case .eventTypeViewTapped:
-            self.steps.accept(EventHistoryStep.presentToSelectEventTypeViewController(eventTypeRelay: self.eventTypeRelay))
+            let currentEventType = currentState.eventType.isEmpty ? nil : currentState.eventType
+            self.steps.accept(EventHistoryStep.presentToSelectEventTypeViewController(eventTypeRelay: self.eventTypeRelay, initialEventType: currentEventType))
             return .concat([
                 .just(.setEditingSetNameView(false)),
                 .just(.setEditingPhoneNumberView(false)),
@@ -205,7 +212,8 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
             
             // 날짜 뷰
         case .dateViewTapped:
-            self.steps.accept(EventHistoryStep.presentToSelectEventDateViewController(eventDateRelay: eventDateRelay))
+            let currentDate = currentState.date.isEmpty ? nil : currentState.date
+            self.steps.accept(EventHistoryStep.presentToSelectEventDateViewController(eventDateRelay: eventDateRelay, initialDate: currentDate))
             return .concat([
                 .just(.setEditingSetNameView(false)),
                 .just(.setEditingPhoneNumberView(false)),
@@ -278,18 +286,23 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
             
             return .concat([
                 .just(.setAmount(isOthersEvent ? -amountValue : amountValue)),
-                .just(.setFormattedAmountText(formattedText))
+                .just(.setFormattedAmountText(formattedText)),
+                .just(.setIsEnableAddEventButton)
             ])
         case .amountViewClearButtonTapped:
             return .concat([
                 .just(.setAmount(0)),
-                .just(.setFormattedAmountText(nil))
+                .just(.setFormattedAmountText(nil)),
+                .just(.setIsEnableAddEventButton)
             ])
             
             // 금액 컬렉션뷰
         case .selectAmount(let index):
             let selectedAmount = currentState.eventAmounts[index]
-            return .just(.addAmount(selectedAmount))
+            return .concat([
+                .just(.addAmount(selectedAmount)),
+                .just(.setIsEnableAddEventButton)
+            ])
             
             // 메모 뷰
         case .memoTextViewTapped:
@@ -373,7 +386,7 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
             // 추가 버튼
         case .setIsEnableAddEventButton:
             newState.isEnableAddEventButton = !newState.name.isEmpty &&
-            !newState.phoneNumber.isEmpty &&
+            newState.phoneNumber.count == 13 &&
             !newState.eventType.isEmpty &&
             !newState.date.isEmpty &&
             !newState.relationship.isEmpty &&

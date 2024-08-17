@@ -15,18 +15,6 @@ struct MyEvent: Equatable {
     let eventType: String
     let date: String
     let eventCnt: Int
-    let idList: [String]
-}
-
-struct EventSummary: Equatable {
-    let id: String
-    let name: String
-    let phoneNumber: String
-    let eventType: String
-    let date: String
-    let relationship: String
-    let amount: Int
-    let memo: String?
 }
 
 struct EventKey: Hashable {

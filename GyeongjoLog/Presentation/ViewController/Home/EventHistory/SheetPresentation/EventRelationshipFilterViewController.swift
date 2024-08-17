@@ -70,6 +70,16 @@ extension EventRelationshipFilterViewController {
             }
             .disposed(by: disposeBag)
         
+        reactor.state.compactMap { $0.selectedRelationship }
+            .observe(on: MainScheduler.asyncInstance)
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] selectedRelationship in
+                guard let index = reactor.currentState.relationships.firstIndex(of: selectedRelationship) else { return }
+                let indexPath = IndexPath(item: index, section: 0)
+                self?.eventRelationshipFilterView.relationshipCollectionView.selectItem(at: indexPath, animated: false, scrollPosition: .centeredVertically)
+            })
+            .disposed(by: disposeBag)
+        
         reactor.state.map{ $0.isEnableSelectRelationshipButton }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isEnable in

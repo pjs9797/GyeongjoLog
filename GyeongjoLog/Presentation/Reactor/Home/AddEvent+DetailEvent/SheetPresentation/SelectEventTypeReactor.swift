@@ -2,21 +2,27 @@ import ReactorKit
 import RxCocoa
 import RxFlow
 
-class EventTypeFilterReactor: ReactorKit.Reactor, Stepper {
-    let initialState: State = State()
+class SelectEventTypeReactor: ReactorKit.Reactor, Stepper {
+    var initialState: State
     var steps = PublishRelay<Step>()
     private let eventUseCase: EventUseCase
-    let filterRelay: PublishRelay<String>
+    let eventTypeRelay: PublishRelay<String>
     
-    init(eventUseCase: EventUseCase, filterRelay: PublishRelay<String>) {
+    init(eventUseCase: EventUseCase, eventTypeRelay: PublishRelay<String>, initialEventType: String?) {
         self.eventUseCase = eventUseCase
-        self.filterRelay = filterRelay
+        self.eventTypeRelay = eventTypeRelay
+        if let initialEventType = initialEventType {
+            self.initialState = State(selectedEventType: initialEventType)
+        }
+        else {
+            self.initialState = State()
+        }
     }
     
     enum Action {
         case dismissButtonTapped
-        case resetButtonTapped
         case selectEventButtonTapped
+        case addNewEventTypeButtonTapped
         case selectEventType(Int)
         case loadEventTypes
     }
@@ -25,11 +31,13 @@ class EventTypeFilterReactor: ReactorKit.Reactor, Stepper {
         case setEventTypes([EventType])
         case setSelectEventType(String)
         case setSelectButtonEnable(Bool)
+        case selectEventTypeAtIndex(Int)
     }
     
     struct State {
         var eventTypes: [EventType] = []
         var selectedEventType: String? = nil
+        var selectedIndex: Int? = nil
         var isEnableSelectEventButton: Bool = false
     }
     
@@ -38,13 +46,13 @@ class EventTypeFilterReactor: ReactorKit.Reactor, Stepper {
         case .dismissButtonTapped:
             self.steps.accept(EventHistoryStep.dismissSheetPresentationController)
             return .empty()
-        case .resetButtonTapped:
-            filterRelay.accept("필터")
+        case .selectEventButtonTapped:
+            eventTypeRelay.accept(currentState.selectedEventType ?? "")
             self.steps.accept(EventHistoryStep.dismissSheetPresentationController)
             return .empty()
-        case .selectEventButtonTapped:
-            filterRelay.accept(currentState.selectedEventType ?? "")
+        case .addNewEventTypeButtonTapped:
             self.steps.accept(EventHistoryStep.dismissSheetPresentationController)
+            self.steps.accept(EventHistoryStep.navigateToAddNewEventTypeViewController)
             return .empty()
         case .selectEventType(let index):
             let selectedEventType = currentState.eventTypes[index].name
@@ -55,8 +63,15 @@ class EventTypeFilterReactor: ReactorKit.Reactor, Stepper {
         case .loadEventTypes:
             return self.eventUseCase.fetchEventTypes()
                 .map { eventTypes in
-                    .setEventTypes(eventTypes)
+                    var mutations: [Mutation] = [.setEventTypes(eventTypes)]
+                    if let initialEventType = self.currentState.selectedEventType,
+                       let selectedIndex = eventTypes.firstIndex(where: { $0.name == initialEventType }) {
+                        mutations.append(.selectEventTypeAtIndex(selectedIndex))
+                        mutations.append(.setSelectButtonEnable(true))
+                    }
+                    return mutations
                 }
+                .flatMap { Observable.from($0) }
         }
     }
     
@@ -69,6 +84,8 @@ class EventTypeFilterReactor: ReactorKit.Reactor, Stepper {
             newState.selectedEventType = type
         case .setSelectButtonEnable(let isEnable):
             newState.isEnableSelectEventButton = isEnable
+        case .selectEventTypeAtIndex(let index):
+            newState.selectedIndex = index
         }
         return newState
     }

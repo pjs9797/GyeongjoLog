@@ -30,9 +30,14 @@ class MyEventSummaryViewController: UIViewController, ReactorKit.View {
         super.viewDidLoad()
         
         hideKeyboard(disposeBag: disposeBag)
-        self.reactor?.action.onNext(.loadMyEventSummary)
         self.setNavigationbar()
         self.setupTapGestureToHideSortView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.reactor?.action.onNext(.loadMyEventSummary)
     }
     
     private func setNavigationbar() {
@@ -127,7 +132,7 @@ extension MyEventSummaryViewController {
             })
             .disposed(by: disposeBag)
         
-        reactor.state.map { $0.myEventSummaries }
+        reactor.state.map { $0.filteredMyEventSummary }
             .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
             .bind(to: myEventSummaryView.myEventSummaryCollectionView.rx.items(cellIdentifier: "EventSummaryCollectionViewCell", cellType: EventSummaryCollectionViewCell.self)) { index, myEvent, cell in
@@ -148,7 +153,7 @@ extension MyEventSummaryViewController {
             .bind(to: self.myEventSummaryView.cntLabel.rx.text)
             .disposed(by: disposeBag)
         
-        reactor.state.map{ $0.filterOption }
+        reactor.state.map{ $0.filterTitle }
             .distinctUntilChanged()
             .bind(to: self.myEventSummaryView.filterButton.rx.title(for: .normal))
             .disposed(by: disposeBag)

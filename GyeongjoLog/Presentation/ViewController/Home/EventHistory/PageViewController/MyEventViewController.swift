@@ -27,8 +27,13 @@ class MyEventViewController: UIViewController, ReactorKit.View {
         super.viewDidLoad()
         
         view.backgroundColor = ColorManager.BgMain
-        self.reactor?.action.onNext(.loadMyEvent)
         self.setupTapGestureToHideSortView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.reactor?.action.onNext(.loadMyEvent)
     }
     
     private func setupTapGestureToHideSortView() {
@@ -106,15 +111,11 @@ extension MyEventViewController {
                     self?.myEventView.myEventCollectionView.isHidden = true
                     self?.myEventView.noneMyEventImageView.isHidden = false
                     self?.myEventView.noneMyEventLabel.isHidden = false
-                    self?.myEventView.filterButton.isEnabled = false
-                    self?.myEventView.sortButton.isEnabled = false
                 }
                 else {
                     self?.myEventView.myEventCollectionView.isHidden = false
                     self?.myEventView.noneMyEventImageView.isHidden = true
                     self?.myEventView.noneMyEventLabel.isHidden = true
-                    self?.myEventView.filterButton.isEnabled = true
-                    self?.myEventView.sortButton.isEnabled = true
                 }
             })
             .disposed(by: disposeBag)
