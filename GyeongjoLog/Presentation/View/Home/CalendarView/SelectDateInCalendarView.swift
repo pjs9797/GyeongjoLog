@@ -86,10 +86,20 @@ class SelectDateInCalendarView: UIView {
         let attributedString = NSMutableAttributedString()
         var eventCntAttributes = AttributedFontManager.Heading0101
         eventCntAttributes[.foregroundColor] = ColorManager.blue
-        let eventCntString = NSAttributedString(
-            string: "\(totalAmount)",
-            attributes: eventCntAttributes
-        )
+        var eventCntString: NSAttributedString
+        let absAmount = abs(totalAmount)
+        if totalAmount > 0 {
+            eventCntString = NSAttributedString(
+                string: "+\(absAmount.formattedWithComma())",
+                attributes: eventCntAttributes
+            )
+        }
+        else {
+            eventCntString = NSAttributedString(
+                string: "-\(absAmount.formattedWithComma())",
+                attributes: eventCntAttributes
+            )
+        }
         
         var suffixAttributes = AttributedFontManager.Body02
         suffixAttributes[.foregroundColor] = ColorManager.text01 ?? .black

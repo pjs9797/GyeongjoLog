@@ -23,6 +23,9 @@ class OthersEventReactor: ReactorKit.Reactor, Stepper {
         // 검색
         case updateSearchTextField(String)
         
+        // 컬렉션뷰셀 탭
+        case selectOthersEventSummary(Int)
+        
         // 나의 경조사 컬렉션뷰 셀 데이터 로드
         case loadOthersEventSummary
         case loadFilteredOthersEventSummary(String)
@@ -78,6 +81,11 @@ class OthersEventReactor: ReactorKit.Reactor, Stepper {
         case .updateSearchTextField(let query):
             return self.eventUseCase.searchAndFilterOtherEventSummaries(query: query, filterRelationship: currentState.filterTitle, sortBy: currentState.sortOption)
                 .map { .setOthersEventSummary($0) }
+            
+            // 컬렉션뷰셀 탭
+        case .selectOthersEventSummary(let index):
+            self.steps.accept(EventHistoryStep.navigateToDetailEventViewController(addEventFlow: .othersEventSummary, event: currentState.othersEventSummaries[index]))
+            return .empty()
             
             // 나의 경조사 컬렉션뷰 셀 데이터 처리
         case .loadOthersEventSummary:

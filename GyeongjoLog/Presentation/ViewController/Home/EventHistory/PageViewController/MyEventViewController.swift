@@ -90,11 +90,33 @@ extension MyEventViewController {
     
     func bindState(reactor: MyEventReactor){
         reactor.state.map { $0.myEvents }
+            .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
             .bind(to: myEventView.myEventCollectionView.rx.items(cellIdentifier: "MyEventCollectionViewCell", cellType: MyEventCollectionViewCell.self)) { index, myEvent, cell in
 
                 cell.configure(with: myEvent)
             }
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.myEvents }
+            .observe(on: MainScheduler.asyncInstance)
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] events in
+                if events.isEmpty {
+                    self?.myEventView.myEventCollectionView.isHidden = true
+                    self?.myEventView.noneMyEventImageView.isHidden = false
+                    self?.myEventView.noneMyEventLabel.isHidden = false
+                    self?.myEventView.filterButton.isEnabled = false
+                    self?.myEventView.sortButton.isEnabled = false
+                }
+                else {
+                    self?.myEventView.myEventCollectionView.isHidden = false
+                    self?.myEventView.noneMyEventImageView.isHidden = true
+                    self?.myEventView.noneMyEventLabel.isHidden = true
+                    self?.myEventView.filterButton.isEnabled = true
+                    self?.myEventView.sortButton.isEnabled = true
+                }
+            })
             .disposed(by: disposeBag)
         
         reactor.state.map{ $0.filterTitle }
@@ -104,7 +126,10 @@ extension MyEventViewController {
         
         reactor.state.map{ $0.sortTitle }
             .distinctUntilChanged()
-            .bind(to: self.myEventView.sortButton.rx.title(for: .normal))
+            .bind(onNext: { [weak self] title in
+                self?.myEventView.sortButton.setTitle(title, for: .normal)
+                self?.myEventView.sortView.setSortViewButton(title: title)
+            })
             .disposed(by: disposeBag)
         
         reactor.state.map{ $0.isHiddenSortView }

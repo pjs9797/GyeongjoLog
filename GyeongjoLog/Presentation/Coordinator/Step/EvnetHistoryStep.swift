@@ -6,6 +6,8 @@ enum EventHistoryStep: Step {
     case navigateToHistoryViewController
     case navigateToMyEventSummaryViewController(eventType: String, idList: [String])
     case navigateToAddEventViewController(addEventFlow: AddEventFlow)
+    case navigateToAddMyEventSummaryViewController(eventType: String, date: String)
+    case navigateToDetailEventViewController(addEventFlow: AddEventFlow, event: EventSummary)
     case navigateToAddNewEventTypeViewController
     case navigateToCalendarViewController
     

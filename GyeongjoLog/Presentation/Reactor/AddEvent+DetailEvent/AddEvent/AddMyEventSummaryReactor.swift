@@ -3,21 +3,15 @@ import ReactorKit
 import RxCocoa
 import RxFlow
 
-class AddEventReactor: ReactorKit.Reactor, Stepper {
+class AddMyEventSummaryReactor: ReactorKit.Reactor, Stepper {
     let initialState: State
     var steps = PublishRelay<Step>()
     private let eventUseCase: EventUseCase
-    let addEventFlow: AddEventFlow
-    var eventTypeRelay = PublishRelay<String>()
-    var eventDateRelay = PublishRelay<String>()
     var eventRelationshipRelay = PublishRelay<String>()
     
-    init(eventUseCase: EventUseCase, addEventFlow: AddEventFlow) {
+    init(eventUseCase: EventUseCase, eventType: String, date: String) {
         self.eventUseCase = eventUseCase
-        self.addEventFlow = addEventFlow
-        self.initialState = State(
-            eventAmounts: addEventFlow == .myEventSummary ? [10000, 50000, 100000, 500000, 1000000] : [-10000, -50000, -100000, -500000, -1000000]
-        )
+        self.initialState = State(eventType: eventType, date: date)
     }
     
     enum Action {
@@ -35,14 +29,6 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
         case inputPhoneNumberText(String)
         case phoneNumberViewClearButtonTapped
         
-        // 이벤트 타입 뷰
-        case eventTypeViewTapped
-        case inputEventTypeTitle(String)
-        
-        // 날짜 뷰
-        case dateViewTapped
-        case inputDateTitle(String)
-        
         // 관계 뷰
         case relationshipViewTapped
         case inputRelationshipTitle(String)
@@ -54,6 +40,10 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
         
         // 금액 컬렉션뷰 셀 탭
         case selectAmount(Int)
+        
+        // 메모 뷰
+        case memoTextViewTapped
+        case inputMemoText(String)
     }
     
     enum Mutation {
@@ -65,14 +55,6 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
         case setEditingPhoneNumberView(Bool)
         case setPhoneNumberText(String)
         
-        // 이벤트 타입 뷰
-        case setEditingEventTypeView(Bool)
-        case setEventTypeTitle(String)
-        
-        // 날짜 뷰
-        case setEditingDateView(Bool)
-        case setDateTitle(String)
-        
         // 관계 뷰
         case setEditingRelationshipView(Bool)
         case setRelationshipTitle(String)
@@ -82,32 +64,36 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
         case setAmount(Int)
         case setFormattedAmountText(NSAttributedString?)
         
+        // 금액 컬렉션뷰
+        case addAmount(Int)
+        
         // 추가 버튼 상태 설정
         case setIsEnableAddEventButton
         
-        // 금액 컬렉션뷰
-        case addAmount(Int)
+        // 메모 뷰
+        case setEditingMemoTextView(Bool)
+        case setMemoText(String)
     }
     
     struct State {
         // isEditing 상태
         var isEditingSetNameView: Bool = false
         var isEditingPhoneNumberView: Bool = false
-        var isEditingEventTypeView: Bool = false
-        var isEditingDateView: Bool = false
         var isEditingRelationshipView: Bool = false
         var isEditingAmountView: Bool = false
+        var isEditingMemoTextView: Bool = false
         
         // textField 텍스트 상태
         var name: String = ""
         var phoneNumber: String = ""
-        var eventType: String = ""
-        var date: String = ""
+        var eventType: String
+        var date: String
         var relationship: String = ""
         var amount: Int = 0
         var formattedAmount: NSAttributedString?
+        var memo: String?
         
-        var eventAmounts: [Int]
+        var eventAmounts: [Int] = [10000, 50000, 100000, 500000, 1000000]
         
         // 추가 버튼 상태
         var isEnableAddEventButton: Bool = false
@@ -127,32 +113,23 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
                               date: currentState.date,
                               relationship: currentState.relationship,
                               amount: currentState.amount,
-                              memo: nil) // memo 처리 필요 시 추가
-            self.steps.accept(EventHistoryStep.popViewController)
-            return RealmManager.shared.saveRandomEvents()
+                              memo: currentState.memo)
+            return eventUseCase.saveEvent(event: event)
                 .andThen(Completable.create { completable in
                     self.steps.accept(EventHistoryStep.popViewController)
                     completable(.completed)
                     return Disposables.create()
                 })
                 .andThen(.empty())
-            //            return eventUseCase.saveEvent(event: event)
-            //                .andThen(Completable.create { completable in
-            //                    self.steps.accept(EventHistoryStep.popViewController)
-            //                    completable(.completed)
-            //                    return Disposables.create()
-            //                })
-            //                .andThen(.empty())
             
             // 이름 뷰
         case .nameViewTapped:
             return .concat([
                 .just(.setEditingSetNameView(true)),
                 .just(.setEditingPhoneNumberView(false)),
-                .just(.setEditingEventTypeView(false)),
-                .just(.setEditingDateView(false)),
                 .just(.setEditingRelationshipView(false)),
                 .just(.setEditingAmountView(false)),
+                .just(.setEditingMemoTextView(false))
             ])
         case .inputNameText(let name):
             return .concat([
@@ -167,10 +144,9 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
             return .concat([
                 .just(.setEditingSetNameView(false)),
                 .just(.setEditingPhoneNumberView(true)),
-                .just(.setEditingEventTypeView(false)),
-                .just(.setEditingDateView(false)),
                 .just(.setEditingRelationshipView(false)),
                 .just(.setEditingAmountView(false)),
+                .just(.setEditingMemoTextView(false))
             ])
         case .inputPhoneNumberText(let phoneNumber):
             let formattedPhoneNumber = formatPhoneNumber(phoneNumber)
@@ -181,50 +157,15 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
         case .phoneNumberViewClearButtonTapped:
             return .just(.setPhoneNumberText(""))
             
-            // 이벤트 타입 뷰
-        case .eventTypeViewTapped:
-            self.steps.accept(EventHistoryStep.presentToSelectEventTypeViewController(eventTypeRelay: self.eventTypeRelay))
-            return .concat([
-                .just(.setEditingSetNameView(false)),
-                .just(.setEditingPhoneNumberView(false)),
-                .just(.setEditingEventTypeView(true)),
-                .just(.setEditingDateView(false)),
-                .just(.setEditingRelationshipView(false)),
-                .just(.setEditingAmountView(false)),
-            ])
-        case .inputEventTypeTitle(let eventType):
-            return .concat([
-                .just(.setEventTypeTitle(eventType)),
-                .just(.setIsEnableAddEventButton)
-            ])
-            
-            // 날짜 뷰
-        case .dateViewTapped:
-            self.steps.accept(EventHistoryStep.presentToSelectEventDateViewController(eventDateRelay: eventDateRelay))
-            return .concat([
-                .just(.setEditingSetNameView(false)),
-                .just(.setEditingPhoneNumberView(false)),
-                .just(.setEditingEventTypeView(false)),
-                .just(.setEditingDateView(true)),
-                .just(.setEditingRelationshipView(false)),
-                .just(.setEditingAmountView(false)),
-            ])
-        case .inputDateTitle(let date):
-            return .concat([
-                .just(.setDateTitle(date)),
-                .just(.setIsEnableAddEventButton)
-            ])
-            
             // 관계 뷰
         case .relationshipViewTapped:
             self.steps.accept(EventHistoryStep.presentToSelectRelationshipViewController(eventRelationshipRelay: eventRelationshipRelay))
             return .concat([
                 .just(.setEditingSetNameView(false)),
                 .just(.setEditingPhoneNumberView(false)),
-                .just(.setEditingEventTypeView(false)),
-                .just(.setEditingDateView(false)),
                 .just(.setEditingRelationshipView(true)),
                 .just(.setEditingAmountView(false)),
+                .just(.setEditingMemoTextView(false))
             ])
         case .inputRelationshipTitle(let relationship):
             return .concat([
@@ -237,24 +178,22 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
             return .concat([
                 .just(.setEditingSetNameView(false)),
                 .just(.setEditingPhoneNumberView(false)),
-                .just(.setEditingEventTypeView(false)),
-                .just(.setEditingDateView(false)),
                 .just(.setEditingRelationshipView(false)),
                 .just(.setEditingAmountView(true)),
+                .just(.setEditingMemoTextView(false))
             ])
         case .inputAmountText(let text):
-            print(text)
-            let amountText = text.replacingOccurrences(of: "원", with: "").replacingOccurrences(of: "-", with: "").replacingOccurrences(of: ",", with: "").trimmingCharacters(in: .whitespaces)
-            print(amountText)
-            let amountValue = Int(amountText) ?? 0
-            let isOthersEvent = addEventFlow == .othersEventSummary
+            let amountText = text.replacingOccurrences(of: "원", with: "")
+                .replacingOccurrences(of: "+", with: "")
+                .replacingOccurrences(of: ",", with: "")
+                .trimmingCharacters(in: .whitespaces)
             
+            let amountValue = Int(amountText) ?? 0
             let formattedText: NSAttributedString?
             if amountValue == 0 {
                 formattedText = nil
-            } 
-            else {
-                let formattedAmountText = (isOthersEvent ? "- " : "") + amountValue.formattedWithComma()
+            } else {
+                let formattedAmountText = "+ " + amountValue.formattedWithComma()
                 let attributedText = NSMutableAttributedString(string: formattedAmountText, attributes: [
                     .font: FontManager.Heading0101
                 ])
@@ -266,7 +205,7 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
             }
             
             return .concat([
-                .just(.setAmount(isOthersEvent ? -amountValue : amountValue)),
+                .just(.setAmount(amountValue)),
                 .just(.setFormattedAmountText(formattedText))
             ])
         case .amountViewClearButtonTapped:
@@ -279,6 +218,18 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
         case .selectAmount(let index):
             let selectedAmount = currentState.eventAmounts[index]
             return .just(.addAmount(selectedAmount))
+            
+            // 메모 뷰
+        case .memoTextViewTapped:
+            return .concat([
+                .just(.setEditingSetNameView(false)),
+                .just(.setEditingPhoneNumberView(false)),
+                .just(.setEditingRelationshipView(false)),
+                .just(.setEditingAmountView(false)),
+                .just(.setEditingMemoTextView(true))
+            ])
+        case .inputMemoText(let text):
+            return .just(.setMemoText(text))
         }
     }
     
@@ -297,18 +248,6 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
         case .setPhoneNumberText(let phoneNumber):
             newState.phoneNumber = phoneNumber
             
-            // 이벤트 타입 뷰
-        case .setEditingEventTypeView(let isEditing):
-            newState.isEditingEventTypeView = isEditing
-        case .setEventTypeTitle(let eventType):
-            newState.eventType = eventType
-            
-            // 날짜 뷰
-        case .setEditingDateView(let isEditing):
-            newState.isEditingDateView = isEditing
-        case .setDateTitle(let date):
-            newState.date = date
-            
             // 관계 뷰
         case .setEditingRelationshipView(let isEditing):
             newState.isEditingRelationshipView = isEditing
@@ -325,12 +264,11 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
             
             // 금액 컬렉션뷰
         case .addAmount(let amount):
-            print(currentState.amount,amount)
             let currentAmount = currentState.amount
             let newAmount = currentAmount + amount
             newState.amount = newAmount
             let absAmount = abs(newAmount)
-            let formattedAmountText = (addEventFlow == .othersEventSummary ? "- " : "") + absAmount.formattedWithComma()
+            let formattedAmountText = "+ " + absAmount.formattedWithComma()
             let attributedText = NSMutableAttributedString(string: formattedAmountText, attributes: [
                 .font: FontManager.Heading0101
             ])
@@ -339,6 +277,12 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
             ])
             attributedText.append(wonText)
             newState.formattedAmount = attributedText
+            
+            // 메모 뷰
+        case .setEditingMemoTextView(let isEditing):
+            newState.isEditingMemoTextView = isEditing
+        case .setMemoText(let text):
+            newState.memo = text
             
             // 추가 버튼
         case .setIsEnableAddEventButton:
@@ -364,3 +308,4 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
         return String(formattedString.prefix(13))
     }
 }
+

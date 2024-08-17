@@ -29,6 +29,9 @@ class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
         // 검색
         case updateSearchTextField(String)
         
+        // 컬렉션뷰셀 탭
+        case selectMyEventSummary(Int)
+        
         // 나의 경조사 컬렉션뷰 셀 데이터 로드
         case loadMyEventSummary
         case loadFilteredMyEventSummary(String)
@@ -66,7 +69,7 @@ class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(EventHistoryStep.navigateToCalendarViewController)
             return .empty()
         case .plusButtonTapped:
-            self.steps.accept(EventHistoryStep.navigateToAddEventViewController(addEventFlow: .myEventSummary))
+            self.steps.accept(EventHistoryStep.navigateToAddMyEventSummaryViewController(eventType: currentState.eventType, date: currentState.myEventSummaries[0].date))
             return .empty()
             
             // 버튼 탭
@@ -100,6 +103,11 @@ class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
         case .updateSearchTextField(let query):
             return self.eventUseCase.fetchMyEventSummaries(idList: currentState.idList, query: query, filterRelationship: currentState.filterOption, sortBy: currentState.sortOption)
                 .map { .setMyEventSummary($0) }
+            
+            // 컬렉션뷰셀 탭
+        case .selectMyEventSummary(let index):
+            self.steps.accept(EventHistoryStep.navigateToDetailEventViewController(addEventFlow: .myEventSummary, event: currentState.myEventSummaries[index]))
+            return .empty()
             
             // 나의 경조사 컬렉션뷰 셀 데이터 처리
         case .loadMyEventSummary:

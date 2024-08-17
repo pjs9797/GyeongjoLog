@@ -3,6 +3,7 @@ import RxSwift
 import SnapKit
 
 class EventSummaryCollectionViewCell: UICollectionViewCell {
+    var disposeBag = DisposeBag()
     var phoneNumber = ""
     let typeBackgroundView: UIView = {
         let view = UIView()
@@ -44,6 +45,23 @@ class EventSummaryCollectionViewCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+        updateUI()
+    }
+    
+    override var isSelected: Bool {
+        didSet {
+            updateUI()
+        }
+    }
+    
+    private func updateUI() {
+        self.backgroundColor = isSelected ? ColorManager.bgLightBlue : ColorManager.white
+        self.layer.borderColor = isSelected ? ColorManager.blue?.cgColor : ColorManager.lightGrayFrame?.cgColor
     }
     
     private func layout(){
@@ -100,7 +118,7 @@ class EventSummaryCollectionViewCell: UICollectionViewCell {
         if amount > 0 {
             eventCntAttributes[.foregroundColor] = ColorManager.blue
             eventCntString = NSAttributedString(
-                string: "\(amount.formattedWithComma())",
+                string: "+ \(amount.formattedWithComma())",
                 attributes: eventCntAttributes
             )
         }

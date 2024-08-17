@@ -64,8 +64,14 @@ class EventSummaryTableViewCell: UITableViewCell {
         titleAttributedString.append(NSAttributedString(string: typeText, attributes: typeAttributes))
         
         titleLabel.attributedText = titleAttributedString
-        
-        let amountText = "\(event.amount)"
+        let absAmount = abs(event.amount)
+        var amountText: String
+        if event.amount > 0 {
+            amountText = "+\(absAmount.formattedWithComma())"
+        }
+        else {
+            amountText = "-\(absAmount.formattedWithComma())"
+        }
         let currencyText = "원"
         
         let amountAttributes: [NSAttributedString.Key: Any] = [

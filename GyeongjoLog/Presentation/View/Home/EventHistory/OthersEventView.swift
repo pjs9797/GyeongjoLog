@@ -10,6 +10,18 @@ class OthersEventView: UIView {
         view.secondSortButton.setTitle("금액순", for: .normal)
         return view
     }()
+    let noneOthersEventImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = ImageManager.noneOthersEvent
+        return imageView
+    }()
+    let noneOthersEventLabel: UILabel = {
+        let label = UILabel()
+        label.text = "아직 기록이 없어요"
+        label.font = FontManager.Body0201
+        label.textColor = ColorManager.text02
+        return label
+    }()
     let othersEventSummaryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical

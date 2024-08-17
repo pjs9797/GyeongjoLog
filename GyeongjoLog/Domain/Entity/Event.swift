@@ -20,12 +20,13 @@ struct MyEvent: Equatable {
 
 struct EventSummary: Equatable {
     let id: String
-    let eventType: String
     let name: String
     let phoneNumber: String
+    let eventType: String
     let date: String
     let relationship: String
     let amount: Int
+    let memo: String?
 }
 
 struct EventKey: Hashable {

@@ -61,4 +61,15 @@ class SortView: UIView {
             make.top.equalToSuperview().offset(24*ConstantsManager.standardHeight)
         }
     }
+    
+    func setSortViewButton(title: String){
+        if title == "최신순"{
+            self.firstSortButton.setTitleColor(ColorManager.blue, for: .normal)
+            self.secondSortButton.setTitleColor(ColorManager.black, for: .normal)
+        }
+        else {
+            self.firstSortButton.setTitleColor(ColorManager.black, for: .normal)
+            self.secondSortButton.setTitleColor(ColorManager.blue, for: .normal)
+        }
+    }
 }

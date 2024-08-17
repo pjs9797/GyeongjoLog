@@ -4,14 +4,15 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class AddEventViewController: UIViewController, ReactorKit.View {
+class DetailEventViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let backButton = UIBarButtonItem(image: ImageManager.icon_back, style: .plain, target: nil, action: nil)
+    let deleteButton = UIBarButtonItem(image: ImageManager.icon_trash, style: .plain, target: nil, action: nil)
     let addEventView = AddEventView()
     private let expandedCollectionViewHeight: CGFloat = 95*ConstantsManager.standardHeight
     private let collapsedCollectionViewHeight: CGFloat = 0
     
-    init(with reactor: AddEventReactor) {
+    init(with reactor: DatailEventReactor) {
         super.init(nibName: nil, bundle: nil)
         
         self.reactor = reactor
@@ -41,11 +42,13 @@ class AddEventViewController: UIViewController, ReactorKit.View {
         case .none:
             addEventView.amountView.titleLabel.text = "금액"
         }
+        self.addEventView.addEventButton.setTitle("수정하기", for: .normal)
     }
     
     private func setNavigationbar() {
-        self.title = "내역추가"
+        self.title = "상세 내역"
         navigationItem.leftBarButtonItem = backButton
+        navigationItem.rightBarButtonItem = deleteButton
     }
     
     private func toggleAmountCollectionView(expand: Bool) {
@@ -75,13 +78,13 @@ class AddEventViewController: UIViewController, ReactorKit.View {
     
 }
 
-extension AddEventViewController {
-    func bind(reactor: AddEventReactor) {
+extension DetailEventViewController {
+    func bind(reactor: DatailEventReactor) {
         bindAction(reactor: reactor)
         bindState(reactor: reactor)
     }
     
-    func bindAction(reactor: AddEventReactor){
+    func bindAction(reactor: DatailEventReactor){
         addEventView.amountView.contentTextField.delegate = self
         addEventView.amountCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
@@ -89,6 +92,11 @@ extension AddEventViewController {
         // 네비게이션 버튼, 하단 버튼 탭
         backButton.rx.tap
             .map{ Reactor.Action.backButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        deleteButton.rx.tap
+            .map{ Reactor.Action.deleteButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -104,6 +112,7 @@ extension AddEventViewController {
             .disposed(by: disposeBag)
         
         addEventView.nameView.nameTextField.rx.text.orEmpty
+            .skip(1)
             .map { Reactor.Action.inputNameText($0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
@@ -115,6 +124,7 @@ extension AddEventViewController {
         
         // 전화번호 뷰
         addEventView.phoneNumberView.contentTextField.rx.controlEvent([.editingDidBegin])
+            .skip(1)
             .map{ Reactor.Action.phoneNumberViewTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
@@ -170,6 +180,7 @@ extension AddEventViewController {
         
         // 금액 뷰
         addEventView.amountView.contentTextField.rx.controlEvent([.editingDidBegin])
+            .skip(1)
             .map{ Reactor.Action.amountViewTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
@@ -189,12 +200,25 @@ extension AddEventViewController {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        // 메모 뷰
+        addEventView.memoTextView.rx.didBeginEditing
+            .map{ Reactor.Action.memoTextViewTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        addEventView.memoTextView.rx.text.orEmpty
+            .skip(1)
+            .map{ Reactor.Action.inputMemoText($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         let tapActions: [Observable<Void>] = [
             addEventView.nameView.nameTextField.rx.controlEvent([.editingDidBegin]).asObservable(),
             addEventView.phoneNumberView.contentTextField.rx.controlEvent([.editingDidBegin]).asObservable(),
             addEventView.eventTypeView.contentButton.rx.tap.asObservable(),
             addEventView.dateView.contentButton.rx.tap.asObservable(),
-            addEventView.relationshipView.contentButton.rx.tap.asObservable()
+            addEventView.relationshipView.contentButton.rx.tap.asObservable(),
+            addEventView.memoTextView.rx.didBeginEditing.asObservable()
         ]
         
         Observable.merge(tapActions)
@@ -204,7 +228,7 @@ extension AddEventViewController {
             .disposed(by: disposeBag)
     }
     
-    func bindState(reactor: AddEventReactor){
+    func bindState(reactor: DatailEventReactor){
         // 이름 뷰
         reactor.state.map { $0.isEditingSetNameView }
             .distinctUntilChanged()
@@ -316,6 +340,14 @@ extension AddEventViewController {
             }
             .disposed(by: disposeBag)
         
+        // 메모 뷰
+        reactor.state.map{ $0.isEditingMemoTextView }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] isEditing in
+                self?.addEventView.memoTextView.layer.borderColor = isEditing ? ColorManager.blue?.cgColor : ColorManager.lightGrayFrame?.cgColor
+            })
+            .disposed(by: disposeBag)
+        
         reactor.state.map{ $0.isEnableAddEventButton }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isEnable in
@@ -330,7 +362,7 @@ extension AddEventViewController {
     }
 }
 
-extension AddEventViewController: UICollectionViewDelegateFlowLayout {
+extension DetailEventViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let index = indexPath.item
         let text = "\(reactor?.currentState.eventAmounts[index] ?? 0)"
@@ -344,7 +376,7 @@ extension AddEventViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension AddEventViewController: UITextFieldDelegate {
+extension DetailEventViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         guard let currentText = textField.text else {
@@ -356,8 +388,12 @@ extension AddEventViewController: UITextFieldDelegate {
         text = text.replacingOccurrences(of: ",", with: "")
         
         let isOthersEvent = reactor?.addEventFlow == .othersEventSummary
+        let isMyEvent = reactor?.addEventFlow == .myEventSummary
+        
         if isOthersEvent {
             text = text.replacingOccurrences(of: "- ", with: "")
+        } else if isMyEvent {
+            text = text.replacingOccurrences(of: "+ ", with: "")
         }
         
         let numberFormatter = NumberFormatter()
@@ -388,7 +424,7 @@ extension AddEventViewController: UITextFieldDelegate {
         }
         
         // NSAttributedString 생성
-        let formattedText = (isOthersEvent ? "- " : "") + formattedAmountText
+        let formattedText = (isOthersEvent ? "- " : (isMyEvent ? "+ " : "")) + formattedAmountText
         let attributedText = NSMutableAttributedString(string: formattedText, attributes: [
             .font: FontManager.Heading0101
         ])
@@ -410,5 +446,4 @@ extension AddEventViewController: UITextFieldDelegate {
         
         return false
     }
-
 }

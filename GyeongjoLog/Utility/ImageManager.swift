@@ -25,4 +25,8 @@ struct ImageManager {
     //calendar
     static let calendar_left = UIImage(named: "calendar_left")
     static let calendar_right = UIImage(named: "calendar_right")
+    
+    //none
+    static let noneMyEvent = UIImage(named: "noneMyEvent")
+    static let noneOthersEvent = UIImage(named: "noneOthersEvent")
 }

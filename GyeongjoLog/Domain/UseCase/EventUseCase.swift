@@ -82,7 +82,7 @@ class EventUseCase {
     // Event -> EventSummary 변환 로직
     private func convertToEventSummaries(events: [Event]) -> [EventSummary] {
         return events.map { event in
-            EventSummary(id: event.id, eventType: event.eventType, name: event.name, phoneNumber: event.phoneNumber, date: event.date, relationship: event.relationship, amount: event.amount)
+            EventSummary(id: event.id, name: event.name, phoneNumber: event.phoneNumber, eventType: event.eventType, date: event.date, relationship: event.relationship, amount: event.amount, memo: event.memo)
         }
     }
     

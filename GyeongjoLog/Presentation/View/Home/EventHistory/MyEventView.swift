@@ -9,6 +9,18 @@ class MyEventView: UIView {
         view.secondSortButton.setTitle("건수", for: .normal)
         return view
     }()
+    let noneMyEventImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = ImageManager.noneMyEvent
+        return imageView
+    }()
+    let noneMyEventLabel: UILabel = {
+        let label = UILabel()
+        label.text = "아직 이벤트가 없어요"
+        label.font = FontManager.Body0201
+        label.textColor = ColorManager.text02
+        return label
+    }()
     let myEventCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -36,7 +48,7 @@ class MyEventView: UIView {
     }
     
     private func layout() {
-        [filterButton,sortButton,myEventCollectionView,sortView]
+        [filterButton,sortButton,noneMyEventImageView,noneMyEventLabel,myEventCollectionView,sortView]
             .forEach{
                 addSubview($0)
             }

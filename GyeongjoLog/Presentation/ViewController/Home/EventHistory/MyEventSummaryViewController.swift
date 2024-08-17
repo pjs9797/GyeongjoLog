@@ -63,7 +63,7 @@ extension MyEventSummaryViewController {
     }
     
     func bindAction(reactor: MyEventSummaryReactor){
-        // 버튼 탭
+        // 네비게이션 버튼 탭
         backButton.rx.tap
             .map{ Reactor.Action.backButtonTapped }
             .bind(to: reactor.action)
@@ -79,6 +79,7 @@ extension MyEventSummaryViewController {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        // 버튼 탭
         myEventSummaryView.filterButton.rx.tap
             .map{ Reactor.Action.filterButtonTapped }
             .bind(to: reactor.action)
@@ -99,8 +100,15 @@ extension MyEventSummaryViewController {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        // 검색
         myEventSummaryView.searchView.searchTextField.rx.text.orEmpty
             .map { Reactor.Action.updateSearchTextField($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        // 컬렉션뷰 셀 탭
+        myEventSummaryView.myEventSummaryCollectionView.rx.itemSelected
+            .map { Reactor.Action.selectMyEventSummary($0.item) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -120,6 +128,7 @@ extension MyEventSummaryViewController {
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.myEventSummaries }
+            .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
             .bind(to: myEventSummaryView.myEventSummaryCollectionView.rx.items(cellIdentifier: "EventSummaryCollectionViewCell", cellType: EventSummaryCollectionViewCell.self)) { index, myEvent, cell in
 
@@ -146,7 +155,10 @@ extension MyEventSummaryViewController {
         
         reactor.state.map{ $0.sortTitle }
             .distinctUntilChanged()
-            .bind(to: self.myEventSummaryView.sortButton.rx.title(for: .normal))
+            .bind(onNext: { [weak self] title in
+                self?.myEventSummaryView.sortButton.setTitle(title, for: .normal)
+                self?.myEventSummaryView.sortView.setSortViewButton(title: title)
+            })
             .disposed(by: disposeBag)
         
         reactor.state.map{ $0.isHiddenSortView }

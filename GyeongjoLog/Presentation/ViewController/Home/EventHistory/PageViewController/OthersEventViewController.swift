@@ -76,8 +76,15 @@ extension OthersEventViewController {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        // 검색
         othersEventView.searchView.searchTextField.rx.text.orEmpty
             .map { Reactor.Action.updateSearchTextField($0) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        // 컬렉션뷰 셀 탭
+        othersEventView.othersEventSummaryCollectionView.rx.itemSelected
+            .map { Reactor.Action.selectOthersEventSummary($0.item) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -90,11 +97,33 @@ extension OthersEventViewController {
     
     func bindState(reactor: OthersEventReactor){
         reactor.state.map { $0.othersEventSummaries }
+            .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
             .bind(to: othersEventView.othersEventSummaryCollectionView.rx.items(cellIdentifier: "EventSummaryCollectionViewCell", cellType: EventSummaryCollectionViewCell.self)) { index, othersEvent, cell in
 
                 cell.configure(with: othersEvent)
             }
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.othersEventSummaries }
+            .observe(on: MainScheduler.asyncInstance)
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] events in
+                if events.isEmpty {
+                    self?.othersEventView.othersEventSummaryCollectionView.isHidden = true
+                    self?.othersEventView.noneOthersEventImageView.isHidden = false
+                    self?.othersEventView.noneOthersEventLabel.isHidden = false
+                    self?.othersEventView.filterButton.isEnabled = false
+                    self?.othersEventView.sortButton.isEnabled = false
+                }
+                else {
+                    self?.othersEventView.othersEventSummaryCollectionView.isHidden = false
+                    self?.othersEventView.noneOthersEventImageView.isHidden = true
+                    self?.othersEventView.noneOthersEventLabel.isHidden = true
+                    self?.othersEventView.filterButton.isEnabled = true
+                    self?.othersEventView.sortButton.isEnabled = true
+                }
+            })
             .disposed(by: disposeBag)
         
         reactor.state.map{ $0.filterTitle }
@@ -104,7 +133,10 @@ extension OthersEventViewController {
         
         reactor.state.map{ $0.sortTitle }
             .distinctUntilChanged()
-            .bind(to: self.othersEventView.sortButton.rx.title(for: .normal))
+            .bind(onNext: { [weak self] title in
+                self?.othersEventView.sortButton.setTitle(title, for: .normal)
+                self?.othersEventView.sortView.setSortViewButton(title: title)
+            })
             .disposed(by: disposeBag)
         
         reactor.state.map{ $0.isHiddenSortView }

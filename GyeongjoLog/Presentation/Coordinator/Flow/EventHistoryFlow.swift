@@ -27,6 +27,10 @@ class EventHistoryFlow: Flow {
             return navigateToMyEventSummaryViewController(eventType: eventType, idList: idList)
         case .navigateToAddEventViewController(let addEventFlow):
             return navigateToAddEventViewController(addEventFlow: addEventFlow)
+        case .navigateToAddMyEventSummaryViewController(let eventType, let date):
+            return navigateToAddMyEventSummaryViewController(eventType: eventType, date: date)
+        case .navigateToDetailEventViewController(let addEventFlow, let event):
+            return navigateToDetailEventViewController(addEventFlow: addEventFlow, event: event)
         case .navigateToAddNewEventTypeViewController:
             return navigateToAddNewEventTypeViewController()
         case .navigateToCalendarViewController:
@@ -88,6 +92,24 @@ class EventHistoryFlow: Flow {
     private func navigateToAddEventViewController(addEventFlow: AddEventFlow) -> FlowContributors {
         let reactor = AddEventReactor(eventUseCase: self.eventUseCase, addEventFlow: addEventFlow)
         let viewController = AddEventViewController(with: reactor)
+        viewController.hidesBottomBarWhenPushed = true
+        self.rootViewController.pushViewController(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToAddMyEventSummaryViewController(eventType: String, date: String) -> FlowContributors {
+        let reactor = AddMyEventSummaryReactor(eventUseCase: self.eventUseCase, eventType: eventType, date: date)
+        let viewController = AddMyEventSummaryViewController(with: reactor)
+        viewController.hidesBottomBarWhenPushed = true
+        self.rootViewController.pushViewController(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToDetailEventViewController(addEventFlow: AddEventFlow, event: EventSummary) -> FlowContributors {
+        let reactor = DatailEventReactor(eventUseCase: self.eventUseCase, addEventFlow: addEventFlow, event: event)
+        let viewController = DetailEventViewController(with: reactor)
         viewController.hidesBottomBarWhenPushed = true
         self.rootViewController.pushViewController(viewController, animated: true)
         
