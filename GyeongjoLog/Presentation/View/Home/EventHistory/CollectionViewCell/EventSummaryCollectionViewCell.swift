@@ -90,23 +90,28 @@ class EventSummaryCollectionViewCell: UICollectionViewCell {
         typeLabel.text = eventSummary.eventType
         nameLabel.text = eventSummary.name
         dateLabel.text = eventSummary.date
-        
-        if eventSummary.amount > 0 {
-            setAmountLabel(amount: eventSummary.amount, color: ColorManager.blue)
-        }
-        else {
-            setAmountLabel(amount: eventSummary.amount, color: ColorManager.red)
-        }
+        setAmountLabel(amount: eventSummary.amount)
     }
     
-    private func setAmountLabel(amount: Int, color: UIColor?){
+    private func setAmountLabel(amount: Int){
         let attributedString = NSMutableAttributedString()
         var eventCntAttributes = AttributedFontManager.Heading0101
-        eventCntAttributes[.foregroundColor] = color
-        let eventCntString = NSAttributedString(
-            string: "\(amount)",
-            attributes: eventCntAttributes
-        )
+        var eventCntString: NSAttributedString
+        if amount > 0 {
+            eventCntAttributes[.foregroundColor] = ColorManager.blue
+            eventCntString = NSAttributedString(
+                string: "\(amount.formattedWithComma())",
+                attributes: eventCntAttributes
+            )
+        }
+        else {
+            eventCntAttributes[.foregroundColor] = ColorManager.red
+            let absAmount = abs(amount)
+            eventCntString = NSAttributedString(
+                string: "- \(absAmount.formattedWithComma())",
+                attributes: eventCntAttributes
+            )
+        }
         
         var suffixAttributes = AttributedFontManager.Body02
         suffixAttributes[.foregroundColor] = ColorManager.text01 ?? .black

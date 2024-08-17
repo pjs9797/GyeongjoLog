@@ -12,6 +12,7 @@ class SetEventDetailTextFieldView: UIView {
         let textField = UITextField()
         textField.font = FontManager.Body04
         textField.textColor = ColorManager.text01
+        textField.keyboardType = .numberPad
         return textField
     }()
     let clearButton: UIButton = {

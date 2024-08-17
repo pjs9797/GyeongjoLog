@@ -4,21 +4,25 @@ import RxCocoa
 import RxFlow
 
 class AddEventReactor: ReactorKit.Reactor, Stepper {
-    let initialState: State = State()
+    let initialState: State
     var steps = PublishRelay<Step>()
     private let eventUseCase: EventUseCase
+    let addEventFlow: AddEventFlow
     var eventTypeRelay = PublishRelay<String>()
     var eventDateRelay = PublishRelay<String>()
     var eventRelationshipRelay = PublishRelay<String>()
     
-    init(eventUseCase: EventUseCase) {
+    init(eventUseCase: EventUseCase, addEventFlow: AddEventFlow) {
         self.eventUseCase = eventUseCase
+        self.addEventFlow = addEventFlow
+        self.initialState = State(
+            eventAmounts: addEventFlow == .myEventSummary ? [10000, 50000, 100000, 500000, 1000000] : [-10000, -50000, -100000, -500000, -1000000]
+        )
     }
     
     enum Action {
         // 네비게이션 버튼, 하단 버튼 탭
         case backButtonTapped
-        case deleteButtonTapped
         case addEventButtonTapped
         
         // 이름 뷰
@@ -47,6 +51,9 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
         case amountViewTapped
         case inputAmountText(String)
         case amountViewClearButtonTapped
+        
+        // 금액 컬렉션뷰 셀 탭
+        case selectAmount(Int)
     }
     
     enum Mutation {
@@ -72,10 +79,14 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
         
         // 금액 뷰
         case setEditingAmountView(Bool)
-        case setAmountText(String)
+        case setAmount(Int)
+        case setFormattedAmountText(NSAttributedString?)
         
         // 추가 버튼 상태 설정
         case setIsEnableAddEventButton
+        
+        // 금액 컬렉션뷰
+        case addAmount(Int)
     }
     
     struct State {
@@ -93,7 +104,10 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
         var eventType: String = ""
         var date: String = ""
         var relationship: String = ""
-        var amount: String = ""
+        var amount: Int = 0
+        var formattedAmount: NSAttributedString?
+        
+        var eventAmounts: [Int]
         
         // 추가 버튼 상태
         var isEnableAddEventButton: Bool = false
@@ -105,36 +119,30 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
         case .backButtonTapped:
             self.steps.accept(EventHistoryStep.popViewController)
             return .empty()
-        case .deleteButtonTapped:
-            return .empty()
         case .addEventButtonTapped:
-            guard let amount = Int(currentState.amount) else {
-                // amount 변환 실패 시 처리
-                return .empty()
-            }
             let event = Event(id: UUID().uuidString,
                               name: currentState.name,
                               phoneNumber: currentState.phoneNumber,
                               eventType: currentState.eventType,
                               date: currentState.date,
                               relationship: currentState.relationship,
-                              amount: amount,
+                              amount: currentState.amount,
                               memo: nil) // memo 처리 필요 시 추가
             self.steps.accept(EventHistoryStep.popViewController)
             return RealmManager.shared.saveRandomEvents()
-                    .andThen(Completable.create { completable in
-                        self.steps.accept(EventHistoryStep.popViewController)
-                        completable(.completed)
-                        return Disposables.create()
-                    })
-                    .andThen(.empty())
-//            return eventUseCase.saveEvent(event: event)
-//                .andThen(Completable.create { completable in
-//                    self.steps.accept(EventHistoryStep.popViewController)
-//                    completable(.completed)
-//                    return Disposables.create()
-//                })
-//                .andThen(.empty())
+                .andThen(Completable.create { completable in
+                    self.steps.accept(EventHistoryStep.popViewController)
+                    completable(.completed)
+                    return Disposables.create()
+                })
+                .andThen(.empty())
+            //            return eventUseCase.saveEvent(event: event)
+            //                .andThen(Completable.create { completable in
+            //                    self.steps.accept(EventHistoryStep.popViewController)
+            //                    completable(.completed)
+            //                    return Disposables.create()
+            //                })
+            //                .andThen(.empty())
             
             // 이름 뷰
         case .nameViewTapped:
@@ -234,13 +242,43 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
                 .just(.setEditingRelationshipView(false)),
                 .just(.setEditingAmountView(true)),
             ])
-        case .inputAmountText(let amount):
+        case .inputAmountText(let text):
+            print(text)
+            let amountText = text.replacingOccurrences(of: "원", with: "").replacingOccurrences(of: "-", with: "").replacingOccurrences(of: ",", with: "").trimmingCharacters(in: .whitespaces)
+            print(amountText)
+            let amountValue = Int(amountText) ?? 0
+            let isOthersEvent = addEventFlow == .othersEventSummary
+            
+            let formattedText: NSAttributedString?
+            if amountValue == 0 {
+                formattedText = nil
+            } 
+            else {
+                let formattedAmountText = (isOthersEvent ? "- " : "") + amountValue.formattedWithComma()
+                let attributedText = NSMutableAttributedString(string: formattedAmountText, attributes: [
+                    .font: FontManager.Heading0101
+                ])
+                let wonText = NSAttributedString(string: "원", attributes: [
+                    .font: FontManager.Body02
+                ])
+                attributedText.append(wonText)
+                formattedText = attributedText
+            }
+            
             return .concat([
-                .just(.setAmountText(amount)),
-                .just(.setIsEnableAddEventButton)
+                .just(.setAmount(isOthersEvent ? -amountValue : amountValue)),
+                .just(.setFormattedAmountText(formattedText))
             ])
         case .amountViewClearButtonTapped:
-            return .just(.setAmountText(""))
+            return .concat([
+                .just(.setAmount(0)),
+                .just(.setFormattedAmountText(nil))
+            ])
+            
+            // 금액 컬렉션뷰
+        case .selectAmount(let index):
+            let selectedAmount = currentState.eventAmounts[index]
+            return .just(.addAmount(selectedAmount))
         }
     }
     
@@ -280,8 +318,27 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
             // 금액 뷰
         case .setEditingAmountView(let isEditing):
             newState.isEditingAmountView = isEditing
-        case .setAmountText(let amount):
+        case .setAmount(let amount):
             newState.amount = amount
+        case .setFormattedAmountText(let formattedText):
+            newState.formattedAmount = formattedText
+            
+            // 금액 컬렉션뷰
+        case .addAmount(let amount):
+            print(currentState.amount,amount)
+            let currentAmount = currentState.amount
+            let newAmount = currentAmount + amount
+            newState.amount = newAmount
+            let absAmount = abs(newAmount)
+            let formattedAmountText = (addEventFlow == .othersEventSummary ? "- " : "") + absAmount.formattedWithComma()
+            let attributedText = NSMutableAttributedString(string: formattedAmountText, attributes: [
+                .font: FontManager.Heading0101
+            ])
+            let wonText = NSAttributedString(string: "원", attributes: [
+                .font: FontManager.Body02
+            ])
+            attributedText.append(wonText)
+            newState.formattedAmount = attributedText
             
             // 추가 버튼
         case .setIsEnableAddEventButton:
@@ -290,7 +347,7 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
             !newState.eventType.isEmpty &&
             !newState.date.isEmpty &&
             !newState.relationship.isEmpty &&
-            !newState.amount.isEmpty
+            newState.amount != 0
         }
         return newState
     }

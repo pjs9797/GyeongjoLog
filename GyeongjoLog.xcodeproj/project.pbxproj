@@ -105,6 +105,8 @@
 		31FDB1DD2C6F5FBD0010F3EC /* AddNewEventTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1DC2C6F5FBD0010F3EC /* AddNewEventTypeViewController.swift */; };
 		31FDB1DF2C6F5FCA0010F3EC /* AddNewEventTypeReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1DE2C6F5FCA0010F3EC /* AddNewEventTypeReactor.swift */; };
 		31FDB1E12C6F68660010F3EC /* SelectColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1E02C6F68660010F3EC /* SelectColorCollectionViewCell.swift */; };
+		31FDB1E32C6F8E9C0010F3EC /* UICollectionViewFlowLayout+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1E22C6F8E9C0010F3EC /* UICollectionViewFlowLayout+Extension.swift */; };
+		31FDB1E72C6F91180010F3EC /* FlowState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1E62C6F91180010F3EC /* FlowState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -212,6 +214,8 @@
 		31FDB1DC2C6F5FBD0010F3EC /* AddNewEventTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewEventTypeViewController.swift; sourceTree = "<group>"; };
 		31FDB1DE2C6F5FCA0010F3EC /* AddNewEventTypeReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewEventTypeReactor.swift; sourceTree = "<group>"; };
 		31FDB1E02C6F68660010F3EC /* SelectColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectColorCollectionViewCell.swift; sourceTree = "<group>"; };
+		31FDB1E22C6F8E9C0010F3EC /* UICollectionViewFlowLayout+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewFlowLayout+Extension.swift"; sourceTree = "<group>"; };
+		31FDB1E62C6F91180010F3EC /* FlowState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -419,6 +423,7 @@
 		311E25422C64757E00C61202 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
+				31FDB1E52C6F910E0010F3EC /* FlowState */,
 				311E25432C64758800C61202 /* Flow */,
 				311E25442C64758C00C61202 /* Step */,
 			);
@@ -705,6 +710,7 @@
 				311E25222C636C1200C61202 /* UIViewController+Extension.swift */,
 				311E253C2C63B78800C61202 /* UILabel+Extension.swift */,
 				311E25822C64EF3D00C61202 /* UITextView+Extension.swift */,
+				31FDB1E22C6F8E9C0010F3EC /* UICollectionViewFlowLayout+Extension.swift */,
 			);
 			path = "UI+Extension";
 			sourceTree = "<group>";
@@ -745,6 +751,14 @@
 				31FDB1D62C6D98910010F3EC /* EventRelationshipFilterReactor.swift */,
 			);
 			path = SheetPresentation;
+			sourceTree = "<group>";
+		};
+		31FDB1E52C6F910E0010F3EC /* FlowState */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB1E62C6F91180010F3EC /* FlowState.swift */,
+			);
+			path = FlowState;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -881,9 +895,11 @@
 				311E256D2C64AECA00C61202 /* AddEventReactor.swift in Sources */,
 				31FDB1BD2C6B689D0010F3EC /* AmountFilterOption.swift in Sources */,
 				31FDB1D32C6D985F0010F3EC /* EventRelationshipFilterView.swift in Sources */,
+				31FDB1E32C6F8E9C0010F3EC /* UICollectionViewFlowLayout+Extension.swift in Sources */,
 				311E250E2C6360C400C61202 /* FontManager.swift in Sources */,
 				31FDB1DB2C6F5FB50010F3EC /* AddNewEventTypeView.swift in Sources */,
 				311E25252C636C1E00C61202 /* UINavigationController+Extension.swift in Sources */,
+				31FDB1E72C6F91180010F3EC /* FlowState.swift in Sources */,
 				31FDB1922C68E3FC0010F3EC /* MyEventViewController.swift in Sources */,
 				311E25622C6495D000C61202 /* UserDefaultsManager.swift in Sources */,
 				31FDB19C2C69AB2D0010F3EC /* MyEventReactor.swift in Sources */,

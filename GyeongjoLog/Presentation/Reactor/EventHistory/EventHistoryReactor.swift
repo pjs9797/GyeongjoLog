@@ -33,7 +33,7 @@ class EventHistoryReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(EventHistoryStep.navigateToCalendarViewController)
             return .empty()
         case .plusButtonTapped:
-            self.steps.accept(EventHistoryStep.navigateToAddEventViewController)
+            currentState.selectedItem == 0 ? self.steps.accept(EventHistoryStep.navigateToAddEventViewController(addEventFlow: .myEventSummary)) : self.steps.accept(EventHistoryStep.navigateToAddEventViewController(addEventFlow: .othersEventSummary))
             return .empty()
             
             // 페이징 처리

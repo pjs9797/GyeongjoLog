@@ -11,11 +11,13 @@ class AddEventView: UIView {
     let relationshipView = SetEventDetailButtonView(frame: .zero, titleText: "관계")
     let amountView = SetEventDetailTextFieldView(frame: .zero, titleText: "금액")
     let amountCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
+        let layout = LeftAlignedCollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = 6*ConstantsManager.standardWidth
         layout.minimumLineSpacing = 10*ConstantsManager.standardHeight
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.allowsSelection = true
         collectionView.register(EventAmountCollectionViewCell.self, forCellWithReuseIdentifier: "EventAmountCollectionViewCell")
         return collectionView
     }()
@@ -77,16 +79,14 @@ class AddEventView: UIView {
             }
         
         scrollView.snp.makeConstraints { make in
-            make.width.equalToSuperview()
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top)
-            make.leading.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
         }
         
         contentView.snp.makeConstraints { make in
             make.width.equalTo(scrollView.snp.width)
             make.edges.equalToSuperview()
-            make.bottom.equalToSuperview()
         }
         
         nameView.snp.makeConstraints { make in
@@ -131,12 +131,12 @@ class AddEventView: UIView {
             make.top.equalTo(relationshipView.snp.bottom).offset(32*ConstantsManager.standardHeight)
         }
         
-//        amountCollectionView.snp.makeConstraints { make in
-//            make.width.equalTo(268*ConstantsManager.standardWidth)
-//            make.height.equalTo(0)
-//            make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
-//            make.top.equalTo(amountTextField.snp.bottom).offset(12*ConstantsManager.standardHeight)
-//        }
+        amountCollectionView.snp.makeConstraints { make in
+            make.height.equalTo(100)
+            make.leading.equalTo(amountView.contentTextField.snp.leading)
+            make.trailing.equalToSuperview().offset(-60*ConstantsManager.standardWidth)
+            make.top.equalTo(amountView.snp.bottom).offset(12*ConstantsManager.standardHeight)
+        }
         
         memoLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)

@@ -25,36 +25,34 @@ class EventAmountCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        disposeBag = DisposeBag()
-        updateUI()
-    }
-    
     override var isSelected: Bool {
         didSet {
             updateUI()
         }
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+        updateUI()
+    }
+
     private func updateUI() {
         self.amountLabel.textColor = isSelected ? ColorManager.blue : ColorManager.text01
         self.backgroundColor = isSelected ? ColorManager.bgLightBlue : ColorManager.white
         self.layer.borderColor = isSelected ? ColorManager.blue?.cgColor : ColorManager.lightGrayFrame?.cgColor
     }
+
     
     private func layout(){
         contentView.addSubview(amountLabel)
         
         amountLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
-            make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
-            make.top.equalToSuperview().offset(8*ConstantsManager.standardHeight)
-            make.bottom.equalToSuperview().offset(-8*ConstantsManager.standardHeight)
+            make.center.equalToSuperview()
         }
     }
     
-    func configure(with amount: String) {
+    func configure(with amount: Int) {
         amountLabel.text = "\(amount)만"
     }
 }

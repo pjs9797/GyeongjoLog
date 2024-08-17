@@ -66,7 +66,7 @@ class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(EventHistoryStep.navigateToCalendarViewController)
             return .empty()
         case .plusButtonTapped:
-            self.steps.accept(EventHistoryStep.navigateToAddEventViewController)
+            self.steps.accept(EventHistoryStep.navigateToAddEventViewController(addEventFlow: .myEventSummary))
             return .empty()
             
             // 버튼 탭
