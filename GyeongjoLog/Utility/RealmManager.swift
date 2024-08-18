@@ -5,7 +5,7 @@ import RxSwift
 class RealmManager {
     static let shared = RealmManager()
     private let realm = try! Realm()
-
+    
     func fetchObjects<T: Object>(_ type: T.Type) -> Observable<[T]> {
         let objects = realm.objects(T.self)
         return Observable.just(Array(objects))
@@ -15,7 +15,7 @@ class RealmManager {
         let object = realm.object(ofType: type, forPrimaryKey: key)
         return Observable.just(object)
     }
-
+    
     func saveObject<T: Object>(_ object: T) -> Completable {
         return Completable.create { completable in
             do {
@@ -29,7 +29,7 @@ class RealmManager {
             return Disposables.create()
         }
     }
-
+    
     func deleteObject<T: Object>(_ type: T.Type, forPrimaryKey key: String) -> Completable {
         return Completable.create { completable in
             do {
@@ -45,7 +45,7 @@ class RealmManager {
             return Disposables.create()
         }
     }
-
+    
     func updateObject<T: Object>(_ type: T.Type, forPrimaryKey key: String, with updates: [String: Any]) -> Completable {
         return Completable.create { completable in
             do {
@@ -66,7 +66,7 @@ class RealmManager {
     
     func saveRandomEvents() -> Completable {
         let events = generateRandomEvents()
-
+        
         return Completable.create { completable in
             let realm = try! Realm()
             do {
@@ -93,7 +93,6 @@ class RealmManager {
             return Disposables.create()
         }
     }
-
     
     func generateRandomEvents() -> [Event] {
         let eventTypes = ["결혼식", "장례식", "돌잔치", "생일"]
@@ -101,13 +100,13 @@ class RealmManager {
         
         var events: [Event] = []
         
-        for _ in 0..<50 {
+        for _ in 0..<100 {
             let randomEventType = eventTypes.randomElement() ?? "결혼식"
             let randomRelationship = relationships.randomElement() ?? "친구"
             
             let randomYear = Int.random(in: 2024...2024)
-            let randomMonth = Int.random(in: 8...8)
-            let randomDay = Int.random(in: 1...28)
+            let randomMonth = Int.random(in: 7...9)
+            let randomDay = Int.random(in: 1...10)
             
             let date = String(format: "%04d.%02d.%02d", randomYear, randomMonth, randomDay)
             
@@ -115,8 +114,8 @@ class RealmManager {
             
             let event = Event(
                 id: UUID().uuidString,
-                name: "이름 \(UUID().uuidString.prefix(4))",
-                phoneNumber: "010-\(Int.random(in: 1000...9999))-\(Int.random(in: 1000...9999))",
+                name: "이름 \(UUID().uuidString.prefix(1))",
+                phoneNumber: "010-\(Int.random(in: 1000...1000))-\(Int.random(in: 1000...1005))",
                 eventType: randomEventType,
                 date: date,
                 relationship: randomRelationship,
@@ -126,13 +125,13 @@ class RealmManager {
             
             events.append(event)
         }
-        for _ in 0..<50 {
+        for _ in 0..<100 {
             let randomEventType = eventTypes.randomElement() ?? "결혼식"
             let randomRelationship = relationships.randomElement() ?? "친구"
             
             let randomYear = Int.random(in: 2024...2024)
-            let randomMonth = Int.random(in: 8...8)
-            let randomDay = Int.random(in: 1...28)
+            let randomMonth = Int.random(in: 7...9)
+            let randomDay = Int.random(in: 1...10)
             
             let date = String(format: "%04d.%02d.%02d", randomYear, randomMonth, randomDay)
             
@@ -140,8 +139,8 @@ class RealmManager {
             
             let event = Event(
                 id: UUID().uuidString,
-                name: "이름 \(UUID().uuidString.prefix(4))",
-                phoneNumber: "010-\(Int.random(in: 1000...9999))-\(Int.random(in: 1000...9999))",
+                name: "이름 \(UUID().uuidString.prefix(1))",
+                phoneNumber: "010-\(Int.random(in: 1000...1000))-\(Int.random(in: 1000...1005))",
                 eventType: randomEventType,
                 date: date,
                 relationship: randomRelationship,
@@ -151,33 +150,6 @@ class RealmManager {
             
             events.append(event)
         }
-        
-        for _ in 0..<200 {
-            let randomEventType = eventTypes.randomElement() ?? "결혼식"
-            let randomRelationship = relationships.randomElement() ?? "친구"
-            
-            let randomYear = Int.random(in: 2024...2024)
-            let randomMonth = Int.random(in: 5...10)
-            let randomDay = Int.random(in: 1...28)
-            
-            let date = String(format: "%04d.%02d.%02d", randomYear, randomMonth, randomDay)
-            
-            let randomAmount = Int.random(in: -100000...100000)
-            
-            let event = Event(
-                id: UUID().uuidString,
-                name: "이름 \(UUID().uuidString.prefix(4))",
-                phoneNumber: "010-\(Int.random(in: 1000...9999))-\(Int.random(in: 1000...9999))",
-                eventType: randomEventType,
-                date: date,
-                relationship: randomRelationship,
-                amount: randomAmount,
-                memo: nil
-            )
-            
-            events.append(event)
-        }
-        
         return events
     }
 }

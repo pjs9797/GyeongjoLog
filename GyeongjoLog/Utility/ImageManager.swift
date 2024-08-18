@@ -5,6 +5,7 @@ struct ImageManager {
     static let icon_event_deselect = UIImage(named: "icon_event_deselect")
     static let icon_event_select = UIImage(named: "icon_event_select")
     static let icon_setting_deselect = UIImage(named: "icon_setting_deselect")
+    static let icon_statistics_select = UIImage(named: "icon_statistics_select")
     static let icon_statistics_deselect = UIImage(named: "icon_statistics_deselect")
     static let icon_words_deselect = UIImage(named: "icon_words_deselect")
     
@@ -25,6 +26,12 @@ struct ImageManager {
     //calendar
     static let calendar_left = UIImage(named: "calendar_left")
     static let calendar_right = UIImage(named: "calendar_right")
+    
+    //statistics
+    static let header2 = UIImage(named: "header2")
+    static let icon_right = UIImage(named: "icon_right")
+    static let icon_clap = UIImage(named: "icon_clap")
+    static let icon_interact = UIImage(named: "icon_interact")
     
     //none
     static let noneMyEvent = UIImage(named: "noneMyEvent")

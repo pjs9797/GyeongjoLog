@@ -31,7 +31,7 @@ extension TabBarController: UITabBarControllerDelegate {
                         tabItem.image = vc == viewController ? ImageManager.icon_event_select?.withRenderingMode(.alwaysOriginal) : ImageManager.icon_event_deselect?.withRenderingMode(.alwaysOriginal)
                     }
                     else if index == 1 {
-                        tabItem.image = vc == viewController ? ImageManager.icon_statistics_deselect?.withRenderingMode(.alwaysOriginal) : ImageManager.icon_statistics_deselect?.withRenderingMode(.alwaysOriginal)
+                        tabItem.image = vc == viewController ? ImageManager.icon_statistics_select?.withRenderingMode(.alwaysOriginal) : ImageManager.icon_statistics_deselect?.withRenderingMode(.alwaysOriginal)
                     }
                     else if index == 2 {
                         tabItem.image = vc == viewController ? ImageManager.icon_words_deselect?.withRenderingMode(.alwaysOriginal) : ImageManager.icon_words_deselect?.withRenderingMode(.alwaysOriginal)
