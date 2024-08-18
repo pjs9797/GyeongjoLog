@@ -90,13 +90,14 @@ extension EventHistoryViewController {
         reactor.state.map { $0.selectedItem }
             .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
-            .bind(onNext: { [weak self] index in
-                guard let self = self else { return }
-                let direction: UIPageViewController.NavigationDirection = (index > reactor.currentState.previousIndex) ? .forward : .reverse
-                self.pageViewController.setViewControllers([self.viewControllers[index]], direction: direction, animated: true, completion: nil)
-                reactor.action.onNext(.setPreviousIndex(index))
+            .withUnretained(self)
+            .bind(onNext: { owner, index in
+                let direction: UIPageViewController.NavigationDirection = (index > owner.reactor?.currentState.previousIndex ?? 0) ? .forward : .reverse
+                owner.pageViewController.setViewControllers([owner.viewControllers[index]], direction: direction, animated: true, completion: nil)
+                owner.reactor?.action.onNext(.setPreviousIndex(index))
             })
             .disposed(by: disposeBag)
+
     }
 }
 

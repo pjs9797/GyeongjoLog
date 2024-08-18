@@ -4,6 +4,7 @@ import RxSwift
 class UserDefaultsManager {
     static let shared = UserDefaultsManager()
     private let eventTypeKey = "eventTypes"
+    private let onBoardingStartedKey = "onBoardingStarted"
     private let defaultEventTypes: [(String, String)] = [
         ("결혼식", "PinkCustom"),
         ("장례식", "BlackCustom"),
@@ -16,10 +17,13 @@ class UserDefaultsManager {
     }
     
     private func initializeDefaultEventTypes() {
-        let defaults = UserDefaults.standard
-        if defaults.array(forKey: eventTypeKey) == nil {
+        let userDefaults = UserDefaults.standard
+        if userDefaults.array(forKey: eventTypeKey) == nil {
             let eventTypesArray = defaultEventTypes.map { [$0.0, $0.1] }
-            defaults.set(eventTypesArray, forKey: eventTypeKey)
+            userDefaults.set(eventTypesArray, forKey: eventTypeKey)
+        }
+        if userDefaults.object(forKey: onBoardingStartedKey) == nil {
+            userDefaults.set(false, forKey: onBoardingStartedKey)
         }
     }
     
@@ -53,5 +57,15 @@ class UserDefaultsManager {
         let defaults = UserDefaults.standard
         let savedEventTypesArray = defaults.array(forKey: eventTypeKey) as? [[String]] ?? defaultEventTypes.map { [$0.0, $0.1] }
         return savedEventTypesArray.map { ($0[0], $0[1]) }
+    }
+    
+    // 온보딩 시작 상태 저장
+    func setOnBoardingStarted(_ started: Bool) {
+        UserDefaults.standard.set(started, forKey: onBoardingStartedKey)
+    }
+    
+    // 온보딩 시작 상태 가져오기
+    func getOnBoardingStarted() -> Bool {
+        return UserDefaults.standard.bool(forKey: onBoardingStartedKey)
     }
 }

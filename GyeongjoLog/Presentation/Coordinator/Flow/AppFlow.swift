@@ -16,9 +16,20 @@ class AppFlow: Flow {
     func navigate(to step: Step) -> FlowContributors {
         guard let step = step as? AppStep else { return .none }
         switch step {
+        case .navigateToOnBoardingViewController:
+            return navigateToOnBoardingViewController()
         case .navigateToTabBarController:
             return navigateToTabBarController()
         }
+    }
+    
+    private func navigateToOnBoardingViewController() -> FlowContributors {
+        let reactor = OnBoardingReactor()
+        let viewController = OnBoardingViewController(with: reactor)
+        self.rootViewController.isNavigationBarHidden = true
+        self.rootViewController.pushViewController(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
     
     private func navigateToTabBarController() -> FlowContributors {

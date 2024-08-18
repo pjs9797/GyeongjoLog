@@ -111,6 +111,9 @@
 		31FDB1EF2C705FB40010F3EC /* DatailEventReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1EE2C705FB40010F3EC /* DatailEventReactor.swift */; };
 		31FDB1F12C7063100010F3EC /* AddMyEventSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1F02C7063100010F3EC /* AddMyEventSummaryViewController.swift */; };
 		31FDB1F32C70631C0010F3EC /* AddMyEventSummaryReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1F22C70631C0010F3EC /* AddMyEventSummaryReactor.swift */; };
+		31FDB1F82C70E00B0010F3EC /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1F72C70E00B0010F3EC /* OnBoardingViewController.swift */; };
+		31FDB1FA2C70E0350010F3EC /* OnBoardingReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1F92C70E0350010F3EC /* OnBoardingReactor.swift */; };
+		31FDB1FD2C70E2890010F3EC /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1FC2C70E2890010F3EC /* ImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -224,6 +227,9 @@
 		31FDB1EE2C705FB40010F3EC /* DatailEventReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatailEventReactor.swift; sourceTree = "<group>"; };
 		31FDB1F02C7063100010F3EC /* AddMyEventSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMyEventSummaryViewController.swift; sourceTree = "<group>"; };
 		31FDB1F22C70631C0010F3EC /* AddMyEventSummaryReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMyEventSummaryReactor.swift; sourceTree = "<group>"; };
+		31FDB1F72C70E00B0010F3EC /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
+		31FDB1F92C70E0350010F3EC /* OnBoardingReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingReactor.swift; sourceTree = "<group>"; };
+		31FDB1FC2C70E2890010F3EC /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -370,6 +376,7 @@
 		311E251B2C636B7700C61202 /* CustomComponent */ = {
 			isa = PBXGroup;
 			children = (
+				31FDB1FB2C70E2680010F3EC /* UIViewController */,
 				31FDB1782C67B9CF0010F3EC /* DatePickerView */,
 				311E257F2C64EE5400C61202 /* SheetPresentationController */,
 				311E25742C64D69400C61202 /* UIView */,
@@ -808,6 +815,7 @@
 		31FDB1F42C70DF1B0010F3EC /* OnBoarding */ = {
 			isa = PBXGroup;
 			children = (
+				31FDB1F72C70E00B0010F3EC /* OnBoardingViewController.swift */,
 			);
 			path = OnBoarding;
 			sourceTree = "<group>";
@@ -815,6 +823,7 @@
 		31FDB1F52C70DF310010F3EC /* OnBoarding */ = {
 			isa = PBXGroup;
 			children = (
+				31FDB1F92C70E0350010F3EC /* OnBoardingReactor.swift */,
 			);
 			path = OnBoarding;
 			sourceTree = "<group>";
@@ -827,6 +836,14 @@
 				31FDB1992C69AAC90010F3EC /* AddEvent+DetailEvent */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		31FDB1FB2C70E2680010F3EC /* UIViewController */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB1FC2C70E2890010F3EC /* ImageViewController.swift */,
+			);
+			path = UIViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -929,6 +946,7 @@
 				31FDB1DD2C6F5FBD0010F3EC /* AddNewEventTypeViewController.swift in Sources */,
 				311E25412C64734900C61202 /* EventHistoryReactor.swift in Sources */,
 				311E25872C65021000C61202 /* EventHistoryFlow.swift in Sources */,
+				31FDB1FD2C70E2890010F3EC /* ImageViewController.swift in Sources */,
 				311E25832C64EF3D00C61202 /* UITextView+Extension.swift in Sources */,
 				31FDB1742C6789820010F3EC /* SelectEventTypeViewController.swift in Sources */,
 				31FDB1C62C6BB3B70010F3EC /* Int+Extension.swift in Sources */,
@@ -966,6 +984,7 @@
 				31FDB1D32C6D985F0010F3EC /* EventRelationshipFilterView.swift in Sources */,
 				31FDB1E32C6F8E9C0010F3EC /* UICollectionViewFlowLayout+Extension.swift in Sources */,
 				311E250E2C6360C400C61202 /* FontManager.swift in Sources */,
+				31FDB1FA2C70E0350010F3EC /* OnBoardingReactor.swift in Sources */,
 				31FDB1DB2C6F5FB50010F3EC /* AddNewEventTypeView.swift in Sources */,
 				311E25252C636C1E00C61202 /* UINavigationController+Extension.swift in Sources */,
 				31FDB1E72C6F91180010F3EC /* FlowState.swift in Sources */,
@@ -992,6 +1011,7 @@
 				31FDB1D72C6D98910010F3EC /* EventRelationshipFilterReactor.swift in Sources */,
 				31FDB1A42C69C1480010F3EC /* MyEventSummaryView.swift in Sources */,
 				311E25782C64D6B800C61202 /* SetEventDetailNameTextFieldView.swift in Sources */,
+				31FDB1F82C70E00B0010F3EC /* OnBoardingViewController.swift in Sources */,
 				311E253B2C63B46400C61202 /* MyEventCollectionViewCell.swift in Sources */,
 				311E25362C639E8700C61202 /* ImageManager.swift in Sources */,
 				31FDB16D2C6785270010F3EC /* EventTypeCollectionViewCell.swift in Sources */,

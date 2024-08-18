@@ -151,14 +151,17 @@ class MyEventSummaryView: UIView {
         let formattedAmount = amount.formattedWithComma()
         
         var type: String = ""
-        if eventType == "결혼식"{
+        if eventType == "결혼식" || eventType == "돌잔치" {
             type = "축의금"
         }
         else if eventType == "장례식" {
             type = "조의금"
         }
+        else if eventType == "생일" {
+            type = "생일 선물"
+        }
         else {
-            type = "축하금"
+            type = "선물"
         }
         let fullText = "총 \(formattedAmount)원의\n\(type)을 받았어요"
         

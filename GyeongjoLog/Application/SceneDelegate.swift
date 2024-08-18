@@ -17,7 +17,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             self.window?.rootViewController = root
             self.window?.makeKeyAndVisible()
         }
-        coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToTabBarController))
+        
+        if UserDefaultsManager.shared.getOnBoardingStarted() {
+            coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToTabBarController))
+        }
+        else {
+            coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToOnBoardingViewController))
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
