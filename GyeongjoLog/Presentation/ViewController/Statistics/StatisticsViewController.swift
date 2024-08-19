@@ -41,8 +41,8 @@ class StatisticsViewController: UIViewController, ReactorKit.View {
         pageViewController.delegate = self
         self.setNavigationbar()
         self.layout()
-        
     }
+    
     private func setNavigationbar() {
         navigationItem.leftBarButtonItem = logoImage
     }
@@ -53,7 +53,7 @@ class StatisticsViewController: UIViewController, ReactorKit.View {
         
         statisticsTabBarCollectionView.snp.makeConstraints { make in
             make.width.equalTo(343*ConstantsManager.standardWidth)
-            make.height.equalTo(30*ConstantsManager.standardHeight)
+            make.height.equalTo(35*ConstantsManager.standardHeight)
             make.centerX.equalToSuperview()
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(24*ConstantsManager.standardHeight)
         }

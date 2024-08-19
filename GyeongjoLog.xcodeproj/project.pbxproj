@@ -131,6 +131,9 @@
 		31FDB2252C71EC660010F3EC /* StatisticsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2242C71EC660010F3EC /* StatisticsUseCase.swift */; };
 		31FDB2272C7202400010F3EC /* MonthlyStatisticsReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2262C7202400010F3EC /* MonthlyStatisticsReactor.swift */; };
 		31FDB2292C72024E0010F3EC /* MonthlyStatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2282C72024E0010F3EC /* MonthlyStatisticsViewController.swift */; };
+		31FDB22C2C721EA00010F3EC /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 31FDB22B2C721EA00010F3EC /* DGCharts */; };
+		31FDB22E2C721EC70010F3EC /* MonthlyStatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB22D2C721EC70010F3EC /* MonthlyStatisticsView.swift */; };
+		31FDB2312C734A850010F3EC /* PieChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2302C734A850010F3EC /* PieChartTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -264,6 +267,8 @@
 		31FDB2242C71EC660010F3EC /* StatisticsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsUseCase.swift; sourceTree = "<group>"; };
 		31FDB2262C7202400010F3EC /* MonthlyStatisticsReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyStatisticsReactor.swift; sourceTree = "<group>"; };
 		31FDB2282C72024E0010F3EC /* MonthlyStatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyStatisticsViewController.swift; sourceTree = "<group>"; };
+		31FDB22D2C721EC70010F3EC /* MonthlyStatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyStatisticsView.swift; sourceTree = "<group>"; };
+		31FDB2302C734A850010F3EC /* PieChartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -273,6 +278,7 @@
 			files = (
 				311E25002C635EFA00C61202 /* RxFlow in Frameworks */,
 				311E24F82C634CAB00C61202 /* RxRelay in Frameworks */,
+				31FDB22C2C721EA00010F3EC /* DGCharts in Frameworks */,
 				311E25032C635F0400C61202 /* ReactorKit in Frameworks */,
 				311E25082C635F2600C61202 /* RealmSwift in Frameworks */,
 				31FDB1AA2C69C1AD0010F3EC /* FSCalendar in Frameworks */,
@@ -911,8 +917,10 @@
 		31FDB2002C718EC60010F3EC /* Statistics */ = {
 			isa = PBXGroup;
 			children = (
+				31FDB22F2C734A690010F3EC /* TableViewCell */,
 				31FDB2112C7195390010F3EC /* CollectionViewCell */,
 				31FDB20F2C7195360010F3EC /* IndividualStatisticsView.swift */,
+				31FDB22D2C721EC70010F3EC /* MonthlyStatisticsView.swift */,
 				31FDB21A2C71AA770010F3EC /* TopInteractedView.swift */,
 			);
 			path = Statistics;
@@ -953,6 +961,14 @@
 			path = PageReactor;
 			sourceTree = "<group>";
 		};
+		31FDB22F2C734A690010F3EC /* TableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB2302C734A850010F3EC /* PieChartTableViewCell.swift */,
+			);
+			path = TableViewCell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -980,6 +996,7 @@
 				311E25022C635F0400C61202 /* ReactorKit */,
 				311E25072C635F2600C61202 /* RealmSwift */,
 				31FDB1A92C69C1AD0010F3EC /* FSCalendar */,
+				31FDB22B2C721EA00010F3EC /* DGCharts */,
 			);
 			productName = GyeongjoLog;
 			productReference = 311E24D52C634C2300C61202 /* GyeongjoLog.app */;
@@ -1016,6 +1033,7 @@
 				311E25012C635F0400C61202 /* XCRemoteSwiftPackageReference "ReactorKit" */,
 				311E25042C635F2600C61202 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				31FDB1A82C69C1AD0010F3EC /* XCRemoteSwiftPackageReference "FSCalendar" */,
+				31FDB22A2C721EA00010F3EC /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			productRefGroup = 311E24D62C634C2300C61202 /* Products */;
 			projectDirPath = "";
@@ -1070,6 +1088,7 @@
 				31FDB1942C68E41F0010F3EC /* OthersEventViewController.swift in Sources */,
 				31FDB20B2C7191C00010F3EC /* StatisticsFlow.swift in Sources */,
 				31FDB1862C6865FB0010F3EC /* RelationshipCollectionViewCell.swift in Sources */,
+				31FDB22E2C721EC70010F3EC /* MonthlyStatisticsView.swift in Sources */,
 				311E25282C636CB400C61202 /* MyEventView.swift in Sources */,
 				311E25892C65021900C61202 /* EvnetHistoryStep.swift in Sources */,
 				31FDB1E12C6F68660010F3EC /* SelectColorCollectionViewCell.swift in Sources */,
@@ -1117,6 +1136,7 @@
 				311E253D2C63B78800C61202 /* UILabel+Extension.swift in Sources */,
 				31FDB1D12C6C90850010F3EC /* ResetButton.swift in Sources */,
 				311E252F2C639C6000C61202 /* FilterButton.swift in Sources */,
+				31FDB2312C734A850010F3EC /* PieChartTableViewCell.swift in Sources */,
 				311E25102C6360E600C61202 /* ConstantsManager.swift in Sources */,
 				31FDB1702C6788700010F3EC /* SelectEventDateView.swift in Sources */,
 				31FDB21F2C71EBE80010F3EC /* Statistics.swift in Sources */,
@@ -1293,8 +1313,8 @@
 				INFOPLIST_FILE = GyeongjoLog/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1324,8 +1344,8 @@
 				INFOPLIST_FILE = GyeongjoLog/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1415,6 +1435,14 @@
 				minimumVersion = 2.8.4;
 			};
 		};
+		31FDB22A2C721EA00010F3EC /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1462,6 +1490,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 31FDB1A82C69C1AD0010F3EC /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
+		};
+		31FDB22B2C721EA00010F3EC /* DGCharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31FDB22A2C721EA00010F3EC /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = DGCharts;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

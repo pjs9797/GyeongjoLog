@@ -8,4 +8,3 @@ enum StatisticsStep: Step {
     // 뒤로가기
     case popViewController
 }
-

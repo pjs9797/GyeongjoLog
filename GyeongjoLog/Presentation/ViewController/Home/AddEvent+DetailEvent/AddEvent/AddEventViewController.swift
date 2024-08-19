@@ -54,7 +54,6 @@ class AddEventViewController: UIViewController, ReactorKit.View {
             make.height.equalTo(newHeight)
         }
         
-        // memoLabel, memoTextView, addEventButton 위치 조정
         if expand {
             addEventView.memoLabel.snp.remakeConstraints { make in
                 make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
@@ -72,7 +71,6 @@ class AddEventViewController: UIViewController, ReactorKit.View {
             //self.view.layoutIfNeeded()
         })
     }
-    
 }
 
 extension AddEventViewController {

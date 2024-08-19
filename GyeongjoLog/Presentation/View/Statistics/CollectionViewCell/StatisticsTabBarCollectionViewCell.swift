@@ -16,6 +16,13 @@ class StatisticsTabBarCollectionViewCell: UICollectionViewCell {
         view.backgroundColor = ColorManager.lightGrayFrame
         return view
     }()
+    let selectedUnderLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = ColorManager.blue
+        view.layer.cornerRadius = 1.5*ConstantsManager.standardHeight
+        view.isHidden = true
+        return view
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -41,10 +48,11 @@ class StatisticsTabBarCollectionViewCell: UICollectionViewCell {
     
     private func updateUI() {
         categoryLabel.textColor = isSelected ? ColorManager.blue : ColorManager.textDisabled
+        selectedUnderLineView.isHidden = isSelected ? false : true
     }
     
     private func layout(){
-        [categoryLabel,underLineView]
+        [categoryLabel,underLineView,selectedUnderLineView]
             .forEach{
                 contentView.addSubview($0)
             }
@@ -59,6 +67,12 @@ class StatisticsTabBarCollectionViewCell: UICollectionViewCell {
             make.height.equalTo(1*ConstantsManager.standardHeight)
             make.top.equalTo(categoryLabel.snp.bottom).offset(10*ConstantsManager.standardHeight)
             make.bottom.equalToSuperview()
+        }
+        
+        selectedUnderLineView.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.height.equalTo(3*ConstantsManager.standardHeight)
+            make.centerY.equalTo(underLineView)
         }
     }
 }

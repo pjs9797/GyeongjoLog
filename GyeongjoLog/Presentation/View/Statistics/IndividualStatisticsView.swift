@@ -55,7 +55,7 @@ class IndividualStatisticsView: UIView {
             make.height.equalTo(134*ConstantsManager.standardHeight)
             make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
-            make.top.equalToSuperview().offset(24*ConstantsManager.standardHeight)
+            make.top.equalToSuperview().offset(20*ConstantsManager.standardHeight)
         }
         
         searchView.snp.makeConstraints { make in

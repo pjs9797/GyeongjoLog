@@ -100,12 +100,12 @@ class RealmManager {
         
         var events: [Event] = []
         
-        for _ in 0..<100 {
+        for _ in 0..<5 {
             let randomEventType = eventTypes.randomElement() ?? "결혼식"
             let randomRelationship = relationships.randomElement() ?? "친구"
             
             let randomYear = Int.random(in: 2024...2024)
-            let randomMonth = Int.random(in: 7...9)
+            let randomMonth = Int.random(in: 5...5)
             let randomDay = Int.random(in: 1...10)
             
             let date = String(format: "%04d.%02d.%02d", randomYear, randomMonth, randomDay)
@@ -125,12 +125,12 @@ class RealmManager {
             
             events.append(event)
         }
-        for _ in 0..<100 {
+        for _ in 0..<10 {
             let randomEventType = eventTypes.randomElement() ?? "결혼식"
             let randomRelationship = relationships.randomElement() ?? "친구"
             
             let randomYear = Int.random(in: 2024...2024)
-            let randomMonth = Int.random(in: 7...9)
+            let randomMonth = Int.random(in: 6...6)
             let randomDay = Int.random(in: 1...10)
             
             let date = String(format: "%04d.%02d.%02d", randomYear, randomMonth, randomDay)
