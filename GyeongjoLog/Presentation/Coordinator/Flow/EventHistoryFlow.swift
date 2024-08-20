@@ -68,13 +68,12 @@ class EventHistoryFlow: Flow {
         
         let reactor = EventHistoryReactor()
         let viewController = EventHistoryViewController(with: reactor, viewControllers: [myEventViewController,othersEventViewController])
+        let compositeStepper = CompositeStepper(steppers: [myEventReactor, othersEventReactor])
         self.rootViewController.pushViewController(viewController, animated: true)
         
         return .multiple(flowContributors: [
-            .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: myEventReactor),
-            .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: othersEventReactor),
+            .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: compositeStepper),
             .contribute(withNextPresentable: viewController, withNextStepper: reactor)
-            
         ])
     }
     

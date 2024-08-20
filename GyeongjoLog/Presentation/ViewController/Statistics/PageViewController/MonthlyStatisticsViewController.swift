@@ -140,25 +140,39 @@ extension MonthlyStatisticsViewController {
             .bind(to: monthlyStatisticsView.sentAmountLabel.rx.text)
             .disposed(by: disposeBag)
         
-        reactor.state.map { $0.topEventType }
-            .distinctUntilChanged { (previous, current) in
-                return previous == current
-            }
-            .bind(onNext: { [weak self] (month,eventType) in
-                self?.monthlyStatisticsView.setTopEventTypeLabel(month: month, eventType: eventType)
-            })
-            .disposed(by: disposeBag)
-        
-        reactor.state.map{ $0.sentPieText }
-            .distinctUntilChanged()
-            .bind(to: self.monthlyStatisticsView.sentPieLabel.rx.text)
-            .disposed(by: disposeBag)
-        
         // 선택된 달이 변경될 때 파이 차트 및 라벨 업데이트
         reactor.state.compactMap { $0.selectedMonthlyStatistics }
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] selectedMonth in
                 self?.updatePieChart(for: selectedMonth)
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.topEventType }
+            .distinctUntilChanged { (previous, current) in
+                return previous == current
+            }
+            .bind(onNext: { [weak self] (month,eventType) in
+                if eventType == "" {
+                    self?.monthlyStatisticsView.topEventTypeLabel.isHidden = true
+                }
+                else {
+                    self?.monthlyStatisticsView.topEventTypeLabel.isHidden = false
+                    self?.monthlyStatisticsView.setTopEventTypeLabel(month: month, eventType: eventType)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.sentPieText }
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] text in
+                if text == "이번달 총 0원을 썼어요" {
+                    self?.monthlyStatisticsView.sentPieLabel.isHidden = true
+                }
+                else {
+                    self?.monthlyStatisticsView.sentPieLabel.isHidden = false
+                    self?.monthlyStatisticsView.sentPieLabel.text = text
+                }
             })
             .disposed(by: disposeBag)
         

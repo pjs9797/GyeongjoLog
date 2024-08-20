@@ -64,7 +64,7 @@ class TopInteractedView: UIView {
         }
     }
     
-    func configure(with name: String, cnt: Int) {
+    func configureName(name: String){
         let titleText = "이번달 \(name)님과 가장 많이 주고 받았어요"
         let attributedString = NSMutableAttributedString(string: titleText)
         
@@ -74,6 +74,9 @@ class TopInteractedView: UIView {
         attributedString.addAttribute(.foregroundColor, value: ColorManager.blue ?? .blue, range: range)
         
         titleLabel.attributedText = attributedString
+    }
+    
+    func configureCnt(cnt: Int) {
         subTitleLabel.text = "주고받은 횟수 \(cnt)회"
     }
 

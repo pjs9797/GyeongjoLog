@@ -64,9 +64,8 @@ class StatisticsUseCase {
         }
     }
 
-    
     // 이번 달에 가장 많이 주고받은 사람의 이름과 통계 정보 가져오기
-    func fetchTopIndividualForCurrentMonth() -> Observable<(name: String, statistics: IndividualStatistics)> {
+    func fetchTopIndividualForCurrentMonth() -> Observable<(name: String?, statistics: IndividualStatistics?)> {
         return repository.fetchEvents().map { events in
             // 이번 달의 이벤트만 필터링
             let calendar = Calendar.current
@@ -84,8 +83,9 @@ class StatisticsUseCase {
                 $0.value.count < $1.value.count
             }
             
+            // 상호작용이 없으면 nil을 반환
             guard let top = topIndividual else {
-                throw NSError(domain: "StatisticsUseCase", code: 404, userInfo: [NSLocalizedDescriptionKey: "No individual found for the current month"])
+                return (name: nil, statistics: nil)
             }
             
             // 전체 이벤트를 이름과 전화번호로 그룹화

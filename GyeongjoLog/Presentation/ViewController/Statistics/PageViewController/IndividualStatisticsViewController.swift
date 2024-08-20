@@ -2,6 +2,7 @@ import UIKit
 import ReactorKit
 import RxSwift
 import RxCocoa
+import SnapKit
 
 class IndividualStatisticsViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
@@ -26,6 +27,8 @@ class IndividualStatisticsViewController: UIViewController, ReactorKit.View {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        hideKeyboard(disposeBag: disposeBag)
+        self.setTapGesture()
         view.backgroundColor = ColorManager.white
     }
     
@@ -33,6 +36,17 @@ class IndividualStatisticsViewController: UIViewController, ReactorKit.View {
         super.viewWillAppear(animated)
         
         self.reactor?.action.onNext(.loadIndividualStatistics)
+        self.reactor?.action.onNext(.loadTopIndividualStatistics)
+    }
+    
+    private func setTapGesture(){
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTopInteractedViewTap))
+           individualStatisticsView.topInteractedView.addGestureRecognizer(tapGesture)
+           individualStatisticsView.topInteractedView.isUserInteractionEnabled = true
+    }
+    
+    @objc private func handleTopInteractedViewTap() {
+        reactor?.action.onNext(.selectTopIndividual)
     }
 }
 
@@ -81,6 +95,30 @@ extension IndividualStatisticsViewController {
 
                 cell.configure(with: individualStatistic)
             }
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.topName }
+            .observe(on: MainScheduler.asyncInstance)
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] name in
+                if let name = name {
+                    self?.individualStatisticsView.isNotHiddenTopInteractedView()
+                    self?.individualStatisticsView.topInteractedView.configureName(name: name)
+                }
+                else {
+                    self?.individualStatisticsView.isHideenTopInteractedView()
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.topIndividualStatistic }
+            .observe(on: MainScheduler.asyncInstance)
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] topIndividualStatistic in
+                if let topIndividualStatistic = topIndividualStatistic {
+                    self?.individualStatisticsView.topInteractedView.configureCnt(cnt: topIndividualStatistic.eventDetails.count)
+                }
+            })
             .disposed(by: disposeBag)
     }
 }

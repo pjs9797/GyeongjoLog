@@ -134,6 +134,13 @@
 		31FDB22C2C721EA00010F3EC /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 31FDB22B2C721EA00010F3EC /* DGCharts */; };
 		31FDB22E2C721EC70010F3EC /* MonthlyStatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB22D2C721EC70010F3EC /* MonthlyStatisticsView.swift */; };
 		31FDB2312C734A850010F3EC /* PieChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2302C734A850010F3EC /* PieChartTableViewCell.swift */; };
+		31FDB2332C7387590010F3EC /* NoneStatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2322C7387590010F3EC /* NoneStatisticsView.swift */; };
+		31FDB2352C74311F0010F3EC /* DetailIndividualStatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2342C74311F0010F3EC /* DetailIndividualStatisticsViewController.swift */; };
+		31FDB2372C745F4F0010F3EC /* DetailIndividualStatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2362C745F4F0010F3EC /* DetailIndividualStatisticsView.swift */; };
+		31FDB2392C745F6C0010F3EC /* DetailIndividualStatisticsReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2382C745F6C0010F3EC /* DetailIndividualStatisticsReactor.swift */; };
+		31FDB23C2C7461120010F3EC /* ReceivedSentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB23B2C7461120010F3EC /* ReceivedSentView.swift */; };
+		31FDB23E2C7465BF0010F3EC /* DetailIndividualStatisticsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB23D2C7465BF0010F3EC /* DetailIndividualStatisticsCollectionViewCell.swift */; };
+		31FDB2402C74EA310010F3EC /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB23F2C74EA310010F3EC /* CALayer+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -269,6 +276,13 @@
 		31FDB2282C72024E0010F3EC /* MonthlyStatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyStatisticsViewController.swift; sourceTree = "<group>"; };
 		31FDB22D2C721EC70010F3EC /* MonthlyStatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyStatisticsView.swift; sourceTree = "<group>"; };
 		31FDB2302C734A850010F3EC /* PieChartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartTableViewCell.swift; sourceTree = "<group>"; };
+		31FDB2322C7387590010F3EC /* NoneStatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoneStatisticsView.swift; sourceTree = "<group>"; };
+		31FDB2342C74311F0010F3EC /* DetailIndividualStatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailIndividualStatisticsViewController.swift; sourceTree = "<group>"; };
+		31FDB2362C745F4F0010F3EC /* DetailIndividualStatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailIndividualStatisticsView.swift; sourceTree = "<group>"; };
+		31FDB2382C745F6C0010F3EC /* DetailIndividualStatisticsReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailIndividualStatisticsReactor.swift; sourceTree = "<group>"; };
+		31FDB23B2C7461120010F3EC /* ReceivedSentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedSentView.swift; sourceTree = "<group>"; };
+		31FDB23D2C7465BF0010F3EC /* DetailIndividualStatisticsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailIndividualStatisticsCollectionViewCell.swift; sourceTree = "<group>"; };
+		31FDB23F2C74EA310010F3EC /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -787,6 +801,7 @@
 				31FDB1AB2C69F6010010F3EC /* Color+Extension.swift */,
 				31FDB1B82C6A2ABD0010F3EC /* String+Extension.swift */,
 				31FDB1C52C6BB3B70010F3EC /* Int+Extension.swift */,
+				31FDB23F2C74EA310010F3EC /* CALayer+Extension.swift */,
 			);
 			path = "Foundation+Extension";
 			sourceTree = "<group>";
@@ -901,6 +916,7 @@
 			children = (
 				31FDB20C2C7194F50010F3EC /* PageViewController */,
 				31FDB2042C718FAD0010F3EC /* StatisticsViewController.swift */,
+				31FDB2342C74311F0010F3EC /* DetailIndividualStatisticsViewController.swift */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -910,6 +926,7 @@
 			children = (
 				31FDB2172C71A9EA0010F3EC /* PageReactor */,
 				31FDB2062C718FC80010F3EC /* StatisticsReactor.swift */,
+				31FDB2382C745F6C0010F3EC /* DetailIndividualStatisticsReactor.swift */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -919,9 +936,11 @@
 			children = (
 				31FDB22F2C734A690010F3EC /* TableViewCell */,
 				31FDB2112C7195390010F3EC /* CollectionViewCell */,
+				31FDB23A2C74603A0010F3EC /* DetailIndividualStatistics */,
 				31FDB20F2C7195360010F3EC /* IndividualStatisticsView.swift */,
 				31FDB22D2C721EC70010F3EC /* MonthlyStatisticsView.swift */,
 				31FDB21A2C71AA770010F3EC /* TopInteractedView.swift */,
+				31FDB2322C7387590010F3EC /* NoneStatisticsView.swift */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -940,6 +959,7 @@
 			children = (
 				31FDB2122C71A00A0010F3EC /* StatisticsTabBarCollectionViewCell.swift */,
 				31FDB21C2C71AEE50010F3EC /* IndividualStatisticsCollectionViewCell.swift */,
+				31FDB23D2C7465BF0010F3EC /* DetailIndividualStatisticsCollectionViewCell.swift */,
 			);
 			path = CollectionViewCell;
 			sourceTree = "<group>";
@@ -967,6 +987,15 @@
 				31FDB2302C734A850010F3EC /* PieChartTableViewCell.swift */,
 			);
 			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		31FDB23A2C74603A0010F3EC /* DetailIndividualStatistics */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB2362C745F4F0010F3EC /* DetailIndividualStatisticsView.swift */,
+				31FDB23B2C7461120010F3EC /* ReceivedSentView.swift */,
+			);
+			path = DetailIndividualStatistics;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1074,6 +1103,7 @@
 				311E25412C64734900C61202 /* EventHistoryReactor.swift in Sources */,
 				311E25872C65021000C61202 /* EventHistoryFlow.swift in Sources */,
 				31FDB1FD2C70E2890010F3EC /* ImageViewController.swift in Sources */,
+				31FDB2332C7387590010F3EC /* NoneStatisticsView.swift in Sources */,
 				311E25832C64EF3D00C61202 /* UITextView+Extension.swift in Sources */,
 				31FDB1742C6789820010F3EC /* SelectEventTypeViewController.swift in Sources */,
 				31FDB2052C718FAD0010F3EC /* StatisticsViewController.swift in Sources */,
@@ -1106,18 +1136,22 @@
 				31FDB1882C6866790010F3EC /* SelectRelationshipView.swift in Sources */,
 				31FDB17C2C67BA7D0010F3EC /* SelectEventDateViewController.swift in Sources */,
 				311E24D92C634C2300C61202 /* AppDelegate.swift in Sources */,
+				31FDB2392C745F6C0010F3EC /* DetailIndividualStatisticsReactor.swift in Sources */,
 				31FDB17E2C67BA840010F3EC /* SelectEventDateReactor.swift in Sources */,
 				31FDB1AC2C69F6010010F3EC /* Color+Extension.swift in Sources */,
 				311E257C2C64E2C900C61202 /* EventAmountCollectionViewCell.swift in Sources */,
+				31FDB2352C74311F0010F3EC /* DetailIndividualStatisticsViewController.swift in Sources */,
 				31FDB1982C68F1710010F3EC /* EventSummaryCollectionViewCell.swift in Sources */,
 				311E256D2C64AECA00C61202 /* AddEventReactor.swift in Sources */,
 				31FDB1BD2C6B689D0010F3EC /* AmountFilterOption.swift in Sources */,
 				31FDB1D32C6D985F0010F3EC /* EventRelationshipFilterView.swift in Sources */,
 				31FDB1E32C6F8E9C0010F3EC /* UICollectionViewFlowLayout+Extension.swift in Sources */,
 				311E250E2C6360C400C61202 /* FontManager.swift in Sources */,
+				31FDB23E2C7465BF0010F3EC /* DetailIndividualStatisticsCollectionViewCell.swift in Sources */,
 				31FDB2212C71EC280010F3EC /* StatisticsRepositoryInterface.swift in Sources */,
 				31FDB2092C7191BA0010F3EC /* StatisticsStep.swift in Sources */,
 				31FDB2102C7195360010F3EC /* IndividualStatisticsView.swift in Sources */,
+				31FDB2372C745F4F0010F3EC /* DetailIndividualStatisticsView.swift in Sources */,
 				31FDB1FA2C70E0350010F3EC /* OnBoardingReactor.swift in Sources */,
 				31FDB1DB2C6F5FB50010F3EC /* AddNewEventTypeView.swift in Sources */,
 				311E25252C636C1E00C61202 /* UINavigationController+Extension.swift in Sources */,
@@ -1129,6 +1163,7 @@
 				31FDB19C2C69AB2D0010F3EC /* MyEventReactor.swift in Sources */,
 				311E252A2C63966600C61202 /* ColorManager.swift in Sources */,
 				31FDB1CF2C6C7B3E0010F3EC /* EventTypeFilterReactor.swift in Sources */,
+				31FDB2402C74EA310010F3EC /* CALayer+Extension.swift in Sources */,
 				31FDB21B2C71AA770010F3EC /* TopInteractedView.swift in Sources */,
 				31FDB16B2C6785090010F3EC /* SelectEventTypeView.swift in Sources */,
 				31FDB1A12C69B7A30010F3EC /* SortOption.swift in Sources */,
@@ -1174,6 +1209,7 @@
 				311E255B2C64917D00C61202 /* RealmManager.swift in Sources */,
 				31FDB2192C71A9F80010F3EC /* IndividualStatisticsReactor.swift in Sources */,
 				31FDB1D92C6F01E80010F3EC /* SortView.swift in Sources */,
+				31FDB23C2C7461120010F3EC /* ReceivedSentView.swift in Sources */,
 				311E25532C6488B200C61202 /* EventRealmObject.swift in Sources */,
 				31FDB1BF2C6B865F0010F3EC /* MyEventSummaryViewController.swift in Sources */,
 			);

@@ -37,7 +37,6 @@ class IndividualStatisticsView: UIView {
         super.init(frame: frame)
         
         layout()
-        topInteractedView.configure(with: "가나다", cnt: 6)
         self.backgroundColor = ColorManager.white
     }
     
@@ -77,6 +76,40 @@ class IndividualStatisticsView: UIView {
             make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
             make.top.equalTo(relationshipFilterCollectionView.snp.bottom).offset(18*ConstantsManager.standardHeight)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
+        }
+    }
+    
+    func isHideenTopInteractedView(){
+        topInteractedView.isHidden = true
+        topInteractedView.snp.remakeConstraints { make in
+            make.height.equalTo(0)
+            make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
+            make.top.equalToSuperview().offset(20*ConstantsManager.standardHeight)
+        }
+        
+        searchView.snp.remakeConstraints { make in
+            make.height.equalTo(52*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
+            make.top.equalToSuperview().offset(20*ConstantsManager.standardHeight)
+        }
+    }
+    
+    func isNotHiddenTopInteractedView(){
+        topInteractedView.isHidden = false
+        topInteractedView.snp.remakeConstraints { make in
+            make.height.equalTo(134*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
+            make.top.equalToSuperview().offset(20*ConstantsManager.standardHeight)
+        }
+        
+        searchView.snp.remakeConstraints { make in
+            make.height.equalTo(52*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
+            make.top.equalTo(topInteractedView.snp.bottom).offset(30*ConstantsManager.standardHeight)
         }
     }
 }

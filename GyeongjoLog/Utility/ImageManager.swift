@@ -32,8 +32,12 @@ struct ImageManager {
     static let icon_right = UIImage(named: "icon_right")
     static let icon_clap = UIImage(named: "icon_clap")
     static let icon_interact = UIImage(named: "icon_interact")
+    static let icon_received = UIImage(named: "icon_received")
+    static let icon_sent = UIImage(named: "icon_sent")
+    static let pointPoint = UIImage(named: "pointPoint")
     
     //none
     static let noneMyEvent = UIImage(named: "noneMyEvent")
     static let noneOthersEvent = UIImage(named: "noneOthersEvent")
+    static let noneStatistics = UIImage(named: "noneStatistics")
 }

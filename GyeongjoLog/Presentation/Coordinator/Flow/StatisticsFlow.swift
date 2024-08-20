@@ -23,7 +23,8 @@ class StatisticsFlow: Flow {
             // 푸시
         case .navigateToStatisticsViewController:
             return navigateToStatisticsViewController()
-            
+        case .navigateToDetailIndividualStatisticsViewController(let individualStatistics):
+            return navigateToDetailIndividualStatisticsViewController(individualStatistics: individualStatistics)
             // 뒤로가기
         case .popViewController:
             return popViewController()
@@ -40,16 +41,23 @@ class StatisticsFlow: Flow {
         
         let reactor = StatisticsReactor()
         let viewController = StatisticsViewController(with: reactor, viewControllers: [individualStatisticsViewController,monthlyStatisticsViewController])
+        let compositeStepper = CompositeStepper(steppers: [individualStatisticsReactor, monthlyStatisticsReactor])
         self.rootViewController.pushViewController(viewController, animated: true)
         
         return .multiple(flowContributors: [
-            .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: individualStatisticsReactor),
-            .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: monthlyStatisticsReactor),
+            .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: compositeStepper),
             .contribute(withNextPresentable: viewController, withNextStepper: reactor),
-            
         ])
     }
     
+    private func navigateToDetailIndividualStatisticsViewController(individualStatistics: IndividualStatistics) -> FlowContributors {
+        let reactor = DetailIndividualStatisticsReactor(statisticsUseCase: self.statisticsUseCase, individualStatistics: individualStatistics)
+        let viewController = DetailIndividualStatisticsViewController(with: reactor)
+        viewController.hidesBottomBarWhenPushed = true
+        self.rootViewController.pushViewController(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
     
     // 뒤로가기
     private func popViewController() -> FlowContributors {
