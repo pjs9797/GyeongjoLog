@@ -50,6 +50,10 @@ class EventHistoryFlow: Flow {
         case .presentToSelectRelationshipViewController(let eventRelationshipRelay):
             return presentToSelectRelationshipViewController(eventRelationshipRelay: eventRelationshipRelay)
             
+            // 프레젠트 - 캘린더
+        case .presentToSelectCalendarDateViewController(let eventDateRelay, let initialDate):
+            return presentToSelectCalendarDateViewController(eventDateRelay: eventDateRelay, initialDate: initialDate)
+            
             // 뒤로가기
         case .dismissSheetPresentationController:
             return dismissSheetPresentationController()
@@ -68,12 +72,13 @@ class EventHistoryFlow: Flow {
         
         let reactor = EventHistoryReactor()
         let viewController = EventHistoryViewController(with: reactor, viewControllers: [myEventViewController,othersEventViewController])
-        let compositeStepper = CompositeStepper(steppers: [myEventReactor, othersEventReactor])
+        let compositeStepper = CompositeStepper(steppers: [myEventReactor, othersEventReactor,reactor])
         self.rootViewController.pushViewController(viewController, animated: true)
         
         return .multiple(flowContributors: [
-            .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: compositeStepper),
-            .contribute(withNextPresentable: viewController, withNextStepper: reactor)
+            .contribute(withNextPresentable: viewController, withNextStepper: compositeStepper),
+//            .contribute(withNextPresentable: viewController, withNextStepper: reactor),
+//            .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: compositeStepper)
         ])
     }
     
@@ -204,6 +209,24 @@ class EventHistoryFlow: Flow {
     private func presentToSelectRelationshipViewController(eventRelationshipRelay: PublishRelay<String>) -> FlowContributors {
         let reactor = SelectRelationshipReactor(eventUseCase: self.eventUseCase, eventRelationshipRelay: eventRelationshipRelay)
         let viewController = SelectRelationshipViewController(with: reactor)
+        if let sheet = viewController.sheetPresentationController {
+            let customDetent = UISheetPresentationController.Detent.custom { context in
+                return 340*ConstantsManager.standardHeight
+            }
+            
+            sheet.detents = [customDetent]
+            sheet.prefersGrabberVisible = false
+            sheet.preferredCornerRadius = 16*ConstantsManager.standardHeight
+        }
+        self.rootViewController.present(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    // 프레젠트 - 캘린더
+    private func presentToSelectCalendarDateViewController(eventDateRelay: PublishRelay<String>, initialDate: String?) -> FlowContributors {
+        let reactor = SelectCalendarDateViewReactor(eventUseCase: self.eventUseCase, eventDateRelay: eventDateRelay, initialDate: initialDate)
+        let viewController = SelectCalendarDateViewController(with: reactor)
         if let sheet = viewController.sheetPresentationController {
             let customDetent = UISheetPresentationController.Detent.custom { context in
                 return 340*ConstantsManager.standardHeight

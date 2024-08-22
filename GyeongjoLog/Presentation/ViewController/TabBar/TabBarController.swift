@@ -9,16 +9,18 @@ class TabBarController: UITabBarController {
         self.delegate = self
         
         setupTabBar()
+        object_setClass(self.tabBar, CustomHeightTabBar.self)
     }
     
     private func setupTabBar() {
         tabBar.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        tabBar.layer.cornerRadius = 16*ConstantsManager.standardHeight
+        tabBar.layer.cornerRadius = 16 * ConstantsManager.standardHeight
         tabBar.backgroundColor = ColorManager.white
         tabBar.tintColor = ColorManager.blue
         tabBar.unselectedItemTintColor = ColorManager.text01
-        let textAttributes = AttributedFontManager.SubTitle01
-        self.tabBarController?.tabBarItem.setTitleTextAttributes(textAttributes, for: .normal)
+        
+        let appearance = UITabBarItem.appearance()
+        appearance.setTitleTextAttributes([NSAttributedString.Key.font: FontManager.Body01], for: .normal)
     }
 }
 
@@ -34,7 +36,7 @@ extension TabBarController: UITabBarControllerDelegate {
                         tabItem.image = vc == viewController ? ImageManager.icon_statistics_select?.withRenderingMode(.alwaysOriginal) : ImageManager.icon_statistics_deselect?.withRenderingMode(.alwaysOriginal)
                     }
                     else if index == 2 {
-                        tabItem.image = vc == viewController ? ImageManager.icon_words_deselect?.withRenderingMode(.alwaysOriginal) : ImageManager.icon_words_deselect?.withRenderingMode(.alwaysOriginal)
+                        tabItem.image = vc == viewController ? ImageManager.icon_words_select?.withRenderingMode(.alwaysOriginal) : ImageManager.icon_words_deselect?.withRenderingMode(.alwaysOriginal)
                     }
                     else if index == 3 {
                         tabItem.image = vc == viewController ? ImageManager.icon_setting_deselect?.withRenderingMode(.alwaysOriginal) : ImageManager.icon_setting_deselect?.withRenderingMode(.alwaysOriginal)
@@ -42,5 +44,13 @@ extension TabBarController: UITabBarControllerDelegate {
                 }
             }
         }
+    }
+}
+
+class CustomHeightTabBar: UITabBar {
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        var sizeThatFits = super.sizeThatFits(size)
+        sizeThatFits.height = 100
+        return sizeThatFits
     }
 }

@@ -44,6 +44,7 @@ class EventHistoryViewController: UIViewController, ReactorKit.View {
     
     private func layout(){
         view.addSubview(historyTypeSegmentedControl)
+        addChild(pageViewController)
         view.addSubview(pageViewController.view)
         
         historyTypeSegmentedControl.snp.makeConstraints { make in
@@ -58,6 +59,8 @@ class EventHistoryViewController: UIViewController, ReactorKit.View {
             make.top.equalTo(historyTypeSegmentedControl.snp.bottom)
             make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
         }
+        
+        pageViewController.didMove(toParent: self)
     }
 }
 
@@ -88,8 +91,8 @@ extension EventHistoryViewController {
     
     func bindState(reactor: EventHistoryReactor){
         reactor.state.map { $0.selectedItem }
-            .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .bind(onNext: { owner, index in
                 let direction: UIPageViewController.NavigationDirection = (index > owner.reactor?.currentState.previousIndex ?? 0) ? .forward : .reverse

@@ -53,9 +53,8 @@ class MyEventSummaryViewController: UIViewController, ReactorKit.View {
     
     @objc private func handleOutsideTap(_ gesture: UITapGestureRecognizer) {
         guard !myEventSummaryView.sortView.isHidden else { return }
-        let location = gesture.location(in: view)
-        if !myEventSummaryView.sortView.frame.contains(location) &&
-            !myEventSummaryView.sortButton.frame.contains(location) {
+        let location = gesture.location(in: myEventSummaryView.sortButton.superview)
+        if !myEventSummaryView.sortButton.frame.contains(location){
             self.reactor?.action.onNext(.hideSortView)
         }
     }
@@ -133,8 +132,8 @@ extension MyEventSummaryViewController {
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.filteredMyEventSummary }
-            .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
             .bind(to: myEventSummaryView.myEventSummaryCollectionView.rx.items(cellIdentifier: "EventSummaryCollectionViewCell", cellType: EventSummaryCollectionViewCell.self)) { index, myEvent, cell in
 
                 cell.configure(with: myEvent)

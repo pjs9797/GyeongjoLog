@@ -7,6 +7,7 @@ struct ImageManager {
     static let icon_setting_deselect = UIImage(named: "icon_setting_deselect")
     static let icon_statistics_select = UIImage(named: "icon_statistics_select")
     static let icon_statistics_deselect = UIImage(named: "icon_statistics_deselect")
+    static let icon_words_select = UIImage(named: "icon_words_select")
     static let icon_words_deselect = UIImage(named: "icon_words_deselect")
     
     //history
@@ -36,8 +37,17 @@ struct ImageManager {
     static let icon_sent = UIImage(named: "icon_sent")
     static let pointPoint = UIImage(named: "pointPoint")
     
+    //Phrase
+    static let header3 = UIImage(named: "header3")
+    static let phrase_ring = UIImage(named: "phrase_ring")
+    static let phrase_ribbon = UIImage(named: "phrase_ribbon")
+    static let phrase_cake = UIImage(named: "phrase_cake")
+    static let phrase_birth = UIImage(named: "phrase_birth")
+    static let icon_copy = UIImage(named: "icon_copy")
+    
     //none
     static let noneMyEvent = UIImage(named: "noneMyEvent")
     static let noneOthersEvent = UIImage(named: "noneOthersEvent")
     static let noneStatistics = UIImage(named: "noneStatistics")
+    static let nonePie = UIImage(named: "nonePie")
 }

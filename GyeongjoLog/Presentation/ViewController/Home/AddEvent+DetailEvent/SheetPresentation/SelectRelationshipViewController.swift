@@ -37,9 +37,6 @@ extension SelectRelationshipViewController {
     }
     
     func bindAction(reactor: SelectRelationshipReactor){
-        selectRelationshipView.relationshipCollectionView.rx.setDelegate(self)
-            .disposed(by: disposeBag)
-        
         selectRelationshipView.dismisButton.rx.tap
             .map{ Reactor.Action.dismissButtonTapped }
             .bind(to: reactor.action)
@@ -76,19 +73,5 @@ extension SelectRelationshipViewController {
                 }
             })
             .disposed(by: disposeBag)
-    }
-}
-
-extension SelectRelationshipViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let index = indexPath.item
-        let text = (reactor?.currentState.relationships[index]) ?? ""
-        let label = UILabel()
-        label.text = text
-        label.font = FontManager.Body02
-        label.numberOfLines = 1
-        let maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 40*ConstantsManager.standardHeight)
-        let size = label.sizeThatFits(maxSize)
-        return CGSize(width: (size.width+32)*ConstantsManager.standardWidth, height: 42*ConstantsManager.standardHeight)
     }
 }

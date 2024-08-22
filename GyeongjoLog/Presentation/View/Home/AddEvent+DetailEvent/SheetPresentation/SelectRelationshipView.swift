@@ -17,8 +17,9 @@ class SelectRelationshipView: UIView {
     let relationshipCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.minimumInteritemSpacing = 6*ConstantsManager.standardWidth
+        layout.minimumInteritemSpacing = 5*ConstantsManager.standardWidth
         layout.minimumLineSpacing = 10*ConstantsManager.standardHeight
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(RelationshipCollectionViewCell.self, forCellWithReuseIdentifier: "RelationshipCollectionViewCell")
         return collectionView

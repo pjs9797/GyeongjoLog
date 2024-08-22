@@ -27,7 +27,7 @@ class EventUseCase {
             return self.sortEventSummaries(events: searchedEvents, sortBy: sortBy)
         }
     }
-
+    
     
     // 타인 경조사 요약 목록
     func searchAndFilterOtherEventSummaries(query: String? = nil, filterRelationship: String = "필터", sortBy: EventSummarySortOption = .date) -> Observable<[Event]> {
@@ -128,9 +128,33 @@ class EventUseCase {
         }
         switch sortBy {
         case .date:
-            return myEvents.sorted { $0.date > $1.date }
+            return myEvents.sorted {
+                if $0.date != $1.date {
+                    return $0.date > $1.date
+                } 
+                else {
+                    if $0.eventCnt != $1.eventCnt {
+                        return $0.eventCnt > $1.eventCnt
+                    }
+                    else {
+                        return $0.eventType.localizedStandardCompare($1.eventType) == .orderedAscending
+                    }
+                }
+            }
         case .eventCnt:
-            return myEvents.sorted { $0.eventCnt > $1.eventCnt }
+            return myEvents.sorted {
+                if $0.eventCnt != $1.eventCnt {
+                    return $0.eventCnt > $1.eventCnt
+                }
+                else {
+                    if $0.date != $1.date {
+                        return $0.date > $1.date
+                    }
+                    else {
+                        return $0.eventType.localizedStandardCompare($1.eventType) == .orderedAscending
+                    }
+                }
+            }
         }
     }
     
@@ -138,9 +162,33 @@ class EventUseCase {
     private func sortEventSummaries(events: [Event], sortBy: EventSummarySortOption) -> [Event] {
         switch sortBy {
         case .date:
-            return events.sorted { $0.date > $1.date }
+            return events.sorted {
+                if $0.date != $1.date {
+                    return $0.date > $1.date
+                } 
+                else {
+                    if abs($0.amount) != abs($1.amount) {
+                        return abs($0.amount) > abs($1.amount)
+                    } 
+                    else {
+                        return $0.name.localizedStandardCompare($1.name) == .orderedAscending
+                    }
+                }
+            }
         case .amount:
-            return events.sorted { $0.amount > $1.amount }
+            return events.sorted {
+                if abs($0.amount) != abs($1.amount) {
+                    return abs($0.amount) > abs($1.amount)
+                } 
+                else {
+                    if $0.date != $1.date {
+                        return $0.date > $1.date
+                    }
+                    else {
+                        return $0.name.localizedStandardCompare($1.name) == .orderedAscending
+                    }
+                }
+            }
         }
     }
 }

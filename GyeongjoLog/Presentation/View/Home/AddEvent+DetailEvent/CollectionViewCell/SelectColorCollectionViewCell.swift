@@ -7,6 +7,8 @@ class SelectColorCollectionViewCell: UICollectionViewCell {
     let backColorImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 15*ConstantsManager.standardHeight
+        imageView.layer.borderWidth = 1
+        imageView.layer.borderColor = ColorManager.lightGrayFrame?.cgColor
         return imageView
     }()
     let colorImageView: UIImageView = {
@@ -41,7 +43,7 @@ class SelectColorCollectionViewCell: UICollectionViewCell {
     private func updateUI() {
         backColorImageView.backgroundColor = isSelected ? colorImageView.backgroundColor?.withAlphaComponent(0.5) : ColorManager.white
         backColorImageView.layer.borderWidth = isSelected ? 1*ConstantsManager.standardHeight : 0
-        backColorImageView.layer.borderColor = isSelected ? ColorManager.bgGray?.cgColor : UIColor.clear.cgColor
+        backColorImageView.layer.borderColor = isSelected ? ColorManager.lightGrayFrame?.cgColor : UIColor.clear.cgColor
     }
     
     private func layout(){

@@ -95,4 +95,16 @@ class PieChartTableViewCell: UITableViewCell {
         
         amountLabel.attributedText = amountAttributedString
     }
+    
+    func setColorImageView(index: Int){
+        if index == 0 {
+            colorImageView.backgroundColor = ColorManager.blue
+        }
+        else if index == 1 {
+            colorImageView.backgroundColor = ColorManager.blueGray01
+        }
+        else {
+            colorImageView.backgroundColor = ColorManager.lightGrayFrame
+        }
+    }
 }

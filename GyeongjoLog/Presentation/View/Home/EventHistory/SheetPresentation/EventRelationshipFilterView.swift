@@ -19,6 +19,7 @@ class EventRelationshipFilterView: UIView {
         layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = 6*ConstantsManager.standardWidth
         layout.minimumLineSpacing = 10*ConstantsManager.standardHeight
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(RelationshipCollectionViewCell.self, forCellWithReuseIdentifier: "RelationshipCollectionViewCell")
         return collectionView

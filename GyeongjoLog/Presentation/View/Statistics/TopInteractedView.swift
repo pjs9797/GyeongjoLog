@@ -4,6 +4,7 @@ import SnapKit
 class TopInteractedView: UIView {
     let titleLabel: UILabel = {
         let label = UILabel()
+        label.numberOfLines = 1
         return label
     }()
     let subTitleLabel: UILabel = {
@@ -43,6 +44,7 @@ class TopInteractedView: UIView {
         
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(18*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview()
             make.top.equalToSuperview().offset(18*ConstantsManager.standardHeight)
         }
         
@@ -64,16 +66,29 @@ class TopInteractedView: UIView {
         }
     }
     
-    func configureName(name: String){
-        let titleText = "이번달 \(name)님과 가장 많이 주고 받았어요"
-        let attributedString = NSMutableAttributedString(string: titleText)
-        
-        attributedString.addAttribute(.font, value: FontManager.SubHead03_SemiBold, range: NSMakeRange(0, titleText.count))
-        attributedString.addAttribute(.foregroundColor, value: ColorManager.text01 ?? .black, range: NSMakeRange(0, titleText.count))
-        let range = (titleText as NSString).range(of: name)
-        attributedString.addAttribute(.foregroundColor, value: ColorManager.blue ?? .blue, range: range)
-        
-        titleLabel.attributedText = attributedString
+    func configureTopInteractedView(name: String?){
+        if let name = name {
+            rightImageView.isHidden = false
+            let titleText = "이번달 \(name)님과 가장 많이 주고 받았어요"
+            let attributedString = NSMutableAttributedString(string: titleText)
+            
+            attributedString.addAttribute(.font, value: FontManager.SubHead03_SemiBold, range: NSMakeRange(0, titleText.count))
+            attributedString.addAttribute(.foregroundColor, value: ColorManager.text01 ?? .black, range: NSMakeRange(0, titleText.count))
+            let range = (titleText as NSString).range(of: name)
+            attributedString.addAttribute(.foregroundColor, value: ColorManager.blue ?? .blue, range: range)
+            
+            titleLabel.attributedText = attributedString
+        }
+        else {
+            rightImageView.isHidden = true
+            let titleText = "이번 달 아직 주고받은 사람이 없어요"
+            let attributedString = NSMutableAttributedString(string: titleText)
+            
+            attributedString.addAttribute(.font, value: FontManager.SubHead03_SemiBold, range: NSMakeRange(0, titleText.count))
+            attributedString.addAttribute(.foregroundColor, value: ColorManager.text01 ?? .black, range: NSMakeRange(0, titleText.count))
+            
+            titleLabel.attributedText = attributedString
+        }
     }
     
     func configureCnt(cnt: Int) {

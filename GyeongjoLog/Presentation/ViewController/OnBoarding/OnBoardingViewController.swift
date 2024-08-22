@@ -110,8 +110,8 @@ extension OnBoardingViewController {
     
     func bindState(reactor: OnBoardingReactor){
         reactor.state.map { $0.currentPage }
-            .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .bind(onNext: { owner, page in
                 let direction: UIPageViewController.NavigationDirection = page > owner.pageControl.currentPage ? .forward : .reverse

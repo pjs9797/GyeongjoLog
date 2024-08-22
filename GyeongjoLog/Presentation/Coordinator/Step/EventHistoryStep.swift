@@ -20,6 +20,9 @@ enum EventHistoryStep: Step {
     case presentToSelectEventDateViewController(eventDateRelay: PublishRelay<String>, initialDate: String?)
     case presentToSelectRelationshipViewController(eventRelationshipRelay: PublishRelay<String>)
     
+    // 프레젠트 - 캘린더
+    case presentToSelectCalendarDateViewController(eventDateRelay: PublishRelay<String>, initialDate: String?)
+    
     // 뒤로가기
     case dismissSheetPresentationController
     case popViewController

@@ -28,7 +28,6 @@ class IndividualStatisticsViewController: UIViewController, ReactorKit.View {
         super.viewDidLoad()
         
         hideKeyboard(disposeBag: disposeBag)
-        self.setTapGesture()
         view.backgroundColor = ColorManager.white
     }
     
@@ -36,17 +35,6 @@ class IndividualStatisticsViewController: UIViewController, ReactorKit.View {
         super.viewWillAppear(animated)
         
         self.reactor?.action.onNext(.loadIndividualStatistics)
-        self.reactor?.action.onNext(.loadTopIndividualStatistics)
-    }
-    
-    private func setTapGesture(){
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTopInteractedViewTap))
-           individualStatisticsView.topInteractedView.addGestureRecognizer(tapGesture)
-           individualStatisticsView.topInteractedView.isUserInteractionEnabled = true
-    }
-    
-    @objc private func handleTopInteractedViewTap() {
-        reactor?.action.onNext(.selectTopIndividual)
     }
 }
 
@@ -57,9 +45,6 @@ extension IndividualStatisticsViewController {
     }
     
     func bindAction(reactor: IndividualStatisticsReactor){
-        individualStatisticsView.relationshipFilterCollectionView.rx.setDelegate(self)
-            .disposed(by: disposeBag)
-        
         // 검색
         individualStatisticsView.searchView.searchTextField.rx.text.orEmpty
             .map{ Reactor.Action.updateSearchTextField($0) }
@@ -80,8 +65,8 @@ extension IndividualStatisticsViewController {
     
     func bindState(reactor: IndividualStatisticsReactor){
         reactor.state.map { $0.relationships }
-            .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
             .bind(to: individualStatisticsView.relationshipFilterCollectionView.rx.items(cellIdentifier: "RelationshipCollectionViewCell", cellType: RelationshipCollectionViewCell.self)) { index, relationship, cell in
 
                 cell.configure(with: relationship)
@@ -89,50 +74,25 @@ extension IndividualStatisticsViewController {
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.individualStatistics }
-            .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
             .bind(to: individualStatisticsView.individualStatisticsCollectionView.rx.items(cellIdentifier: "IndividualStatisticsCollectionViewCell", cellType: IndividualStatisticsCollectionViewCell.self)) { index, individualStatistic, cell in
 
                 cell.configure(with: individualStatistic)
             }
             .disposed(by: disposeBag)
         
-        reactor.state.map { $0.topName }
-            .observe(on: MainScheduler.asyncInstance)
+        reactor.state.map { $0.individualStatistics }
             .distinctUntilChanged()
-            .bind(onNext: { [weak self] name in
-                if let name = name {
-                    self?.individualStatisticsView.isNotHiddenTopInteractedView()
-                    self?.individualStatisticsView.topInteractedView.configureName(name: name)
+            .observe(on: MainScheduler.asyncInstance)
+            .bind(onNext: { [weak self] individualStatistics in
+                if individualStatistics.isEmpty {
+                    self?.individualStatisticsView.noneStatistics.isHidden = false
                 }
                 else {
-                    self?.individualStatisticsView.isHideenTopInteractedView()
+                    self?.individualStatisticsView.noneStatistics.isHidden = true
                 }
             })
             .disposed(by: disposeBag)
-        
-        reactor.state.map { $0.topIndividualStatistic }
-            .observe(on: MainScheduler.asyncInstance)
-            .distinctUntilChanged()
-            .bind(onNext: { [weak self] topIndividualStatistic in
-                if let topIndividualStatistic = topIndividualStatistic {
-                    self?.individualStatisticsView.topInteractedView.configureCnt(cnt: topIndividualStatistic.eventDetails.count)
-                }
-            })
-            .disposed(by: disposeBag)
-    }
-}
-
-extension IndividualStatisticsViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let index = indexPath.item
-        let text = (reactor?.currentState.relationships[index]) ?? ""
-        let label = UILabel()
-        label.text = text
-        label.font = FontManager.Body02
-        label.numberOfLines = 1
-        let maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 40*ConstantsManager.standardHeight)
-        let size = label.sizeThatFits(maxSize)
-        return CGSize(width: (size.width+32)*ConstantsManager.standardWidth, height: 40*ConstantsManager.standardHeight)
     }
 }

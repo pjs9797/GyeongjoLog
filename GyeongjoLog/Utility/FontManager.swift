@@ -29,6 +29,7 @@ struct FontManager {
     
     //Caption
     static let Caption = pretendard(.medium, size: 12, lineHeightPercentage: 140, letterSpacing: 0)
+    static let Caption03 = pretendard(.medium, size: 12, lineHeightPercentage: 140, letterSpacing: 0)
     static let Caption02 = pretendard(.bold, size: 12, lineHeightPercentage: 140, letterSpacing: 0)
     static let Caption01 = pretendard(.medium, size: 13, lineHeightPercentage: 140, letterSpacing: 0)
     

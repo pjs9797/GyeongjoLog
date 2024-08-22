@@ -45,8 +45,7 @@ class MyEventViewController: UIViewController, ReactorKit.View {
     @objc private func handleOutsideTap(_ gesture: UITapGestureRecognizer) {
         guard !myEventView.sortView.isHidden else { return }
         let location = gesture.location(in: view)
-        if !myEventView.sortView.frame.contains(location) &&
-            !myEventView.sortButton.frame.contains(location){
+        if !myEventView.sortButton.frame.contains(location){
             self.reactor?.action.onNext(.hideSortView)
         }
     }
@@ -95,8 +94,8 @@ extension MyEventViewController {
     
     func bindState(reactor: MyEventReactor){
         reactor.state.map { $0.myEvents }
-            .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
             .bind(to: myEventView.myEventCollectionView.rx.items(cellIdentifier: "MyEventCollectionViewCell", cellType: MyEventCollectionViewCell.self)) { index, myEvent, cell in
 
                 cell.configure(with: myEvent)
@@ -104,8 +103,8 @@ extension MyEventViewController {
             .disposed(by: disposeBag)
         
         reactor.state.map{ $0.myEvents }
-            .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
             .bind(onNext: { [weak self] events in
                 if events.isEmpty {
                     self?.myEventView.myEventCollectionView.isHidden = true

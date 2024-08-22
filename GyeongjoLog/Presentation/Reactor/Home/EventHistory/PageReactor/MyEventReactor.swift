@@ -56,7 +56,6 @@ class MyEventReactor: ReactorKit.Reactor, Stepper {
             return self.eventUseCase.fetchMyEvents(filterEventType: currentState.filterTitle, sortBy: .date)
                 .flatMap { events in
                     return Observable.concat([
-                        .just(.setSortViewHidden),
                         .just(.setSortOption(.date)),
                         .just(.setMyEvent(events))
                     ])
@@ -65,7 +64,6 @@ class MyEventReactor: ReactorKit.Reactor, Stepper {
             return self.eventUseCase.fetchMyEvents(filterEventType: currentState.filterTitle, sortBy: .eventCnt)
                 .flatMap { events in
                     return Observable.concat([
-                        .just(.setSortViewHidden),
                         .just(.setSortOption(.eventCnt)),
                         .just(.setMyEvent(events))
                     ])

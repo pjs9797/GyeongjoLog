@@ -19,6 +19,7 @@ class EventTypeFilterView: UIView {
         layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = 6*ConstantsManager.standardWidth
         layout.minimumLineSpacing = 10*ConstantsManager.standardHeight
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(EventTypeCollectionViewCell.self, forCellWithReuseIdentifier: "EventTypeCollectionViewCell")
         return collectionView

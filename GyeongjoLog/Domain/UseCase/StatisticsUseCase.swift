@@ -16,71 +16,49 @@ class StatisticsUseCase {
 
             // 이벤트를 이름과 전화번호로 그룹화
             let groupedEvents = self.groupEventsByPerson(events: searchedEvents)
-
+            
             // 그룹화된 이벤트를 필터링 (관계 필터링)
-            let filteredEvents = groupedEvents.filter { (key, events) in
-                let relationship = events.first?.relationship ?? "알 수 없음"
-                return filterRelationship == "전체" || filterRelationship == relationship
-            }
-
+            let filteredEvents = self.filterEventsByRelationship(events: groupedEvents.values.flatMap { $0 }, relationship: filterRelationship)
+            
+            let groupedFilteredEvents = self.groupEventsByPerson(events: filteredEvents)
+            
             // 통계 계산
-            return filteredEvents.compactMap { (key, events) -> IndividualStatistics? in
-                let totalInteractions = events.count
-                let totalAmount = events.reduce(0) { $0 + $1.amount }
-                let totalReceivedAmount = events.filter { $0.amount > 0 }.reduce(0) { $0 + $1.amount }
-                let totalSentAmount = events.filter { $0.amount < 0 }.reduce(0) { $0 + $1.amount }
-
-                let eventDetails = events.map { event in
-                    return EventDetail(
-                        name: event.name,
-                        date: event.date,
-                        eventType: event.eventType,
-                        amount: event.amount
-                    )
+            return groupedFilteredEvents.compactMap { (key, events) in
+                return self.calculateStatistics(for: events, person: key)
+            }.sorted {
+                if $0.totalInteractions != $1.totalInteractions {
+                    return $0.totalInteractions > $1.totalInteractions
+                } 
+                else {
+                    if $0.eventDetails.first?.date != $1.eventDetails.first?.date {
+                        return $0.eventDetails.first?.date ?? "" > $1.eventDetails.first?.date ?? ""
+                    }
+                    else {
+                        return $0.name.localizedStandardCompare($1.name) == .orderedAscending
+                    }
                 }
-
-                return IndividualStatistics(
-                    name: key.name,
-                    phoneNumber: key.phoneNumber,
-                    relationship: events.first?.relationship ?? "알 수 없음",
-                    totalInteractions: totalInteractions,
-                    totalAmount: totalAmount,
-                    totalReceivedAmount: totalReceivedAmount,
-                    totalSentAmount: totalSentAmount,
-                    eventDetails: eventDetails
-                )
-            }.sorted { $0.totalInteractions > $1.totalInteractions }
+            }
         }
     }
-
-    private func searchEvents(events: [Event], query: String) -> [Event] {
-        guard !query.isEmpty else { return events }
-
-        let lowercasedQuery = query.lowercased()
-        return events.filter { event in
-            let formattedPhoneNumber = event.phoneNumber.replacingOccurrences(of: "-", with: "")
-            let lowercasedName = event.name.lowercased()
-            return lowercasedName.contains(lowercasedQuery) || formattedPhoneNumber.contains(lowercasedQuery)
-        }
-    }
-
+    
     // 이번 달에 가장 많이 주고받은 사람의 이름과 통계 정보 가져오기
     func fetchTopIndividualForCurrentMonth() -> Observable<(name: String?, statistics: IndividualStatistics?)> {
         return repository.fetchEvents().map { events in
             // 이번 달의 이벤트만 필터링
-            let calendar = Calendar.current
-            let currentDate = Date()
-            let currentMonthEvents = events.filter {
-                let eventDate = $0.date.toDate()
-                return calendar.isDate(eventDate, equalTo: currentDate, toGranularity: .month)
-            }
+            let currentMonthEvents = self.filterEventsForCurrentMonth(events: events)
             
             // 이번 달의 이벤트를 이름과 전화번호로 그룹화
             let groupedCurrentMonthEvents = self.groupEventsByPerson(events: currentMonthEvents)
             
             // 이번 달에 상호작용 건수가 가장 많은 사람 찾기
             let topIndividual = groupedCurrentMonthEvents.max {
-                $0.value.count < $1.value.count
+                if $0.value.count == $1.value.count {
+                    // 이벤트 수가 같으면 이름 순서로 비교
+                    return $0.key.name.localizedStandardCompare($1.key.name) == .orderedDescending
+                } else {
+                    // 기본적으로 이벤트 수로 비교
+                    return $0.value.count < $1.value.count
+                }
             }
             
             // 상호작용이 없으면 nil을 반환
@@ -94,41 +72,13 @@ class StatisticsUseCase {
             // 상호작용이 가장 많은 사람의 전체 통계 계산
             let statistics = groupedAllEvents.compactMap { (key, events) -> IndividualStatistics? in
                 if key.name == top.key.name && key.phoneNumber == top.key.phoneNumber {
-                    let totalInteractions = events.count
-                    let totalAmount = events.reduce(0) { $0 + $1.amount }
-                    let totalReceivedAmount = events.filter { $0.amount > 0 }.reduce(0) { $0 + $1.amount }
-                    let totalSentAmount = events.filter { $0.amount < 0 }.reduce(0) { $0 + $1.amount }
-                    
-                    let eventDetails = events.map { event in
-                        return EventDetail(
-                            name: event.name,
-                            date: event.date,
-                            eventType: event.eventType,
-                            amount: event.amount
-                        )
-                    }
-                    
-                    return IndividualStatistics(
-                        name: key.name,
-                        phoneNumber: key.phoneNumber,
-                        relationship: events.first?.relationship ?? "알 수 없음",
-                        totalInteractions: totalInteractions,
-                        totalAmount: totalAmount,
-                        totalReceivedAmount: totalReceivedAmount,
-                        totalSentAmount: totalSentAmount,
-                        eventDetails: eventDetails
-                    )
+                    return self.calculateStatistics(for: events, person: key)
                 }
                 return nil
             }.first!
             
             return (name: top.key.name, statistics: statistics)
         }
-    }
-    
-    // 이벤트를 이름과 전화번호로 그룹화
-    private func groupEventsByPerson(events: [Event]) -> [PersonKey: [Event]] {
-        return Dictionary(grouping: events) { PersonKey(name: $0.name, phoneNumber: $0.phoneNumber) }
     }
     
     // 월별 통계 데이터
@@ -160,16 +110,7 @@ class StatisticsUseCase {
                 // 실제 데이터를 기본값에 병합
                 for (month, events) in groupedByMonth {
                     guard var statistics = monthlyStatisticsDict[month] else { continue }
-                    statistics.sentAmount = events.filter { $0.amount < 0 }.reduce(0) { $0 + $1.amount }
-                    statistics.receivedAmount = events.filter { $0.amount > 0 }.reduce(0) { $0 + $1.amount }
-                    statistics.transactionCount = events.count
-                    
-                    var eventTypeAmounts: [String: Int] = [:]
-                    for event in events where event.amount < 0 {
-                        eventTypeAmounts[event.eventType, default: 0] += event.amount
-                    }
-                    statistics.eventTypeAmounts = eventTypeAmounts
-                    
+                    statistics = self.calculateMonthlyStatistics(events: events, for: month)
                     monthlyStatisticsDict[month] = statistics
                 }
 
@@ -188,5 +129,94 @@ class StatisticsUseCase {
     func calculateDifferenceFromAverage(for month: MonthlyStatistics, in statistics: [MonthlyStatistics]) -> Int {
         let averageSentAmount = calculateAverageSentAmount(statistics: statistics)
         return month.sentAmount - averageSentAmount
+    }
+    
+    // 이벤트를 이름과 전화번호로 그룹화
+    private func groupEventsByPerson(events: [Event]) -> [PersonKey: [Event]] {
+        return Dictionary(grouping: events) { PersonKey(name: $0.name, phoneNumber: $0.phoneNumber) }
+    }
+
+    // 쿼리에 따라 이벤트를 필터링
+    private func searchEvents(events: [Event], query: String) -> [Event] {
+        guard !query.isEmpty else { return events }
+
+        let lowercasedQuery = query.lowercased()
+        return events.filter { event in
+            let formattedPhoneNumber = event.phoneNumber.replacingOccurrences(of: "-", with: "")
+            let lowercasedName = event.name.lowercased()
+            return lowercasedName.contains(lowercasedQuery) || formattedPhoneNumber.contains(lowercasedQuery)
+        }
+    }
+
+    // 이벤트를 기반으로 개인 통계 계산
+    private func calculateStatistics(for events: [Event], person: PersonKey) -> IndividualStatistics? {
+        let totalInteractions = events.count
+        let totalAmount = events.reduce(0) { $0 + $1.amount }
+        let totalReceivedAmount = events.filter { $0.amount > 0 }.reduce(0) { $0 + $1.amount }
+        let totalSentAmount = events.filter { $0.amount < 0 }.reduce(0) { $0 + $1.amount }
+        
+        let eventDetails = events.map { event in
+            return EventDetail(
+                name: event.name,
+                date: event.date,
+                eventType: event.eventType,
+                amount: event.amount
+            )
+        }
+        
+        return IndividualStatistics(
+            name: person.name,
+            phoneNumber: person.phoneNumber,
+            relationship: events.first?.relationship ?? "알 수 없음",
+            totalInteractions: totalInteractions,
+            totalAmount: totalAmount,
+            totalReceivedAmount: totalReceivedAmount,
+            totalSentAmount: totalSentAmount,
+            eventDetails: eventDetails
+        )
+    }
+
+    // 관계에 따라 이벤트 필터링
+    private func filterEventsByRelationship(events: [Event], relationship: String) -> [Event] {
+        return events.filter { event in
+            let eventRelationship = event.relationship
+            return relationship == "전체" || relationship == eventRelationship
+        }
+    }
+
+    // 이번 달의 이벤트 필터링
+    private func filterEventsForCurrentMonth(events: [Event]) -> [Event] {
+        let calendar = Calendar.current
+        let currentDate = Date()
+        return events.filter {
+            let eventDate = $0.date.toDate()
+            return calendar.isDate(eventDate, equalTo: currentDate, toGranularity: .month)
+        }
+    }
+
+    // 월별 통계 계산
+    private func calculateMonthlyStatistics(events: [Event], for month: String) -> MonthlyStatistics {
+        var sentAmount = 0
+        var receivedAmount = 0
+        var transactionCount = 0
+        var eventTypeAmounts: [String: Int] = [:]
+        
+        for event in events {
+            if event.amount < 0 {
+                sentAmount += event.amount
+                eventTypeAmounts[event.eventType, default: 0] += event.amount
+            } else if event.amount > 0 {
+                receivedAmount += event.amount
+            }
+        }
+        transactionCount = events.count
+        
+        return MonthlyStatistics(
+            month: month,
+            sentAmount: sentAmount,
+            receivedAmount: receivedAmount,
+            transactionCount: transactionCount,
+            eventTypeAmounts: eventTypeAmounts
+        )
     }
 }

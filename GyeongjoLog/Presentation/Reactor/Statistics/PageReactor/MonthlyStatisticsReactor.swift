@@ -15,10 +15,16 @@ class MonthlyStatisticsReactor: ReactorKit.Reactor, Stepper {
     enum Action {
         case selectMonth(Int)
         case loadMonthlyStatistics
+        case loadTopIndividualStatistics
+        case selectTopIndividual
     }
     
     enum Mutation {
+        case setTopName(String?)
+        case setTopIndividualStatistic(IndividualStatistics?)
+        
         case setMonthlyStatistics([MonthlyStatistics])
+        case setIsEmptyMonthlyStatistics(Bool)
         case setSelectedMonth(MonthlyStatistics)
         case setDifferenceAmountFromAverage(Int)
         case setReceivedAmount(String)
@@ -29,7 +35,11 @@ class MonthlyStatisticsReactor: ReactorKit.Reactor, Stepper {
     }
     
     struct State {
+        var topName: String?
+        var topIndividualStatistic: IndividualStatistics?
+        
         var monthlyStatistics: [MonthlyStatistics] = []
+        var isEmptyMonthlyStatistics: Bool = true
         var selectedMonthlyStatistics: MonthlyStatistics?
         var differenceAmountFromAverage: Int = 0
         var receivedAmount: String = ""
@@ -41,6 +51,20 @@ class MonthlyStatisticsReactor: ReactorKit.Reactor, Stepper {
     
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
+        case .loadTopIndividualStatistics:
+            return self.statisticsUseCase.fetchTopIndividualForCurrentMonth()
+                .flatMap{
+                    Observable.concat([
+                        .just(.setTopName($0.name)),
+                        .just(.setTopIndividualStatistic($0.statistics))
+                    ])
+                }
+        case .selectTopIndividual:
+            if let topIndividualStatistic = currentState.topIndividualStatistic {
+                self.steps.accept(StatisticsStep.navigateToDetailIndividualStatisticsViewController(individualStatistics: topIndividualStatistic))
+            }
+            return .empty()
+            
         case .selectMonth(let index):
             let selectedMonthlyStatistics = currentState.monthlyStatistics[index]
             let differenceFromAverage = self.statisticsUseCase.calculateDifferenceFromAverage(for: selectedMonthlyStatistics, in: currentState.monthlyStatistics)
@@ -53,7 +77,7 @@ class MonthlyStatisticsReactor: ReactorKit.Reactor, Stepper {
             var topEventType: String = ""
             let components = selectedMonthlyStatistics.month.split(separator: ".")
             let selectedMonth = components.count == 2 ? "\(components[1])월" : ""
-            if let eventType = currentState.monthlyStatistics[index].eventTypeAmounts.max(by: { $0.value < $1.value })?.key {
+            if let eventType = currentState.monthlyStatistics[index].eventTypeAmounts.max(by: { $0.value > $1.value })?.key {
                 topEventType = eventType
             }
             let absSentAmount = abs(currentState.monthlyStatistics[index].sentAmount).formattedWithComma()
@@ -77,15 +101,28 @@ class MonthlyStatisticsReactor: ReactorKit.Reactor, Stepper {
             
         case .loadMonthlyStatistics:
             return self.statisticsUseCase.fetchMonthlyStatistics()
-                .map { Mutation.setMonthlyStatistics($0) }
+                .flatMap { monthlyStatistics -> Observable<Mutation> in
+                    let isEmpty = monthlyStatistics.allSatisfy { $0.receivedAmount == 0 }
+                    return Observable.concat([
+                        .just(.setMonthlyStatistics(monthlyStatistics)),
+                        .just(.setIsEmptyMonthlyStatistics(isEmpty))
+                    ])
+                }
         }
     }
     
     func reduce(state: State, mutation: Mutation) -> State {
         var newState = state
         switch mutation {
+        case .setTopName(let name):
+            newState.topName = name
+        case .setTopIndividualStatistic(let individualStatistics):
+            newState.topIndividualStatistic = individualStatistics
+            
         case .setMonthlyStatistics(let monthlyStatistics):
             newState.monthlyStatistics = monthlyStatistics
+        case .setIsEmptyMonthlyStatistics(let isEmpty):
+                newState.isEmptyMonthlyStatistics = isEmpty
         case .setSelectedMonth(let selectedMonthlyStatistics):
             newState.selectedMonthlyStatistics = selectedMonthlyStatistics
         case .setDifferenceAmountFromAverage(let differenceAmountFromAverage):

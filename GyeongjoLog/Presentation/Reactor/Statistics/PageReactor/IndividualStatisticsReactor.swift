@@ -18,19 +18,15 @@ class IndividualStatisticsReactor: ReactorKit.Reactor, Stepper {
         // 컬렉션뷰 셀 탭
         case selectRelationship(Int)
         case selectIndividualStatistics(Int)
-        case selectTopIndividual
         
         // 개인별 통계 로드
         case loadIndividualStatistics
-        case loadTopIndividualStatistics
     }
     
     enum Mutation {
         case setIndividualStatistics([IndividualStatistics])
         case setSearchQuery(String)
         case setSelectRelationship(String)
-        case setTopName(String?)
-        case setTopIndividualStatistic(IndividualStatistics?)
     }
     
     struct State {
@@ -38,8 +34,6 @@ class IndividualStatisticsReactor: ReactorKit.Reactor, Stepper {
         var individualStatistics: [IndividualStatistics] = []
         var searchQuery: String = ""
         var selectedRelationship = "전체"
-        var topName: String?
-        var topIndividualStatistic: IndividualStatistics?
     }
     
     func mutate(action: Action) -> Observable<Mutation> {
@@ -63,24 +57,11 @@ class IndividualStatisticsReactor: ReactorKit.Reactor, Stepper {
             let individualStatistic = currentState.individualStatistics[index]
             self.steps.accept(StatisticsStep.navigateToDetailIndividualStatisticsViewController(individualStatistics: individualStatistic))
             return .empty()
-        case .selectTopIndividual:
-            if let topIndividualStatistic = currentState.topIndividualStatistic {
-                self.steps.accept(StatisticsStep.navigateToDetailIndividualStatisticsViewController(individualStatistics: topIndividualStatistic))
-            }
-            return .empty()
             
             // 개인별 통계 로드
         case .loadIndividualStatistics:
             return self.statisticsUseCase.fetchIndividualStatistics()
                 .map{ .setIndividualStatistics($0) }
-        case .loadTopIndividualStatistics:
-            return self.statisticsUseCase.fetchTopIndividualForCurrentMonth()
-                .flatMap{
-                    Observable.concat([
-                        .just(.setTopName($0.name)),
-                        .just(.setTopIndividualStatistic($0.statistics))
-                    ])
-                }
         }
     }
     
@@ -93,10 +74,6 @@ class IndividualStatisticsReactor: ReactorKit.Reactor, Stepper {
             newState.searchQuery = text
         case .setSelectRelationship(let relationship):
             newState.selectedRelationship = relationship
-        case .setTopName(let name):
-            newState.topName = name
-        case .setTopIndividualStatistic(let individualStatistics):
-            newState.topIndividualStatistic = individualStatistics
         }
         return newState
     }

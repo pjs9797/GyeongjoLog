@@ -2,7 +2,6 @@ import UIKit
 import SnapKit
 
 class IndividualStatisticsView: UIView {
-    let topInteractedView = TopInteractedView()
     let searchView: SearchView = {
         let view = SearchView()
         view.layer.borderColor = ColorManager.lightGrayFrame?.cgColor
@@ -13,12 +12,14 @@ class IndividualStatisticsView: UIView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 6*ConstantsManager.standardWidth
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = ColorManager.white
-        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(RelationshipCollectionViewCell.self, forCellWithReuseIdentifier: "RelationshipCollectionViewCell")
         return collectionView
     }()
+    let noneStatistics = NoneStatisticsView()
     let individualStatisticsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -45,71 +46,35 @@ class IndividualStatisticsView: UIView {
     }
     
     private func layout() {
-        [topInteractedView,searchView,relationshipFilterCollectionView,individualStatisticsCollectionView]
+        [searchView,relationshipFilterCollectionView,individualStatisticsCollectionView,noneStatistics]
             .forEach{
                 addSubview($0)
             }
-        
-        topInteractedView.snp.makeConstraints { make in
-            make.height.equalTo(134*ConstantsManager.standardHeight)
-            make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
-            make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
-            make.top.equalToSuperview().offset(20*ConstantsManager.standardHeight)
-        }
         
         searchView.snp.makeConstraints { make in
             make.height.equalTo(52*ConstantsManager.standardHeight)
             make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
-            make.top.equalTo(topInteractedView.snp.bottom).offset(30*ConstantsManager.standardHeight)
+            make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(38*ConstantsManager.standardHeight)
         }
         
         relationshipFilterCollectionView.snp.makeConstraints { make in
-            make.height.equalTo(40*ConstantsManager.standardHeight)
+            make.height.equalTo(50*ConstantsManager.standardHeight)
             make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview()
-            make.top.equalTo(searchView.snp.bottom).offset(24*ConstantsManager.standardHeight)
+            make.top.equalTo(searchView.snp.bottom).offset(14*ConstantsManager.standardHeight)
         }
         
         individualStatisticsCollectionView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
-            make.top.equalTo(relationshipFilterCollectionView.snp.bottom).offset(18*ConstantsManager.standardHeight)
+            make.top.equalTo(relationshipFilterCollectionView.snp.bottom).offset(10*ConstantsManager.standardHeight)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom)
         }
-    }
-    
-    func isHideenTopInteractedView(){
-        topInteractedView.isHidden = true
-        topInteractedView.snp.remakeConstraints { make in
-            make.height.equalTo(0)
-            make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
-            make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
-            make.top.equalToSuperview().offset(20*ConstantsManager.standardHeight)
-        }
         
-        searchView.snp.remakeConstraints { make in
-            make.height.equalTo(52*ConstantsManager.standardHeight)
-            make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
-            make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
-            make.top.equalToSuperview().offset(20*ConstantsManager.standardHeight)
-        }
-    }
-    
-    func isNotHiddenTopInteractedView(){
-        topInteractedView.isHidden = false
-        topInteractedView.snp.remakeConstraints { make in
-            make.height.equalTo(134*ConstantsManager.standardHeight)
-            make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
-            make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
-            make.top.equalToSuperview().offset(20*ConstantsManager.standardHeight)
-        }
-        
-        searchView.snp.remakeConstraints { make in
-            make.height.equalTo(52*ConstantsManager.standardHeight)
-            make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
-            make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
-            make.top.equalTo(topInteractedView.snp.bottom).offset(30*ConstantsManager.standardHeight)
+        noneStatistics.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(relationshipFilterCollectionView.snp.bottom).offset(138*ConstantsManager.standardHeight)
         }
     }
 }

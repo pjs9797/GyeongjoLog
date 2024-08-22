@@ -33,72 +33,24 @@ class MonthlyStatisticsViewController: UIViewController, ReactorKit.View {
         monthlyStatisticsView.barChartView.delegate = self
         self.reactor?.action.onNext(.loadMonthlyStatistics)
         self.reactor?.action.onNext(.selectMonth(5))
+        self.reactor?.action.onNext(.loadTopIndividualStatistics)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.reactor?.action.onNext(.loadMonthlyStatistics)
+        self.reactor?.action.onNext(.loadTopIndividualStatistics)
     }
     
-    private func updatePieChart(for selectedMonth: MonthlyStatistics) {
-        var entries: [PieChartDataEntry] = []
-        var colors: [NSUIColor] = []
-        
-        for (eventType, amount) in selectedMonth.eventTypeAmounts {
-            let entry = PieChartDataEntry(value: Double(abs(amount)), label: eventType)
-            entries.append(entry)
-            
-            // UserDefaults에서 해당 eventType의 색상을 가져옵니다.
-            if let colorName = UserDefaultsManager.shared.fetchColor(forEventType: eventType),
-               let color = UIColor(named: colorName) {
-                colors.append(color)
-            } else {
-                // 만약 UserDefaults에 색상이 저장되어 있지 않으면 기본 색상을 사용합니다.
-                colors.append(ColorManager.blue ?? .gray)
-            }
-        }
-        
-        let dataSet = PieChartDataSet(entries: entries, label: "")
-        dataSet.colors = colors
-        dataSet.sliceSpace = 0
-        dataSet.selectionShift = 5.5
-        
-        // 라벨과 값을 차트 외부로 이동
-        dataSet.xValuePosition = .outsideSlice
-        dataSet.yValuePosition = .outsideSlice
-        
-        // 값과 라벨을 연결하는 선 설정
-        dataSet.valueLinePart1OffsetPercentage = 0.7  // 선의 시작점 위치 조정
-        dataSet.valueLinePart1Length = 0.9  // 첫 번째 선 길이 더 길게
-        dataSet.valueLinePart2Length = 0.9  // 두 번째 선 길이 더 길게
-
-        dataSet.valueLineWidth = 1.0  // 선의 두께
-        dataSet.valueLineColor = ColorManager.text02 ?? .gray  // 선의 색상
-
-        let data = PieChartData(dataSet: dataSet)
-        
-        // 라벨 (이벤트 타입) 스타일 설정
-        dataSet.entryLabelFont = FontManager.Body02
-        dataSet.entryLabelColor = ColorManager.text02 ?? .darkGray
-        
-        // 값 (amount) 스타일 설정
-        data.setValueFormatter(DefaultValueFormatter(formatter: numberFormatter))
-        data.setValueFont(FontManager.Caption01)
-        data.setValueTextColor(ColorManager.white ?? .gray)
-        
-        monthlyStatisticsView.pieChartView.data = data
-        monthlyStatisticsView.pieChartView.notifyDataSetChanged()
+    private func setTapGesture(){
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTopInteractedViewTap))
+        monthlyStatisticsView.topInteractedView.addGestureRecognizer(tapGesture)
     }
-
-    private var numberFormatter: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.minimumFractionDigits = 0
-        formatter.maximumFractionDigits = 0
-        return formatter
+    
+    @objc private func handleTopInteractedViewTap() {
+        reactor?.action.onNext(.selectTopIndividual)
     }
-
 }
 
 extension MonthlyStatisticsViewController {
@@ -108,16 +60,45 @@ extension MonthlyStatisticsViewController {
     }
     
     func bindAction(reactor: MonthlyStatisticsReactor){
-        // 여기에서 추가적인 액션 바인딩을 설정할 수 있습니다.
+        
     }
     
     func bindState(reactor: MonthlyStatisticsReactor){
+        reactor.state.map { $0.topName }
+            .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
+            .bind(onNext: { [weak self] name in
+                self?.monthlyStatisticsView.topInteractedView.configureTopInteractedView(name: name)
+            })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.topIndividualStatistic }
+            .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
+            .bind(onNext: { [weak self] topIndividualStatistic in
+                if let topIndividualStatistic = topIndividualStatistic {
+                    self?.monthlyStatisticsView.topInteractedView.configureCnt(cnt: topIndividualStatistic.eventDetails.count)
+                }
+                else {
+                    self?.monthlyStatisticsView.topInteractedView.configureCnt(cnt: 0)
+                }
+            })
+            .disposed(by: disposeBag)
+        
         reactor.state.map { $0.monthlyStatistics }
             .distinctUntilChanged()
             .observe(on: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] statistics in
                 self?.updateBarChart(statistics: statistics)
             })
+            .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.isEmptyMonthlyStatistics }
+            .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
+            .bind { [weak self] isEmpty in
+                self?.monthlyStatisticsView.updateView(isEmpty: isEmpty)
+            }
             .disposed(by: disposeBag)
         
         // 평균과의 차이 업데이트
@@ -154,7 +135,7 @@ extension MonthlyStatisticsViewController {
             }
             .bind(onNext: { [weak self] (month,eventType) in
                 if eventType == "" {
-                    self?.monthlyStatisticsView.topEventTypeLabel.isHidden = true
+                    self?.monthlyStatisticsView.setNoneTopEventTypeLabel()
                 }
                 else {
                     self?.monthlyStatisticsView.topEventTypeLabel.isHidden = false
@@ -182,13 +163,27 @@ extension MonthlyStatisticsViewController {
             .bind(to: monthlyStatisticsView.pieChartDetailTableView.rx.items(cellIdentifier: "PieChartTableViewCell", cellType: PieChartTableViewCell.self)) { index, event, cell in
                 
                 cell.configure(with: event)
+                cell.setColorImageView(index: index)
             }
+            .disposed(by: disposeBag)
+        
+        reactor.state.map{ $0.pieChartDetails }
+            .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
+            .bind(onNext: { [weak self] pieChartDetails in
+                if pieChartDetails.isEmpty {
+                    self?.monthlyStatisticsView.nonePieView.isHidden = false
+                }
+                else {
+                    self?.monthlyStatisticsView.nonePieView.isHidden = true
+                }
+            })
             .disposed(by: disposeBag)
         
         monthlyStatisticsView.pieChartDetailTableView.rx.observe(CGSize.self, "contentSize")
             .compactMap { $0?.height }
             .distinctUntilChanged()
-            .observe(on: MainScheduler.instance)
+            .observe(on: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] height in
                 self?.monthlyStatisticsView.pieChartDetailTableView.snp.updateConstraints { make in
                     make.height.equalTo(height * ConstantsManager.standardHeight)
@@ -198,7 +193,7 @@ extension MonthlyStatisticsViewController {
     }
 }
 
-// 막대 선택 이벤트를 처리하는 extension
+// 막대 그래프
 extension MonthlyStatisticsViewController: ChartViewDelegate {
     private func calculateNormalizedHeight(for transactionCount: Int, maxTransactionCount: Int) -> Double {
         let minHeight = 2.0*ConstantsManager.standardHeight
@@ -266,7 +261,6 @@ extension MonthlyStatisticsViewController: ChartViewDelegate {
     
     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
         guard let dataSet = chartView.data?.dataSets[highlight.dataSetIndex] as? BarChartDataSet else {
-            print("데이터 세트를 찾을 수 없습니다.")
             return
         }
         
@@ -277,7 +271,6 @@ extension MonthlyStatisticsViewController: ChartViewDelegate {
         if let index = dataSet.entries.firstIndex(of: entry) {
             dataSet.colors[index] = ColorManager.blue ?? .blue
             reactor?.action.onNext(.selectMonth(index))
-            print("선택된 막대의 색상을 변경했습니다. Index: \(index)")
         }
         
         // 차트 다시 그리기
@@ -286,7 +279,6 @@ extension MonthlyStatisticsViewController: ChartViewDelegate {
     
     func chartValueNothingSelected(_ chartView: ChartViewBase) {
         guard let dataSet = chartView.data?.dataSets.first as? BarChartDataSet else {
-            print("데이터 세트를 찾을 수 없습니다.")
             return
         }
         
@@ -306,5 +298,48 @@ class TransactionCountValueFormatter: ValueFormatter {
             return "\(transactionCount)"
         }
         return ""
+    }
+}
+
+// 파이 차트
+extension MonthlyStatisticsViewController {
+    private func updatePieChart(for selectedMonth: MonthlyStatistics) {
+        var entries: [PieChartDataEntry] = []
+        let eventTypeAmounts = selectedMonth.eventTypeAmounts.sorted {
+            if abs($0.value) != abs($1.value) {
+                return abs($0.value) > abs($1.value)
+            }
+            else {
+                return $0.key.localizedStandardCompare($1.key) == .orderedAscending
+            }
+        }
+        let topThreeEventTypes = eventTypeAmounts.prefix(3).reversed()
+        
+        let colors: [NSUIColor] = [ColorManager.blue ?? .blue, ColorManager.blueGray01 ?? .gray, ColorManager.lightGrayFrame ?? .lightGray].reversed()
+        
+        for (index, (eventType, amount)) in topThreeEventTypes.enumerated() {
+            let entry = PieChartDataEntry(value: Double(abs(amount)), label: eventType)
+            entries.append(entry)
+        }
+        let dataSet = PieChartDataSet(entries: entries, label: "")
+        dataSet.colors = Array(colors.prefix(entries.count))
+        dataSet.sliceSpace = 0
+        dataSet.selectionShift = 0
+        
+        // 라벨을 차트 내부로 설정
+        dataSet.xValuePosition = .insideSlice
+        dataSet.yValuePosition = .insideSlice
+        
+        dataSet.drawValuesEnabled = false
+        
+        let data = PieChartData(dataSet: dataSet)
+        
+        // 라벨 (이벤트 타입) 스타일 설정
+        dataSet.entryLabelFont = FontManager.Body02
+        dataSet.entryLabelColor = ColorManager.black ?? .darkGray
+        
+        monthlyStatisticsView.pieChartView.rotationAngle = 270
+        monthlyStatisticsView.pieChartView.data = data
+        monthlyStatisticsView.pieChartView.notifyDataSetChanged()
     }
 }

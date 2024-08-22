@@ -37,9 +37,6 @@ extension EventRelationshipFilterViewController {
     }
     
     func bindAction(reactor: EventRelationshipFilterReactor){
-        eventRelationshipFilterView.relationshipCollectionView.rx.setDelegate(self)
-            .disposed(by: disposeBag)
-        
         eventRelationshipFilterView.dismisButton.rx.tap
             .map{ Reactor.Action.dismissButtonTapped }
             .bind(to: reactor.action)
@@ -71,8 +68,8 @@ extension EventRelationshipFilterViewController {
             .disposed(by: disposeBag)
         
         reactor.state.compactMap { $0.selectedRelationship }
-            .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
             .bind(onNext: { [weak self] selectedRelationship in
                 guard let index = reactor.currentState.relationships.firstIndex(of: selectedRelationship) else { return }
                 let indexPath = IndexPath(item: index, section: 0)
@@ -94,16 +91,16 @@ extension EventRelationshipFilterViewController {
     }
 }
 
-extension EventRelationshipFilterViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let index = indexPath.item
-        let text = (reactor?.currentState.relationships[index]) ?? ""
-        let label = UILabel()
-        label.text = text
-        label.font = FontManager.Body02
-        label.numberOfLines = 1
-        let maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 40*ConstantsManager.standardHeight)
-        let size = label.sizeThatFits(maxSize)
-        return CGSize(width: (size.width+32)*ConstantsManager.standardWidth, height: 42*ConstantsManager.standardHeight)
-    }
-}
+//extension EventRelationshipFilterViewController: UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let index = indexPath.item
+//        let text = (reactor?.currentState.relationships[index]) ?? ""
+//        let label = UILabel()
+//        label.text = text
+//        label.font = FontManager.Body02
+//        label.numberOfLines = 1
+//        let maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 40*ConstantsManager.standardHeight)
+//        let size = label.sizeThatFits(maxSize)
+//        return CGSize(width: (size.width+32)*ConstantsManager.standardWidth, height: 42*ConstantsManager.standardHeight)
+//    }
+//}

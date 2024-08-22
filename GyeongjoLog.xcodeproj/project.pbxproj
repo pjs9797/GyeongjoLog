@@ -57,7 +57,7 @@
 		311E25832C64EF3D00C61202 /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25822C64EF3D00C61202 /* UITextView+Extension.swift */; };
 		311E25852C65008D00C61202 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25842C65008D00C61202 /* TabBarController.swift */; };
 		311E25872C65021000C61202 /* EventHistoryFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25862C65021000C61202 /* EventHistoryFlow.swift */; };
-		311E25892C65021900C61202 /* EvnetHistoryStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25882C65021900C61202 /* EvnetHistoryStep.swift */; };
+		311E25892C65021900C61202 /* EventHistoryStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25882C65021900C61202 /* EventHistoryStep.swift */; };
 		312A995C2C663F96001F5BB8 /* SetEventDetailTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312A995B2C663F96001F5BB8 /* SetEventDetailTextFieldView.swift */; };
 		312A995E2C663FCD001F5BB8 /* SetEventDetailButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312A995D2C663FCD001F5BB8 /* SetEventDetailButtonView.swift */; };
 		31FDB1652C6718A30010F3EC /* BottomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1642C6718A30010F3EC /* BottomButton.swift */; };
@@ -141,6 +141,19 @@
 		31FDB23C2C7461120010F3EC /* ReceivedSentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB23B2C7461120010F3EC /* ReceivedSentView.swift */; };
 		31FDB23E2C7465BF0010F3EC /* DetailIndividualStatisticsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB23D2C7465BF0010F3EC /* DetailIndividualStatisticsCollectionViewCell.swift */; };
 		31FDB2402C74EA310010F3EC /* CALayer+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB23F2C74EA310010F3EC /* CALayer+Extension.swift */; };
+		31FDB2412C75B50C0010F3EC /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 311E25072C635F2600C61202 /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		31FDB2442C75DB040010F3EC /* PhraseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2432C75DB040010F3EC /* PhraseViewController.swift */; };
+		31FDB2472C75DB410010F3EC /* PhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2462C75DB410010F3EC /* PhraseView.swift */; };
+		31FDB24A2C75DCC90010F3EC /* PhraseReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2492C75DCC90010F3EC /* PhraseReactor.swift */; };
+		31FDB24C2C75DDC30010F3EC /* PhraseStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB24B2C75DDC30010F3EC /* PhraseStep.swift */; };
+		31FDB24E2C75DDC80010F3EC /* PhraseFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB24D2C75DDC80010F3EC /* PhraseFlow.swift */; };
+		31FDB2512C75E1C10010F3EC /* PhraseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2502C75E1C10010F3EC /* PhraseCollectionViewCell.swift */; };
+		31FDB2582C76F6490010F3EC /* RxKeyboard in Frameworks */ = {isa = PBXBuildFile; productRef = 31FDB2572C76F6490010F3EC /* RxKeyboard */; };
+		31FDB25B2C7719710010F3EC /* SelectCalendarDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB25A2C7719710010F3EC /* SelectCalendarDateView.swift */; };
+		31FDB25D2C77198B0010F3EC /* YearMonthDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB25C2C77198B0010F3EC /* YearMonthDatePickerView.swift */; };
+		31FDB2602C7719CF0010F3EC /* SelectCalendarDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB25F2C7719CF0010F3EC /* SelectCalendarDateViewController.swift */; };
+		31FDB2632C7719F50010F3EC /* SelectCalendarDateViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2622C7719F50010F3EC /* SelectCalendarDateViewReactor.swift */; };
+		31FDB2652C7775360010F3EC /* NonePieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2642C7775360010F3EC /* NonePieView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -150,6 +163,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				31FDB2412C75B50C0010F3EC /* RealmSwift in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -201,7 +215,7 @@
 		311E25822C64EF3D00C61202 /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
 		311E25842C65008D00C61202 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		311E25862C65021000C61202 /* EventHistoryFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHistoryFlow.swift; sourceTree = "<group>"; };
-		311E25882C65021900C61202 /* EvnetHistoryStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvnetHistoryStep.swift; sourceTree = "<group>"; };
+		311E25882C65021900C61202 /* EventHistoryStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHistoryStep.swift; sourceTree = "<group>"; };
 		312A995B2C663F96001F5BB8 /* SetEventDetailTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetEventDetailTextFieldView.swift; sourceTree = "<group>"; };
 		312A995D2C663FCD001F5BB8 /* SetEventDetailButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetEventDetailButtonView.swift; sourceTree = "<group>"; };
 		31FDB1642C6718A30010F3EC /* BottomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomButton.swift; sourceTree = "<group>"; };
@@ -283,6 +297,17 @@
 		31FDB23B2C7461120010F3EC /* ReceivedSentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceivedSentView.swift; sourceTree = "<group>"; };
 		31FDB23D2C7465BF0010F3EC /* DetailIndividualStatisticsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailIndividualStatisticsCollectionViewCell.swift; sourceTree = "<group>"; };
 		31FDB23F2C74EA310010F3EC /* CALayer+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+Extension.swift"; sourceTree = "<group>"; };
+		31FDB2432C75DB040010F3EC /* PhraseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseViewController.swift; sourceTree = "<group>"; };
+		31FDB2462C75DB410010F3EC /* PhraseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseView.swift; sourceTree = "<group>"; };
+		31FDB2492C75DCC90010F3EC /* PhraseReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseReactor.swift; sourceTree = "<group>"; };
+		31FDB24B2C75DDC30010F3EC /* PhraseStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseStep.swift; sourceTree = "<group>"; };
+		31FDB24D2C75DDC80010F3EC /* PhraseFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseFlow.swift; sourceTree = "<group>"; };
+		31FDB2502C75E1C10010F3EC /* PhraseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseCollectionViewCell.swift; sourceTree = "<group>"; };
+		31FDB25A2C7719710010F3EC /* SelectCalendarDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCalendarDateView.swift; sourceTree = "<group>"; };
+		31FDB25C2C77198B0010F3EC /* YearMonthDatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YearMonthDatePickerView.swift; sourceTree = "<group>"; };
+		31FDB25F2C7719CF0010F3EC /* SelectCalendarDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCalendarDateViewController.swift; sourceTree = "<group>"; };
+		31FDB2622C7719F50010F3EC /* SelectCalendarDateViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCalendarDateViewReactor.swift; sourceTree = "<group>"; };
+		31FDB2642C7775360010F3EC /* NonePieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonePieView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,6 +316,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				311E25002C635EFA00C61202 /* RxFlow in Frameworks */,
+				31FDB2582C76F6490010F3EC /* RxKeyboard in Frameworks */,
 				311E24F82C634CAB00C61202 /* RxRelay in Frameworks */,
 				31FDB22C2C721EA00010F3EC /* DGCharts in Frameworks */,
 				311E25032C635F0400C61202 /* ReactorKit in Frameworks */,
@@ -405,6 +431,7 @@
 			children = (
 				31FDB18F2C68E1360010F3EC /* Home */,
 				31FDB2002C718EC60010F3EC /* Statistics */,
+				31FDB2452C75DB360010F3EC /* Phrase */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -507,6 +534,7 @@
 				311E25472C6475A200C61202 /* AppFlow.swift */,
 				311E25862C65021000C61202 /* EventHistoryFlow.swift */,
 				31FDB20A2C7191C00010F3EC /* StatisticsFlow.swift */,
+				31FDB24D2C75DDC80010F3EC /* PhraseFlow.swift */,
 			);
 			path = Flow;
 			sourceTree = "<group>";
@@ -515,8 +543,9 @@
 			isa = PBXGroup;
 			children = (
 				311E25452C64759700C61202 /* AppStep.swift */,
-				311E25882C65021900C61202 /* EvnetHistoryStep.swift */,
+				311E25882C65021900C61202 /* EventHistoryStep.swift */,
 				31FDB2082C7191BA0010F3EC /* StatisticsStep.swift */,
+				31FDB24B2C75DDC30010F3EC /* PhraseStep.swift */,
 			);
 			path = Step;
 			sourceTree = "<group>";
@@ -623,6 +652,7 @@
 			isa = PBXGroup;
 			children = (
 				31FDB1792C67B9E20010F3EC /* DatePickerView.swift */,
+				31FDB25C2C77198B0010F3EC /* YearMonthDatePickerView.swift */,
 			);
 			path = DatePickerView;
 			sourceTree = "<group>";
@@ -634,6 +664,7 @@
 				311E251A2C636B2100C61202 /* TabBar */,
 				31FDB1822C685EF40010F3EC /* Home */,
 				31FDB1FE2C718E850010F3EC /* Statistics */,
+				31FDB2422C75DA970010F3EC /* Phrase */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -644,6 +675,7 @@
 				31FDB1F52C70DF310010F3EC /* OnBoarding */,
 				31FDB1F62C70DF3E0010F3EC /* Home */,
 				31FDB1FF2C718E970010F3EC /* Statistics */,
+				31FDB2482C75DCA20010F3EC /* Phrase */,
 			);
 			path = Reactor;
 			sourceTree = "<group>";
@@ -751,6 +783,7 @@
 		31FDB1A52C69C1800010F3EC /* CalendarView */ = {
 			isa = PBXGroup;
 			children = (
+				31FDB2592C7719540010F3EC /* SheetPresentation */,
 				31FDB1AF2C69F6AE0010F3EC /* TableViewCell */,
 				31FDB1A62C69C18B0010F3EC /* CalendarView.swift */,
 				31FDB1AD2C69F69F0010F3EC /* SelectDateInCalendarView.swift */,
@@ -769,6 +802,7 @@
 		31FDB1B22C69FCBE0010F3EC /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				31FDB25E2C7719C30010F3EC /* SheetPresentation */,
 				31FDB1B32C69FCCF0010F3EC /* CalendarViewController.swift */,
 			);
 			path = Calendar;
@@ -777,6 +811,7 @@
 		31FDB1B52C69FCD40010F3EC /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				31FDB2612C7719E20010F3EC /* SheetPresentation */,
 				31FDB1B62C69FCDF0010F3EC /* CalendarReactor.swift */,
 			);
 			path = Calendar;
@@ -941,6 +976,7 @@
 				31FDB22D2C721EC70010F3EC /* MonthlyStatisticsView.swift */,
 				31FDB21A2C71AA770010F3EC /* TopInteractedView.swift */,
 				31FDB2322C7387590010F3EC /* NoneStatisticsView.swift */,
+				31FDB2642C7775360010F3EC /* NonePieView.swift */,
 			);
 			path = Statistics;
 			sourceTree = "<group>";
@@ -998,6 +1034,63 @@
 			path = DetailIndividualStatistics;
 			sourceTree = "<group>";
 		};
+		31FDB2422C75DA970010F3EC /* Phrase */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB2432C75DB040010F3EC /* PhraseViewController.swift */,
+			);
+			path = Phrase;
+			sourceTree = "<group>";
+		};
+		31FDB2452C75DB360010F3EC /* Phrase */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB24F2C75E1AC0010F3EC /* CollectionViewCell */,
+				31FDB2462C75DB410010F3EC /* PhraseView.swift */,
+			);
+			path = Phrase;
+			sourceTree = "<group>";
+		};
+		31FDB2482C75DCA20010F3EC /* Phrase */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB2492C75DCC90010F3EC /* PhraseReactor.swift */,
+			);
+			path = Phrase;
+			sourceTree = "<group>";
+		};
+		31FDB24F2C75E1AC0010F3EC /* CollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB2502C75E1C10010F3EC /* PhraseCollectionViewCell.swift */,
+			);
+			path = CollectionViewCell;
+			sourceTree = "<group>";
+		};
+		31FDB2592C7719540010F3EC /* SheetPresentation */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB25A2C7719710010F3EC /* SelectCalendarDateView.swift */,
+			);
+			path = SheetPresentation;
+			sourceTree = "<group>";
+		};
+		31FDB25E2C7719C30010F3EC /* SheetPresentation */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB25F2C7719CF0010F3EC /* SelectCalendarDateViewController.swift */,
+			);
+			path = SheetPresentation;
+			sourceTree = "<group>";
+		};
+		31FDB2612C7719E20010F3EC /* SheetPresentation */ = {
+			isa = PBXGroup;
+			children = (
+				31FDB2622C7719F50010F3EC /* SelectCalendarDateViewReactor.swift */,
+			);
+			path = SheetPresentation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1026,6 +1119,7 @@
 				311E25072C635F2600C61202 /* RealmSwift */,
 				31FDB1A92C69C1AD0010F3EC /* FSCalendar */,
 				31FDB22B2C721EA00010F3EC /* DGCharts */,
+				31FDB2572C76F6490010F3EC /* RxKeyboard */,
 			);
 			productName = GyeongjoLog;
 			productReference = 311E24D52C634C2300C61202 /* GyeongjoLog.app */;
@@ -1063,6 +1157,7 @@
 				311E25042C635F2600C61202 /* XCRemoteSwiftPackageReference "realm-swift" */,
 				31FDB1A82C69C1AD0010F3EC /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				31FDB22A2C721EA00010F3EC /* XCRemoteSwiftPackageReference "Charts" */,
+				31FDB2562C76F6490010F3EC /* XCRemoteSwiftPackageReference "RxKeyboard" */,
 			);
 			productRefGroup = 311E24D62C634C2300C61202 /* Products */;
 			projectDirPath = "";
@@ -1095,6 +1190,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				311E256B2C64AEBA00C61202 /* AddEventViewController.swift in Sources */,
+				31FDB24E2C75DDC80010F3EC /* PhraseFlow.swift in Sources */,
 				31FDB20E2C7195260010F3EC /* IndividualStatisticsViewController.swift in Sources */,
 				311E25232C636C1200C61202 /* UIViewController+Extension.swift in Sources */,
 				31FDB1B72C69FCDF0010F3EC /* CalendarReactor.swift in Sources */,
@@ -1107,6 +1203,7 @@
 				311E25832C64EF3D00C61202 /* UITextView+Extension.swift in Sources */,
 				31FDB1742C6789820010F3EC /* SelectEventTypeViewController.swift in Sources */,
 				31FDB2052C718FAD0010F3EC /* StatisticsViewController.swift in Sources */,
+				31FDB2602C7719CF0010F3EC /* SelectCalendarDateViewController.swift in Sources */,
 				31FDB1C62C6BB3B70010F3EC /* Int+Extension.swift in Sources */,
 				31FDB18C2C68675D0010F3EC /* SelectRelationshipReactor.swift in Sources */,
 				31FDB1CA2C6C79080010F3EC /* EventTypeFilterView.swift in Sources */,
@@ -1120,7 +1217,7 @@
 				31FDB1862C6865FB0010F3EC /* RelationshipCollectionViewCell.swift in Sources */,
 				31FDB22E2C721EC70010F3EC /* MonthlyStatisticsView.swift in Sources */,
 				311E25282C636CB400C61202 /* MyEventView.swift in Sources */,
-				311E25892C65021900C61202 /* EvnetHistoryStep.swift in Sources */,
+				311E25892C65021900C61202 /* EventHistoryStep.swift in Sources */,
 				31FDB1E12C6F68660010F3EC /* SelectColorCollectionViewCell.swift in Sources */,
 				31FDB1EB2C705F920010F3EC /* DetailEventViewController.swift in Sources */,
 				311E25312C639C7000C61202 /* SortButton.swift in Sources */,
@@ -1154,10 +1251,13 @@
 				31FDB2372C745F4F0010F3EC /* DetailIndividualStatisticsView.swift in Sources */,
 				31FDB1FA2C70E0350010F3EC /* OnBoardingReactor.swift in Sources */,
 				31FDB1DB2C6F5FB50010F3EC /* AddNewEventTypeView.swift in Sources */,
+				31FDB2442C75DB040010F3EC /* PhraseViewController.swift in Sources */,
 				311E25252C636C1E00C61202 /* UINavigationController+Extension.swift in Sources */,
 				31FDB1E72C6F91180010F3EC /* FlowState.swift in Sources */,
+				31FDB25B2C7719710010F3EC /* SelectCalendarDateView.swift in Sources */,
 				31FDB1F12C7063100010F3EC /* AddMyEventSummaryViewController.swift in Sources */,
 				31FDB1922C68E3FC0010F3EC /* MyEventViewController.swift in Sources */,
+				31FDB2472C75DB410010F3EC /* PhraseView.swift in Sources */,
 				31FDB2072C718FC80010F3EC /* StatisticsReactor.swift in Sources */,
 				311E25622C6495D000C61202 /* UserDefaultsManager.swift in Sources */,
 				31FDB19C2C69AB2D0010F3EC /* MyEventReactor.swift in Sources */,
@@ -1180,12 +1280,14 @@
 				311E24DB2C634C2300C61202 /* SceneDelegate.swift in Sources */,
 				31FDB1962C68F0010010F3EC /* OthersEventView.swift in Sources */,
 				311E25342C639D4800C61202 /* HistoryTypeSegmentedControl.swift in Sources */,
+				31FDB2652C7775360010F3EC /* NonePieView.swift in Sources */,
 				31FDB1F32C70631C0010F3EC /* AddMyEventSummaryReactor.swift in Sources */,
 				31FDB1D72C6D98910010F3EC /* EventRelationshipFilterReactor.swift in Sources */,
 				31FDB1A42C69C1480010F3EC /* MyEventSummaryView.swift in Sources */,
 				31FDB2232C71EC3D0010F3EC /* StatisticsRepository.swift in Sources */,
 				311E25782C64D6B800C61202 /* SetEventDetailNameTextFieldView.swift in Sources */,
 				31FDB1F82C70E00B0010F3EC /* OnBoardingViewController.swift in Sources */,
+				31FDB2512C75E1C10010F3EC /* PhraseCollectionViewCell.swift in Sources */,
 				311E253B2C63B46400C61202 /* MyEventCollectionViewCell.swift in Sources */,
 				31FDB2252C71EC660010F3EC /* StatisticsUseCase.swift in Sources */,
 				311E25362C639E8700C61202 /* ImageManager.swift in Sources */,
@@ -1193,6 +1295,7 @@
 				31FDB1A72C69C18B0010F3EC /* CalendarView.swift in Sources */,
 				311E253F2C64730E00C61202 /* EventHistoryViewController.swift in Sources */,
 				312A995C2C663F96001F5BB8 /* SetEventDetailTextFieldView.swift in Sources */,
+				31FDB2632C7719F50010F3EC /* SelectCalendarDateViewReactor.swift in Sources */,
 				31FDB21D2C71AEE50010F3EC /* IndividualStatisticsCollectionViewCell.swift in Sources */,
 				31FDB1EF2C705FB40010F3EC /* DatailEventReactor.swift in Sources */,
 				31FDB2162C71A1910010F3EC /* TapBarCollectionView.swift in Sources */,
@@ -1206,11 +1309,14 @@
 				31FDB1B42C69FCCF0010F3EC /* CalendarViewController.swift in Sources */,
 				311E254E2C64866100C61202 /* Event.swift in Sources */,
 				31FDB1762C67898D0010F3EC /* SelectEventTypeReactor.swift in Sources */,
+				31FDB24C2C75DDC30010F3EC /* PhraseStep.swift in Sources */,
 				311E255B2C64917D00C61202 /* RealmManager.swift in Sources */,
 				31FDB2192C71A9F80010F3EC /* IndividualStatisticsReactor.swift in Sources */,
 				31FDB1D92C6F01E80010F3EC /* SortView.swift in Sources */,
 				31FDB23C2C7461120010F3EC /* ReceivedSentView.swift in Sources */,
+				31FDB24A2C75DCC90010F3EC /* PhraseReactor.swift in Sources */,
 				311E25532C6488B200C61202 /* EventRealmObject.swift in Sources */,
+				31FDB25D2C77198B0010F3EC /* YearMonthDatePickerView.swift in Sources */,
 				31FDB1BF2C6B865F0010F3EC /* MyEventSummaryViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1479,6 +1585,14 @@
 				minimumVersion = 5.1.0;
 			};
 		};
+		31FDB2562C76F6490010F3EC /* XCRemoteSwiftPackageReference "RxKeyboard" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxKeyboard.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1531,6 +1645,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 31FDB22A2C721EA00010F3EC /* XCRemoteSwiftPackageReference "Charts" */;
 			productName = DGCharts;
+		};
+		31FDB2572C76F6490010F3EC /* RxKeyboard */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31FDB2562C76F6490010F3EC /* XCRemoteSwiftPackageReference "RxKeyboard" */;
+			productName = RxKeyboard;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

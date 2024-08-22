@@ -73,9 +73,6 @@ extension StatisticsViewController {
     }
     
     func bindAction(reactor: StatisticsReactor){
-//        statisticsTabBarCollectionView.rx.setDelegate(self)
-//            .disposed(by: disposeBag)
-        
         statisticsTabBarCollectionView.rx.itemSelected
             .map { Reactor.Action.selectItem($0.item) }
             .bind(to: reactor.action)
@@ -84,8 +81,8 @@ extension StatisticsViewController {
     
     func bindState(reactor: StatisticsReactor){
         reactor.state.map { $0.categories }
-            .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
             .bind(to: statisticsTabBarCollectionView.rx.items(cellIdentifier: "StatisticsTabBarCollectionViewCell", cellType: StatisticsTabBarCollectionViewCell.self)) { (index, categories, cell) in
                 
                 cell.categoryLabel.text = categories
@@ -93,12 +90,11 @@ extension StatisticsViewController {
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.selectedItem }
-            .observe(on:MainScheduler.asyncInstance)
             .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
             .bind(onNext: { [weak self] index in
                 guard let self = self else { return }
                 let previousIndex = reactor.currentState.previousIndex
-                print("previousIndex: \(previousIndex)")
                 let direction: UIPageViewController.NavigationDirection = (index > previousIndex) ? .forward : .reverse
                 self.pageViewController.setViewControllers([self.viewControllers[index]], direction: direction, animated: true, completion: nil)
                 self.statisticsTabBarCollectionView.selectItem(at: IndexPath(item: index, section: 0), animated: false, scrollPosition: .centeredHorizontally)

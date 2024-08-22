@@ -9,6 +9,7 @@ class MonthlyStatisticsView: UIView {
         return scrollView
     }()
     let scrollContentView = UIView()
+    let topInteractedView = TopInteractedView()
     let differenceAmountFromAverageLabel: UILabel = {
         let label = UILabel()
         return label
@@ -60,6 +61,8 @@ class MonthlyStatisticsView: UIView {
         tableView.register(PieChartTableViewCell.self, forCellReuseIdentifier: "PieChartTableViewCell")
         return tableView
     }()
+    let noneStatisticsView = NoneStatisticsView()
+    let nonePieView = NonePieView()
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -75,7 +78,7 @@ class MonthlyStatisticsView: UIView {
     private func layout() {
         addSubview(scrollView)
         scrollView.addSubview(scrollContentView)
-        [differenceAmountFromAverageLabel,receivedLabel,receivedAmountLabel,sentLabel,sentAmountLabel,barChartView,topEventTypeLabel,sentPieLabel,pieChartView,pieChartDetailTableView]
+        [topInteractedView,differenceAmountFromAverageLabel,receivedLabel,receivedAmountLabel,sentLabel,sentAmountLabel,barChartView,topEventTypeLabel,sentPieLabel,pieChartView,pieChartDetailTableView,nonePieView,noneStatisticsView]
             .forEach{
                 scrollContentView.addSubview($0)
             }
@@ -91,9 +94,21 @@ class MonthlyStatisticsView: UIView {
             make.edges.equalToSuperview()
         }
         
+        noneStatisticsView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(212*ConstantsManager.standardHeight)
+        }
+        
+        topInteractedView.snp.makeConstraints { make in
+            make.height.equalTo(134*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
+            make.top.equalToSuperview().offset(28*ConstantsManager.standardHeight)
+        }
+        
         differenceAmountFromAverageLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
-            make.top.equalToSuperview().offset(30*ConstantsManager.standardHeight)
+            make.top.equalTo(topInteractedView.snp.bottom).offset(38*ConstantsManager.standardHeight)
         }
         
         receivedLabel.snp.makeConstraints { make in
@@ -145,6 +160,11 @@ class MonthlyStatisticsView: UIView {
             make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
             make.top.equalTo(pieChartView.snp.bottom).offset(-29*ConstantsManager.standardHeight)
             make.bottom.equalToSuperview().offset(-109)
+        }
+        
+        nonePieView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(topEventTypeLabel.snp.bottom).offset(135*ConstantsManager.standardHeight)
         }
     }
     
@@ -249,4 +269,59 @@ class MonthlyStatisticsView: UIView {
         
         topEventTypeLabel.attributedText = attributedString
     }
+    
+    func setNoneTopEventTypeLabel(){
+        let titleText = "이번 달 보낸 내역은 없어요"
+        let attributedString = NSMutableAttributedString(string: titleText)
+        
+        attributedString.addAttribute(.font, value: FontManager.SubHead03_SemiBold, range: NSMakeRange(0, titleText.count))
+        attributedString.addAttribute(.foregroundColor, value: ColorManager.text01 ?? .black, range: NSMakeRange(0, titleText.count))
+        
+        topEventTypeLabel.attributedText = attributedString
+    }
+    
+    func updateView(isEmpty: Bool) {
+        if isEmpty {
+            topInteractedView.isHidden = true
+            differenceAmountFromAverageLabel.isHidden = true
+            receivedLabel.isHidden = true
+            receivedAmountLabel.isHidden = true
+            sentLabel.isHidden = true
+            sentAmountLabel.isHidden = true
+            barChartView.isHidden = true
+            topEventTypeLabel.isHidden = true
+            sentPieLabel.isHidden = true
+            pieChartView.isHidden = true
+            pieChartDetailTableView.isHidden = true
+            nonePieView.isHidden = true
+            
+            noneStatisticsView.isHidden = false
+            
+            // noneStatisticsView를 중앙에 배치
+//            noneStatisticsView.snp.remakeConstraints { make in
+//                make.center.equalToSuperview()
+//            }
+        } 
+        else {
+            // 모든 뷰를 보이게 하고 noneStatisticsView를 숨깁니다.
+            topInteractedView.isHidden = false
+            differenceAmountFromAverageLabel.isHidden = false
+            receivedLabel.isHidden = false
+            receivedAmountLabel.isHidden = false
+            sentLabel.isHidden = false
+            sentAmountLabel.isHidden = false
+            barChartView.isHidden = false
+            topEventTypeLabel.isHidden = false
+            sentPieLabel.isHidden = false
+            pieChartView.isHidden = false
+            pieChartDetailTableView.isHidden = false
+            nonePieView.isHidden = false
+            
+            noneStatisticsView.isHidden = true
+            
+            // 기존 레이아웃으로 복원
+            //layout()
+        }
+    }
+
 }

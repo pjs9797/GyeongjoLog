@@ -8,7 +8,7 @@ class EventSummaryCollectionViewCell: UICollectionViewCell {
     let typeBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = ColorManager.bgGray
-        view.layer.cornerRadius = 16*ConstantsManager.standardHeight
+        view.layer.cornerRadius = 14*ConstantsManager.standardHeight
         return view
     }()
     let typeLabel: UILabel = {
@@ -20,6 +20,12 @@ class EventSummaryCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = FontManager.Body03
         label.textColor = ColorManager.text01
+        return label
+    }()
+    let relationshipLabel: UILabel = {
+        let label = UILabel()
+        label.font = FontManager.Caption03
+        label.textColor = ColorManager.textDisabled
         return label
     }()
     let dateLabel: UILabel = {
@@ -65,7 +71,7 @@ class EventSummaryCollectionViewCell: UICollectionViewCell {
     }
     
     private func layout(){
-        [typeBackgroundView,nameLabel,dateLabel,amountLabel]
+        [typeBackgroundView,nameLabel,relationshipLabel,dateLabel,amountLabel]
             .forEach{
                 contentView.addSubview($0)
             }
@@ -78,12 +84,21 @@ class EventSummaryCollectionViewCell: UICollectionViewCell {
         }
         
         typeLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12))
+            make.top.equalToSuperview().offset(8*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(12*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-12*ConstantsManager.standardWidth)
+            make.bottom.equalToSuperview().offset(-8*ConstantsManager.standardHeight)
         }
         
         nameLabel.snp.makeConstraints { make in
+            make.height.equalTo(21*ConstantsManager.standardHeight)
             make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
             make.top.equalTo(typeBackgroundView.snp.bottom).offset(14*ConstantsManager.standardHeight)
+        }
+        
+        relationshipLabel.snp.makeConstraints { make in
+            make.leading.equalTo(nameLabel.snp.trailing).offset(3*ConstantsManager.standardWidth)
+            make.bottom.equalTo(nameLabel.snp.bottom).offset(-2*ConstantsManager.standardHeight)
         }
         
         dateLabel.snp.makeConstraints { make in
@@ -107,6 +122,7 @@ class EventSummaryCollectionViewCell: UICollectionViewCell {
         }
         typeLabel.text = event.eventType
         nameLabel.text = event.name
+        relationshipLabel.text = "(\(event.relationship))"
         dateLabel.text = event.date
         setAmountLabel(amount: event.amount)
     }

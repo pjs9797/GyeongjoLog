@@ -42,7 +42,7 @@ class CalendarView: UIView {
     }()
     let spentAmountButton: UIButton = {
         let button = UIButton()
-        button.setTitle("지출 금액", for: .normal)
+        button.setTitle("보낸 금액", for: .normal)
         button.titleLabel?.font = FontManager.Body0101
         button.contentEdgeInsets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
         button.layer.cornerRadius = 16*ConstantsManager.standardHeight

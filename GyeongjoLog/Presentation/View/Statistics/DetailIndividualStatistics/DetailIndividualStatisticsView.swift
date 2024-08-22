@@ -91,7 +91,10 @@ class DetailIndividualStatisticsView: UIView {
         }
         
         typeLabel.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(UIEdgeInsets(top: 6, left: 12, bottom: 6, right: 12))
+            make.top.equalToSuperview().offset(6*ConstantsManager.standardHeight)
+            make.leading.equalToSuperview().offset(12*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-12*ConstantsManager.standardWidth)
+            make.bottom.equalToSuperview().offset(-6*ConstantsManager.standardHeight)
         }
         
         phoneNumberLabel.snp.makeConstraints { make in

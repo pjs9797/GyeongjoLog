@@ -14,7 +14,7 @@ class EventTypeCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.layer.cornerRadius = 20*ConstantsManager.standardHeight
+        self.layer.cornerRadius = 18
         self.layer.borderWidth = 1
         self.layer.borderColor = ColorManager.lightGrayFrame?.cgColor
         self.backgroundColor = ColorManager.white

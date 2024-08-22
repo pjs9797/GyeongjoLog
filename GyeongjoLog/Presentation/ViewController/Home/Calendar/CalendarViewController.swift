@@ -53,6 +53,11 @@ extension CalendarViewController {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        calendarView.yearMonthButton.rx.tap
+            .map{ Reactor.Action.yearMonthButtonTapped }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
         calendarView.leftButton.rx.tap
             .map { Reactor.Action.changeMonth(-1) }
             .bind(to: reactor.action)
@@ -75,6 +80,11 @@ extension CalendarViewController {
         
         calendarView.spentAmountButton.rx.tap
             .map { Reactor.Action.filterEvents(.spent) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        reactor.calendarDateRelay
+            .map{ Reactor.Action.setYearMonth($0.toDateWithYearMonthFormat() ?? Date()) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
     }
@@ -102,7 +112,7 @@ extension CalendarViewController {
         
         reactor.state.map { $0.eventsByDate }
             .distinctUntilChanged()
-            .observe(on: MainScheduler.instance)
+            .observe(on: MainScheduler.asyncInstance)
             .subscribe(onNext: { [weak self] _ in
                 self?.calendarView.calendar.reloadData()
             })

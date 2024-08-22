@@ -2,7 +2,6 @@ import UIKit
 import SnapKit
 
 class MyEventSummaryView: UIView {
-    
     let amountLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.Heading02
@@ -18,6 +17,11 @@ class MyEventSummaryView: UIView {
     let imageView = UIImageView()
     let searchView: SearchView = {
         let searchView = SearchView()
+        searchView.applyBackgroundBlurEffect()
+        searchView.layer.applyInnerShadow(color: ColorManager.white!, alpha: 0.16, x: 1, y: 1, blur: 4, spread: 0)
+        //searchView.layer.applyInnerShadow(color: ColorManager.white!, alpha: 0.58, x: 1, y: 1, blur: 6, spread: 0)
+        //searchView.layer.applyInnerShadow(color: ColorManager.bgGray!, alpha: 0.58, x: -1, y: -1, blur: 4, spread: 0)
+        searchView.layer.applyInnerShadow(color: ColorManager.bgGray!, alpha: 0.34, x: -1, y: -1, blur: 4, spread: 0)
         searchView.backgroundColor = ColorManager.white?.withAlphaComponent(0.5)
         return searchView
     }()

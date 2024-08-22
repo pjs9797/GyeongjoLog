@@ -7,6 +7,7 @@ class CalendarReactor: Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
     private let eventUseCase: EventUseCase
+    var calendarDateRelay = PublishRelay<String>()
     
     init(eventUseCase: EventUseCase) {
         self.eventUseCase = eventUseCase
@@ -18,6 +19,10 @@ class CalendarReactor: Reactor, Stepper {
         
         // 달력 양 옆 버튼
         case changeMonth(Int)
+        
+        // 캘린더 연월 선택
+        case yearMonthButtonTapped
+        case setYearMonth(Date)
         
         // 전체, 받은, 보낸 금액 버튼
         case filterEvents(AmountFilterType)
@@ -72,6 +77,13 @@ class CalendarReactor: Reactor, Stepper {
         case .backButtonTapped:
             self.steps.accept(EventHistoryStep.popViewController)
             return .empty()
+            
+        case .yearMonthButtonTapped:
+            self.steps.accept(EventHistoryStep.presentToSelectCalendarDateViewController(eventDateRelay: self.calendarDateRelay, initialDate: currentState.yearMonth.toString(format: "yyyy.MM")))
+            return .empty()
+            
+        case .setYearMonth(let date):
+            return .just(.setYearMonth(date))
             
         case .changeMonth(let value):
             let newDate = Calendar.current.date(byAdding: .month, value: value, to: currentState.yearMonth)!
@@ -128,6 +140,8 @@ class CalendarReactor: Reactor, Stepper {
             newState.selectedDateLabelText = self.formatDate(date: date ?? Date())
         case .setSelectedDateEvents(let selectedDateEvents):
             newState.selectedDateEvents = selectedDateEvents
+        case .setYearMonth(let date):
+            newState.yearMonth = date
         }
         return newState
     }

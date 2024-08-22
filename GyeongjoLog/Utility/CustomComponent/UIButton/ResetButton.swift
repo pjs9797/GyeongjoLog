@@ -4,6 +4,7 @@ class ResetButton: UIButton {
     init() {
         super.init(frame: .zero)
         
+        self.layer.cornerRadius = 8*ConstantsManager.standardHeight
         configureButton()
     }
     

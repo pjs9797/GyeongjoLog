@@ -14,7 +14,7 @@ class EventAmountCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.layer.cornerRadius = 20*ConstantsManager.standardHeight
+        self.layer.cornerRadius = 18
         self.layer.borderWidth = 1
         self.layer.borderColor = ColorManager.lightGrayFrame?.cgColor
         self.backgroundColor = ColorManager.white
@@ -48,7 +48,10 @@ class EventAmountCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(amountLabel)
         
         amountLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
+            make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
+            make.top.equalToSuperview().offset(8*ConstantsManager.standardHeight)
+            make.bottom.equalToSuperview().offset(-8*ConstantsManager.standardHeight)
         }
     }
     

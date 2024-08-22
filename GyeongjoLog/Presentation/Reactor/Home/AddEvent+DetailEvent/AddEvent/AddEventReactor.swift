@@ -138,21 +138,21 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
                               relationship: currentState.relationship,
                               amount: currentState.amount,
                               memo: currentState.memo)
-//            return eventUseCase.saveEvent(event: event)
-//                .andThen(Completable.create { completable in
-//                    self.steps.accept(EventHistoryStep.popViewController)
-//                    completable(.completed)
-//                    return Disposables.create()
-//                })
-//                .andThen(.empty())
-            
-            return RealmManager.shared.saveRandomEvents()
+            return eventUseCase.saveEvent(event: event)
                 .andThen(Completable.create { completable in
                     self.steps.accept(EventHistoryStep.popViewController)
                     completable(.completed)
                     return Disposables.create()
                 })
                 .andThen(.empty())
+            
+//            return RealmManager.shared.saveRandomEvents()
+//                .andThen(Completable.create { completable in
+//                    self.steps.accept(EventHistoryStep.popViewController)
+//                    completable(.completed)
+//                    return Disposables.create()
+//                })
+//                .andThen(.empty())
             
             // 이름 뷰
         case .nameViewTapped:

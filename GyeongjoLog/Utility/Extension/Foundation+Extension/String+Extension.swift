@@ -16,4 +16,12 @@ extension String {
         monthYearFormatter.dateFormat = "yyyy.M"
         return monthYearFormatter.string(from: date)
     }
+    
+    func toDateWithYearMonthFormat() -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.M"
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        
+        return dateFormatter.date(from: self)
+    }
 }

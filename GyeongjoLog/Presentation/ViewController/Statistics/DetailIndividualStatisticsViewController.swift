@@ -87,8 +87,8 @@ extension DetailIndividualStatisticsViewController {
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.eventDetails }
-            .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
             .bind(to: self.detailIndividualStatisticsView.detailIndividualStatisticsCollectionView.rx.items(cellIdentifier: "DetailIndividualStatisticsCollectionViewCell", cellType: DetailIndividualStatisticsCollectionViewCell.self)) { index, eventDetail, cell in
 
                 cell.configure(with: eventDetail)

@@ -38,9 +38,6 @@ extension EventTypeFilterViewController {
     }
     
     func bindAction(reactor: EventTypeFilterReactor){
-        eventTypeFilterView.eventTypeCollectionView.rx.setDelegate(self)
-            .disposed(by: disposeBag)
-        
         eventTypeFilterView.dismisButton.rx.tap
             .map{ Reactor.Action.dismissButtonTapped }
             .bind(to: reactor.action)
@@ -72,8 +69,8 @@ extension EventTypeFilterViewController {
             .disposed(by: disposeBag)
         
         reactor.state.compactMap { $0.selectedIndex }
-            .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
             .bind(onNext: { [weak self] selectedIndex in
                 self?.eventTypeFilterView.eventTypeCollectionView.selectItem(
                     at: IndexPath(item: selectedIndex, section: 0),
@@ -94,19 +91,5 @@ extension EventTypeFilterViewController {
                 }
             })
             .disposed(by: disposeBag)
-    }
-}
-
-extension EventTypeFilterViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let index = indexPath.item
-        let text = (reactor?.currentState.eventTypes[index].name) ?? ""
-        let label = UILabel()
-        label.text = text
-        label.font = FontManager.Body02
-        label.numberOfLines = 1
-        let maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 40*ConstantsManager.standardHeight)
-        let size = label.sizeThatFits(maxSize)
-        return CGSize(width: (size.width+32)*ConstantsManager.standardWidth, height: 42*ConstantsManager.standardHeight)
     }
 }

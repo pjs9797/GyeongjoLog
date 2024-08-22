@@ -84,7 +84,6 @@ class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
             return self.eventUseCase.fetchMyEventSummaries(eventType: currentState.eventType, date: currentState.date, filterRelationship: currentState.filterTitle, sortBy: .date)
                 .flatMap { events in
                     return Observable.concat([
-                        .just(.setSortViewHidden),
                         .just(.setSortOption(.date)),
                         .just(.setFilteredMyEventSummary(events))
                     ])
@@ -93,7 +92,6 @@ class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
             return self.eventUseCase.fetchMyEventSummaries(eventType: currentState.eventType, date: currentState.date, filterRelationship: currentState.filterTitle, sortBy: .amount)
                 .flatMap { events in
                     return Observable.concat([
-                        .just(.setSortViewHidden),
                         .just(.setSortOption(.amount)),
                         .just(.setFilteredMyEventSummary(events))
                     ])
@@ -131,6 +129,7 @@ class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
         switch mutation {
         case .setMyEventSummary(let myEventSummaries):
             newState.myEventSummaries = myEventSummaries
+            newState.filteredMyEventSummary = myEventSummaries
             newState.amount = sumAllAmount(myEventSummaries: myEventSummaries)
             newState.eventCnt = "\(myEventSummaries.count)명의 내역입니다"
         case .setFilteredMyEventSummary(let filteredMyEventSummaries):
@@ -143,7 +142,7 @@ class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
             newState.sortOption = sortOption
             newState.sortTitle = (sortOption == .date) ? "최신순" : "금액순"
         case .setSortViewHidden:
-            newState.isHiddenSortView = !currentState.isHiddenSortView
+            newState.isHiddenSortView = !newState.isHiddenSortView
         }
         return newState
     }

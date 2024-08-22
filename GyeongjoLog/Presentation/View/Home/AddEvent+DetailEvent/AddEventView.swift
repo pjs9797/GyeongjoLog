@@ -15,6 +15,7 @@ class AddEventView: UIView {
         layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = 6*ConstantsManager.standardWidth
         layout.minimumLineSpacing = 10*ConstantsManager.standardHeight
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.allowsSelection = true
@@ -86,7 +87,8 @@ class AddEventView: UIView {
         
         contentView.snp.makeConstraints { make in
             make.width.equalTo(scrollView.snp.width)
-            make.edges.equalToSuperview()
+            make.leading.top.trailing.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
         
         nameView.snp.makeConstraints { make in

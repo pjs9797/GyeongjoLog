@@ -32,6 +32,7 @@ class AddEventViewController: UIViewController, ReactorKit.View {
         
         view.backgroundColor = ColorManager.white
         hideKeyboard(disposeBag: disposeBag)
+        bindKeyboardNotifications(to: addEventView.scrollView, button: addEventView.addEventButton, textView: addEventView.memoTextView, in: addEventView, disposeBag: disposeBag)
         self.setNavigationbar()
         switch self.reactor?.addEventFlow{
         case .myEventSummary:
@@ -65,11 +66,6 @@ class AddEventViewController: UIViewController, ReactorKit.View {
                 make.top.equalTo(addEventView.amountView.snp.bottom).offset(32 * ConstantsManager.standardHeight)
             }
         }
-        
-        // 애니메이션 적용
-        UIView.animate(withDuration: 0.3, animations: {
-            //self.view.layoutIfNeeded()
-        })
     }
 }
 
@@ -81,8 +77,6 @@ extension AddEventViewController {
     
     func bindAction(reactor: AddEventReactor){
         addEventView.amountView.contentTextField.delegate = self
-        addEventView.amountCollectionView.rx.setDelegate(self)
-            .disposed(by: disposeBag)
         
         // 네비게이션 버튼, 하단 버튼 탭
         backButton.rx.tap
@@ -318,8 +312,8 @@ extension AddEventViewController {
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.eventAmounts }
-            .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
             .bind(to: addEventView.amountCollectionView.rx.items(cellIdentifier: "EventAmountCollectionViewCell", cellType: EventAmountCollectionViewCell.self)) { index, amount, cell in
                 let filterAmount = Int(amount) / 10000
                 cell.configure(with: filterAmount)
@@ -345,20 +339,6 @@ extension AddEventViewController {
                 }
             })
             .disposed(by: disposeBag)
-    }
-}
-
-extension AddEventViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let index = indexPath.item
-        let text = "\(reactor?.currentState.eventAmounts[index] ?? 0)"
-        let label = UILabel()
-        label.text = text
-        label.font = FontManager.Body02
-        label.numberOfLines = 1
-        let maxSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 40*ConstantsManager.standardHeight)
-        let size = label.sizeThatFits(maxSize)
-        return CGSize(width: (size.width)*ConstantsManager.standardWidth, height: 40*ConstantsManager.standardHeight)
     }
 }
 

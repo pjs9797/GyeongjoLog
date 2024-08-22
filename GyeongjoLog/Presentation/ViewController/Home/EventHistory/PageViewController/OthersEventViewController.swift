@@ -102,8 +102,8 @@ extension OthersEventViewController {
     
     func bindState(reactor: OthersEventReactor){
         reactor.state.map { $0.othersEventSummaries }
-            .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
             .bind(to: othersEventView.othersEventSummaryCollectionView.rx.items(cellIdentifier: "EventSummaryCollectionViewCell", cellType: EventSummaryCollectionViewCell.self)) { index, othersEvent, cell in
 
                 cell.configure(with: othersEvent)
@@ -111,8 +111,8 @@ extension OthersEventViewController {
             .disposed(by: disposeBag)
         
         reactor.state.map{ $0.othersEventSummaries }
-            .observe(on: MainScheduler.asyncInstance)
             .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
             .bind(onNext: { [weak self] events in
                 if events.isEmpty {
                     self?.othersEventView.othersEventSummaryCollectionView.isHidden = true
