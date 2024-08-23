@@ -60,6 +60,9 @@
 		311E25892C65021900C61202 /* EventHistoryStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25882C65021900C61202 /* EventHistoryStep.swift */; };
 		312A995C2C663F96001F5BB8 /* SetEventDetailTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312A995B2C663F96001F5BB8 /* SetEventDetailTextFieldView.swift */; };
 		312A995E2C663FCD001F5BB8 /* SetEventDetailButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312A995D2C663FCD001F5BB8 /* SetEventDetailButtonView.swift */; };
+		317948402C78A68B007C6146 /* MyEventSummarySearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3179483F2C78A68B007C6146 /* MyEventSummarySearchView.swift */; };
+		31BA57A42C7894F7004BA56D /* InnerShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BA57A32C7894F7004BA56D /* InnerShadowView.swift */; };
+		31BA57A62C78956A004BA56D /* DropShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BA57A52C78956A004BA56D /* DropShadowView.swift */; };
 		31FDB1652C6718A30010F3EC /* BottomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB1642C6718A30010F3EC /* BottomButton.swift */; };
 		31FDB16B2C6785090010F3EC /* SelectEventTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB16A2C6785090010F3EC /* SelectEventTypeView.swift */; };
 		31FDB16D2C6785270010F3EC /* EventTypeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB16C2C6785270010F3EC /* EventTypeCollectionViewCell.swift */; };
@@ -154,6 +157,7 @@
 		31FDB2602C7719CF0010F3EC /* SelectCalendarDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB25F2C7719CF0010F3EC /* SelectCalendarDateViewController.swift */; };
 		31FDB2632C7719F50010F3EC /* SelectCalendarDateViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2622C7719F50010F3EC /* SelectCalendarDateViewReactor.swift */; };
 		31FDB2652C7775360010F3EC /* NonePieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2642C7775360010F3EC /* NonePieView.swift */; };
+		31FDB2672C7853490010F3EC /* PhraseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2662C7853490010F3EC /* PhraseManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -218,6 +222,9 @@
 		311E25882C65021900C61202 /* EventHistoryStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHistoryStep.swift; sourceTree = "<group>"; };
 		312A995B2C663F96001F5BB8 /* SetEventDetailTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetEventDetailTextFieldView.swift; sourceTree = "<group>"; };
 		312A995D2C663FCD001F5BB8 /* SetEventDetailButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetEventDetailButtonView.swift; sourceTree = "<group>"; };
+		3179483F2C78A68B007C6146 /* MyEventSummarySearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEventSummarySearchView.swift; sourceTree = "<group>"; };
+		31BA57A32C7894F7004BA56D /* InnerShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnerShadowView.swift; sourceTree = "<group>"; };
+		31BA57A52C78956A004BA56D /* DropShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropShadowView.swift; sourceTree = "<group>"; };
 		31FDB1642C6718A30010F3EC /* BottomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomButton.swift; sourceTree = "<group>"; };
 		31FDB16A2C6785090010F3EC /* SelectEventTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectEventTypeView.swift; sourceTree = "<group>"; };
 		31FDB16C2C6785270010F3EC /* EventTypeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTypeCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -308,6 +315,7 @@
 		31FDB25F2C7719CF0010F3EC /* SelectCalendarDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCalendarDateViewController.swift; sourceTree = "<group>"; };
 		31FDB2622C7719F50010F3EC /* SelectCalendarDateViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCalendarDateViewReactor.swift; sourceTree = "<group>"; };
 		31FDB2642C7775360010F3EC /* NonePieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonePieView.swift; sourceTree = "<group>"; };
+		31FDB2662C7853490010F3EC /* PhraseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhraseManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -404,6 +412,7 @@
 				311E250F2C6360E600C61202 /* ConstantsManager.swift */,
 				311E255A2C64917D00C61202 /* RealmManager.swift */,
 				311E25612C6495D000C61202 /* UserDefaultsManager.swift */,
+				31FDB2662C7853490010F3EC /* PhraseManager.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -604,6 +613,9 @@
 				312A995B2C663F96001F5BB8 /* SetEventDetailTextFieldView.swift */,
 				312A995D2C663FCD001F5BB8 /* SetEventDetailButtonView.swift */,
 				31FDB1D82C6F01E80010F3EC /* SortView.swift */,
+				31BA57A32C7894F7004BA56D /* InnerShadowView.swift */,
+				31BA57A52C78956A004BA56D /* DropShadowView.swift */,
+				3179483F2C78A68B007C6146 /* MyEventSummarySearchView.swift */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -1203,6 +1215,7 @@
 				311E25832C64EF3D00C61202 /* UITextView+Extension.swift in Sources */,
 				31FDB1742C6789820010F3EC /* SelectEventTypeViewController.swift in Sources */,
 				31FDB2052C718FAD0010F3EC /* StatisticsViewController.swift in Sources */,
+				31BA57A42C7894F7004BA56D /* InnerShadowView.swift in Sources */,
 				31FDB2602C7719CF0010F3EC /* SelectCalendarDateViewController.swift in Sources */,
 				31FDB1C62C6BB3B70010F3EC /* Int+Extension.swift in Sources */,
 				31FDB18C2C68675D0010F3EC /* SelectRelationshipReactor.swift in Sources */,
@@ -1261,6 +1274,8 @@
 				31FDB2072C718FC80010F3EC /* StatisticsReactor.swift in Sources */,
 				311E25622C6495D000C61202 /* UserDefaultsManager.swift in Sources */,
 				31FDB19C2C69AB2D0010F3EC /* MyEventReactor.swift in Sources */,
+				31FDB2672C7853490010F3EC /* PhraseManager.swift in Sources */,
+				317948402C78A68B007C6146 /* MyEventSummarySearchView.swift in Sources */,
 				311E252A2C63966600C61202 /* ColorManager.swift in Sources */,
 				31FDB1CF2C6C7B3E0010F3EC /* EventTypeFilterReactor.swift in Sources */,
 				31FDB2402C74EA310010F3EC /* CALayer+Extension.swift in Sources */,
@@ -1316,6 +1331,7 @@
 				31FDB23C2C7461120010F3EC /* ReceivedSentView.swift in Sources */,
 				31FDB24A2C75DCC90010F3EC /* PhraseReactor.swift in Sources */,
 				311E25532C6488B200C61202 /* EventRealmObject.swift in Sources */,
+				31BA57A62C78956A004BA56D /* DropShadowView.swift in Sources */,
 				31FDB25D2C77198B0010F3EC /* YearMonthDatePickerView.swift in Sources */,
 				31FDB1BF2C6B865F0010F3EC /* MyEventSummaryViewController.swift in Sources */,
 			);

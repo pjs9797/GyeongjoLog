@@ -7,8 +7,7 @@ class PhraseCollectionViewCell: UICollectionViewCell {
     let imageBackView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 36*ConstantsManager.standardHeight
-        view.layer.borderWidth = 1
-        view.layer.borderColor = UIColor.clear.cgColor
+        view.backgroundColor = ColorManager.bgGray
         return view
     }()
     let phraseImageView: UIImageView = {
@@ -45,18 +44,25 @@ class PhraseCollectionViewCell: UICollectionViewCell {
     }
     
     private func updateUI() {
+        self.imageBackView.backgroundColor = isSelected ? ColorManager.bgLightBlue : ColorManager.bgGray
+        self.imageBackView.layer.borderWidth = isSelected ? 1 : 0
+        self.imageBackView.layer.borderColor = isSelected ? ColorManager.blue?.cgColor : UIColor.clear.cgColor
+        self.phraseTypeLabel.textColor = isSelected ? ColorManager.blue : ColorManager.text03
     }
     
     private func layout(){
-        imageBackView.addSubview(phraseImageView)
         [imageBackView,phraseTypeLabel]
             .forEach{
                 contentView.addSubview($0)
             }
         
+        imageBackView.addSubview(phraseImageView)
+        
         imageBackView.snp.makeConstraints { make in
-            make.width.height.equalTo(72*ConstantsManager.standardHeight)
-            make.centerX.equalToSuperview()
+            make.width.height.equalTo(72*ConstantsManager.standardHeight).priority(.high)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.top.equalToSuperview()
         }
         
         phraseImageView.snp.makeConstraints { make in
@@ -64,8 +70,25 @@ class PhraseCollectionViewCell: UICollectionViewCell {
         }
         
         phraseTypeLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
+            make.centerX.equalTo(imageBackView)
             make.top.equalTo(imageBackView.snp.bottom).offset(10*ConstantsManager.standardHeight)
+            make.bottom.equalToSuperview()
+        }
+    }
+    
+    func configure(with type: String){
+        phraseTypeLabel.text = type
+        if type == "결혼식" {
+            phraseImageView.image = ImageManager.phrase_ring
+        }
+        else if type == "장례식" {
+            phraseImageView.image = ImageManager.phrase_ribbon
+        }
+        else if type == "생일" {
+            phraseImageView.image = ImageManager.phrase_cake
+        }
+        else if type == "돌잔치" {
+            phraseImageView.image = ImageManager.phrase_birth
         }
     }
 }

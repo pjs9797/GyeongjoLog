@@ -5,7 +5,8 @@ class PhraseView: UIView {
     let phraseCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 17*ConstantsManager.standardWidth
+        layout.minimumLineSpacing = 18*ConstantsManager.standardWidth
+        layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = ColorManager.white
         collectionView.showsHorizontalScrollIndicator = false
@@ -26,9 +27,10 @@ class PhraseView: UIView {
         let textView = UITextView()
         textView.backgroundColor = ColorManager.bgGray
         textView.layer.cornerRadius = 12*ConstantsManager.standardHeight
-        textView.addPadding(width: 18*ConstantsManager.standardWidth, height: 18*ConstantsManager.standardHeight)
+        textView.textContainerInset = UIEdgeInsets(top: 18, left: 18, bottom: 0, right: 22)
         textView.font = FontManager.Body0201
         textView.textColor = ColorManager.text01
+        textView.isEditable = false
         return textView
     }()
     
@@ -69,7 +71,6 @@ class PhraseView: UIView {
         }
         
         phrasetextView.snp.makeConstraints { make in
-            make.height.equalTo(315*ConstantsManager.standardHeight)
             make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
             make.top.equalTo(copyButton.snp.bottom).offset(9*ConstantsManager.standardHeight)

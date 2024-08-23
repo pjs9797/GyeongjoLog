@@ -29,6 +29,7 @@ class PhraseViewController: UIViewController, ReactorKit.View {
         
         view.backgroundColor = ColorManager.white
         self.setNavigationbar()
+        self.phraseView.phraseCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .centeredHorizontally)
     }
     
     private func setNavigationbar() {
@@ -43,9 +44,39 @@ extension PhraseViewController {
     }
     
     func bindAction(reactor: PhraseReactor){
+        // 컬렉션 뷰 항목 선택
+        phraseView.phraseCollectionView.rx.itemSelected
+            .map { Reactor.Action.selectType($0.item) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        // 랜덤 버튼 클릭
+        phraseView.randomButton.rx.tap
+            .map { Reactor.Action.randomizePhrase }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+        
+        // 복사 버튼 클릭
+        phraseView.copyButton.rx.tap
+            .map { Reactor.Action.copyPhrase }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
     }
     
     func bindState(reactor: PhraseReactor){
+        reactor.state.map { $0.eventTypes }
+            .distinctUntilChanged()
+            .observe(on: MainScheduler.asyncInstance)
+            .bind(to: phraseView.phraseCollectionView.rx.items(cellIdentifier: "PhraseCollectionViewCell", cellType: PhraseCollectionViewCell.self)) { index, eventType, cell in
+
+                cell.configure(with: eventType)
+            }
+            .disposed(by: disposeBag)
         
+        // 텍스트뷰에 선택된 문구 표시
+        reactor.state.map { $0.selectedPhrase }
+            .distinctUntilChanged()
+            .bind(to: phraseView.phrasetextView.rx.text)
+            .disposed(by: disposeBag)
     }
 }

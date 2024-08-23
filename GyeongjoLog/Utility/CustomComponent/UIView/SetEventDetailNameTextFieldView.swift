@@ -7,7 +7,7 @@ class SetEventDetailNameTextFieldView: UIView {
         let textField = UITextField()
         textField.font = FontManager.Heading02
         textField.textColor = ColorManager.text01
-        
+
         let placeholderText = "이름"
         var placeholderAttributes = AttributedFontManager.Heading02
         placeholderAttributes[.foregroundColor] = ColorManager.textDisabled ?? .gray
@@ -82,7 +82,6 @@ class SetEventDetailNameTextFieldView: UIView {
     }
     
     func updateWidthForEditing() {
-        print("시작",nameTextField.text)
         let text = nameTextField.text ?? ""
         let textWidth = text.size(withAttributes: [.font: nameTextField.font!]).width
         let totalWidth = textWidth + 52
@@ -93,19 +92,18 @@ class SetEventDetailNameTextFieldView: UIView {
     }
     
     func updateWidthForNonEditing() {
-        print("끝",nameTextField.text)
         let text = nameTextField.text ?? ""
         let textWidth: CGFloat
         
-        if text.isEmpty {
+        if text.size(withAttributes: [.font: nameTextField.font!]).width < "이름".size(withAttributes: [.font: nameTextField.font!]).width {
             textWidth = "이름".size(withAttributes: [.font: nameTextField.font!]).width
-        } else {
+        }
+        else {
             textWidth = text.size(withAttributes: [.font: nameTextField.font!]).width
         }
         
         let totalWidth = textWidth + 15
-        
-        textFieldWidthConstraint?.update(offset: (textWidth - 5) * ConstantsManager.standardWidth)
+        textFieldWidthConstraint?.update(offset: textWidth + 4)
         self.snp.updateConstraints { make in
             make.width.equalTo(totalWidth * ConstantsManager.standardWidth)
         }
