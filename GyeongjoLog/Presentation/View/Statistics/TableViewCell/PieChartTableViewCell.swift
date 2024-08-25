@@ -98,13 +98,13 @@ class PieChartTableViewCell: UITableViewCell {
     
     func setColorImageView(index: Int){
         if index == 0 {
-            colorImageView.backgroundColor = ColorManager.blue
+            colorImageView.backgroundColor = ColorManager.cobaltBlue
         }
         else if index == 1 {
-            colorImageView.backgroundColor = ColorManager.blueGray01
+            colorImageView.backgroundColor = ColorManager.blue
         }
         else {
-            colorImageView.backgroundColor = ColorManager.lightGrayFrame
+            colorImageView.backgroundColor = ColorManager.skyBlue
         }
     }
 }

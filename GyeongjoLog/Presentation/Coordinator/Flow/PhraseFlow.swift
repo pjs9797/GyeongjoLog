@@ -8,13 +8,11 @@ class PhraseFlow: Flow {
     }
     
     private var rootViewController: UINavigationController
-    //private let statisticsUseCase: StatisticsUseCase
     
     init(with rootViewController: UINavigationController) {
         self.rootViewController = rootViewController
         self.rootViewController.interactivePopGestureRecognizer?.delegate = nil
         self.rootViewController.interactivePopGestureRecognizer?.isEnabled = true
-        //self.statisticsUseCase = statisticsUseCase
     }
     
     func navigate(to step: Step) -> FlowContributors {

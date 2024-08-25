@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "cake.png",
+      "filename" : "cake (3).png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "cake (1).png",
+      "filename" : "cake (4).png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "cake (2).png",
+      "filename" : "cake (5).png",
       "idiom" : "universal",
       "scale" : "3x"
     }

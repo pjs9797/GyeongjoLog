@@ -315,7 +315,7 @@ extension MonthlyStatisticsViewController {
         }
         let topThreeEventTypes = eventTypeAmounts.prefix(3).reversed()
         
-        let colors: [NSUIColor] = [ColorManager.blue ?? .blue, ColorManager.blueGray01 ?? .gray, ColorManager.lightGrayFrame ?? .lightGray].reversed()
+        let colors: [NSUIColor] = [ColorManager.cobaltBlue ?? .blue, ColorManager.blue ?? .gray, ColorManager.skyBlue ?? .lightGray].reversed()
         
         for (index, (eventType, amount)) in topThreeEventTypes.enumerated() {
             let entry = PieChartDataEntry(value: Double(abs(amount)), label: eventType)
@@ -336,7 +336,7 @@ extension MonthlyStatisticsViewController {
         
         // 라벨 (이벤트 타입) 스타일 설정
         dataSet.entryLabelFont = FontManager.Body02
-        dataSet.entryLabelColor = ColorManager.black ?? .darkGray
+        dataSet.entryLabelColor = ColorManager.white ?? .white
         
         monthlyStatisticsView.pieChartView.rotationAngle = 270
         monthlyStatisticsView.pieChartView.data = data

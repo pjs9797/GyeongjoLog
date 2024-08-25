@@ -15,7 +15,7 @@ class TopInteractedView: UIView {
     }()
     let rightImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = ImageManager.icon_right
+        imageView.image = ImageManager.icon_right16
         return imageView
     }()
     let clapImageView: UIImageView = {

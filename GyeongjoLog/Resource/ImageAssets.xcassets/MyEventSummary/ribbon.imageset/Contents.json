@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "ribbon.png",
+      "filename" : "ribbon (3).png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "ribbon (1).png",
+      "filename" : "ribbon (4).png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "ribbon (2).png",
+      "filename" : "ribbon (5).png",
       "idiom" : "universal",
       "scale" : "3x"
     }

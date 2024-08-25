@@ -43,14 +43,16 @@ class AppFlow: Flow {
         let eventHistoryFlow = EventHistoryFlow(with: eventHistoryNavigationController, eventUseCase: self.eventUseCase)
         let statisticsFlow = StatisticsFlow(with: statisticsNavigationController, statisticsUseCase: self.statisticsUseCase)
         let phraseFlow = PhraseFlow(with: phraseNavigationController)
+        let settingFlow = SettingFlow(with: settingNavigationController)
         
-        Flows.use(eventHistoryFlow, statisticsFlow, phraseFlow, when: .created) { [weak self] (eventHistoryNavigationController, statisticsNavigationController, phraseNavigationController) in
+        Flows.use(eventHistoryFlow, statisticsFlow, phraseFlow, settingFlow, when: .created) { [weak self] (eventHistoryNavigationController, statisticsNavigationController, phraseNavigationController, settingNavigationController) in
             
             eventHistoryNavigationController.tabBarItem = UITabBarItem(title: "내역", image: ImageManager.icon_event_select?.withRenderingMode(.alwaysOriginal), tag: 0)
             statisticsNavigationController.tabBarItem = UITabBarItem(title: "통계", image: ImageManager.icon_statistics_deselect?.withRenderingMode(.alwaysOriginal), tag: 1)
             phraseNavigationController.tabBarItem = UITabBarItem(title: "문구", image: ImageManager.icon_words_deselect?.withRenderingMode(.alwaysOriginal), tag: 2)
+            settingNavigationController.tabBarItem = UITabBarItem(title: "설정", image: ImageManager.icon_setting_deselect?.withRenderingMode(.alwaysOriginal), tag: 3)
 
-            tabBarController.viewControllers = [eventHistoryNavigationController,statisticsNavigationController,phraseNavigationController]
+            tabBarController.viewControllers = [eventHistoryNavigationController,statisticsNavigationController,phraseNavigationController,settingNavigationController]
             self?.rootViewController.setViewControllers([tabBarController], animated: false)
         }
 
@@ -58,6 +60,7 @@ class AppFlow: Flow {
             .contribute(withNextPresentable: eventHistoryFlow, withNextStepper: OneStepper(withSingleStep: EventHistoryStep.navigateToHistoryViewController)),
             .contribute(withNextPresentable: statisticsFlow, withNextStepper: OneStepper(withSingleStep: StatisticsStep.navigateToStatisticsViewController)),
             .contribute(withNextPresentable: phraseFlow, withNextStepper: OneStepper(withSingleStep: PhraseStep.navigateToPhraseViewController)),
+            .contribute(withNextPresentable: settingFlow, withNextStepper: OneStepper(withSingleStep: SettingStep.navigateToSettingViewController)),
         ])
     }
     

@@ -33,12 +33,14 @@ class PhraseView: UIView {
         textView.isEditable = false
         return textView
     }()
+    let toastMessage = ToastMessage()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         layout()
         self.backgroundColor = ColorManager.white
+        self.toastMessage.isHidden = true
     }
     
     required init?(coder: NSCoder) {
@@ -46,7 +48,7 @@ class PhraseView: UIView {
     }
     
     private func layout() {
-        [phraseCollectionView,copyButton,randomButton,phrasetextView]
+        [phraseCollectionView,copyButton,randomButton,phrasetextView,toastMessage]
             .forEach{
                 addSubview($0)
             }
@@ -75,6 +77,13 @@ class PhraseView: UIView {
             make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
             make.top.equalTo(copyButton.snp.bottom).offset(9*ConstantsManager.standardHeight)
             make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-100*ConstantsManager.standardHeight)
+        }
+        
+        toastMessage.snp.makeConstraints { make in
+            make.width.equalTo(196*ConstantsManager.standardWidth)
+            make.height.equalTo(49*ConstantsManager.standardHeight)
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(self.safeAreaLayoutGuide.snp.bottom).offset(-20*ConstantsManager.standardHeight)
         }
     }
 }

@@ -15,10 +15,7 @@ class MyEventSummaryView: UIView {
         return label
     }()
     let imageView = UIImageView()
-    let searchView: MyEventSummarySearchView = {
-        let searchView = MyEventSummarySearchView()
-        return searchView
-    }()
+    let searchView = SearchView()
     let backView: UIView = {
         let view = UIView()
         view.backgroundColor = ColorManager.white
@@ -76,10 +73,10 @@ class MyEventSummaryView: UIView {
         }
         
         imageView.snp.makeConstraints { make in
-            make.width.equalTo(150*ConstantsManager.standardWidth)
-            make.height.equalTo(116*ConstantsManager.standardHeight)
-            make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
-            make.top.equalTo(amountLabel.snp.top).offset(40*ConstantsManager.standardHeight)
+            make.width.equalTo(120*ConstantsManager.standardWidth)
+            make.height.equalTo(93*ConstantsManager.standardHeight)
+            make.trailing.equalToSuperview().offset(-31*ConstantsManager.standardWidth)
+            make.top.equalTo(amountLabel.snp.top).offset(32*ConstantsManager.standardHeight)
         }
         
         searchView.snp.makeConstraints { make in

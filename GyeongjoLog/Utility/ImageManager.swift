@@ -4,6 +4,7 @@ struct ImageManager {
     //tabBar
     static let icon_event_deselect = UIImage(named: "icon_event_deselect")
     static let icon_event_select = UIImage(named: "icon_event_select")
+    static let icon_setting_select = UIImage(named: "icon_setting_select")
     static let icon_setting_deselect = UIImage(named: "icon_setting_deselect")
     static let icon_statistics_select = UIImage(named: "icon_statistics_select")
     static let icon_statistics_deselect = UIImage(named: "icon_statistics_deselect")
@@ -30,20 +31,25 @@ struct ImageManager {
     
     //statistics
     static let header2 = UIImage(named: "header2")
-    static let icon_right = UIImage(named: "icon_right")
+    static let icon_right16 = UIImage(named: "icon_right16")
     static let icon_clap = UIImage(named: "icon_clap")
     static let icon_interact = UIImage(named: "icon_interact")
     static let icon_received = UIImage(named: "icon_received")
     static let icon_sent = UIImage(named: "icon_sent")
     static let pointPoint = UIImage(named: "pointPoint")
     
-    //Phrase
+    //phrase
     static let header3 = UIImage(named: "header3")
     static let phrase_ring = UIImage(named: "phrase_ring")
     static let phrase_ribbon = UIImage(named: "phrase_ribbon")
     static let phrase_cake = UIImage(named: "phrase_cake")
     static let phrase_birth = UIImage(named: "phrase_birth")
     static let icon_copy = UIImage(named: "icon_copy")
+    static let icon_blueRoundCheck = UIImage(named: "icon_blueRoundCheck")
+    
+    //setting
+    static let header4 = UIImage(named: "header4")
+    static let icon_right24 = UIImage(named: "icon_right24")
     
     //none
     static let noneMyEvent = UIImage(named: "noneMyEvent")

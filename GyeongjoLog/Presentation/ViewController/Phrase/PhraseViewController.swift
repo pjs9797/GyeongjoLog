@@ -58,6 +58,18 @@ extension PhraseViewController {
         
         // 복사 버튼 클릭
         phraseView.copyButton.rx.tap
+            .do(onNext: { [weak self] in
+                self?.phraseView.toastMessage.isHidden = false
+                self?.phraseView.toastMessage.alpha = 1.0
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    self?.phraseView.toastMessage.isHidden = true
+                }
+//                UIView.animate(withDuration: 4.0, animations: {
+//                    self?.phraseView.toastMessage.alpha = 0.0
+//                }, completion: { _ in
+//                    self?.phraseView.toastMessage.isHidden = true
+//                })
+            })
             .map { Reactor.Action.copyPhrase }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
