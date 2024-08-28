@@ -15,7 +15,7 @@ class EventRelationshipFilterView: UIView {
         return button
     }()
     let relationshipCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
+        let layout = LeftAlignedCollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = 6*ConstantsManager.standardWidth
         layout.minimumLineSpacing = 10*ConstantsManager.standardHeight

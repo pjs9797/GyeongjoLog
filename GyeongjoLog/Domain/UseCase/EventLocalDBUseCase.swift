@@ -1,10 +1,10 @@
 import RxSwift
 import Foundation
 
-class EventUseCase {
-    private let repository: EventRepository
+class EventLocalDBUseCase {
+    private let repository: EventLocalDBRepository
     
-    init(repository: EventRepository) {
+    init(repository: EventLocalDBRepository) {
         self.repository = repository
     }
     

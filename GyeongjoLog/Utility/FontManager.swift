@@ -102,9 +102,9 @@ struct AttributedFontManager {
         }
         
         let font = UIFont(name: fontName, size: size * ConstantsManager.standardWidth) ?? UIFont.systemFont(ofSize: size * ConstantsManager.standardWidth)
-        let actualLineHeight = size * lineHeightPercentage / 100
+        let actualLineHeight = font.lineHeight * lineHeightPercentage / 100
         let paragraphStyle = NSMutableParagraphStyle()
-        let baselineOffset = (actualLineHeight - font.lineHeight) / 2
+        //let baselineOffset = (actualLineHeight - font.lineHeight) / 2
         paragraphStyle.minimumLineHeight = actualLineHeight
         paragraphStyle.maximumLineHeight = actualLineHeight
         paragraphStyle.lineHeightMultiple = 1.0
@@ -113,7 +113,7 @@ struct AttributedFontManager {
             .font: font,
             .kern: letterSpacing * ConstantsManager.standardWidth,
             .paragraphStyle: paragraphStyle,
-            .baselineOffset: baselineOffset
+            //.baselineOffset: baselineOffset
         ]
     }
 }

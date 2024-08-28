@@ -211,6 +211,7 @@ class MonthlyStatisticsView: UIView {
         pieChartView.holeRadiusPercent = 0.0
         pieChartView.transparentCircleRadiusPercent = 0.0
         pieChartView.legend.enabled = false
+        pieChartView.highlightPerTapEnabled = false
         
         pieChartView.extraLeftOffset = 30
         pieChartView.extraRightOffset = 30

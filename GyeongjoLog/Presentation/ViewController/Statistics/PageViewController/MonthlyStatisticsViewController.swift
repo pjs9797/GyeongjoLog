@@ -31,6 +31,7 @@ class MonthlyStatisticsViewController: UIViewController, ReactorKit.View {
         view.backgroundColor = ColorManager.white
         
         monthlyStatisticsView.barChartView.delegate = self
+        self.setTapGesture()
         self.reactor?.action.onNext(.loadMonthlyStatistics)
         self.reactor?.action.onNext(.selectMonth(5))
         self.reactor?.action.onNext(.loadTopIndividualStatistics)
@@ -45,6 +46,7 @@ class MonthlyStatisticsViewController: UIViewController, ReactorKit.View {
     
     private func setTapGesture(){
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTopInteractedViewTap))
+        tapGesture.cancelsTouchesInView = false
         monthlyStatisticsView.topInteractedView.addGestureRecognizer(tapGesture)
     }
     

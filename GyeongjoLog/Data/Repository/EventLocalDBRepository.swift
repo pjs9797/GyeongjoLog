@@ -1,6 +1,6 @@
 import RxSwift
 
-class EventRepository: EventRepositoryInterface {
+class EventLocalDBRepository: EventLocalDBRepositoryInterface {
     private let realmManager = RealmManager.shared
     private let userDefaultsManager = UserDefaultsManager.shared
 

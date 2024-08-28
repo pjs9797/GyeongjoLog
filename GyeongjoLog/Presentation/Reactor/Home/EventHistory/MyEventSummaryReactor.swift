@@ -5,11 +5,11 @@ import RxFlow
 class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
     let initialState: State
     var steps = PublishRelay<Step>()
-    private let eventUseCase: EventUseCase
+    private let eventLocalDBUseCase: EventLocalDBUseCase
     var filterRelay = PublishRelay<String>()
     
-    init(eventUseCase: EventUseCase, eventType: String, date: String) {
-        self.eventUseCase = eventUseCase
+    init(eventLocalDBUseCase: EventLocalDBUseCase, eventType: String, date: String) {
+        self.eventLocalDBUseCase = eventLocalDBUseCase
         self.initialState = State(eventType: eventType, date: date)
     }
     
@@ -81,7 +81,7 @@ class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
         case .sortButtonTapped:
             return .just(.setSortViewHidden)
         case .dateSortButtonTapped:
-            return self.eventUseCase.fetchMyEventSummaries(eventType: currentState.eventType, date: currentState.date, filterRelationship: currentState.filterTitle, sortBy: .date)
+            return self.eventLocalDBUseCase.fetchMyEventSummaries(eventType: currentState.eventType, date: currentState.date, filterRelationship: currentState.filterTitle, sortBy: .date)
                 .flatMap { events in
                     return Observable.concat([
                         .just(.setSortOption(.date)),
@@ -89,7 +89,7 @@ class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
                     ])
                 }
         case .cntSortButtonTapped:
-            return self.eventUseCase.fetchMyEventSummaries(eventType: currentState.eventType, date: currentState.date, filterRelationship: currentState.filterTitle, sortBy: .amount)
+            return self.eventLocalDBUseCase.fetchMyEventSummaries(eventType: currentState.eventType, date: currentState.date, filterRelationship: currentState.filterTitle, sortBy: .amount)
                 .flatMap { events in
                     return Observable.concat([
                         .just(.setSortOption(.amount)),
@@ -101,7 +101,7 @@ class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
             
             // 검색
         case .updateSearchTextField(let query):
-            return self.eventUseCase.fetchMyEventSummaries(eventType: currentState.eventType, date: currentState.date, query: query, filterRelationship: currentState.filterTitle, sortBy: currentState.sortOption)
+            return self.eventLocalDBUseCase.fetchMyEventSummaries(eventType: currentState.eventType, date: currentState.date, query: query, filterRelationship: currentState.filterTitle, sortBy: currentState.sortOption)
                 .map { .setFilteredMyEventSummary($0) }
             
             // 컬렉션뷰셀 탭
@@ -111,10 +111,10 @@ class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
             
             // 나의 경조사 컬렉션뷰 셀 데이터 처리
         case .loadMyEventSummary:
-            return self.eventUseCase.fetchMyEventSummaries(eventType: currentState.eventType, date: currentState.date, filterRelationship: currentState.filterTitle, sortBy: currentState.sortOption)
+            return self.eventLocalDBUseCase.fetchMyEventSummaries(eventType: currentState.eventType, date: currentState.date, filterRelationship: currentState.filterTitle, sortBy: currentState.sortOption)
                 .map { .setMyEventSummary($0) }
         case .loadFilteredMyEventSummary(let filter):
-            return self.eventUseCase.fetchMyEventSummaries(eventType: currentState.eventType, date: currentState.date, query: currentState.searchQuery, filterRelationship: filter, sortBy: currentState.sortOption)
+            return self.eventLocalDBUseCase.fetchMyEventSummaries(eventType: currentState.eventType, date: currentState.date, query: currentState.searchQuery, filterRelationship: filter, sortBy: currentState.sortOption)
                 .flatMap { events in
                     return Observable.concat([
                         .just(.setFilterOption(filter)),

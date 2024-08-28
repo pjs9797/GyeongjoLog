@@ -5,11 +5,11 @@ import RxFlow
 class OthersEventReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
-    private let eventUseCase: EventUseCase
+    private let eventLocalDBUseCase: EventLocalDBUseCase
     var filterRelay = PublishRelay<String>()
     
-    init(eventUseCase: EventUseCase) {
-        self.eventUseCase = eventUseCase
+    init(eventLocalDBUseCase: EventLocalDBUseCase) {
+        self.eventLocalDBUseCase = eventLocalDBUseCase
     }
     
     enum Action {
@@ -58,7 +58,7 @@ class OthersEventReactor: ReactorKit.Reactor, Stepper {
         case .sortButtonTapped:
             return .just(.setSortViewHidden)
         case .dateSortButtonTapped:
-            return self.eventUseCase.searchAndFilterOtherEventSummaries(filterRelationship: currentState.filterTitle, sortBy: .date)
+            return self.eventLocalDBUseCase.searchAndFilterOtherEventSummaries(filterRelationship: currentState.filterTitle, sortBy: .date)
                 .flatMap { events in
                     return Observable.concat([
                         .just(.setSortViewHidden),
@@ -67,7 +67,7 @@ class OthersEventReactor: ReactorKit.Reactor, Stepper {
                     ])
                 }
         case .cntSortButtonTapped:
-            return self.eventUseCase.searchAndFilterOtherEventSummaries(filterRelationship: currentState.filterTitle, sortBy: .amount)
+            return self.eventLocalDBUseCase.searchAndFilterOtherEventSummaries(filterRelationship: currentState.filterTitle, sortBy: .amount)
                 .flatMap { events in
                     return Observable.concat([
                         .just(.setSortViewHidden),
@@ -80,7 +80,7 @@ class OthersEventReactor: ReactorKit.Reactor, Stepper {
             
             // 검색
         case .updateSearchTextField(let query):
-            return self.eventUseCase.searchAndFilterOtherEventSummaries(query: query, filterRelationship: currentState.filterTitle, sortBy: currentState.sortOption)
+            return self.eventLocalDBUseCase.searchAndFilterOtherEventSummaries(query: query, filterRelationship: currentState.filterTitle, sortBy: currentState.sortOption)
                 .map { .setOthersEventSummary($0) }
             
             // 컬렉션뷰셀 탭
@@ -90,10 +90,10 @@ class OthersEventReactor: ReactorKit.Reactor, Stepper {
             
             // 나의 경조사 컬렉션뷰 셀 데이터 처리
         case .loadOthersEventSummary:
-            return self.eventUseCase.searchAndFilterOtherEventSummaries(filterRelationship: currentState.filterTitle, sortBy: currentState.sortOption)
+            return self.eventLocalDBUseCase.searchAndFilterOtherEventSummaries(filterRelationship: currentState.filterTitle, sortBy: currentState.sortOption)
                 .map { .setOthersEventSummary($0) }
         case .loadFilteredOthersEventSummary(let filter):
-            return self.eventUseCase.searchAndFilterOtherEventSummaries(query: currentState.searchQuery, filterRelationship: filter, sortBy: currentState.sortOption)
+            return self.eventLocalDBUseCase.searchAndFilterOtherEventSummaries(query: currentState.searchQuery, filterRelationship: filter, sortBy: currentState.sortOption)
                 .flatMap { events in
                     return Observable.concat([
                         .just(.setFilterOption(filter)),

@@ -6,11 +6,11 @@ import Foundation
 class CalendarReactor: Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
-    private let eventUseCase: EventUseCase
+    private let eventLocalDBUseCase: EventLocalDBUseCase
     var calendarDateRelay = PublishRelay<String>()
     
-    init(eventUseCase: EventUseCase) {
-        self.eventUseCase = eventUseCase
+    init(eventLocalDBUseCase: EventLocalDBUseCase) {
+        self.eventLocalDBUseCase = eventLocalDBUseCase
     }
     
     enum Action {
@@ -89,7 +89,7 @@ class CalendarReactor: Reactor, Stepper {
             let newDate = Calendar.current.date(byAdding: .month, value: value, to: currentState.yearMonth)!
             return .concat([
                 .just(.setYearMonth(newDate)),
-                self.eventUseCase.fetchEvents(forMonth: newDate)
+                self.eventLocalDBUseCase.fetchEvents(forMonth: newDate)
                     .map { .setEvents($0) }
             ])
         case .filterEvents(let amountType):
@@ -116,7 +116,7 @@ class CalendarReactor: Reactor, Stepper {
                 .just(.setSelectedDateEvents(filteredEvents))
             ])
         case .loadEvents:
-            return self.eventUseCase.fetchEvents(forMonth: currentState.yearMonth)
+            return self.eventLocalDBUseCase.fetchEvents(forMonth: currentState.yearMonth)
                 .map { .setEvents($0) }
         }
     }

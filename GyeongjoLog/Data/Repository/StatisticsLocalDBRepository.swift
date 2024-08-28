@@ -1,7 +1,7 @@
 import RxSwift
 import RealmSwift
 
-class StatisticsRepository: StatisticsRepositoryInterface {
+class StatisticsLocalDBRepository: StatisticsLocalDBRepositoryInterface {
     private let realmManager = RealmManager.shared
     
     func fetchEvents() -> Observable<[Event]> {

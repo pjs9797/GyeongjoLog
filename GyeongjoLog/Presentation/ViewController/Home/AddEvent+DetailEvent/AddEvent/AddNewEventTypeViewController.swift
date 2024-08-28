@@ -28,6 +28,7 @@ class AddNewEventTypeViewController: UIViewController, ReactorKit.View {
         super.viewDidLoad()
         
         view.backgroundColor = ColorManager.white
+        hideKeyboard(disposeBag: disposeBag)
         self.setNavigationbar()
     }
     

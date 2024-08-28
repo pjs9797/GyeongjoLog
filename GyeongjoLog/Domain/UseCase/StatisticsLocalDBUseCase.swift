@@ -1,10 +1,10 @@
 import Foundation
 import RxSwift
 
-class StatisticsUseCase {
-    private let repository: StatisticsRepositoryInterface
+class StatisticsLocalDBUseCase {
+    private let repository: StatisticsLocalDBRepositoryInterface
     
-    init(repository: StatisticsRepositoryInterface) {
+    init(repository: StatisticsLocalDBRepositoryInterface) {
         self.repository = repository
     }
     

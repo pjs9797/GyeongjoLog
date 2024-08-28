@@ -1,5 +1,5 @@
 import RxSwift
 
-protocol StatisticsRepositoryInterface {
+protocol StatisticsLocalDBRepositoryInterface {
     func fetchEvents() -> Observable<[Event]>
 }

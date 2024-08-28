@@ -35,6 +35,7 @@ class IndividualStatisticsViewController: UIViewController, ReactorKit.View {
         super.viewWillAppear(animated)
         
         self.reactor?.action.onNext(.loadIndividualStatistics)
+        self.individualStatisticsView.searchView.searchTextField.text = nil
     }
 }
 

@@ -15,7 +15,7 @@ class EventTypeFilterView: UIView {
         return button
     }()
     let eventTypeCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
+        let layout = LeftAlignedCollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = 6*ConstantsManager.standardWidth
         layout.minimumLineSpacing = 10*ConstantsManager.standardHeight

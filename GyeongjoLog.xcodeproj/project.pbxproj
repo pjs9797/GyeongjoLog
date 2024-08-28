@@ -41,10 +41,10 @@
 		311E25482C6475A200C61202 /* AppFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25472C6475A200C61202 /* AppFlow.swift */; };
 		311E254E2C64866100C61202 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E254D2C64866100C61202 /* Event.swift */; };
 		311E25532C6488B200C61202 /* EventRealmObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25522C6488B200C61202 /* EventRealmObject.swift */; };
-		311E25552C648BFC00C61202 /* EventRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25542C648BFC00C61202 /* EventRepositoryInterface.swift */; };
-		311E25572C648C2E00C61202 /* EventUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25562C648C2E00C61202 /* EventUseCase.swift */; };
+		311E25552C648BFC00C61202 /* EventLocalDBRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25542C648BFC00C61202 /* EventLocalDBRepositoryInterface.swift */; };
+		311E25572C648C2E00C61202 /* EventLocalDBUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25562C648C2E00C61202 /* EventLocalDBUseCase.swift */; };
 		311E255B2C64917D00C61202 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E255A2C64917D00C61202 /* RealmManager.swift */; };
-		311E25602C64924B00C61202 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E255F2C64924B00C61202 /* EventRepository.swift */; };
+		311E25602C64924B00C61202 /* EventLocalDBRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E255F2C64924B00C61202 /* EventLocalDBRepository.swift */; };
 		311E25622C6495D000C61202 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25612C6495D000C61202 /* UserDefaultsManager.swift */; };
 		311E25682C64A7EE00C61202 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25672C64A7EE00C61202 /* Date+Extension.swift */; };
 		311E256B2C64AEBA00C61202 /* AddEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E256A2C64AEBA00C61202 /* AddEventViewController.swift */; };
@@ -142,9 +142,9 @@
 		31FDB21B2C71AA770010F3EC /* TopInteractedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB21A2C71AA770010F3EC /* TopInteractedView.swift */; };
 		31FDB21D2C71AEE50010F3EC /* IndividualStatisticsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB21C2C71AEE50010F3EC /* IndividualStatisticsCollectionViewCell.swift */; };
 		31FDB21F2C71EBE80010F3EC /* Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB21E2C71EBE80010F3EC /* Statistics.swift */; };
-		31FDB2212C71EC280010F3EC /* StatisticsRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2202C71EC280010F3EC /* StatisticsRepositoryInterface.swift */; };
-		31FDB2232C71EC3D0010F3EC /* StatisticsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2222C71EC3D0010F3EC /* StatisticsRepository.swift */; };
-		31FDB2252C71EC660010F3EC /* StatisticsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2242C71EC660010F3EC /* StatisticsUseCase.swift */; };
+		31FDB2212C71EC280010F3EC /* StatisticsLocalDBRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2202C71EC280010F3EC /* StatisticsLocalDBRepositoryInterface.swift */; };
+		31FDB2232C71EC3D0010F3EC /* StatisticsLocalDBRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2222C71EC3D0010F3EC /* StatisticsLocalDBRepository.swift */; };
+		31FDB2252C71EC660010F3EC /* StatisticsLocalDBUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2242C71EC660010F3EC /* StatisticsLocalDBUseCase.swift */; };
 		31FDB2272C7202400010F3EC /* MonthlyStatisticsReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2262C7202400010F3EC /* MonthlyStatisticsReactor.swift */; };
 		31FDB2292C72024E0010F3EC /* MonthlyStatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FDB2282C72024E0010F3EC /* MonthlyStatisticsViewController.swift */; };
 		31FDB22C2C721EA00010F3EC /* DGCharts in Frameworks */ = {isa = PBXBuildFile; productRef = 31FDB22B2C721EA00010F3EC /* DGCharts */; };
@@ -216,10 +216,10 @@
 		311E25472C6475A200C61202 /* AppFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlow.swift; sourceTree = "<group>"; };
 		311E254D2C64866100C61202 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		311E25522C6488B200C61202 /* EventRealmObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRealmObject.swift; sourceTree = "<group>"; };
-		311E25542C648BFC00C61202 /* EventRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepositoryInterface.swift; sourceTree = "<group>"; };
-		311E25562C648C2E00C61202 /* EventUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventUseCase.swift; sourceTree = "<group>"; };
+		311E25542C648BFC00C61202 /* EventLocalDBRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLocalDBRepositoryInterface.swift; sourceTree = "<group>"; };
+		311E25562C648C2E00C61202 /* EventLocalDBUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLocalDBUseCase.swift; sourceTree = "<group>"; };
 		311E255A2C64917D00C61202 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
-		311E255F2C64924B00C61202 /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
+		311E255F2C64924B00C61202 /* EventLocalDBRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventLocalDBRepository.swift; sourceTree = "<group>"; };
 		311E25612C6495D000C61202 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		311E25672C64A7EE00C61202 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		311E256A2C64AEBA00C61202 /* AddEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewController.swift; sourceTree = "<group>"; };
@@ -316,9 +316,9 @@
 		31FDB21A2C71AA770010F3EC /* TopInteractedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopInteractedView.swift; sourceTree = "<group>"; };
 		31FDB21C2C71AEE50010F3EC /* IndividualStatisticsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndividualStatisticsCollectionViewCell.swift; sourceTree = "<group>"; };
 		31FDB21E2C71EBE80010F3EC /* Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Statistics.swift; sourceTree = "<group>"; };
-		31FDB2202C71EC280010F3EC /* StatisticsRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsRepositoryInterface.swift; sourceTree = "<group>"; };
-		31FDB2222C71EC3D0010F3EC /* StatisticsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsRepository.swift; sourceTree = "<group>"; };
-		31FDB2242C71EC660010F3EC /* StatisticsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsUseCase.swift; sourceTree = "<group>"; };
+		31FDB2202C71EC280010F3EC /* StatisticsLocalDBRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsLocalDBRepositoryInterface.swift; sourceTree = "<group>"; };
+		31FDB2222C71EC3D0010F3EC /* StatisticsLocalDBRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsLocalDBRepository.swift; sourceTree = "<group>"; };
+		31FDB2242C71EC660010F3EC /* StatisticsLocalDBUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsLocalDBUseCase.swift; sourceTree = "<group>"; };
 		31FDB2262C7202400010F3EC /* MonthlyStatisticsReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyStatisticsReactor.swift; sourceTree = "<group>"; };
 		31FDB2282C72024E0010F3EC /* MonthlyStatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyStatisticsViewController.swift; sourceTree = "<group>"; };
 		31FDB22D2C721EC70010F3EC /* MonthlyStatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyStatisticsView.swift; sourceTree = "<group>"; };
@@ -602,8 +602,8 @@
 		311E254B2C6485BD00C61202 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				311E25562C648C2E00C61202 /* EventUseCase.swift */,
-				31FDB2242C71EC660010F3EC /* StatisticsUseCase.swift */,
+				311E25562C648C2E00C61202 /* EventLocalDBUseCase.swift */,
+				31FDB2242C71EC660010F3EC /* StatisticsLocalDBUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -611,8 +611,8 @@
 		311E254C2C6485C200C61202 /* RepositoryInterface */ = {
 			isa = PBXGroup;
 			children = (
-				311E25542C648BFC00C61202 /* EventRepositoryInterface.swift */,
-				31FDB2202C71EC280010F3EC /* StatisticsRepositoryInterface.swift */,
+				311E25542C648BFC00C61202 /* EventLocalDBRepositoryInterface.swift */,
+				31FDB2202C71EC280010F3EC /* StatisticsLocalDBRepositoryInterface.swift */,
 			);
 			path = RepositoryInterface;
 			sourceTree = "<group>";
@@ -628,8 +628,8 @@
 		311E255E2C64923800C61202 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				311E255F2C64924B00C61202 /* EventRepository.swift */,
-				31FDB2222C71EC3D0010F3EC /* StatisticsRepository.swift */,
+				311E255F2C64924B00C61202 /* EventLocalDBRepository.swift */,
+				31FDB2222C71EC3D0010F3EC /* StatisticsLocalDBRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -1310,7 +1310,7 @@
 				31FDB1EB2C705F920010F3EC /* DetailEventViewController.swift in Sources */,
 				311E25312C639C7000C61202 /* SortButton.swift in Sources */,
 				311E25682C64A7EE00C61202 /* Date+Extension.swift in Sources */,
-				311E25572C648C2E00C61202 /* EventUseCase.swift in Sources */,
+				311E25572C648C2E00C61202 /* EventLocalDBUseCase.swift in Sources */,
 				31FDB1D52C6D98850010F3EC /* EventRelationshipFilterViewController.swift in Sources */,
 				311E25462C64759700C61202 /* AppStep.swift in Sources */,
 				311E25762C64D6A300C61202 /* SearchView.swift in Sources */,
@@ -1337,7 +1337,7 @@
 				31FDB1E32C6F8E9C0010F3EC /* UICollectionViewFlowLayout+Extension.swift in Sources */,
 				311E250E2C6360C400C61202 /* FontManager.swift in Sources */,
 				31FDB23E2C7465BF0010F3EC /* DetailIndividualStatisticsCollectionViewCell.swift in Sources */,
-				31FDB2212C71EC280010F3EC /* StatisticsRepositoryInterface.swift in Sources */,
+				31FDB2212C71EC280010F3EC /* StatisticsLocalDBRepositoryInterface.swift in Sources */,
 				31FDB2092C7191BA0010F3EC /* StatisticsStep.swift in Sources */,
 				31FDB2102C7195360010F3EC /* IndividualStatisticsView.swift in Sources */,
 				31FDB2372C745F4F0010F3EC /* DetailIndividualStatisticsView.swift in Sources */,
@@ -1379,13 +1379,13 @@
 				31FDB1F32C70631C0010F3EC /* AddMyEventSummaryReactor.swift in Sources */,
 				31FDB1D72C6D98910010F3EC /* EventRelationshipFilterReactor.swift in Sources */,
 				31FDB1A42C69C1480010F3EC /* MyEventSummaryView.swift in Sources */,
-				31FDB2232C71EC3D0010F3EC /* StatisticsRepository.swift in Sources */,
+				31FDB2232C71EC3D0010F3EC /* StatisticsLocalDBRepository.swift in Sources */,
 				311E25782C64D6B800C61202 /* SetEventDetailNameTextFieldView.swift in Sources */,
 				31FDB1F82C70E00B0010F3EC /* OnBoardingViewController.swift in Sources */,
 				3194AAD82C7B1C4400AC5A01 /* SettingTableViewCell.swift in Sources */,
 				31FDB2512C75E1C10010F3EC /* PhraseCollectionViewCell.swift in Sources */,
 				311E253B2C63B46400C61202 /* MyEventCollectionViewCell.swift in Sources */,
-				31FDB2252C71EC660010F3EC /* StatisticsUseCase.swift in Sources */,
+				31FDB2252C71EC660010F3EC /* StatisticsLocalDBUseCase.swift in Sources */,
 				311E25362C639E8700C61202 /* ImageManager.swift in Sources */,
 				31FDB16D2C6785270010F3EC /* EventTypeCollectionViewCell.swift in Sources */,
 				3194AAD12C7B1BFA00AC5A01 /* SettingViewController.swift in Sources */,
@@ -1396,12 +1396,12 @@
 				31FDB21D2C71AEE50010F3EC /* IndividualStatisticsCollectionViewCell.swift in Sources */,
 				31FDB1EF2C705FB40010F3EC /* DatailEventReactor.swift in Sources */,
 				31FDB2162C71A1910010F3EC /* TapBarCollectionView.swift in Sources */,
-				311E25552C648BFC00C61202 /* EventRepositoryInterface.swift in Sources */,
+				311E25552C648BFC00C61202 /* EventLocalDBRepositoryInterface.swift in Sources */,
 				31FDB18A2C6867320010F3EC /* SelectRelationshipViewController.swift in Sources */,
 				31FDB2292C72024E0010F3EC /* MonthlyStatisticsViewController.swift in Sources */,
 				311E25852C65008D00C61202 /* TabBarController.swift in Sources */,
 				312A995E2C663FCD001F5BB8 /* SetEventDetailButtonView.swift in Sources */,
-				311E25602C64924B00C61202 /* EventRepository.swift in Sources */,
+				311E25602C64924B00C61202 /* EventLocalDBRepository.swift in Sources */,
 				311E256F2C64AFBD00C61202 /* AddEventView.swift in Sources */,
 				317153CF2C7B5C7D007CCD6D /* UIDevice+Extension.swift in Sources */,
 				31FDB1B42C69FCCF0010F3EC /* CalendarViewController.swift in Sources */,

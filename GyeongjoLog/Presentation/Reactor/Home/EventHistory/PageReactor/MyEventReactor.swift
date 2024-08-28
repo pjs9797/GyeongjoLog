@@ -5,11 +5,11 @@ import RxFlow
 class MyEventReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
-    private let eventUseCase: EventUseCase
+    private let eventLocalDBUseCase: EventLocalDBUseCase
     var filterRelay = PublishRelay<String>()
     
-    init(eventUseCase: EventUseCase) {
-        self.eventUseCase = eventUseCase
+    init(eventLocalDBUseCase: EventLocalDBUseCase) {
+        self.eventLocalDBUseCase = eventLocalDBUseCase
     }
     
     enum Action {
@@ -53,7 +53,7 @@ class MyEventReactor: ReactorKit.Reactor, Stepper {
         case .sortButtonTapped:
             return .just(.setSortViewHidden)
         case .dateSortButtonTapped:
-            return self.eventUseCase.fetchMyEvents(filterEventType: currentState.filterTitle, sortBy: .date)
+            return self.eventLocalDBUseCase.fetchMyEvents(filterEventType: currentState.filterTitle, sortBy: .date)
                 .flatMap { events in
                     return Observable.concat([
                         .just(.setSortOption(.date)),
@@ -61,7 +61,7 @@ class MyEventReactor: ReactorKit.Reactor, Stepper {
                     ])
                 }
         case .cntSortButtonTapped:
-            return self.eventUseCase.fetchMyEvents(filterEventType: currentState.filterTitle, sortBy: .eventCnt)
+            return self.eventLocalDBUseCase.fetchMyEvents(filterEventType: currentState.filterTitle, sortBy: .eventCnt)
                 .flatMap { events in
                     return Observable.concat([
                         .just(.setSortOption(.eventCnt)),
@@ -78,10 +78,10 @@ class MyEventReactor: ReactorKit.Reactor, Stepper {
             
             // 나의 경조사 컬렉션뷰 셀 데이터 처리
         case .loadMyEvent:
-            return eventUseCase.fetchMyEvents(filterEventType: currentState.filterTitle, sortBy: currentState.sortOption)
+            return self.eventLocalDBUseCase.fetchMyEvents(filterEventType: currentState.filterTitle, sortBy: currentState.sortOption)
                 .map { .setMyEvent($0) }
         case .loadFilteredMyEvent(let filter):
-            return self.eventUseCase.fetchMyEvents(filterEventType: filter, sortBy: currentState.sortOption)
+            return self.eventLocalDBUseCase.fetchMyEvents(filterEventType: filter, sortBy: currentState.sortOption)
                 .flatMap { events in
                     return Observable.concat([
                         .just(.setFilterOption(filter)),

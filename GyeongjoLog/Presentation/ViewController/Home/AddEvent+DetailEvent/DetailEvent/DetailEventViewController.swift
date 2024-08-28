@@ -353,6 +353,11 @@ extension DetailEventViewController {
             })
             .disposed(by: disposeBag)
         
+        reactor.state.compactMap{ $0.memo }
+            .distinctUntilChanged()
+            .bind(to: self.addEventView.memoTextView.rx.text)
+            .disposed(by: disposeBag)
+        
         reactor.state.map{ $0.isEnableAddEventButton }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isEnable in

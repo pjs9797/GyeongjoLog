@@ -8,9 +8,9 @@ class StatisticsFlow: Flow {
     }
     
     private var rootViewController: UINavigationController
-    private let statisticsUseCase: StatisticsUseCase
+    private let statisticsUseCase: StatisticsLocalDBUseCase
     
-    init(with rootViewController: UINavigationController, statisticsUseCase: StatisticsUseCase) {
+    init(with rootViewController: UINavigationController, statisticsUseCase: StatisticsLocalDBUseCase) {
         self.rootViewController = rootViewController
         self.rootViewController.interactivePopGestureRecognizer?.delegate = nil
         self.rootViewController.interactivePopGestureRecognizer?.isEnabled = true
@@ -41,12 +41,11 @@ class StatisticsFlow: Flow {
         
         let reactor = StatisticsReactor()
         let viewController = StatisticsViewController(with: reactor, viewControllers: [individualStatisticsViewController,monthlyStatisticsViewController])
-        let compositeStepper = CompositeStepper(steppers: [individualStatisticsReactor, monthlyStatisticsReactor])
+        let compositeStepper = CompositeStepper(steppers: [individualStatisticsReactor, monthlyStatisticsReactor, reactor])
         self.rootViewController.pushViewController(viewController, animated: true)
         
         return .multiple(flowContributors: [
-            .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: compositeStepper),
-            .contribute(withNextPresentable: viewController, withNextStepper: reactor),
+            .contribute(withNextPresentable: viewController, withNextStepper: compositeStepper),
         ])
     }
     

@@ -5,11 +5,11 @@ import RxFlow
 class AddNewEventTypeReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
-    private let eventUseCase: EventUseCase
+    private let eventLocalDBUseCase: EventLocalDBUseCase
     var filterRelay = PublishRelay<String>()
     
-    init(eventUseCase: EventUseCase) {
-        self.eventUseCase = eventUseCase
+    init(eventLocalDBUseCase: EventLocalDBUseCase) {
+        self.eventLocalDBUseCase = eventLocalDBUseCase
     }
     
     enum Action {
@@ -53,7 +53,7 @@ class AddNewEventTypeReactor: ReactorKit.Reactor, Stepper {
                 .just(.setEnableAddEventNameButton)
             ])
         case .addEventTypeButtonTapped:
-            return self.eventUseCase.updateEventType(eventType: currentState.eventNameText, color: currentState.selectedColor)
+            return self.eventLocalDBUseCase.updateEventType(eventType: currentState.eventNameText, color: currentState.selectedColor)
                 .andThen(Completable.create { completable in
                     self.steps.accept(EventHistoryStep.popViewController)
                     completable(.completed)

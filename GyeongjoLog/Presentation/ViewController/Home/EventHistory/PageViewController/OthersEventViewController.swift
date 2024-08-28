@@ -35,6 +35,7 @@ class OthersEventViewController: UIViewController, ReactorKit.View {
         super.viewWillAppear(animated)
         
         self.reactor?.action.onNext(.loadOthersEventSummary)
+        self.othersEventView.searchView.searchTextField.text = nil
     }
     
     private func setupTapGestureToHideSortView() {

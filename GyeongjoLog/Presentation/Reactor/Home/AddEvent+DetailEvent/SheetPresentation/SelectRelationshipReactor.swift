@@ -5,11 +5,11 @@ import RxFlow
 class SelectRelationshipReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
-    private let eventUseCase: EventUseCase
+    private let eventLocalDBUseCase: EventLocalDBUseCase
     let eventRelationshipRelay: PublishRelay<String>
     
-    init(eventUseCase: EventUseCase, eventRelationshipRelay: PublishRelay<String>) {
-        self.eventUseCase = eventUseCase
+    init(eventLocalDBUseCase: EventLocalDBUseCase, eventRelationshipRelay: PublishRelay<String>) {
+        self.eventLocalDBUseCase = eventLocalDBUseCase
         self.eventRelationshipRelay = eventRelationshipRelay
     }
     

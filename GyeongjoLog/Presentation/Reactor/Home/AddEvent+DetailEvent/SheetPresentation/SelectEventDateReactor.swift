@@ -6,11 +6,11 @@ import RxFlow
 class SelectEventDateReactor: ReactorKit.Reactor, Stepper {
     let initialState: State
     var steps = PublishRelay<Step>()
-    private let eventUseCase: EventUseCase
+    private let eventLocalDBUseCase: EventLocalDBUseCase
     let eventDateRelay: PublishRelay<String>
     
-    init(eventUseCase: EventUseCase, eventDateRelay: PublishRelay<String>, initialDate: String?) {
-        self.eventUseCase = eventUseCase
+    init(eventLocalDBUseCase: EventLocalDBUseCase, eventDateRelay: PublishRelay<String>, initialDate: String?) {
+        self.eventLocalDBUseCase = eventLocalDBUseCase
         self.eventDateRelay = eventDateRelay
         
         if let initialDate = initialDate {

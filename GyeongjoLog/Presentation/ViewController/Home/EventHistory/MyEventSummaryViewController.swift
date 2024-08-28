@@ -38,6 +38,7 @@ class MyEventSummaryViewController: UIViewController, ReactorKit.View {
         super.viewWillAppear(animated)
         
         self.reactor?.action.onNext(.loadMyEventSummary)
+        self.myEventSummaryView.searchView.searchTextField.text = nil
     }
     
     private func setNavigationbar() {

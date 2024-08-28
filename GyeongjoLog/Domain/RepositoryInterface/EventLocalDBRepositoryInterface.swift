@@ -1,6 +1,6 @@
 import RxSwift
 
-protocol EventRepositoryInterface {
+protocol EventLocalDBRepositoryInterface {
     func fetchEvents() -> Observable<[Event]>
     func fetchSingleEvent(id: String) -> Observable<Event?>
     func saveEvent(event: Event) -> Completable

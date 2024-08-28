@@ -88,7 +88,13 @@ extension PhraseViewController {
         // 텍스트뷰에 선택된 문구 표시
         reactor.state.map { $0.selectedPhrase }
             .distinctUntilChanged()
-            .bind(to: phraseView.phrasetextView.rx.text)
+            .bind(onNext: { [weak self] text in
+                var attribute = AttributedFontManager.SubHead02_Medium
+                attribute[.foregroundColor] = ColorManager.text01 ?? .black
+                let attributedText = NSAttributedString(string: text, attributes: attribute)
+                
+                self?.phraseView.phrasetextView.attributedText = attributedText
+            })
             .disposed(by: disposeBag)
     }
 }

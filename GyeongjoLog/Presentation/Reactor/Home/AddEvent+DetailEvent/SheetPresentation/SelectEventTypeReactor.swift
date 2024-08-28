@@ -5,11 +5,11 @@ import RxFlow
 class SelectEventTypeReactor: ReactorKit.Reactor, Stepper {
     var initialState: State
     var steps = PublishRelay<Step>()
-    private let eventUseCase: EventUseCase
+    private let eventLocalDBUseCase: EventLocalDBUseCase
     let eventTypeRelay: PublishRelay<String>
     
-    init(eventUseCase: EventUseCase, eventTypeRelay: PublishRelay<String>, initialEventType: String?) {
-        self.eventUseCase = eventUseCase
+    init(eventLocalDBUseCase: EventLocalDBUseCase, eventTypeRelay: PublishRelay<String>, initialEventType: String?) {
+        self.eventLocalDBUseCase = eventLocalDBUseCase
         self.eventTypeRelay = eventTypeRelay
         if let initialEventType = initialEventType {
             self.initialState = State(selectedEventType: initialEventType)
@@ -61,7 +61,7 @@ class SelectEventTypeReactor: ReactorKit.Reactor, Stepper {
                 .just(.setSelectButtonEnable(true))
             ])
         case .loadEventTypes:
-            return self.eventUseCase.fetchEventTypes()
+            return self.eventLocalDBUseCase.fetchEventTypes()
                 .map { eventTypes in
                     var mutations: [Mutation] = [.setEventTypes(eventTypes)]
                     if let initialEventType = self.currentState.selectedEventType,

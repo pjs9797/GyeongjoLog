@@ -6,9 +6,9 @@ import RxFlow
 class MonthlyStatisticsReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
-    private let statisticsUseCase: StatisticsUseCase
+    private let statisticsUseCase: StatisticsLocalDBUseCase
     
-    init(statisticsUseCase: StatisticsUseCase) {
+    init(statisticsUseCase: StatisticsLocalDBUseCase) {
         self.statisticsUseCase = statisticsUseCase
     }
     
@@ -60,6 +60,7 @@ class MonthlyStatisticsReactor: ReactorKit.Reactor, Stepper {
                     ])
                 }
         case .selectTopIndividual:
+            print(1231312313123)
             if let topIndividualStatistic = currentState.topIndividualStatistic {
                 self.steps.accept(StatisticsStep.navigateToDetailIndividualStatisticsViewController(individualStatistics: topIndividualStatistic))
             }

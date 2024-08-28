@@ -28,8 +28,6 @@ class PhraseView: UIView {
         textView.backgroundColor = ColorManager.bgGray
         textView.layer.cornerRadius = 12*ConstantsManager.standardHeight
         textView.textContainerInset = UIEdgeInsets(top: 18, left: 18, bottom: 0, right: 22)
-        textView.font = FontManager.Body0201
-        textView.textColor = ColorManager.text01
         textView.isEditable = false
         return textView
     }()

@@ -6,14 +6,14 @@ import RxFlow
 class DatailEventReactor: ReactorKit.Reactor, Stepper {
     let initialState: State
     var steps = PublishRelay<Step>()
-    private let eventUseCase: EventUseCase
+    private let eventLocalDBUseCase: EventLocalDBUseCase
     let addEventFlow: AddEventFlow
     var eventTypeRelay = PublishRelay<String>()
     var eventDateRelay = PublishRelay<String>()
     var eventRelationshipRelay = PublishRelay<String>()
     
-    init(eventUseCase: EventUseCase, addEventFlow: AddEventFlow, event: Event) {
-        self.eventUseCase = eventUseCase
+    init(eventLocalDBUseCase: EventLocalDBUseCase, addEventFlow: AddEventFlow, event: Event) {
+        self.eventLocalDBUseCase = eventLocalDBUseCase
         self.addEventFlow = addEventFlow
         
         let isOthersEvent = addEventFlow == .othersEventSummary
@@ -34,6 +34,7 @@ class DatailEventReactor: ReactorKit.Reactor, Stepper {
             attributedText.append(wonText)
             formattedText = attributedText
         }
+        print(event.memo)
         self.initialState = State(id: event.id, name: event.name, phoneNumber: event.phoneNumber, eventType: event.eventType, date: event.date, relationship: event.relationship, amount: event.amount, formattedAmount: formattedText, memo: event.memo, eventAmounts: addEventFlow == .myEventSummary ? [10000, 50000, 100000, 500000, 1000000] : [-10000, -50000, -100000, -500000, -1000000])
     }
     
@@ -149,7 +150,7 @@ class DatailEventReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(EventHistoryStep.popViewController)
             return .empty()
         case .deleteButtonTapped:
-            return self.eventUseCase.deleteEvent(id: currentState.id)
+            return self.eventLocalDBUseCase.deleteEvent(id: currentState.id)
                 .andThen(Completable.create { completable in
                     self.steps.accept(EventHistoryStep.popViewController)
                     completable(.completed)
@@ -165,7 +166,7 @@ class DatailEventReactor: ReactorKit.Reactor, Stepper {
                               relationship: currentState.relationship,
                               amount: currentState.amount,
                               memo: currentState.memo)
-            return self.eventUseCase.updateEvent(event: event)
+            return self.eventLocalDBUseCase.updateEvent(event: event)
                 .andThen(Completable.create { completable in
                     self.steps.accept(EventHistoryStep.popViewController)
                     completable(.completed)

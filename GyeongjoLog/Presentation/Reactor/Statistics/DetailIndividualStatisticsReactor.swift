@@ -5,9 +5,9 @@ import RxFlow
 class DetailIndividualStatisticsReactor: ReactorKit.Reactor, Stepper {
     let initialState: State
     var steps = PublishRelay<Step>()
-    private let statisticsUseCase: StatisticsUseCase
+    private let statisticsUseCase: StatisticsLocalDBUseCase
     
-    init(statisticsUseCase: StatisticsUseCase, individualStatistics:IndividualStatistics) {
+    init(statisticsUseCase: StatisticsLocalDBUseCase, individualStatistics:IndividualStatistics) {
         self.statisticsUseCase = statisticsUseCase
         
         let totalInteractions = "주고받은 횟수 \(individualStatistics.totalInteractions)회"

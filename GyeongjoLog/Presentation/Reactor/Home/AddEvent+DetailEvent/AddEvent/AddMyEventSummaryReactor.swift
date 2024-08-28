@@ -6,11 +6,11 @@ import RxFlow
 class AddMyEventSummaryReactor: ReactorKit.Reactor, Stepper {
     let initialState: State
     var steps = PublishRelay<Step>()
-    private let eventUseCase: EventUseCase
+    private let eventLocalDBUseCase: EventLocalDBUseCase
     var eventRelationshipRelay = PublishRelay<String>()
     
-    init(eventUseCase: EventUseCase, eventType: String, date: String) {
-        self.eventUseCase = eventUseCase
+    init(eventLocalDBUseCase: EventLocalDBUseCase, eventType: String, date: String) {
+        self.eventLocalDBUseCase = eventLocalDBUseCase
         self.initialState = State(eventType: eventType, date: date)
     }
     
@@ -115,7 +115,7 @@ class AddMyEventSummaryReactor: ReactorKit.Reactor, Stepper {
                               relationship: currentState.relationship,
                               amount: currentState.amount,
                               memo: currentState.memo)
-            return eventUseCase.saveEvent(event: event)
+            return self.eventLocalDBUseCase.saveEvent(event: event)
                 .andThen(Completable.create { completable in
                     self.steps.accept(EventHistoryStep.popViewController)
                     completable(.completed)
