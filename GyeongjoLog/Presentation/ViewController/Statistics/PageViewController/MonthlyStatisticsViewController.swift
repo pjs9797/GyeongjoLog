@@ -310,24 +310,54 @@ extension MonthlyStatisticsViewController {
         let eventTypeAmounts = selectedMonth.eventTypeAmounts.sorted {
             if abs($0.value) != abs($1.value) {
                 return abs($0.value) > abs($1.value)
-            }
-            else {
+            } else {
                 return $0.key.localizedStandardCompare($1.key) == .orderedAscending
             }
         }
-        let topThreeEventTypes = eventTypeAmounts.prefix(3).reversed()
         
-        let colors: [NSUIColor] = [ColorManager.cobaltBlue ?? .blue, ColorManager.blue ?? .gray, ColorManager.skyBlue ?? .lightGray].reversed()
-        
-        for (index, (eventType, amount)) in topThreeEventTypes.enumerated() {
-            let entry = PieChartDataEntry(value: Double(abs(amount)), label: eventType)
+        // Array로 변환한 후 reversed() 호출
+        let topThreeEventTypes = Array(eventTypeAmounts.prefix(3)).reversed()
+
+        // 기본 색상 배열 (작은 것부터 큰 것 순서로 설정됨)
+        let defaultColors: [NSUIColor] = [ColorManager.skyBlue ?? .lightGray, ColorManager.blue ?? .gray, ColorManager.cobaltBlue ?? .blue]
+
+        switch topThreeEventTypes.count {
+        case 1:
+            let entry = PieChartDataEntry(value: Double(abs(topThreeEventTypes.first!.value)), label: topThreeEventTypes.first!.key)
             entries.append(entry)
+            let dataSet = PieChartDataSet(entries: entries, label: "")
+            dataSet.colors = [defaultColors[2]] // 가장 큰 색상 사용
+            applyPieChartSettings(to: dataSet)
+            
+        case 2:
+            for (index, event) in topThreeEventTypes.enumerated() {
+                let entry = PieChartDataEntry(value: Double(abs(event.value)), label: event.key)
+                entries.append(entry)
+            }
+            let dataSet = PieChartDataSet(entries: entries, label: "")
+            dataSet.colors = [defaultColors[1], defaultColors[2]] // 큰 것 두 개 사용
+            applyPieChartSettings(to: dataSet)
+            
+        case 3...:
+            for (index, event) in topThreeEventTypes.enumerated() {
+                let entry = PieChartDataEntry(value: Double(abs(event.value)), label: event.key)
+                entries.append(entry)
+            }
+            let dataSet = PieChartDataSet(entries: entries, label: "")
+            dataSet.colors = defaultColors // 세 가지 색상 모두 사용
+            applyPieChartSettings(to: dataSet)
+            
+        default:
+            monthlyStatisticsView.pieChartView.data = nil
+            monthlyStatisticsView.pieChartView.notifyDataSetChanged()
+            return
         }
-        let dataSet = PieChartDataSet(entries: entries, label: "")
-        dataSet.colors = Array(colors.prefix(entries.count))
+    }
+
+    private func applyPieChartSettings(to dataSet: PieChartDataSet) {
         dataSet.sliceSpace = 0
         dataSet.selectionShift = 0
-        
+
         // 라벨을 차트 내부로 설정
         dataSet.xValuePosition = .insideSlice
         dataSet.yValuePosition = .insideSlice
@@ -344,4 +374,5 @@ extension MonthlyStatisticsViewController {
         monthlyStatisticsView.pieChartView.data = data
         monthlyStatisticsView.pieChartView.notifyDataSetChanged()
     }
+
 }

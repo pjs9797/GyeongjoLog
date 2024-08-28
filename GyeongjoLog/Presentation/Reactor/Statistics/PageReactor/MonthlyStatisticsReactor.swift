@@ -60,7 +60,6 @@ class MonthlyStatisticsReactor: ReactorKit.Reactor, Stepper {
                     ])
                 }
         case .selectTopIndividual:
-            print(1231312313123)
             if let topIndividualStatistic = currentState.topIndividualStatistic {
                 self.steps.accept(StatisticsStep.navigateToDetailIndividualStatisticsViewController(individualStatistics: topIndividualStatistic))
             }
@@ -88,7 +87,14 @@ class MonthlyStatisticsReactor: ReactorKit.Reactor, Stepper {
                 let totalAmount = selectedMonthlyStatistics.eventTypeAmounts.values.reduce(0, +)
                 let percentage = totalAmount == 0 ? 0.0 : (Double(amount) / Double(totalAmount)) * 100.0
                 return PieChartDetail(eventType: eventType, percentage: round(percentage * 10) / 10.0, amount: amount)
-            }.sorted { $0.percentage > $1.percentage }
+            }.sorted {
+                if $0.percentage != $1.percentage {
+                    return $0.percentage > $1.percentage
+                }
+                else {
+                    return $0.eventType.localizedStandardCompare($1.eventType) == .orderedAscending
+                }
+            }
             
             return .concat([
                 .just(.setDifferenceAmountFromAverage(differenceFromAverage)),
