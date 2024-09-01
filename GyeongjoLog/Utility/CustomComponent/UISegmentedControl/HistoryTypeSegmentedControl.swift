@@ -11,12 +11,9 @@ class HistoryTypeSegmentedControl: UISegmentedControl {
     }
     
     private func configureSegmentedControl() {
-        var normalAttributes = AttributedFontManager.SubHead02_SemiBold
-        normalAttributes[.foregroundColor] = ColorManager.textDisabled ?? .gray
-        var selectedAttributes = AttributedFontManager.SubHead02_SemiBold
-        selectedAttributes[.foregroundColor] = ColorManager.black ?? .black
-        selectedAttributes[.backgroundColor] = ColorManager.white ?? .white
-        
+        let normalAttributes = [NSAttributedString.Key.foregroundColor: ColorManager.textDisabled ?? .gray, NSAttributedString.Key.font: FontManager.SubHead02_SemiBold]
+        let selectedAttributes = [NSAttributedString.Key.foregroundColor: ColorManager.black ?? .black, NSAttributedString.Key.backgroundColor: ColorManager.white ?? .white,  NSAttributedString.Key.font: FontManager.SubHead02_SemiBold]
+
         setTitleTextAttributes(normalAttributes, for: .normal)
         setTitleTextAttributes(selectedAttributes, for: .selected)
         

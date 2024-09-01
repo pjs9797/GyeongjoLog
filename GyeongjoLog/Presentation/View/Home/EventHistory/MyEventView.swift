@@ -27,7 +27,7 @@ class MyEventView: UIView {
         layout.minimumInteritemSpacing = 11*ConstantsManager.standardWidth
         layout.minimumLineSpacing = 14*ConstantsManager.standardHeight
         let itemWidth = ((UIScreen.main.bounds.width - 32*ConstantsManager.standardWidth) - 12*ConstantsManager.standardWidth) / 2
-        let itemHeight: CGFloat = 129 * ConstantsManager.standardHeight
+        let itemHeight: CGFloat = 131 * ConstantsManager.standardHeight
         layout.itemSize = CGSize(width: itemWidth, height: itemHeight)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = ColorManager.BgMain

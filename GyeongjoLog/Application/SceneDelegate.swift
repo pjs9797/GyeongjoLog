@@ -12,18 +12,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         appFlow = AppFlow()
         print("realm 위치: ", Realm.Configuration.defaultConfiguration.fileURL!)
-
-        Flows.use(appFlow, when: .created) { [unowned self] root in
-            self.window?.rootViewController = root
-            self.window?.makeKeyAndVisible()
-        }
-        
-        if UserDefaultsManager.shared.getOnBoardingStarted() {
-            coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToTabBarController))
-        }
-        else {
-            coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToOnBoardingViewController))
-        }
+        let launchScreenViewController = LaunchScreenViewController(window: window!, coordinator: coordinator, appFlow: appFlow)
+        window?.rootViewController = launchScreenViewController
+        window?.makeKeyAndVisible()
+//        Flows.use(appFlow, when: .created) { [unowned self] root in
+//            self.window?.rootViewController = root
+//            self.window?.makeKeyAndVisible()
+//        }
+//        
+//        coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToTabBarController))
+//        
+//        if UserDefaultsManager.shared.getOnBoardingStarted() {
+//            coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToTabBarController))
+//        }
+//        else {
+//            coordinator.coordinate(flow: appFlow, with: OneStepper(withSingleStep: AppStep.navigateToOnBoardingViewController))
+//        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

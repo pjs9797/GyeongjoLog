@@ -39,6 +39,7 @@ class EventHistoryViewController: UIViewController, ReactorKit.View {
     
     private func setNavigationbar() {
         navigationItem.leftBarButtonItem = logoImage
+        navigationItem.leftBarButtonItem?.isEnabled = false
         navigationItem.rightBarButtonItems = [plusButton,calendarButton]
     }
     

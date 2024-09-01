@@ -41,7 +41,7 @@ class AppFlow: Flow {
         let phraseNavigationController = UINavigationController()
         let settingNavigationController = UINavigationController()
         let eventHistoryFlow = EventHistoryFlow(with: eventHistoryNavigationController, eventLocalDBUseCase: self.eventLocalDBUseCase)
-        let statisticsFlow = StatisticsFlow(with: statisticsNavigationController, statisticsUseCase: self.statisticsLocalDBUseCase)
+        let statisticsFlow = StatisticsFlow(with: statisticsNavigationController, statisticsLocalDBUseCase: self.statisticsLocalDBUseCase)
         let phraseFlow = PhraseFlow(with: phraseNavigationController)
         let settingFlow = SettingFlow(with: settingNavigationController)
         

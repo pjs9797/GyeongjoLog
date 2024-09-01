@@ -5,10 +5,10 @@ import RxFlow
 class IndividualStatisticsReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
-    private let statisticsUseCase: StatisticsLocalDBUseCase
+    private let statisticsLocalDBUseCase: StatisticsLocalDBUseCase
     
-    init(statisticsUseCase: StatisticsLocalDBUseCase) {
-        self.statisticsUseCase = statisticsUseCase
+    init(statisticsLocalDBUseCase: StatisticsLocalDBUseCase) {
+        self.statisticsLocalDBUseCase = statisticsLocalDBUseCase
     }
     
     enum Action {
@@ -40,13 +40,13 @@ class IndividualStatisticsReactor: ReactorKit.Reactor, Stepper {
         switch action {
             // 검색
         case .updateSearchTextField(let query):
-            return self.statisticsUseCase.fetchIndividualStatistics(query: query, filterRelationship: currentState.selectedRelationship)
+            return self.statisticsLocalDBUseCase.fetchIndividualStatistics(query: query, filterRelationship: currentState.selectedRelationship)
                 .map{ .setIndividualStatistics($0) }
             
             // 컬렉션뷰 셀 탭
         case .selectRelationship(let index):
             let filterRelationship = currentState.relationships[index]
-            return self.statisticsUseCase.fetchIndividualStatistics(filterRelationship: filterRelationship)
+            return self.statisticsLocalDBUseCase.fetchIndividualStatistics(filterRelationship: filterRelationship)
                 .flatMap { individualStatistics in
                     Observable.concat([
                         .just(.setSelectRelationship(filterRelationship)),
@@ -60,7 +60,7 @@ class IndividualStatisticsReactor: ReactorKit.Reactor, Stepper {
             
             // 개인별 통계 로드
         case .loadIndividualStatistics:
-            return self.statisticsUseCase.fetchIndividualStatistics()
+            return self.statisticsLocalDBUseCase.fetchIndividualStatistics()
                 .map{ .setIndividualStatistics($0) }
         }
     }

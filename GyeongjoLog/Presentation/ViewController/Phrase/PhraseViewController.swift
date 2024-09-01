@@ -34,6 +34,7 @@ class PhraseViewController: UIViewController, ReactorKit.View {
     
     private func setNavigationbar() {
         navigationItem.leftBarButtonItem = logoImage
+        navigationItem.leftBarButtonItem?.isEnabled = false
     }
 }
 

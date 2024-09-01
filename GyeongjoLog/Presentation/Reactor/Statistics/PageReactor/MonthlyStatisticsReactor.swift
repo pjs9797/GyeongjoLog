@@ -6,10 +6,10 @@ import RxFlow
 class MonthlyStatisticsReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
-    private let statisticsUseCase: StatisticsLocalDBUseCase
+    private let statisticsLocalDBUseCase: StatisticsLocalDBUseCase
     
-    init(statisticsUseCase: StatisticsLocalDBUseCase) {
-        self.statisticsUseCase = statisticsUseCase
+    init(statisticsLocalDBUseCase: StatisticsLocalDBUseCase) {
+        self.statisticsLocalDBUseCase = statisticsLocalDBUseCase
     }
     
     enum Action {
@@ -52,7 +52,7 @@ class MonthlyStatisticsReactor: ReactorKit.Reactor, Stepper {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .loadTopIndividualStatistics:
-            return self.statisticsUseCase.fetchTopIndividualForCurrentMonth()
+            return self.statisticsLocalDBUseCase.fetchTopIndividualForCurrentMonth()
                 .flatMap{
                     Observable.concat([
                         .just(.setTopName($0.name)),
@@ -67,7 +67,7 @@ class MonthlyStatisticsReactor: ReactorKit.Reactor, Stepper {
             
         case .selectMonth(let index):
             let selectedMonthlyStatistics = currentState.monthlyStatistics[index]
-            let differenceFromAverage = self.statisticsUseCase.calculateDifferenceFromAverage(for: selectedMonthlyStatistics, in: currentState.monthlyStatistics)
+            let differenceFromAverage = self.statisticsLocalDBUseCase.calculateDifferenceFromAverage(for: selectedMonthlyStatistics, in: currentState.monthlyStatistics)
             var receivedAmount = "+\(currentState.monthlyStatistics[index].receivedAmount.formattedWithComma())원"
             if currentState.monthlyStatistics[index].receivedAmount == 0 {
                 receivedAmount = "\(currentState.monthlyStatistics[index].receivedAmount.formattedWithComma())원"
@@ -107,7 +107,7 @@ class MonthlyStatisticsReactor: ReactorKit.Reactor, Stepper {
             ])
             
         case .loadMonthlyStatistics:
-            return self.statisticsUseCase.fetchMonthlyStatistics()
+            return self.statisticsLocalDBUseCase.fetchMonthlyStatistics()
                 .flatMap { monthlyStatistics -> Observable<Mutation> in
                     let isEmpty = monthlyStatistics.allSatisfy { $0.receivedAmount == 0 }
                     return Observable.concat([

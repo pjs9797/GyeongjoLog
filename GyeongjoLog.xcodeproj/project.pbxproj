@@ -61,6 +61,7 @@
 		312A995C2C663F96001F5BB8 /* SetEventDetailTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312A995B2C663F96001F5BB8 /* SetEventDetailTextFieldView.swift */; };
 		312A995E2C663FCD001F5BB8 /* SetEventDetailButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312A995D2C663FCD001F5BB8 /* SetEventDetailButtonView.swift */; };
 		317153CF2C7B5C7D007CCD6D /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317153CE2C7B5C7D007CCD6D /* UIDevice+Extension.swift */; };
+		317153D12C844DA6007CCD6D /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317153D02C844DA6007CCD6D /* LaunchScreenViewController.swift */; };
 		3194AAC82C7B07E300AC5A01 /* ToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3194AAC72C7B07E300AC5A01 /* ToastMessage.swift */; };
 		3194AACD2C7B1B5F00AC5A01 /* SettingStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3194AACC2C7B1B5F00AC5A01 /* SettingStep.swift */; };
 		3194AACF2C7B1B6500AC5A01 /* SettingFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3194AACE2C7B1B6500AC5A01 /* SettingFlow.swift */; };
@@ -236,6 +237,7 @@
 		312A995B2C663F96001F5BB8 /* SetEventDetailTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetEventDetailTextFieldView.swift; sourceTree = "<group>"; };
 		312A995D2C663FCD001F5BB8 /* SetEventDetailButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetEventDetailButtonView.swift; sourceTree = "<group>"; };
 		317153CE2C7B5C7D007CCD6D /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
+		317153D02C844DA6007CCD6D /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		3194AAC72C7B07E300AC5A01 /* ToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessage.swift; sourceTree = "<group>"; };
 		3194AACC2C7B1B5F00AC5A01 /* SettingStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingStep.swift; sourceTree = "<group>"; };
 		3194AACE2C7B1B6500AC5A01 /* SettingFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFlow.swift; sourceTree = "<group>"; };
@@ -740,7 +742,7 @@
 		31FDB17F2C685EDB0010F3EC /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				31FDB1F42C70DF1B0010F3EC /* OnBoarding */,
+				31FDB1F42C70DF1B0010F3EC /* Launch&OnBoarding */,
 				311E251A2C636B2100C61202 /* TabBar */,
 				31FDB1822C685EF40010F3EC /* Home */,
 				31FDB1FE2C718E850010F3EC /* Statistics */,
@@ -995,12 +997,13 @@
 			path = AddEvent;
 			sourceTree = "<group>";
 		};
-		31FDB1F42C70DF1B0010F3EC /* OnBoarding */ = {
+		31FDB1F42C70DF1B0010F3EC /* Launch&OnBoarding */ = {
 			isa = PBXGroup;
 			children = (
 				31FDB1F72C70E00B0010F3EC /* OnBoardingViewController.swift */,
+				317153D02C844DA6007CCD6D /* LaunchScreenViewController.swift */,
 			);
-			path = OnBoarding;
+			path = "Launch&OnBoarding";
 			sourceTree = "<group>";
 		};
 		31FDB1F52C70DF310010F3EC /* OnBoarding */ = {
@@ -1306,6 +1309,7 @@
 				31FDB22E2C721EC70010F3EC /* MonthlyStatisticsView.swift in Sources */,
 				311E25282C636CB400C61202 /* MyEventView.swift in Sources */,
 				311E25892C65021900C61202 /* EventHistoryStep.swift in Sources */,
+				317153D12C844DA6007CCD6D /* LaunchScreenViewController.swift in Sources */,
 				31FDB1E12C6F68660010F3EC /* SelectColorCollectionViewCell.swift in Sources */,
 				31FDB1EB2C705F920010F3EC /* DetailEventViewController.swift in Sources */,
 				311E25312C639C7000C61202 /* SortButton.swift in Sources */,
@@ -1549,7 +1553,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 9YSRYRQWSU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GyeongjoLog/Info.plist;
@@ -1580,7 +1584,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 9YSRYRQWSU;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GyeongjoLog/Info.plist;
