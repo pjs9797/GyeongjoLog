@@ -71,7 +71,7 @@ class OnBoardingViewController: UIViewController, ReactorKit.View {
         pageViewController.view.snp.makeConstraints { make in
             make.height.equalTo(490*ConstantsManager.standardHeight)
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(58*ConstantsManager.standardHeight)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(14*ConstantsManager.standardHeight)
         }
         
         pageControl.snp.makeConstraints { make in

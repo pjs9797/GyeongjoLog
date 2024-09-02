@@ -19,15 +19,46 @@ class AppFlow: Flow {
         switch step {
         case .navigateToOnBoardingViewController:
             return navigateToOnBoardingViewController()
+        case .navigateToBeginingViewController:
+            return navigateToBeginingViewController()
+        case .navigateToLoginViewController:
+            return navigateToLoginViewController()
         case .navigateToTabBarController:
             return navigateToTabBarController()
+            
+        case .navigateToEnterEmailForSignupViewController:
+            return navigateToEnterEmailForSignupViewController()
+        case .navigateToEnterAuthNumberForSignupViewController:
+            return navigateToEnterAuthNumberForSignupViewController()
+        case .navigateToEnterPasswordForSignupViewController:
+            return navigateToEnterPasswordForSignupViewController()
+            
+        case .popToRootViewController:
+            return popToRootViewController()
+        case .popViewController:
+            return popViewController()
         }
     }
     
     private func navigateToOnBoardingViewController() -> FlowContributors {
         let reactor = OnBoardingReactor()
         let viewController = OnBoardingViewController(with: reactor)
-        self.rootViewController.isNavigationBarHidden = true
+        self.rootViewController.pushViewController(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToBeginingViewController() -> FlowContributors {
+        let reactor = BeginingReactor()
+        let viewController = BeginingViewController(with: reactor)
+        self.rootViewController.pushViewController(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToLoginViewController() -> FlowContributors {
+        let reactor = LoginReactor()
+        let viewController = LoginViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
         
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
@@ -62,6 +93,36 @@ class AppFlow: Flow {
             .contribute(withNextPresentable: phraseFlow, withNextStepper: OneStepper(withSingleStep: PhraseStep.navigateToPhraseViewController)),
             .contribute(withNextPresentable: settingFlow, withNextStepper: OneStepper(withSingleStep: SettingStep.navigateToSettingViewController)),
         ])
+    }
+    
+    private func navigateToEnterEmailForSignupViewController() -> FlowContributors {
+        let reactor = EnterEmailForSignupReactor()
+        let viewController = EnterEmailForSignupViewController(with: reactor)
+        self.rootViewController.pushViewController(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToEnterAuthNumberForSignupViewController() -> FlowContributors {
+        let reactor = EnterAuthNumberForSignupReactor()
+        let viewController = EnterAuthNumberForSignupViewController(with: reactor)
+        self.rootViewController.pushViewController(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToEnterPasswordForSignupViewController() -> FlowContributors {
+        let reactor = EnterPasswordForSignupReactor()
+        let viewController = EnterPasswordForSignupViewController(with: reactor)
+        self.rootViewController.pushViewController(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func popToRootViewController() -> FlowContributors {
+        self.rootViewController.popToRootViewController(animated: true)
+        
+        return .none
     }
     
     private func popViewController() -> FlowContributors {

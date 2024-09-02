@@ -1,6 +1,13 @@
 import UIKit
 
 struct ImageManager {
+    //signup
+    static let launchScreen = UIImage(named: "launchScreen")
+    static let icon_letter = UIImage(named: "icon_letter")
+    static let icon_RoundCehck20 = UIImage(named: "icon_RoundCehck20")
+    static let icon_BlueRoundCheck20 = UIImage(named: "icon_BlueRoundCheck20")
+    static let icon_BlueCheck = UIImage(named: "icon_BlueCheck")
+    
     //tabBar
     static let icon_event_deselect = UIImage(named: "icon_event_deselect")
     static let icon_event_select = UIImage(named: "icon_event_select")

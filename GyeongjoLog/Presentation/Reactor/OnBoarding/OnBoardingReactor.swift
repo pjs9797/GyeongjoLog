@@ -23,7 +23,7 @@ class OnBoardingReactor: ReactorKit.Reactor, Stepper {
         switch action {
         case .startButtonTapped:
             UserDefaultsManager.shared.setOnBoardingStarted(true)
-            self.steps.accept(AppStep.navigateToTabBarController)
+            self.steps.accept(AppStep.navigateToBeginingViewController)
             return .empty()
         case .setPage(let page):
             return .just(.setCurrentPage(page))

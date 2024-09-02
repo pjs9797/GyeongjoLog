@@ -9,7 +9,7 @@ class LaunchScreenViewController: UIViewController {
     let appFlow: AppFlow
     let launchScreenImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "launchScreen")
+        imageView.image = ImageManager.launchScreen
         return imageView
     }()
     
@@ -36,7 +36,7 @@ class LaunchScreenViewController: UIViewController {
                 self?.window.makeKeyAndVisible()
             }
             if UserDefaultsManager.shared.getOnBoardingStarted() {
-                self?.coordinator.coordinate(flow: self?.appFlow ?? AppFlow(), with: OneStepper(withSingleStep: AppStep.navigateToTabBarController))
+                self?.coordinator.coordinate(flow: self?.appFlow ?? AppFlow(), with: OneStepper(withSingleStep: AppStep.navigateToBeginingViewController))
             }
             else {
                 self?.coordinator.coordinate(flow: self?.appFlow ?? AppFlow(), with: OneStepper(withSingleStep: AppStep.navigateToOnBoardingViewController))
