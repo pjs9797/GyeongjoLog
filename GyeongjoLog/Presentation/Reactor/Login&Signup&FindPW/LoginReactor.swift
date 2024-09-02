@@ -65,6 +65,7 @@ class LoginReactor: ReactorKit.Reactor, Stepper {
         case .loginButtonTapped:
             return .empty()
         case .findPasswordButtonTapped:
+            self.steps.accept(AppStep.navigateToEnterEmailForFindPWViewController)
             return .empty()
         }
     }

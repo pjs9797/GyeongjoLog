@@ -33,6 +33,13 @@ class AppFlow: Flow {
         case .navigateToEnterPasswordForSignupViewController:
             return navigateToEnterPasswordForSignupViewController()
             
+        case .navigateToEnterEmailForFindPWViewController:
+            return navigateToEnterEmailForFindPWViewController()
+        case .navigateToEnterAuthNumberForFindPWViewController:
+            return navigateToEnterAuthNumberForFindPWViewController()
+        case .navigateToEnterPasswordForFindPWViewController:
+            return navigateToEnterPasswordForFindPWViewController()
+            
         case .popToRootViewController:
             return popToRootViewController()
         case .popViewController:
@@ -114,6 +121,30 @@ class AppFlow: Flow {
     private func navigateToEnterPasswordForSignupViewController() -> FlowContributors {
         let reactor = EnterPasswordForSignupReactor()
         let viewController = EnterPasswordForSignupViewController(with: reactor)
+        self.rootViewController.pushViewController(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToEnterEmailForFindPWViewController() -> FlowContributors {
+        let reactor = EnterEmailForFindPWReactor()
+        let viewController = EnterEmailForFindPWViewController(with: reactor)
+        self.rootViewController.pushViewController(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToEnterAuthNumberForFindPWViewController() -> FlowContributors {
+        let reactor = EnterAuthNumberForFindPWReactor()
+        let viewController = EnterAuthNumberForFindPWViewController(with: reactor)
+        self.rootViewController.pushViewController(viewController, animated: true)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+    }
+    
+    private func navigateToEnterPasswordForFindPWViewController() -> FlowContributors {
+        let reactor = EnterPasswordForFindPWReactor()
+        let viewController = EnterPasswordForFindPWViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
         
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))

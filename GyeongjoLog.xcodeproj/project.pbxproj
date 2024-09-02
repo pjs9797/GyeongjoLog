@@ -73,8 +73,8 @@
 		317153E62C857D0C007CCD6D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317153E52C857D0C007CCD6D /* LoginViewController.swift */; };
 		317153E82C857D16007CCD6D /* LoginReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317153E72C857D16007CCD6D /* LoginReactor.swift */; };
 		317153ED2C858A29007CCD6D /* EnterEmailForSignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317153EC2C858A29007CCD6D /* EnterEmailForSignupView.swift */; };
-		317153EF2C858A5B007CCD6D /* EnterAuthNumberForSignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317153EE2C858A5B007CCD6D /* EnterAuthNumberForSignupView.swift */; };
-		317153F12C858A69007CCD6D /* EnterPasswordForSignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317153F02C858A69007CCD6D /* EnterPasswordForSignupView.swift */; };
+		317153EF2C858A5B007CCD6D /* EnterAuthNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317153EE2C858A5B007CCD6D /* EnterAuthNumberView.swift */; };
+		317153F12C858A69007CCD6D /* EnterPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317153F02C858A69007CCD6D /* EnterPasswordView.swift */; };
 		317153F32C858E71007CCD6D /* EnterEmailForSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317153F22C858E71007CCD6D /* EnterEmailForSignupViewController.swift */; };
 		317153F52C858E7B007CCD6D /* EnterEmailForSignupReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317153F42C858E7B007CCD6D /* EnterEmailForSignupReactor.swift */; };
 		317153F72C859315007CCD6D /* AuthNumberTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317153F62C859315007CCD6D /* AuthNumberTextFieldView.swift */; };
@@ -82,6 +82,13 @@
 		317153FB2C85977F007CCD6D /* EnterAuthNumberForSignupReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317153FA2C85977F007CCD6D /* EnterAuthNumberForSignupReactor.swift */; };
 		317153FD2C859DE9007CCD6D /* EnterPasswordForSignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317153FC2C859DE9007CCD6D /* EnterPasswordForSignupViewController.swift */; };
 		317153FF2C859DF4007CCD6D /* EnterPasswordForSignupReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317153FE2C859DF4007CCD6D /* EnterPasswordForSignupReactor.swift */; };
+		317154012C85BFFB007CCD6D /* EnterEmailForFindPWViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154002C85BFFB007CCD6D /* EnterEmailForFindPWViewController.swift */; };
+		317154032C85C030007CCD6D /* EnterEmailForFindPWView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154022C85C030007CCD6D /* EnterEmailForFindPWView.swift */; };
+		317154072C85C1BE007CCD6D /* EnterEmailForFindPWReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154062C85C1BE007CCD6D /* EnterEmailForFindPWReactor.swift */; };
+		317154092C85C201007CCD6D /* EnterAuthNumberForFindPWViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154082C85C201007CCD6D /* EnterAuthNumberForFindPWViewController.swift */; };
+		3171540B2C85C234007CCD6D /* EnterAuthNumberForFindPWReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171540A2C85C234007CCD6D /* EnterAuthNumberForFindPWReactor.swift */; };
+		3171540D2C85C266007CCD6D /* EnterPasswordForFindPWReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171540C2C85C266007CCD6D /* EnterPasswordForFindPWReactor.swift */; };
+		3171540F2C85C27A007CCD6D /* EnterPasswordForFindPWViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171540E2C85C27A007CCD6D /* EnterPasswordForFindPWViewController.swift */; };
 		3194AAC82C7B07E300AC5A01 /* ToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3194AAC72C7B07E300AC5A01 /* ToastMessage.swift */; };
 		3194AACD2C7B1B5F00AC5A01 /* SettingStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3194AACC2C7B1B5F00AC5A01 /* SettingStep.swift */; };
 		3194AACF2C7B1B6500AC5A01 /* SettingFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3194AACE2C7B1B6500AC5A01 /* SettingFlow.swift */; };
@@ -269,8 +276,8 @@
 		317153E52C857D0C007CCD6D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		317153E72C857D16007CCD6D /* LoginReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginReactor.swift; sourceTree = "<group>"; };
 		317153EC2C858A29007CCD6D /* EnterEmailForSignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterEmailForSignupView.swift; sourceTree = "<group>"; };
-		317153EE2C858A5B007CCD6D /* EnterAuthNumberForSignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterAuthNumberForSignupView.swift; sourceTree = "<group>"; };
-		317153F02C858A69007CCD6D /* EnterPasswordForSignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPasswordForSignupView.swift; sourceTree = "<group>"; };
+		317153EE2C858A5B007CCD6D /* EnterAuthNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterAuthNumberView.swift; sourceTree = "<group>"; };
+		317153F02C858A69007CCD6D /* EnterPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPasswordView.swift; sourceTree = "<group>"; };
 		317153F22C858E71007CCD6D /* EnterEmailForSignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterEmailForSignupViewController.swift; sourceTree = "<group>"; };
 		317153F42C858E7B007CCD6D /* EnterEmailForSignupReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterEmailForSignupReactor.swift; sourceTree = "<group>"; };
 		317153F62C859315007CCD6D /* AuthNumberTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthNumberTextFieldView.swift; sourceTree = "<group>"; };
@@ -278,6 +285,13 @@
 		317153FA2C85977F007CCD6D /* EnterAuthNumberForSignupReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterAuthNumberForSignupReactor.swift; sourceTree = "<group>"; };
 		317153FC2C859DE9007CCD6D /* EnterPasswordForSignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPasswordForSignupViewController.swift; sourceTree = "<group>"; };
 		317153FE2C859DF4007CCD6D /* EnterPasswordForSignupReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPasswordForSignupReactor.swift; sourceTree = "<group>"; };
+		317154002C85BFFB007CCD6D /* EnterEmailForFindPWViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterEmailForFindPWViewController.swift; sourceTree = "<group>"; };
+		317154022C85C030007CCD6D /* EnterEmailForFindPWView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterEmailForFindPWView.swift; sourceTree = "<group>"; };
+		317154062C85C1BE007CCD6D /* EnterEmailForFindPWReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterEmailForFindPWReactor.swift; sourceTree = "<group>"; };
+		317154082C85C201007CCD6D /* EnterAuthNumberForFindPWViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterAuthNumberForFindPWViewController.swift; sourceTree = "<group>"; };
+		3171540A2C85C234007CCD6D /* EnterAuthNumberForFindPWReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterAuthNumberForFindPWReactor.swift; sourceTree = "<group>"; };
+		3171540C2C85C266007CCD6D /* EnterPasswordForFindPWReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPasswordForFindPWReactor.swift; sourceTree = "<group>"; };
+		3171540E2C85C27A007CCD6D /* EnterPasswordForFindPWViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPasswordForFindPWViewController.swift; sourceTree = "<group>"; };
 		3194AAC72C7B07E300AC5A01 /* ToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessage.swift; sourceTree = "<group>"; };
 		3194AACC2C7B1B5F00AC5A01 /* SettingStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingStep.swift; sourceTree = "<group>"; };
 		3194AACE2C7B1B6500AC5A01 /* SettingFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFlow.swift; sourceTree = "<group>"; };
@@ -506,7 +520,7 @@
 		311E250C2C635F9A00C61202 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				317153D32C84775F007CCD6D /* Login&Signup */,
+				317153D32C84775F007CCD6D /* Login&Signup&FindPW */,
 				31FDB18F2C68E1360010F3EC /* Home */,
 				31FDB2002C718EC60010F3EC /* Statistics */,
 				31FDB2452C75DB360010F3EC /* Phrase */,
@@ -704,34 +718,36 @@
 			path = SheetPresentationController;
 			sourceTree = "<group>";
 		};
-		317153D22C847736007CCD6D /* Login&Signup */ = {
+		317153D22C847736007CCD6D /* Login&Signup&FindPW */ = {
 			isa = PBXGroup;
 			children = (
+				317154042C85C178007CCD6D /* FindPW */,
 				317153E92C857D28007CCD6D /* Signup */,
 				317153D62C847A88007CCD6D /* BeginingViewController.swift */,
 				317153E52C857D0C007CCD6D /* LoginViewController.swift */,
 			);
-			path = "Login&Signup";
+			path = "Login&Signup&FindPW";
 			sourceTree = "<group>";
 		};
-		317153D32C84775F007CCD6D /* Login&Signup */ = {
+		317153D32C84775F007CCD6D /* Login&Signup&FindPW */ = {
 			isa = PBXGroup;
 			children = (
-				317153EB2C857D3C007CCD6D /* Signup */,
+				317153EB2C857D3C007CCD6D /* Signup&FindPW */,
 				317153D42C847784007CCD6D /* BeginingView.swift */,
 				317153DD2C847E67007CCD6D /* LoginView.swift */,
 			);
-			path = "Login&Signup";
+			path = "Login&Signup&FindPW";
 			sourceTree = "<group>";
 		};
-		317153D82C847A90007CCD6D /* Login&Signup */ = {
+		317153D82C847A90007CCD6D /* Login&Signup&FindPW */ = {
 			isa = PBXGroup;
 			children = (
+				317154052C85C19B007CCD6D /* FindPW */,
 				317153EA2C857D31007CCD6D /* Signup */,
 				317153D92C847AAF007CCD6D /* BeginingReactor.swift */,
 				317153E72C857D16007CCD6D /* LoginReactor.swift */,
 			);
-			path = "Login&Signup";
+			path = "Login&Signup&FindPW";
 			sourceTree = "<group>";
 		};
 		317153E92C857D28007CCD6D /* Signup */ = {
@@ -754,14 +770,35 @@
 			path = Signup;
 			sourceTree = "<group>";
 		};
-		317153EB2C857D3C007CCD6D /* Signup */ = {
+		317153EB2C857D3C007CCD6D /* Signup&FindPW */ = {
 			isa = PBXGroup;
 			children = (
+				317154022C85C030007CCD6D /* EnterEmailForFindPWView.swift */,
 				317153EC2C858A29007CCD6D /* EnterEmailForSignupView.swift */,
-				317153EE2C858A5B007CCD6D /* EnterAuthNumberForSignupView.swift */,
-				317153F02C858A69007CCD6D /* EnterPasswordForSignupView.swift */,
+				317153EE2C858A5B007CCD6D /* EnterAuthNumberView.swift */,
+				317153F02C858A69007CCD6D /* EnterPasswordView.swift */,
 			);
-			path = Signup;
+			path = "Signup&FindPW";
+			sourceTree = "<group>";
+		};
+		317154042C85C178007CCD6D /* FindPW */ = {
+			isa = PBXGroup;
+			children = (
+				317154002C85BFFB007CCD6D /* EnterEmailForFindPWViewController.swift */,
+				317154082C85C201007CCD6D /* EnterAuthNumberForFindPWViewController.swift */,
+				3171540E2C85C27A007CCD6D /* EnterPasswordForFindPWViewController.swift */,
+			);
+			path = FindPW;
+			sourceTree = "<group>";
+		};
+		317154052C85C19B007CCD6D /* FindPW */ = {
+			isa = PBXGroup;
+			children = (
+				317154062C85C1BE007CCD6D /* EnterEmailForFindPWReactor.swift */,
+				3171540A2C85C234007CCD6D /* EnterAuthNumberForFindPWReactor.swift */,
+				3171540C2C85C266007CCD6D /* EnterPasswordForFindPWReactor.swift */,
+			);
+			path = FindPW;
 			sourceTree = "<group>";
 		};
 		3194AAC92C7B1AF100AC5A01 /* Setting */ = {
@@ -848,7 +885,7 @@
 			isa = PBXGroup;
 			children = (
 				31FDB1F42C70DF1B0010F3EC /* Launch&OnBoarding */,
-				317153D22C847736007CCD6D /* Login&Signup */,
+				317153D22C847736007CCD6D /* Login&Signup&FindPW */,
 				311E251A2C636B2100C61202 /* TabBar */,
 				31FDB1822C685EF40010F3EC /* Home */,
 				31FDB1FE2C718E850010F3EC /* Statistics */,
@@ -862,7 +899,7 @@
 			isa = PBXGroup;
 			children = (
 				31FDB1F52C70DF310010F3EC /* OnBoarding */,
-				317153D82C847A90007CCD6D /* Login&Signup */,
+				317153D82C847A90007CCD6D /* Login&Signup&FindPW */,
 				31FDB1F62C70DF3E0010F3EC /* Home */,
 				31FDB1FF2C718E970010F3EC /* Statistics */,
 				31FDB2482C75DCA20010F3EC /* Phrase */,
@@ -1389,9 +1426,10 @@
 				31FDB20E2C7195260010F3EC /* IndividualStatisticsViewController.swift in Sources */,
 				311E25232C636C1200C61202 /* UIViewController+Extension.swift in Sources */,
 				3194AADA2C7B350300AC5A01 /* ToPViewController.swift in Sources */,
+				317154012C85BFFB007CCD6D /* EnterEmailForFindPWViewController.swift in Sources */,
 				31FDB1B72C69FCDF0010F3EC /* CalendarReactor.swift in Sources */,
 				31FDB1DD2C6F5FBD0010F3EC /* AddNewEventTypeViewController.swift in Sources */,
-				317153F12C858A69007CCD6D /* EnterPasswordForSignupView.swift in Sources */,
+				317153F12C858A69007CCD6D /* EnterPasswordView.swift in Sources */,
 				31FDB2132C71A00A0010F3EC /* StatisticsTabBarCollectionViewCell.swift in Sources */,
 				311E25412C64734900C61202 /* EventHistoryReactor.swift in Sources */,
 				311E25872C65021000C61202 /* EventHistoryFlow.swift in Sources */,
@@ -1455,6 +1493,7 @@
 				31FDB1BD2C6B689D0010F3EC /* AmountFilterOption.swift in Sources */,
 				317153FD2C859DE9007CCD6D /* EnterPasswordForSignupViewController.swift in Sources */,
 				31FDB1D32C6D985F0010F3EC /* EventRelationshipFilterView.swift in Sources */,
+				3171540D2C85C266007CCD6D /* EnterPasswordForFindPWReactor.swift in Sources */,
 				3194AADE2C7B35F900AC5A01 /* ToPView.swift in Sources */,
 				31FDB1E32C6F8E9C0010F3EC /* UICollectionViewFlowLayout+Extension.swift in Sources */,
 				311E250E2C6360C400C61202 /* FontManager.swift in Sources */,
@@ -1487,7 +1526,7 @@
 				317153E42C857C08007CCD6D /* UIButton+Extension.swift in Sources */,
 				3194AADC2C7B352400AC5A01 /* ToPReactor.swift in Sources */,
 				31FDB1A12C69B7A30010F3EC /* SortOption.swift in Sources */,
-				317153EF2C858A5B007CCD6D /* EnterAuthNumberForSignupView.swift in Sources */,
+				317153EF2C858A5B007CCD6D /* EnterAuthNumberView.swift in Sources */,
 				31FDB1C42C6B8B8B0010F3EC /* MyEventSummaryReactor.swift in Sources */,
 				317153F52C858E7B007CCD6D /* EnterEmailForSignupReactor.swift in Sources */,
 				311E253D2C63B78800C61202 /* UILabel+Extension.swift in Sources */,
@@ -1498,6 +1537,8 @@
 				317153E22C8577A3007CCD6D /* ShowPasswordButton.swift in Sources */,
 				31FDB1702C6788700010F3EC /* SelectEventDateView.swift in Sources */,
 				31FDB21F2C71EBE80010F3EC /* Statistics.swift in Sources */,
+				317154072C85C1BE007CCD6D /* EnterEmailForFindPWReactor.swift in Sources */,
+				3171540F2C85C27A007CCD6D /* EnterPasswordForFindPWViewController.swift in Sources */,
 				311E25812C64EE6300C61202 /* DimSheetPresentationController.swift in Sources */,
 				317153D72C847A88007CCD6D /* BeginingViewController.swift in Sources */,
 				311E25482C6475A200C61202 /* AppFlow.swift in Sources */,
@@ -1523,6 +1564,7 @@
 				31FDB1A72C69C18B0010F3EC /* CalendarView.swift in Sources */,
 				311E253F2C64730E00C61202 /* EventHistoryViewController.swift in Sources */,
 				312A995C2C663F96001F5BB8 /* SetEventDetailTextFieldView.swift in Sources */,
+				317154092C85C201007CCD6D /* EnterAuthNumberForFindPWViewController.swift in Sources */,
 				31FDB2632C7719F50010F3EC /* SelectCalendarDateViewReactor.swift in Sources */,
 				31FDB21D2C71AEE50010F3EC /* IndividualStatisticsCollectionViewCell.swift in Sources */,
 				31FDB1EF2C705FB40010F3EC /* DatailEventReactor.swift in Sources */,
@@ -1538,7 +1580,9 @@
 				31FDB1B42C69FCCF0010F3EC /* CalendarViewController.swift in Sources */,
 				311E254E2C64866100C61202 /* Event.swift in Sources */,
 				31FDB1762C67898D0010F3EC /* SelectEventTypeReactor.swift in Sources */,
+				3171540B2C85C234007CCD6D /* EnterAuthNumberForFindPWReactor.swift in Sources */,
 				31FDB24C2C75DDC30010F3EC /* PhraseStep.swift in Sources */,
+				317154032C85C030007CCD6D /* EnterEmailForFindPWView.swift in Sources */,
 				317153DC2C847C36007CCD6D /* EmailTextFieldView.swift in Sources */,
 				3194AACD2C7B1B5F00AC5A01 /* SettingStep.swift in Sources */,
 				311E255B2C64917D00C61202 /* RealmManager.swift in Sources */,

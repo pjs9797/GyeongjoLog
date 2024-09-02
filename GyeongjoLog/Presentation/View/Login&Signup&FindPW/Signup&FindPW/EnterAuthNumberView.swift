@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-class EnterAuthNumberForSignupView: UIView {
+class EnterAuthNumberView: UIView {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "이메일 계정 인증"

@@ -3,7 +3,7 @@ import RxCocoa
 import RxFlow
 import Foundation
 
-class EnterPasswordForSignupReactor: ReactorKit.Reactor, Stepper {
+class EnterPasswordForFindPWReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
     
@@ -40,7 +40,7 @@ class EnterPasswordForSignupReactor: ReactorKit.Reactor, Stepper {
         var isEditingRePasswordTextFieldView: Bool = false
         
         var password: String = ""
-        var RePassword: String = ""
+        var rePassword: String = ""
         
         var isSecurePassword: Bool = true
         var isSecureRePassword: Bool = true
@@ -79,7 +79,7 @@ class EnterPasswordForSignupReactor: ReactorKit.Reactor, Stepper {
         case .inputRePasswordText(let rePassword):
             return .concat([
                 .just(.setRePasswordText(rePassword)),
-                .just(.setVaildRePassword(validatePassword(rePassword))),
+                .just(.setVaildRePassword(validatePassword(rePassword) && currentState.password == rePassword)),
                 .just(.setIsEnableNextButton)
             ])
         case .showRePasswordButtonTapped:
@@ -102,9 +102,9 @@ class EnterPasswordForSignupReactor: ReactorKit.Reactor, Stepper {
             newState.isSecurePassword = !newState.isSecurePassword
             
         case .setEditingRePasswordTextFieldView(let isEditing):
-            newState.isEditingPasswordTextFieldView = isEditing
+            newState.isEditingRePasswordTextFieldView = isEditing
         case .setRePasswordText(let rePassword):
-            newState.password = rePassword
+            newState.rePassword = rePassword
         case .setSecureRePassword:
             newState.isSecureRePassword = !newState.isSecureRePassword
             

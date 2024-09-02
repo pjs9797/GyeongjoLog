@@ -1,28 +1,25 @@
 import UIKit
 import SnapKit
 
-class EnterPasswordForSignupView: UIView {
-    let passwordLabel: UILabel = {
+class EnterEmailForFindPWView: UIView {
+    let findPWLabel: UILabel = {
         let label = UILabel()
-        label.text = "비밀번호 입력"
+        label.text = "비밀번호를 잊으셨나요?"
         label.font = FontManager.Heading02
         label.textColor = ColorManager.text01
         return label
     }()
-    let passwordTextFieldView: PasswordTextFieldView = {
-        let view = PasswordTextFieldView()
-        view.titleLabel.text = "비밀번호"
-        return view
+    let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.text = "비밀번호를 재설정하려는 이메일을 입력해주세요."
+        label.font = FontManager.Body0201
+        label.textColor = ColorManager.text02
+        return label
     }()
-    let rePasswordTextFieldView: PasswordTextFieldView = {
-        let view = PasswordTextFieldView()
-        view.titleLabel.text = "비밀번호 확인"
-        view.errorLabel.text = "비밀번호 불일치"
-        return view
-    }()
+    let emailTextFieldView = EmailTextFieldView()
     let nextButton: BottomButton = {
         let button = BottomButton()
-        button.setTitle("회원가입", for: .normal)
+        button.setTitle("이메일 인증 요청", for: .normal)
         return button
     }()
     
@@ -38,27 +35,27 @@ class EnterPasswordForSignupView: UIView {
     }
     
     private func layout() {
-        [passwordLabel,passwordTextFieldView,rePasswordTextFieldView,nextButton]
+        [findPWLabel,descriptionLabel,emailTextFieldView,nextButton]
             .forEach{
                 addSubview($0)
             }
         
-        passwordLabel.snp.makeConstraints { make in
+        findPWLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
             make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(28*ConstantsManager.standardHeight)
         }
         
-        passwordTextFieldView.snp.makeConstraints { make in
+        descriptionLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
-            make.top.equalTo(passwordLabel.snp.bottom).offset(40*ConstantsManager.standardHeight)
+            make.top.equalTo(findPWLabel.snp.bottom).offset(15*ConstantsManager.standardHeight)
         }
         
-        rePasswordTextFieldView.snp.makeConstraints { make in
+        emailTextFieldView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16*ConstantsManager.standardWidth)
             make.trailing.equalToSuperview().offset(-16*ConstantsManager.standardWidth)
-            make.top.equalTo(passwordTextFieldView.snp.bottom).offset(42*ConstantsManager.standardHeight)
+            make.top.equalTo(descriptionLabel.snp.bottom).offset(24*ConstantsManager.standardHeight)
         }
         
         nextButton.snp.makeConstraints { make in

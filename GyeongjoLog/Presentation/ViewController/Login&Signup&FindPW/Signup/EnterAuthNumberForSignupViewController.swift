@@ -6,7 +6,7 @@ import RxCocoa
 class EnterAuthNumberForSignupViewController: UIViewController, ReactorKit.View {
     var disposeBag = DisposeBag()
     let backButton = UIBarButtonItem(image: ImageManager.icon_back, style: .plain, target: nil, action: nil)
-    let enterAuthNumberForSignupView = EnterAuthNumberForSignupView()
+    let enterAuthNumberView = EnterAuthNumberView()
     
     init(with reactor: EnterAuthNumberForSignupReactor) {
         super.init(nibName: nil, bundle: nil)
@@ -21,14 +21,14 @@ class EnterAuthNumberForSignupViewController: UIViewController, ReactorKit.View 
     override func loadView() {
         super.loadView()
         
-        view = enterAuthNumberForSignupView
+        view = enterAuthNumberView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        hideKeyboardExcludingButton(enterAuthNumberForSignupView.nextButton, disposeBag: disposeBag)
-        bindKeyboardNotificationsForBottomButton(to: enterAuthNumberForSignupView.nextButton, disposeBag: disposeBag)
+        hideKeyboardExcludingButton(enterAuthNumberView.nextButton, disposeBag: disposeBag)
+        bindKeyboardNotificationsForBottomButton(to: enterAuthNumberView.nextButton, disposeBag: disposeBag)
         self.setNavigationbar()
     }
     
@@ -50,22 +50,22 @@ extension EnterAuthNumberForSignupViewController {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
                 
-        enterAuthNumberForSignupView.authNumberTextFieldView.authNumberTextField.rx.controlEvent([.editingDidBegin])
+        enterAuthNumberView.authNumberTextFieldView.authNumberTextField.rx.controlEvent([.editingDidBegin])
             .map{ Reactor.Action.authNumberTextFieldTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        enterAuthNumberForSignupView.authNumberTextFieldView.authNumberTextField.rx.text.orEmpty
+        enterAuthNumberView.authNumberTextFieldView.authNumberTextField.rx.text.orEmpty
             .map { Reactor.Action.inputAuthNumberText($0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        enterAuthNumberForSignupView.authNumberTextFieldView.reSendButton.rx.tap
+        enterAuthNumberView.authNumberTextFieldView.reSendButton.rx.tap
             .map{ Reactor.Action.reSendButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        enterAuthNumberForSignupView.nextButton.rx.tap
+        enterAuthNumberView.nextButton.rx.tap
             .map{ Reactor.Action.nextButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
@@ -75,7 +75,7 @@ extension EnterAuthNumberForSignupViewController {
         reactor.state.map{ $0.isEditingAuthNumberTextFieldView }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isEditing in
-                self?.enterAuthNumberForSignupView.authNumberTextFieldView.configureView(isEditing: isEditing)
+                self?.enterAuthNumberView.authNumberTextFieldView.configureView(isEditing: isEditing)
             })
             .disposed(by: disposeBag)
         
@@ -86,17 +86,17 @@ extension EnterAuthNumberForSignupViewController {
                 let seconds = seconds % 60
                 return String(format: "%02d:%02d", minutes, seconds)
             }
-            .bind(to: enterAuthNumberForSignupView.authNumberTextFieldView.timerLabel.rx.text)
+            .bind(to: enterAuthNumberView.authNumberTextFieldView.timerLabel.rx.text)
             .disposed(by: disposeBag)
         
         reactor.state.map{ $0.isEnableNextButton }
             .distinctUntilChanged()
             .bind(onNext: { [weak self] isEnable in
                 if isEnable {
-                    self?.enterAuthNumberForSignupView.nextButton.isEnable()
+                    self?.enterAuthNumberView.nextButton.isEnable()
                 }
                 else {
-                    self?.enterAuthNumberForSignupView.nextButton.isNotEnable()
+                    self?.enterAuthNumberView.nextButton.isNotEnable()
                 }
             })
             .disposed(by: disposeBag)

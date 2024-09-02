@@ -10,6 +10,10 @@ enum AppStep: Step {
     case navigateToEnterAuthNumberForSignupViewController
     case navigateToEnterPasswordForSignupViewController
     
+    case navigateToEnterEmailForFindPWViewController
+    case navigateToEnterAuthNumberForFindPWViewController
+    case navigateToEnterPasswordForFindPWViewController
+    
     case popToRootViewController
     case popViewController
 }
