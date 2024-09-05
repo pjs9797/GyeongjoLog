@@ -58,7 +58,7 @@ class AppFlow: Flow {
     private func navigateToBeginingViewController() -> FlowContributors {
         let reactor = BeginingReactor()
         let viewController = BeginingViewController(with: reactor)
-        self.rootViewController.pushViewController(viewController, animated: true)
+        self.rootViewController.setViewControllers([viewController], animated: true)
         
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }

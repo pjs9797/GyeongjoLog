@@ -26,20 +26,20 @@ class OnBoardingViewController: UIViewController, ReactorKit.View {
         super.init(nibName: nil, bundle: nil)
         self.reactor = reactor
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.view.backgroundColor = ColorManager.white
         setupPageViewController()
         setupPageControl()
         layout()
     }
-
+    
     private func setupPageViewController() {
         pageViewController.dataSource = self
         pageViewController.delegate = self
@@ -48,7 +48,7 @@ class OnBoardingViewController: UIViewController, ReactorKit.View {
             pageViewController.setViewControllers([firstViewController], direction: .forward, animated: true, completion: nil)
         }
     }
-
+    
     private func setupPageControl() {
         pageControl.numberOfPages = viewControllers.count
         pageControl.currentPage = 0
@@ -62,7 +62,7 @@ class OnBoardingViewController: UIViewController, ReactorKit.View {
         let direction: UIPageViewController.NavigationDirection = sender.currentPage > currentIndex ? .forward : .reverse
         pageViewController.setViewControllers([viewControllers[sender.currentPage]], direction: direction, animated: true, completion: nil)
     }
-
+    
     private func layout() {
         view.addSubview(pageViewController.view)
         view.addSubview(pageControl)
@@ -97,7 +97,13 @@ extension OnBoardingViewController {
     func bindAction(reactor: OnBoardingReactor){
         // 버튼 탭
         startButton.rx.tap
-            .map{ Reactor.Action.startButtonTapped }
+            .map {
+                if reactor.currentState.isLastPage {
+                    return Reactor.Action.startButtonTapped
+                } else {
+                    return Reactor.Action.nextButtonTapped
+                }
+            }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -120,7 +126,15 @@ extension OnBoardingViewController {
                 owner.pageControl.currentPage = page
             })
             .disposed(by: disposeBag)
-
+        
+        reactor.state.map { $0.isLastPage }
+            .distinctUntilChanged()
+            .observe(on: MainScheduler.instance)
+            .withUnretained(self)
+            .bind(onNext: { owner, isLastPage in
+                owner.startButton.setTitle(isLastPage ? "시작하기" : "다음", for: .normal)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -131,14 +145,14 @@ extension OnBoardingViewController: UIPageViewControllerDataSource, UIPageViewCo
         }
         return viewControllers[index - 1]
     }
-
+    
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard let index = viewControllers.firstIndex(of: viewController), index < (viewControllers.count - 1) else {
             return nil
         }
         return viewControllers[index + 1]
     }
-
+    
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed, let visibleViewController = pageViewController.viewControllers?.first, let index = viewControllers.firstIndex(of: visibleViewController) {
             reactor?.action.onNext(.setPage(index))
