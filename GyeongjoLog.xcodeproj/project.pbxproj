@@ -89,6 +89,36 @@
 		3171540B2C85C234007CCD6D /* EnterAuthNumberForFindPWReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171540A2C85C234007CCD6D /* EnterAuthNumberForFindPWReactor.swift */; };
 		3171540D2C85C266007CCD6D /* EnterPasswordForFindPWReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171540C2C85C266007CCD6D /* EnterPasswordForFindPWReactor.swift */; };
 		3171540F2C85C27A007CCD6D /* EnterPasswordForFindPWViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171540E2C85C27A007CCD6D /* EnterPasswordForFindPWViewController.swift */; };
+		3171543E2C91B8C5007CCD6D /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171543D2C91B8C5007CCD6D /* UserService.swift */; };
+		317154412C91CD6E007CCD6D /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 317154402C91CD6E007CCD6D /* Moya */; };
+		317154432C91CD6E007CCD6D /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 317154422C91CD6E007CCD6D /* ReactiveMoya */; };
+		317154452C91CD6E007CCD6D /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 317154442C91CD6E007CCD6D /* RxMoya */; };
+		317154472C91D0FF007CCD6D /* ResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154462C91D0FF007CCD6D /* ResponseDTO.swift */; };
+		3171544B2C91D18C007CCD6D /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171544A2C91D18C007CCD6D /* UserRepository.swift */; };
+		317154512C91D1BE007CCD6D /* UserRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154502C91D1BE007CCD6D /* UserRepositoryInterface.swift */; };
+		317154532C91D3AA007CCD6D /* UserUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154522C91D3AA007CCD6D /* UserUseCase.swift */; };
+		317154592C92B471007CCD6D /* SignupStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154582C92B471007CCD6D /* SignupStep.swift */; };
+		3171545B2C92B47A007CCD6D /* FindPwStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171545A2C92B47A007CCD6D /* FindPwStep.swift */; };
+		3171545D2C92B48C007CCD6D /* SignupFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171545C2C92B48C007CCD6D /* SignupFlow.swift */; };
+		3171545F2C92B66A007CCD6D /* FindPwFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171545E2C92B66A007CCD6D /* FindPwFlow.swift */; };
+		317154612C92CAED007CCD6D /* ErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154602C92CAED007CCD6D /* ErrorHandler.swift */; };
+		317154632C93266D007CCD6D /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154622C93266D007CCD6D /* KeychainHelper.swift */; };
+		317154652C93268B007CCD6D /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154642C93268B007CCD6D /* TokenManager.swift */; };
+		317154672C9553BA007CCD6D /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154662C9553BA007CCD6D /* EventService.swift */; };
+		317154692C955797007CCD6D /* EventDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154682C955797007CCD6D /* EventDTO.swift */; };
+		3171546B2C955914007CCD6D /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171546A2C955914007CCD6D /* EventRepository.swift */; };
+		3171546D2C95592C007CCD6D /* EventRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171546C2C95592C007CCD6D /* EventRepositoryInterface.swift */; };
+		3171546F2C9560FE007CCD6D /* EventTypeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171546E2C9560FE007CCD6D /* EventTypeService.swift */; };
+		317154712C9561B8007CCD6D /* EventTypeRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154702C9561B8007CCD6D /* EventTypeRepositoryInterface.swift */; };
+		317154732C9561EB007CCD6D /* EventTypeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154722C9561EB007CCD6D /* EventTypeDTO.swift */; };
+		317154752C95626D007CCD6D /* EventTypeRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154742C95626D007CCD6D /* EventTypeRepository.swift */; };
+		317154772C956344007CCD6D /* StatisticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154762C956344007CCD6D /* StatisticsService.swift */; };
+		317154792C9563DE007CCD6D /* StatisticsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154782C9563DE007CCD6D /* StatisticsDTO.swift */; };
+		3171547B2C9565C2007CCD6D /* StatisticsRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171547A2C9565C2007CCD6D /* StatisticsRepositoryInterface.swift */; };
+		3171547D2C9565FC007CCD6D /* StatisticsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171547C2C9565FC007CCD6D /* StatisticsRepository.swift */; };
+		3171547F2C956914007CCD6D /* EventUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171547E2C956914007CCD6D /* EventUseCase.swift */; };
+		317154812C95691C007CCD6D /* EventTypeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154802C95691C007CCD6D /* EventTypeUseCase.swift */; };
+		317154832C956928007CCD6D /* StatisticsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154822C956928007CCD6D /* StatisticsUseCase.swift */; };
 		3194AAC82C7B07E300AC5A01 /* ToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3194AAC72C7B07E300AC5A01 /* ToastMessage.swift */; };
 		3194AACD2C7B1B5F00AC5A01 /* SettingStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3194AACC2C7B1B5F00AC5A01 /* SettingStep.swift */; };
 		3194AACF2C7B1B6500AC5A01 /* SettingFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3194AACE2C7B1B6500AC5A01 /* SettingFlow.swift */; };
@@ -292,6 +322,33 @@
 		3171540A2C85C234007CCD6D /* EnterAuthNumberForFindPWReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterAuthNumberForFindPWReactor.swift; sourceTree = "<group>"; };
 		3171540C2C85C266007CCD6D /* EnterPasswordForFindPWReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPasswordForFindPWReactor.swift; sourceTree = "<group>"; };
 		3171540E2C85C27A007CCD6D /* EnterPasswordForFindPWViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterPasswordForFindPWViewController.swift; sourceTree = "<group>"; };
+		3171543D2C91B8C5007CCD6D /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		317154462C91D0FF007CCD6D /* ResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseDTO.swift; sourceTree = "<group>"; };
+		3171544A2C91D18C007CCD6D /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		317154502C91D1BE007CCD6D /* UserRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryInterface.swift; sourceTree = "<group>"; };
+		317154522C91D3AA007CCD6D /* UserUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCase.swift; sourceTree = "<group>"; };
+		317154582C92B471007CCD6D /* SignupStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupStep.swift; sourceTree = "<group>"; };
+		3171545A2C92B47A007CCD6D /* FindPwStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPwStep.swift; sourceTree = "<group>"; };
+		3171545C2C92B48C007CCD6D /* SignupFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupFlow.swift; sourceTree = "<group>"; };
+		3171545E2C92B66A007CCD6D /* FindPwFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPwFlow.swift; sourceTree = "<group>"; };
+		317154602C92CAED007CCD6D /* ErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandler.swift; sourceTree = "<group>"; };
+		317154622C93266D007CCD6D /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		317154642C93268B007CCD6D /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
+		317154662C9553BA007CCD6D /* EventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
+		317154682C955797007CCD6D /* EventDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDTO.swift; sourceTree = "<group>"; };
+		3171546A2C955914007CCD6D /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
+		3171546C2C95592C007CCD6D /* EventRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepositoryInterface.swift; sourceTree = "<group>"; };
+		3171546E2C9560FE007CCD6D /* EventTypeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTypeService.swift; sourceTree = "<group>"; };
+		317154702C9561B8007CCD6D /* EventTypeRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTypeRepositoryInterface.swift; sourceTree = "<group>"; };
+		317154722C9561EB007CCD6D /* EventTypeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTypeDTO.swift; sourceTree = "<group>"; };
+		317154742C95626D007CCD6D /* EventTypeRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTypeRepository.swift; sourceTree = "<group>"; };
+		317154762C956344007CCD6D /* StatisticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsService.swift; sourceTree = "<group>"; };
+		317154782C9563DE007CCD6D /* StatisticsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsDTO.swift; sourceTree = "<group>"; };
+		3171547A2C9565C2007CCD6D /* StatisticsRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsRepositoryInterface.swift; sourceTree = "<group>"; };
+		3171547C2C9565FC007CCD6D /* StatisticsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsRepository.swift; sourceTree = "<group>"; };
+		3171547E2C956914007CCD6D /* EventUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventUseCase.swift; sourceTree = "<group>"; };
+		317154802C95691C007CCD6D /* EventTypeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTypeUseCase.swift; sourceTree = "<group>"; };
+		317154822C956928007CCD6D /* StatisticsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsUseCase.swift; sourceTree = "<group>"; };
 		3194AAC72C7B07E300AC5A01 /* ToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessage.swift; sourceTree = "<group>"; };
 		3194AACC2C7B1B5F00AC5A01 /* SettingStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingStep.swift; sourceTree = "<group>"; };
 		3194AACE2C7B1B6500AC5A01 /* SettingFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingFlow.swift; sourceTree = "<group>"; };
@@ -407,13 +464,16 @@
 			files = (
 				311E25002C635EFA00C61202 /* RxFlow in Frameworks */,
 				31FDB2582C76F6490010F3EC /* RxKeyboard in Frameworks */,
+				317154412C91CD6E007CCD6D /* Moya in Frameworks */,
 				311E24F82C634CAB00C61202 /* RxRelay in Frameworks */,
+				317154452C91CD6E007CCD6D /* RxMoya in Frameworks */,
 				31FDB22C2C721EA00010F3EC /* DGCharts in Frameworks */,
 				311E25032C635F0400C61202 /* ReactorKit in Frameworks */,
 				311E25082C635F2600C61202 /* RealmSwift in Frameworks */,
 				31FDB1AA2C69C1AD0010F3EC /* FSCalendar in Frameworks */,
 				311E24F62C634CAB00C61202 /* RxCocoa in Frameworks */,
 				311E24FA2C634CAB00C61202 /* RxSwift in Frameworks */,
+				317154432C91CD6E007CCD6D /* ReactiveMoya in Frameworks */,
 				311E24F42C634CAB00C61202 /* RxBlocking in Frameworks */,
 				311E24FD2C634CBA00C61202 /* SnapKit in Frameworks */,
 			);
@@ -455,6 +515,8 @@
 		311E24EC2C634C4F00C61202 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				3171543C2C91B89C007CCD6D /* Service */,
+				3171543B2C91B893007CCD6D /* DTO */,
 				311E255E2C64923800C61202 /* Repository */,
 				311E25512C64887100C61202 /* RealmObject */,
 			);
@@ -495,6 +557,9 @@
 				311E255A2C64917D00C61202 /* RealmManager.swift */,
 				311E25612C6495D000C61202 /* UserDefaultsManager.swift */,
 				31FDB2662C7853490010F3EC /* PhraseManager.swift */,
+				317154602C92CAED007CCD6D /* ErrorHandler.swift */,
+				317154622C93266D007CCD6D /* KeychainHelper.swift */,
+				317154642C93268B007CCD6D /* TokenManager.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -626,6 +691,8 @@
 			isa = PBXGroup;
 			children = (
 				311E25472C6475A200C61202 /* AppFlow.swift */,
+				3171545C2C92B48C007CCD6D /* SignupFlow.swift */,
+				3171545E2C92B66A007CCD6D /* FindPwFlow.swift */,
 				311E25862C65021000C61202 /* EventHistoryFlow.swift */,
 				31FDB20A2C7191C00010F3EC /* StatisticsFlow.swift */,
 				31FDB24D2C75DDC80010F3EC /* PhraseFlow.swift */,
@@ -638,6 +705,8 @@
 			isa = PBXGroup;
 			children = (
 				311E25452C64759700C61202 /* AppStep.swift */,
+				317154582C92B471007CCD6D /* SignupStep.swift */,
+				3171545A2C92B47A007CCD6D /* FindPwStep.swift */,
 				311E25882C65021900C61202 /* EventHistoryStep.swift */,
 				31FDB2082C7191BA0010F3EC /* StatisticsStep.swift */,
 				31FDB24B2C75DDC30010F3EC /* PhraseStep.swift */,
@@ -660,8 +729,8 @@
 		311E254B2C6485BD00C61202 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
-				311E25562C648C2E00C61202 /* EventLocalDBUseCase.swift */,
-				31FDB2242C71EC660010F3EC /* StatisticsLocalDBUseCase.swift */,
+				3171544F2C91D1AC007CCD6D /* API */,
+				3171544E2C91D1A6007CCD6D /* Realm */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -669,8 +738,8 @@
 		311E254C2C6485C200C61202 /* RepositoryInterface */ = {
 			isa = PBXGroup;
 			children = (
-				311E25542C648BFC00C61202 /* EventLocalDBRepositoryInterface.swift */,
-				31FDB2202C71EC280010F3EC /* StatisticsLocalDBRepositoryInterface.swift */,
+				3171544D2C91D19C007CCD6D /* API */,
+				3171544C2C91D193007CCD6D /* Realm */,
 			);
 			path = RepositoryInterface;
 			sourceTree = "<group>";
@@ -686,8 +755,8 @@
 		311E255E2C64923800C61202 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				311E255F2C64924B00C61202 /* EventLocalDBRepository.swift */,
-				31FDB2222C71EC3D0010F3EC /* StatisticsLocalDBRepository.swift */,
+				317154482C91D16B007CCD6D /* API */,
+				317154492C91D172007CCD6D /* Realm */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -799,6 +868,88 @@
 				3171540C2C85C266007CCD6D /* EnterPasswordForFindPWReactor.swift */,
 			);
 			path = FindPW;
+			sourceTree = "<group>";
+		};
+		3171543B2C91B893007CCD6D /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				317154462C91D0FF007CCD6D /* ResponseDTO.swift */,
+				317154682C955797007CCD6D /* EventDTO.swift */,
+				317154722C9561EB007CCD6D /* EventTypeDTO.swift */,
+				317154782C9563DE007CCD6D /* StatisticsDTO.swift */,
+			);
+			path = DTO;
+			sourceTree = "<group>";
+		};
+		3171543C2C91B89C007CCD6D /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3171543D2C91B8C5007CCD6D /* UserService.swift */,
+				317154662C9553BA007CCD6D /* EventService.swift */,
+				3171546E2C9560FE007CCD6D /* EventTypeService.swift */,
+				317154762C956344007CCD6D /* StatisticsService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		317154482C91D16B007CCD6D /* API */ = {
+			isa = PBXGroup;
+			children = (
+				3171544A2C91D18C007CCD6D /* UserRepository.swift */,
+				3171546A2C955914007CCD6D /* EventRepository.swift */,
+				317154742C95626D007CCD6D /* EventTypeRepository.swift */,
+				3171547C2C9565FC007CCD6D /* StatisticsRepository.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		317154492C91D172007CCD6D /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				311E255F2C64924B00C61202 /* EventLocalDBRepository.swift */,
+				31FDB2222C71EC3D0010F3EC /* StatisticsLocalDBRepository.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
+		3171544C2C91D193007CCD6D /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				311E25542C648BFC00C61202 /* EventLocalDBRepositoryInterface.swift */,
+				31FDB2202C71EC280010F3EC /* StatisticsLocalDBRepositoryInterface.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
+		3171544D2C91D19C007CCD6D /* API */ = {
+			isa = PBXGroup;
+			children = (
+				317154502C91D1BE007CCD6D /* UserRepositoryInterface.swift */,
+				3171546C2C95592C007CCD6D /* EventRepositoryInterface.swift */,
+				317154702C9561B8007CCD6D /* EventTypeRepositoryInterface.swift */,
+				3171547A2C9565C2007CCD6D /* StatisticsRepositoryInterface.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		3171544E2C91D1A6007CCD6D /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				311E25562C648C2E00C61202 /* EventLocalDBUseCase.swift */,
+				31FDB2242C71EC660010F3EC /* StatisticsLocalDBUseCase.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
+		3171544F2C91D1AC007CCD6D /* API */ = {
+			isa = PBXGroup;
+			children = (
+				317154522C91D3AA007CCD6D /* UserUseCase.swift */,
+				3171547E2C956914007CCD6D /* EventUseCase.swift */,
+				317154802C95691C007CCD6D /* EventTypeUseCase.swift */,
+				317154822C956928007CCD6D /* StatisticsUseCase.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 		3194AAC92C7B1AF100AC5A01 /* Setting */ = {
@@ -1351,6 +1502,9 @@
 				31FDB1A92C69C1AD0010F3EC /* FSCalendar */,
 				31FDB22B2C721EA00010F3EC /* DGCharts */,
 				31FDB2572C76F6490010F3EC /* RxKeyboard */,
+				317154402C91CD6E007CCD6D /* Moya */,
+				317154422C91CD6E007CCD6D /* ReactiveMoya */,
+				317154442C91CD6E007CCD6D /* RxMoya */,
 			);
 			productName = GyeongjoLog;
 			productReference = 311E24D52C634C2300C61202 /* GyeongjoLog.app */;
@@ -1389,6 +1543,7 @@
 				31FDB1A82C69C1AD0010F3EC /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				31FDB22A2C721EA00010F3EC /* XCRemoteSwiftPackageReference "Charts" */,
 				31FDB2562C76F6490010F3EC /* XCRemoteSwiftPackageReference "RxKeyboard" */,
+				3171543F2C91CD6E007CCD6D /* XCRemoteSwiftPackageReference "Moya" */,
 			);
 			productRefGroup = 311E24D62C634C2300C61202 /* Products */;
 			projectDirPath = "";
@@ -1434,6 +1589,7 @@
 				311E25412C64734900C61202 /* EventHistoryReactor.swift in Sources */,
 				311E25872C65021000C61202 /* EventHistoryFlow.swift in Sources */,
 				31FDB1FD2C70E2890010F3EC /* ImageViewController.swift in Sources */,
+				317154472C91D0FF007CCD6D /* ResponseDTO.swift in Sources */,
 				31FDB2332C7387590010F3EC /* NoneStatisticsView.swift in Sources */,
 				311E25832C64EF3D00C61202 /* UITextView+Extension.swift in Sources */,
 				31FDB1742C6789820010F3EC /* SelectEventTypeViewController.swift in Sources */,
@@ -1447,19 +1603,23 @@
 				31FDB1AE2C69F69F0010F3EC /* SelectDateInCalendarView.swift in Sources */,
 				317153F92C85975D007CCD6D /* EnterAuthNumberForSignupViewController.swift in Sources */,
 				31FDB1B12C69F7170010F3EC /* EventSummaryTableViewCell.swift in Sources */,
+				317154632C93266D007CCD6D /* KeychainHelper.swift in Sources */,
 				317153E62C857D0C007CCD6D /* LoginViewController.swift in Sources */,
 				31FDB17A2C67B9E20010F3EC /* DatePickerView.swift in Sources */,
 				31FDB1B92C6A2ABD0010F3EC /* String+Extension.swift in Sources */,
 				31FDB2272C7202400010F3EC /* MonthlyStatisticsReactor.swift in Sources */,
+				3171545F2C92B66A007CCD6D /* FindPwFlow.swift in Sources */,
 				31FDB1942C68E41F0010F3EC /* OthersEventViewController.swift in Sources */,
 				31FDB20B2C7191C00010F3EC /* StatisticsFlow.swift in Sources */,
 				317153D52C847784007CCD6D /* BeginingView.swift in Sources */,
 				3194AAD52C7B1C3200AC5A01 /* SettingView.swift in Sources */,
+				317154692C955797007CCD6D /* EventDTO.swift in Sources */,
 				31FDB1862C6865FB0010F3EC /* RelationshipCollectionViewCell.swift in Sources */,
 				31FDB22E2C721EC70010F3EC /* MonthlyStatisticsView.swift in Sources */,
 				311E25282C636CB400C61202 /* MyEventView.swift in Sources */,
 				311E25892C65021900C61202 /* EventHistoryStep.swift in Sources */,
 				317153D12C844DA6007CCD6D /* LaunchScreenViewController.swift in Sources */,
+				317154652C93268B007CCD6D /* TokenManager.swift in Sources */,
 				31FDB1E12C6F68660010F3EC /* SelectColorCollectionViewCell.swift in Sources */,
 				31FDB1EB2C705F920010F3EC /* DetailEventViewController.swift in Sources */,
 				311E25312C639C7000C61202 /* SortButton.swift in Sources */,
@@ -1478,12 +1638,14 @@
 				311E24D92C634C2300C61202 /* AppDelegate.swift in Sources */,
 				31FDB2392C745F6C0010F3EC /* DetailIndividualStatisticsReactor.swift in Sources */,
 				317153E02C848417007CCD6D /* PasswordTextFieldView.swift in Sources */,
+				3171544B2C91D18C007CCD6D /* UserRepository.swift in Sources */,
 				31FDB17E2C67BA840010F3EC /* SelectEventDateReactor.swift in Sources */,
 				31FDB1AC2C69F6010010F3EC /* Color+Extension.swift in Sources */,
 				317153DE2C847E67007CCD6D /* LoginView.swift in Sources */,
 				311E257C2C64E2C900C61202 /* EventAmountCollectionViewCell.swift in Sources */,
 				317153F32C858E71007CCD6D /* EnterEmailForSignupViewController.swift in Sources */,
 				317153F72C859315007CCD6D /* AuthNumberTextFieldView.swift in Sources */,
+				317154512C91D1BE007CCD6D /* UserRepositoryInterface.swift in Sources */,
 				3194AAE42C7B492B00AC5A01 /* InquiryReactor.swift in Sources */,
 				31FDB2352C74311F0010F3EC /* DetailIndividualStatisticsViewController.swift in Sources */,
 				3194AAE22C7B492200AC5A01 /* InquiryViewController.swift in Sources */,
@@ -1491,12 +1653,14 @@
 				311E256D2C64AECA00C61202 /* AddEventReactor.swift in Sources */,
 				3194AAC82C7B07E300AC5A01 /* ToastMessage.swift in Sources */,
 				31FDB1BD2C6B689D0010F3EC /* AmountFilterOption.swift in Sources */,
+				317154812C95691C007CCD6D /* EventTypeUseCase.swift in Sources */,
 				317153FD2C859DE9007CCD6D /* EnterPasswordForSignupViewController.swift in Sources */,
 				31FDB1D32C6D985F0010F3EC /* EventRelationshipFilterView.swift in Sources */,
 				3171540D2C85C266007CCD6D /* EnterPasswordForFindPWReactor.swift in Sources */,
 				3194AADE2C7B35F900AC5A01 /* ToPView.swift in Sources */,
 				31FDB1E32C6F8E9C0010F3EC /* UICollectionViewFlowLayout+Extension.swift in Sources */,
 				311E250E2C6360C400C61202 /* FontManager.swift in Sources */,
+				317154832C956928007CCD6D /* StatisticsUseCase.swift in Sources */,
 				31FDB23E2C7465BF0010F3EC /* DetailIndividualStatisticsCollectionViewCell.swift in Sources */,
 				317153DA2C847AAF007CCD6D /* BeginingReactor.swift in Sources */,
 				31FDB2212C71EC280010F3EC /* StatisticsLocalDBRepositoryInterface.swift in Sources */,
@@ -1513,13 +1677,16 @@
 				31FDB1922C68E3FC0010F3EC /* MyEventViewController.swift in Sources */,
 				31FDB2472C75DB410010F3EC /* PhraseView.swift in Sources */,
 				31FDB2072C718FC80010F3EC /* StatisticsReactor.swift in Sources */,
+				317154732C9561EB007CCD6D /* EventTypeDTO.swift in Sources */,
 				311E25622C6495D000C61202 /* UserDefaultsManager.swift in Sources */,
 				31FDB19C2C69AB2D0010F3EC /* MyEventReactor.swift in Sources */,
 				31FDB2672C7853490010F3EC /* PhraseManager.swift in Sources */,
 				311E252A2C63966600C61202 /* ColorManager.swift in Sources */,
 				31FDB1CF2C6C7B3E0010F3EC /* EventTypeFilterReactor.swift in Sources */,
+				3171547F2C956914007CCD6D /* EventUseCase.swift in Sources */,
 				31FDB2402C74EA310010F3EC /* CALayer+Extension.swift in Sources */,
 				317153FB2C85977F007CCD6D /* EnterAuthNumberForSignupReactor.swift in Sources */,
+				317154792C9563DE007CCD6D /* StatisticsDTO.swift in Sources */,
 				3194AACF2C7B1B6500AC5A01 /* SettingFlow.swift in Sources */,
 				31FDB21B2C71AA770010F3EC /* TopInteractedView.swift in Sources */,
 				31FDB16B2C6785090010F3EC /* SelectEventTypeView.swift in Sources */,
@@ -1531,8 +1698,10 @@
 				317153F52C858E7B007CCD6D /* EnterEmailForSignupReactor.swift in Sources */,
 				311E253D2C63B78800C61202 /* UILabel+Extension.swift in Sources */,
 				31FDB1D12C6C90850010F3EC /* ResetButton.swift in Sources */,
+				3171546F2C9560FE007CCD6D /* EventTypeService.swift in Sources */,
 				311E252F2C639C6000C61202 /* FilterButton.swift in Sources */,
 				31FDB2312C734A850010F3EC /* PieChartTableViewCell.swift in Sources */,
+				3171546D2C95592C007CCD6D /* EventRepositoryInterface.swift in Sources */,
 				311E25102C6360E600C61202 /* ConstantsManager.swift in Sources */,
 				317153E22C8577A3007CCD6D /* ShowPasswordButton.swift in Sources */,
 				31FDB1702C6788700010F3EC /* SelectEventDateView.swift in Sources */,
@@ -1541,16 +1710,24 @@
 				3171540F2C85C27A007CCD6D /* EnterPasswordForFindPWViewController.swift in Sources */,
 				311E25812C64EE6300C61202 /* DimSheetPresentationController.swift in Sources */,
 				317153D72C847A88007CCD6D /* BeginingViewController.swift in Sources */,
+				317154612C92CAED007CCD6D /* ErrorHandler.swift in Sources */,
 				311E25482C6475A200C61202 /* AppFlow.swift in Sources */,
+				3171546B2C955914007CCD6D /* EventRepository.swift in Sources */,
 				311E24DB2C634C2300C61202 /* SceneDelegate.swift in Sources */,
 				31FDB1962C68F0010010F3EC /* OthersEventView.swift in Sources */,
 				311E25342C639D4800C61202 /* HistoryTypeSegmentedControl.swift in Sources */,
 				31FDB2652C7775360010F3EC /* NonePieView.swift in Sources */,
+				3171543E2C91B8C5007CCD6D /* UserService.swift in Sources */,
+				317154532C91D3AA007CCD6D /* UserUseCase.swift in Sources */,
 				31FDB1F32C70631C0010F3EC /* AddMyEventSummaryReactor.swift in Sources */,
 				31FDB1D72C6D98910010F3EC /* EventRelationshipFilterReactor.swift in Sources */,
+				317154592C92B471007CCD6D /* SignupStep.swift in Sources */,
+				317154672C9553BA007CCD6D /* EventService.swift in Sources */,
 				317153FF2C859DF4007CCD6D /* EnterPasswordForSignupReactor.swift in Sources */,
 				31FDB1A42C69C1480010F3EC /* MyEventSummaryView.swift in Sources */,
 				31FDB2232C71EC3D0010F3EC /* StatisticsLocalDBRepository.swift in Sources */,
+				3171545D2C92B48C007CCD6D /* SignupFlow.swift in Sources */,
+				317154772C956344007CCD6D /* StatisticsService.swift in Sources */,
 				311E25782C64D6B800C61202 /* SetEventDetailNameTextFieldView.swift in Sources */,
 				31FDB1F82C70E00B0010F3EC /* OnBoardingViewController.swift in Sources */,
 				3194AAD82C7B1C4400AC5A01 /* SettingTableViewCell.swift in Sources */,
@@ -1569,17 +1746,21 @@
 				31FDB21D2C71AEE50010F3EC /* IndividualStatisticsCollectionViewCell.swift in Sources */,
 				31FDB1EF2C705FB40010F3EC /* DatailEventReactor.swift in Sources */,
 				31FDB2162C71A1910010F3EC /* TapBarCollectionView.swift in Sources */,
+				317154752C95626D007CCD6D /* EventTypeRepository.swift in Sources */,
 				311E25552C648BFC00C61202 /* EventLocalDBRepositoryInterface.swift in Sources */,
 				31FDB18A2C6867320010F3EC /* SelectRelationshipViewController.swift in Sources */,
 				31FDB2292C72024E0010F3EC /* MonthlyStatisticsViewController.swift in Sources */,
 				311E25852C65008D00C61202 /* TabBarController.swift in Sources */,
 				312A995E2C663FCD001F5BB8 /* SetEventDetailButtonView.swift in Sources */,
+				3171545B2C92B47A007CCD6D /* FindPwStep.swift in Sources */,
 				311E25602C64924B00C61202 /* EventLocalDBRepository.swift in Sources */,
 				311E256F2C64AFBD00C61202 /* AddEventView.swift in Sources */,
 				317153CF2C7B5C7D007CCD6D /* UIDevice+Extension.swift in Sources */,
+				3171547B2C9565C2007CCD6D /* StatisticsRepositoryInterface.swift in Sources */,
 				31FDB1B42C69FCCF0010F3EC /* CalendarViewController.swift in Sources */,
 				311E254E2C64866100C61202 /* Event.swift in Sources */,
 				31FDB1762C67898D0010F3EC /* SelectEventTypeReactor.swift in Sources */,
+				3171547D2C9565FC007CCD6D /* StatisticsRepository.swift in Sources */,
 				3171540B2C85C234007CCD6D /* EnterAuthNumberForFindPWReactor.swift in Sources */,
 				31FDB24C2C75DDC30010F3EC /* PhraseStep.swift in Sources */,
 				317154032C85C030007CCD6D /* EnterEmailForFindPWView.swift in Sources */,
@@ -1589,6 +1770,7 @@
 				31FDB2192C71A9F80010F3EC /* IndividualStatisticsReactor.swift in Sources */,
 				31FDB1D92C6F01E80010F3EC /* SortView.swift in Sources */,
 				31FDB23C2C7461120010F3EC /* ReceivedSentView.swift in Sources */,
+				317154712C9561B8007CCD6D /* EventTypeRepositoryInterface.swift in Sources */,
 				31FDB24A2C75DCC90010F3EC /* PhraseReactor.swift in Sources */,
 				311E25532C6488B200C61202 /* EventRealmObject.swift in Sources */,
 				31BA57A62C78956A004BA56D /* DropShadowView.swift in Sources */,
@@ -1845,6 +2027,14 @@
 				minimumVersion = 10.52.3;
 			};
 		};
+		3171543F2C91CD6E007CCD6D /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.3;
+			};
+		};
 		31FDB1A82C69C1AD0010F3EC /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/WenchaoD/FSCalendar.git";
@@ -1911,6 +2101,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 311E25042C635F2600C61202 /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		317154402C91CD6E007CCD6D /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3171543F2C91CD6E007CCD6D /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+		317154422C91CD6E007CCD6D /* ReactiveMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3171543F2C91CD6E007CCD6D /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = ReactiveMoya;
+		};
+		317154442C91CD6E007CCD6D /* RxMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3171543F2C91CD6E007CCD6D /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = RxMoya;
 		};
 		31FDB1A92C69C1AD0010F3EC /* FSCalendar */ = {
 			isa = XCSwiftPackageProductDependency;

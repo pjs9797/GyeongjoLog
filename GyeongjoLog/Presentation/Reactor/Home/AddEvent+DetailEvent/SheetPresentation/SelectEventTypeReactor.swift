@@ -5,10 +5,12 @@ import RxFlow
 class SelectEventTypeReactor: ReactorKit.Reactor, Stepper {
     var initialState: State
     var steps = PublishRelay<Step>()
-    private let eventLocalDBUseCase: EventLocalDBUseCase
+    let eventUseCase: EventUseCase
+    let eventLocalDBUseCase: EventLocalDBUseCase
     let eventTypeRelay: PublishRelay<String>
     
-    init(eventLocalDBUseCase: EventLocalDBUseCase, eventTypeRelay: PublishRelay<String>, initialEventType: String?) {
+    init(eventUseCase: EventUseCase, eventLocalDBUseCase: EventLocalDBUseCase, eventTypeRelay: PublishRelay<String>, initialEventType: String?) {
+        self.eventUseCase = eventUseCase
         self.eventLocalDBUseCase = eventLocalDBUseCase
         self.eventTypeRelay = eventTypeRelay
         if let initialEventType = initialEventType {
@@ -61,7 +63,7 @@ class SelectEventTypeReactor: ReactorKit.Reactor, Stepper {
                 .just(.setSelectButtonEnable(true))
             ])
         case .loadEventTypes:
-            return self.eventLocalDBUseCase.fetchEventTypes()
+            return self.fetchEventTypes()
                 .map { eventTypes in
                     var mutations: [Mutation] = [.setEventTypes(eventTypes)]
                     if let initialEventType = self.currentState.selectedEventType,
@@ -72,6 +74,12 @@ class SelectEventTypeReactor: ReactorKit.Reactor, Stepper {
                     return mutations
                 }
                 .flatMap { Observable.from($0) }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: EventHistoryStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
         }
     }
     
@@ -88,5 +96,13 @@ class SelectEventTypeReactor: ReactorKit.Reactor, Stepper {
             newState.selectedIndex = index
         }
         return newState
+    }
+    
+    private func fetchEventTypes() -> Observable<[EventType]> {
+        if UserDefaultsManager.shared.isLoggedIn() {
+            return self.eventUseCase.fetchEventTypes()
+        } else {
+            return self.eventLocalDBUseCase.fetchEventTypes()
+        }
     }
 }

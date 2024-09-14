@@ -6,6 +6,11 @@ import Foundation
 class EnterEmailForFindPWReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
+    let userUseCase: UserUseCase
+    
+    init(userUseCase: UserUseCase){
+        self.userUseCase = userUseCase
+    }
     
     enum Action {
         case backButtonTapped
@@ -32,7 +37,7 @@ class EnterEmailForFindPWReactor: ReactorKit.Reactor, Stepper {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .backButtonTapped:
-            self.steps.accept(AppStep.popViewController)
+            self.steps.accept(FindPwStep.popViewController)
             return .empty()
             
         case .emailTextFieldTapped:
@@ -44,9 +49,23 @@ class EnterEmailForFindPWReactor: ReactorKit.Reactor, Stepper {
                 .just(.setIsEnableNextButton(isValidEmail))
             ])
         case .nextButtonTapped:
-            UserDefaults.standard.set(currentState.email, forKey: "userEmail")
-            self.steps.accept(AppStep.navigateToEnterAuthNumberForFindPWViewController)
-            return .empty()
+            return self.userUseCase.checkEmailIsExisted(email: currentState.email)
+                .flatMap { [weak self] resultCode -> Observable<Mutation> in
+                    if resultCode == "200" {
+                        self?.steps.accept(FindPwStep.presentToNoneJoinEmailAlertController)
+                    }
+                    else {
+                        UserDefaults.standard.set(self?.currentState.email, forKey: "userEmail")
+                        self?.steps.accept(FindPwStep.navigateToEnterAuthNumberForFindPWViewController)
+                    }
+                    return .empty()
+                }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: FindPwStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
         }
     }
     

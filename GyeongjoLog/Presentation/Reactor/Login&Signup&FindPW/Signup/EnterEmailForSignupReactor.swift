@@ -6,6 +6,11 @@ import Foundation
 class EnterEmailForSignupReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
+    let userUseCase: UserUseCase
+    
+    init(userUseCase: UserUseCase){
+        self.userUseCase = userUseCase
+    }
     
     enum Action {
         case backButtonTapped
@@ -32,7 +37,7 @@ class EnterEmailForSignupReactor: ReactorKit.Reactor, Stepper {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .backButtonTapped:
-            self.steps.accept(AppStep.popViewController)
+            self.steps.accept(SignupStep.popViewController)
             return .empty()
             
         case .emailTextFieldTapped:
@@ -44,9 +49,23 @@ class EnterEmailForSignupReactor: ReactorKit.Reactor, Stepper {
                 .just(.setIsEnableNextButton(isValidEmail))
             ])
         case .nextButtonTapped:
-            UserDefaults.standard.set(currentState.email, forKey: "userEmail")
-            self.steps.accept(AppStep.navigateToEnterAuthNumberForSignupViewController)
-            return .empty()
+            return self.userUseCase.checkEmailIsExisted(email: currentState.email)
+                .flatMap { [weak self] resultCode -> Observable<Mutation> in
+                    if resultCode == "200" {
+                        UserDefaults.standard.set(self?.currentState.email, forKey: "userEmail")
+                        self?.steps.accept(SignupStep.navigateToEnterAuthNumberForSignupViewController)
+                    }
+                    else {
+                        self?.steps.accept(SignupStep.presentToDuplicateEmailAlertController)
+                    }
+                    return .empty()
+                }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: SignupStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
         }
     }
     

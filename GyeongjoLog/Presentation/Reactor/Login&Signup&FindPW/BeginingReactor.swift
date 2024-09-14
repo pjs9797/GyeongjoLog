@@ -25,7 +25,7 @@ class BeginingReactor: ReactorKit.Reactor, Stepper {
             return .empty()
             
         case .signupButtonTapped:
-            self.steps.accept(AppStep.navigateToEnterEmailForSignupViewController)
+            self.steps.accept(AppStep.goToSignupFlow)
             return .empty()
             
         case .startNotLoginButtonTapped:

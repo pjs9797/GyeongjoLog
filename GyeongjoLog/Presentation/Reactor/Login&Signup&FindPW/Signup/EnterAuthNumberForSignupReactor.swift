@@ -7,9 +7,12 @@ class EnterAuthNumberForSignupReactor: ReactorKit.Reactor, Stepper {
     var timerDisposeBag = DisposeBag()
     let initialState: State = State()
     var steps = PublishRelay<Step>()
+    let userUseCase: UserUseCase
     
-    init(){
+    init(userUseCase: UserUseCase){
+        self.userUseCase = userUseCase
         self.action.onNext(.startTimer)
+        self.action.onNext(.reSendButtonTapped)
     }
     
     enum Action {
@@ -40,7 +43,7 @@ class EnterAuthNumberForSignupReactor: ReactorKit.Reactor, Stepper {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .backButtonTapped:
-            self.steps.accept(AppStep.popViewController)
+            self.steps.accept(SignupStep.popViewController)
             return .empty()
             
         case .authNumberTextFieldTapped:
@@ -52,11 +55,33 @@ class EnterAuthNumberForSignupReactor: ReactorKit.Reactor, Stepper {
                 .just(.setIsEnableNextButton(isValidAuthNumber))
             ])
         case .reSendButtonTapped:
-            //TODO: 인증번호 post
-            return .just(.setTimer(300))
+            return self.userUseCase.requestEmailAuthCode(email: UserDefaults.standard.string(forKey: "userEmail") ?? "")
+                .flatMap { _ -> Observable<Mutation> in
+                    return .just(.setTimer(300))
+                }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: SignupStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
         case .nextButtonTapped:
-            self.steps.accept(AppStep.navigateToEnterPasswordForSignupViewController)
-            return .empty()
+            return self.userUseCase.checkEmailAuthCode(email: UserDefaults.standard.string(forKey: "userEmail") ?? "", code: currentState.authNumber)
+                .flatMap { [weak self] resultCode -> Observable<Mutation> in
+                    if resultCode == "200" {
+                        self?.steps.accept(SignupStep.navigateToEnterPasswordForSignupViewController)
+                    }
+                    else {
+                        self?.steps.accept(SignupStep.presentToDifferentCodeAlertController)
+                    }
+                    return .empty()
+                }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: SignupStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
         case .startTimer:
             timerDisposeBag = DisposeBag()
             return Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)

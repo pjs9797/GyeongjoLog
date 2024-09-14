@@ -5,10 +5,12 @@ import RxFlow
 class MyEventReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
-    private let eventLocalDBUseCase: EventLocalDBUseCase
+    let eventUseCase: EventUseCase
+    let eventLocalDBUseCase: EventLocalDBUseCase
     var filterRelay = PublishRelay<String>()
     
-    init(eventLocalDBUseCase: EventLocalDBUseCase) {
+    init(eventUseCase: EventUseCase, eventLocalDBUseCase: EventLocalDBUseCase) {
+        self.eventUseCase = eventUseCase
         self.eventLocalDBUseCase = eventLocalDBUseCase
     }
     
@@ -53,20 +55,32 @@ class MyEventReactor: ReactorKit.Reactor, Stepper {
         case .sortButtonTapped:
             return .just(.setSortViewHidden)
         case .dateSortButtonTapped:
-            return self.eventLocalDBUseCase.fetchMyEvents(filterEventType: currentState.filterTitle, sortBy: .date)
+            return self.fetchMyEvents(filter: currentState.filterTitle, sortBy: .date)
                 .flatMap { events in
                     return Observable.concat([
                         .just(.setSortOption(.date)),
                         .just(.setMyEvent(events))
                     ])
                 }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: EventHistoryStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
         case .cntSortButtonTapped:
-            return self.eventLocalDBUseCase.fetchMyEvents(filterEventType: currentState.filterTitle, sortBy: .eventCnt)
+            return self.fetchMyEvents(filter: currentState.filterTitle, sortBy: .eventCnt)
                 .flatMap { events in
                     return Observable.concat([
                         .just(.setSortOption(.eventCnt)),
                         .just(.setMyEvent(events))
                     ])
+                }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: EventHistoryStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
                 }
         case .hideSortView:
             return .just(.setSortViewHidden)
@@ -78,15 +92,27 @@ class MyEventReactor: ReactorKit.Reactor, Stepper {
             
             // 나의 경조사 컬렉션뷰 셀 데이터 처리
         case .loadMyEvent:
-            return self.eventLocalDBUseCase.fetchMyEvents(filterEventType: currentState.filterTitle, sortBy: currentState.sortOption)
+            return self.fetchMyEvents(filter: currentState.filterTitle, sortBy: currentState.sortOption)
                 .map { .setMyEvent($0) }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: EventHistoryStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
         case .loadFilteredMyEvent(let filter):
-            return self.eventLocalDBUseCase.fetchMyEvents(filterEventType: filter, sortBy: currentState.sortOption)
+            return self.fetchMyEvents(filter: filter, sortBy: currentState.sortOption)
                 .flatMap { events in
                     return Observable.concat([
                         .just(.setFilterOption(filter)),
                         .just(.setMyEvent(events))
                     ])
+                }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: EventHistoryStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
                 }
         }
     }
@@ -105,6 +131,14 @@ class MyEventReactor: ReactorKit.Reactor, Stepper {
             newState.sortTitle = (sortOption == .date) ? "최신순" : "건수"
         }
         return newState
+    }
+    
+    private func fetchMyEvents(filter: String = "필터", sortBy: MyEventSortOption = .date) -> Observable<[MyEvent]> {
+        if UserDefaultsManager.shared.isLoggedIn() {
+            return self.eventUseCase.fetchMyEvents(filterEventType: filter, sortBy: sortBy)
+        } else {
+            return self.eventLocalDBUseCase.fetchMyEvents(filterEventType: filter, sortBy: sortBy)
+        }
     }
 }
 

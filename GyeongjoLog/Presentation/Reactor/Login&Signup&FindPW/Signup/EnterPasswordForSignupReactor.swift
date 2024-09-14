@@ -6,6 +6,11 @@ import Foundation
 class EnterPasswordForSignupReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
+    let userUseCase: UserUseCase
+    
+    init(userUseCase: UserUseCase){
+        self.userUseCase = userUseCase
+    }
     
     enum Action {
         case backButtonTapped
@@ -54,7 +59,7 @@ class EnterPasswordForSignupReactor: ReactorKit.Reactor, Stepper {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .backButtonTapped:
-            self.steps.accept(AppStep.popViewController)
+            self.steps.accept(SignupStep.popViewController)
             return .empty()
             
         case .passwordTextFieldTapped:
@@ -86,8 +91,22 @@ class EnterPasswordForSignupReactor: ReactorKit.Reactor, Stepper {
             return .just(.setSecureRePassword)
             
         case .nextButtonTapped:
-            self.steps.accept(AppStep.popToRootViewController)
-            return .empty()
+            return self.userUseCase.join(email: UserDefaults.standard.string(forKey: "userEmail") ?? "", password: currentState.rePassword)
+                .flatMap { [weak self] resultCode -> Observable<Mutation> in
+                    if resultCode == "200" {
+                        self?.steps.accept(SignupStep.completeSignupFlow)
+                    }
+                    else {
+                        self?.steps.accept(SignupStep.presentToDuplicateEmailAlertController)
+                    }
+                    return .empty()
+                }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: SignupStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
         }
     }
     

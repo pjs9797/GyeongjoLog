@@ -6,6 +6,11 @@ import Foundation
 class EnterPasswordForFindPWReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
+    let userUseCase: UserUseCase
+    
+    init(userUseCase: UserUseCase){
+        self.userUseCase = userUseCase
+    }
     
     enum Action {
         case backButtonTapped
@@ -86,8 +91,22 @@ class EnterPasswordForFindPWReactor: ReactorKit.Reactor, Stepper {
             return .just(.setSecureRePassword)
             
         case .nextButtonTapped:
-            self.steps.accept(AppStep.popToRootViewController)
-            return .empty()
+            return self.userUseCase.saveNewPw(email: UserDefaults.standard.string(forKey: "userEmail") ?? "", password: currentState.rePassword)
+                .flatMap { [weak self] resultCode -> Observable<Mutation> in
+                    if resultCode == "200" {
+                        self?.steps.accept(FindPwStep.completeFindPwFlow)
+                    }
+                    else {
+                        self?.steps.accept(FindPwStep.presentToNoneJoinEmailAlertController)
+                    }
+                    return .empty()
+                }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: FindPwStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
         }
     }
     

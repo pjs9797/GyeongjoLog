@@ -5,10 +5,12 @@ import RxFlow
 class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
     let initialState: State
     var steps = PublishRelay<Step>()
-    private let eventLocalDBUseCase: EventLocalDBUseCase
+    let eventUseCase: EventUseCase
+    let eventLocalDBUseCase: EventLocalDBUseCase
     var filterRelay = PublishRelay<String>()
     
-    init(eventLocalDBUseCase: EventLocalDBUseCase, eventType: String, date: String) {
+    init(eventUseCase: EventUseCase, eventLocalDBUseCase: EventLocalDBUseCase, eventType: String, date: String) {
+        self.eventUseCase = eventUseCase
         self.eventLocalDBUseCase = eventLocalDBUseCase
         self.initialState = State(eventType: eventType, date: date)
     }
@@ -81,28 +83,47 @@ class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
         case .sortButtonTapped:
             return .just(.setSortViewHidden)
         case .dateSortButtonTapped:
-            return self.eventLocalDBUseCase.fetchMyEventSummaries(eventType: currentState.eventType, date: currentState.date, filterRelationship: currentState.filterTitle, sortBy: .date)
+            return self.fetchMyEventSummaries(query: currentState.searchQuery, filterRelationship: currentState.filterTitle, sortBy: .date)
                 .flatMap { events in
                     return Observable.concat([
                         .just(.setSortOption(.date)),
                         .just(.setFilteredMyEventSummary(events))
                     ])
                 }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: EventHistoryStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
         case .cntSortButtonTapped:
-            return self.eventLocalDBUseCase.fetchMyEventSummaries(eventType: currentState.eventType, date: currentState.date, filterRelationship: currentState.filterTitle, sortBy: .amount)
+            return self.fetchMyEventSummaries(query: currentState.searchQuery, filterRelationship: currentState.filterTitle, sortBy: .amount)
                 .flatMap { events in
                     return Observable.concat([
                         .just(.setSortOption(.amount)),
                         .just(.setFilteredMyEventSummary(events))
                     ])
                 }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: EventHistoryStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
+            
         case .hideSortView:
             return .just(.setSortViewHidden)
             
             // 검색
         case .updateSearchTextField(let query):
-            return self.eventLocalDBUseCase.fetchMyEventSummaries(eventType: currentState.eventType, date: currentState.date, query: query, filterRelationship: currentState.filterTitle, sortBy: currentState.sortOption)
+            return self.fetchMyEventSummaries(query: query, filterRelationship: currentState.filterTitle, sortBy: currentState.sortOption)
                 .map { .setFilteredMyEventSummary($0) }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: EventHistoryStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
             
             // 컬렉션뷰셀 탭
         case .selectMyEventSummary(let index):
@@ -111,15 +132,27 @@ class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
             
             // 나의 경조사 컬렉션뷰 셀 데이터 처리
         case .loadMyEventSummary:
-            return self.eventLocalDBUseCase.fetchMyEventSummaries(eventType: currentState.eventType, date: currentState.date, filterRelationship: currentState.filterTitle, sortBy: currentState.sortOption)
+            return self.fetchMyEventSummaries(query: currentState.searchQuery, filterRelationship: currentState.filterTitle, sortBy: currentState.sortOption)
                 .map { .setMyEventSummary($0) }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: EventHistoryStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
         case .loadFilteredMyEventSummary(let filter):
-            return self.eventLocalDBUseCase.fetchMyEventSummaries(eventType: currentState.eventType, date: currentState.date, query: currentState.searchQuery, filterRelationship: filter, sortBy: currentState.sortOption)
+            return self.fetchMyEventSummaries(query: currentState.searchQuery, filterRelationship: filter, sortBy: currentState.sortOption)
                 .flatMap { events in
                     return Observable.concat([
                         .just(.setFilterOption(filter)),
                         .just(.setFilteredMyEventSummary(events))
                     ])
+                }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: EventHistoryStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
                 }
         }
     }
@@ -153,5 +186,13 @@ class MyEventSummaryReactor: ReactorKit.Reactor, Stepper {
             amount += myEventSummary.amount
         }
         return amount
+    }
+    
+    private func fetchMyEventSummaries(query: String = "", filterRelationship: String = "필터", sortBy: EventSummarySortOption = .date) -> Observable<[Event]> {
+        if UserDefaultsManager.shared.isLoggedIn() {
+            return self.eventUseCase.fetchMyEventSummaries(eventType: currentState.eventType, date: currentState.date, query: query, filterRelationship: filterRelationship, sortBy: sortBy)
+        } else {
+            return self.eventLocalDBUseCase.fetchMyEventSummaries(eventType: currentState.eventType, date: currentState.date, query: query, filterRelationship: filterRelationship, sortBy: sortBy)
+        }
     }
 }

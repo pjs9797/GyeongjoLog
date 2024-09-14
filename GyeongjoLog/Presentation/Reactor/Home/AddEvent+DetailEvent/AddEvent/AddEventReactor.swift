@@ -6,13 +6,15 @@ import RxFlow
 class AddEventReactor: ReactorKit.Reactor, Stepper {
     let initialState: State
     var steps = PublishRelay<Step>()
-    private let eventLocalDBUseCase: EventLocalDBUseCase
+    let eventUseCase: EventUseCase
+    let eventLocalDBUseCase: EventLocalDBUseCase
     let addEventFlow: AddEventFlow
     var eventTypeRelay = PublishRelay<String>()
     var eventDateRelay = PublishRelay<String>()
     var eventRelationshipRelay = PublishRelay<String>()
     
-    init(eventLocalDBUseCase: EventLocalDBUseCase, addEventFlow: AddEventFlow) {
+    init(eventUseCase: EventUseCase, eventLocalDBUseCase: EventLocalDBUseCase, addEventFlow: AddEventFlow) {
+        self.eventUseCase = eventUseCase
         self.eventLocalDBUseCase = eventLocalDBUseCase
         self.addEventFlow = addEventFlow
         self.initialState = State(
@@ -138,14 +140,28 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
                               relationship: currentState.relationship,
                               amount: currentState.amount,
                               memo: currentState.memo)
-            return self.eventLocalDBUseCase.saveEvent(event: event)
-                .andThen(Completable.create { completable in
-                    self.steps.accept(EventHistoryStep.popViewController)
-                    completable(.completed)
-                    return Disposables.create()
-                })
-                .andThen(.empty())
-            
+            if UserDefaultsManager.shared.isLoggedIn() {
+                return self.eventUseCase.addEvent(event: event)
+                    .flatMap { [weak self] _ -> Observable<Mutation> in
+                        self?.steps.accept(EventHistoryStep.popViewController)
+                        return .empty()
+                    }
+                    .catch { [weak self] error in
+                        ErrorHandler.handle(error: error) { (step: EventHistoryStep) in
+                            self?.steps.accept(step)
+                        }
+                        return .empty()
+                    }
+            }
+            else {
+                return self.eventLocalDBUseCase.saveEvent(event: event)
+                    .andThen(Completable.create { completable in
+                        self.steps.accept(EventHistoryStep.popViewController)
+                        completable(.completed)
+                        return Disposables.create()
+                    })
+                    .andThen(.empty())
+            }
 //            return RealmManager.shared.saveRandomEvents()
 //                .andThen(Completable.create { completable in
 //                    self.steps.accept(EventHistoryStep.popViewController)

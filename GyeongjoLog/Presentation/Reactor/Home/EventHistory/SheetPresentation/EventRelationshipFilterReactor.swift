@@ -5,11 +5,9 @@ import RxFlow
 class EventRelationshipFilterReactor: ReactorKit.Reactor, Stepper {
     var initialState: State
     var steps = PublishRelay<Step>()
-    private let eventLocalDBUseCase: EventLocalDBUseCase
     let filterRelay: PublishRelay<String>
     
-    init(eventLocalDBUseCase: EventLocalDBUseCase, filterRelay: PublishRelay<String>, initialFilterType: String?) {
-        self.eventLocalDBUseCase = eventLocalDBUseCase
+    init(filterRelay: PublishRelay<String>, initialFilterType: String?) {
         self.filterRelay = filterRelay
         if let initialFilterType = initialFilterType {
             self.initialState = State(

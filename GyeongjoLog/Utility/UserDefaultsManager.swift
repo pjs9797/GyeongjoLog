@@ -5,6 +5,7 @@ class UserDefaultsManager {
     static let shared = UserDefaultsManager()
     private let eventTypeKey = "eventTypes"
     private let onBoardingStartedKey = "onBoardingStarted"
+    private let isLoggedInKey = "isLoggedIn"
     private let defaultEventTypes: [(String, String)] = [
         ("결혼식", "PinkCustom"),
         ("장례식", "BlackCustom"),
@@ -67,5 +68,15 @@ class UserDefaultsManager {
     // 온보딩 시작 상태 가져오기
     func getOnBoardingStarted() -> Bool {
         return UserDefaults.standard.bool(forKey: onBoardingStartedKey)
+    }
+    
+    // 로그인 여부 저장
+    func setLoggedIn(_ loggedIn: Bool) {
+        UserDefaults.standard.set(loggedIn, forKey: isLoggedInKey)
+    }
+    
+    // 로그인 여부 확인
+    func isLoggedIn() -> Bool {
+        return UserDefaults.standard.bool(forKey: isLoggedInKey)
     }
 }

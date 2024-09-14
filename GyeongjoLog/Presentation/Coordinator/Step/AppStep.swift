@@ -1,19 +1,24 @@
 import RxFlow
 
-enum AppStep: Step {
+protocol StepProtocol {}
+
+enum AppStep: Step, StepProtocol {
     case navigateToOnBoardingViewController
     case navigateToBeginingViewController
     case navigateToLoginViewController
     case navigateToTabBarController
     
-    case navigateToEnterEmailForSignupViewController
-    case navigateToEnterAuthNumberForSignupViewController
-    case navigateToEnterPasswordForSignupViewController
+    case goToSignupFlow
+    case goToFindPwFlow
     
-    case navigateToEnterEmailForFindPWViewController
-    case navigateToEnterAuthNumberForFindPWViewController
-    case navigateToEnterPasswordForFindPWViewController
+    case completeSignupFlow
+    case completeFindPwFlow
+    
+    case presentToInvalidLoginInfoAlertController
+    case presentToNetworkErrorAlertController
+    case presentToUnknownErrorAlertController
     
     case popToRootViewController
     case popViewController
 }
+

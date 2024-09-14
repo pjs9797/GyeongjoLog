@@ -5,6 +5,11 @@ import RxFlow
 class LoginReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
+    let userUseCase: UserUseCase
+    
+    init(userUseCase: UserUseCase){
+        self.userUseCase = userUseCase
+    }
     
     enum Action {
         case backButtonTapped
@@ -63,9 +68,24 @@ class LoginReactor: ReactorKit.Reactor, Stepper {
             return .just(.setSecurePassword)
             
         case .loginButtonTapped:
-            return .empty()
+            return self.userUseCase.login(email: currentState.email, password: currentState.password)
+                .flatMap { [weak self] resultCode -> Observable<Mutation> in
+                    if resultCode == "200" {
+                        self?.steps.accept(AppStep.navigateToTabBarController)
+                    }
+                    else {
+                        self?.steps.accept(AppStep.presentToInvalidLoginInfoAlertController)
+                    }
+                    return .empty()
+                }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: AppStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
         case .findPasswordButtonTapped:
-            self.steps.accept(AppStep.navigateToEnterEmailForFindPWViewController)
+            self.steps.accept(AppStep.goToFindPwFlow)
             return .empty()
         }
     }

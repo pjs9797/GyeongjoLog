@@ -8,6 +8,8 @@ class AppFlow: Flow {
     
     private let eventLocalDBUseCase = EventLocalDBUseCase(repository: EventLocalDBRepository())
     private let statisticsLocalDBUseCase = StatisticsLocalDBUseCase(repository: StatisticsLocalDBRepository())
+    private let userUseCase = UserUseCase(repository: UserRepository())
+    private let eventUseCase = EventUseCase(repository: EventRepository(), eventTypeRepository: EventTypeRepository())
     
     lazy var rootViewController: UINavigationController = {
         let navigationController = UINavigationController()
@@ -26,19 +28,24 @@ class AppFlow: Flow {
         case .navigateToTabBarController:
             return navigateToTabBarController()
             
-        case .navigateToEnterEmailForSignupViewController:
-            return navigateToEnterEmailForSignupViewController()
-        case .navigateToEnterAuthNumberForSignupViewController:
-            return navigateToEnterAuthNumberForSignupViewController()
-        case .navigateToEnterPasswordForSignupViewController:
-            return navigateToEnterPasswordForSignupViewController()
+        
             
-        case .navigateToEnterEmailForFindPWViewController:
-            return navigateToEnterEmailForFindPWViewController()
-        case .navigateToEnterAuthNumberForFindPWViewController:
-            return navigateToEnterAuthNumberForFindPWViewController()
-        case .navigateToEnterPasswordForFindPWViewController:
-            return navigateToEnterPasswordForFindPWViewController()
+        case .goToSignupFlow:
+            return goToSignupFlow()
+        case .goToFindPwFlow:
+            return goToFindPwFlow()
+            
+        case .completeSignupFlow:
+            return .none
+        case .completeFindPwFlow:
+            return .none
+            
+        case .presentToInvalidLoginInfoAlertController:
+            return presentToInvalidLoginInfoAlertController()
+        case .presentToNetworkErrorAlertController:
+            return presentToNetworkErrorAlertController()
+        case .presentToUnknownErrorAlertController:
+            return presentToUnknownErrorAlertController()
             
         case .popToRootViewController:
             return popToRootViewController()
@@ -64,7 +71,7 @@ class AppFlow: Flow {
     }
     
     private func navigateToLoginViewController() -> FlowContributors {
-        let reactor = LoginReactor()
+        let reactor = LoginReactor(userUseCase: self.userUseCase)
         let viewController = LoginViewController(with: reactor)
         self.rootViewController.pushViewController(viewController, animated: true)
         
@@ -78,7 +85,7 @@ class AppFlow: Flow {
         let statisticsNavigationController = UINavigationController()
         let phraseNavigationController = UINavigationController()
         let settingNavigationController = UINavigationController()
-        let eventHistoryFlow = EventHistoryFlow(with: eventHistoryNavigationController, eventLocalDBUseCase: self.eventLocalDBUseCase)
+        let eventHistoryFlow = EventHistoryFlow(with: eventHistoryNavigationController, eventUseCase: self.eventUseCase, eventLocalDBUseCase: self.eventLocalDBUseCase)
         let statisticsFlow = StatisticsFlow(with: statisticsNavigationController, statisticsLocalDBUseCase: self.statisticsLocalDBUseCase)
         let phraseFlow = PhraseFlow(with: phraseNavigationController)
         let settingFlow = SettingFlow(with: settingNavigationController)
@@ -102,52 +109,50 @@ class AppFlow: Flow {
         ])
     }
     
-    private func navigateToEnterEmailForSignupViewController() -> FlowContributors {
-        let reactor = EnterEmailForSignupReactor()
-        let viewController = EnterEmailForSignupViewController(with: reactor)
-        self.rootViewController.pushViewController(viewController, animated: true)
+    private func goToSignupFlow() -> FlowContributors {
+        let signupFlow = SignupFlow(with: self.rootViewController, userUseCase: self.userUseCase)
         
-        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+        return .one(flowContributor: .contribute(withNextPresentable: signupFlow, withNextStepper: OneStepper(withSingleStep: SignupStep.navigateToEnterEmailForSignupViewController)))
     }
     
-    private func navigateToEnterAuthNumberForSignupViewController() -> FlowContributors {
-        let reactor = EnterAuthNumberForSignupReactor()
-        let viewController = EnterAuthNumberForSignupViewController(with: reactor)
-        self.rootViewController.pushViewController(viewController, animated: true)
+    private func goToFindPwFlow() -> FlowContributors {
+        let findPwFlow = FindPwFlow(with: self.rootViewController, userUseCase: self.userUseCase)
         
-        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+        return .one(flowContributor: .contribute(withNextPresentable: findPwFlow, withNextStepper: OneStepper(withSingleStep: FindPwStep.navigateToEnterEmailForFindPWViewController)))
     }
     
-    private func navigateToEnterPasswordForSignupViewController() -> FlowContributors {
-        let reactor = EnterPasswordForSignupReactor()
-        let viewController = EnterPasswordForSignupViewController(with: reactor)
-        self.rootViewController.pushViewController(viewController, animated: true)
+    private func presentToInvalidLoginInfoAlertController() -> FlowContributors {
+        let alertController = UIAlertController(title: "로그인 정보 오류",
+            message: "이메일이나 비밀번호를 확인해주세요",
+            preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.rootViewController.present(alertController, animated: true, completion: nil)
         
-        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+        return .none
     }
     
-    private func navigateToEnterEmailForFindPWViewController() -> FlowContributors {
-        let reactor = EnterEmailForFindPWReactor()
-        let viewController = EnterEmailForFindPWViewController(with: reactor)
-        self.rootViewController.pushViewController(viewController, animated: true)
+    // 프레젠트 공통 알람
+    private func presentToNetworkErrorAlertController() -> FlowContributors {
+        let alertController = UIAlertController(title: "네트워크 오류",
+            message: "네트워크 연결을 확인해주세요",
+            preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.rootViewController.present(alertController, animated: true, completion: nil)
         
-        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+        return .none
     }
     
-    private func navigateToEnterAuthNumberForFindPWViewController() -> FlowContributors {
-        let reactor = EnterAuthNumberForFindPWReactor()
-        let viewController = EnterAuthNumberForFindPWViewController(with: reactor)
-        self.rootViewController.pushViewController(viewController, animated: true)
+    private func presentToUnknownErrorAlertController() -> FlowContributors {
+        let alertController = UIAlertController(title: "알 수 없는 오류",
+            message: "앱을 재실행해주세요",
+            preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        self.rootViewController.present(alertController, animated: true, completion: nil)
         
-        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
-    }
-    
-    private func navigateToEnterPasswordForFindPWViewController() -> FlowContributors {
-        let reactor = EnterPasswordForFindPWReactor()
-        let viewController = EnterPasswordForFindPWViewController(with: reactor)
-        self.rootViewController.pushViewController(viewController, animated: true)
-        
-        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
+        return .none
     }
     
     private func popToRootViewController() -> FlowContributors {

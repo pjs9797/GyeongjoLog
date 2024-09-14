@@ -6,10 +6,12 @@ import Foundation
 class CalendarReactor: Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
-    private let eventLocalDBUseCase: EventLocalDBUseCase
+    let eventUseCase: EventUseCase
+    let eventLocalDBUseCase: EventLocalDBUseCase
     var calendarDateRelay = PublishRelay<String>()
     
-    init(eventLocalDBUseCase: EventLocalDBUseCase) {
+    init(eventUseCase: EventUseCase, eventLocalDBUseCase: EventLocalDBUseCase) {
+        self.eventUseCase = eventUseCase
         self.eventLocalDBUseCase = eventLocalDBUseCase
     }
     
@@ -89,8 +91,14 @@ class CalendarReactor: Reactor, Stepper {
             let newDate = Calendar.current.date(byAdding: .month, value: value, to: currentState.yearMonth)!
             return .concat([
                 .just(.setYearMonth(newDate)),
-                self.eventLocalDBUseCase.fetchEvents(forMonth: newDate)
+                self.fetchEventsForMonth(date: newDate)
                     .map { .setEvents($0) }
+                    .catch { [weak self] error in
+                        ErrorHandler.handle(error: error) { (step: EventHistoryStep) in
+                            self?.steps.accept(step)
+                        }
+                        return .empty()
+                    }
             ])
         case .filterEvents(let amountType):
             // 버튼을 탭했을 때 이미 선택되어있는 날짜에 대한 이벤트
@@ -116,8 +124,14 @@ class CalendarReactor: Reactor, Stepper {
                 .just(.setSelectedDateEvents(filteredEvents))
             ])
         case .loadEvents:
-            return self.eventLocalDBUseCase.fetchEvents(forMonth: currentState.yearMonth)
+            return self.fetchEventsForMonth(date: currentState.yearMonth)
                 .map { .setEvents($0) }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: EventHistoryStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
         }
     }
     
@@ -140,8 +154,6 @@ class CalendarReactor: Reactor, Stepper {
             newState.selectedDateLabelText = self.formatDate(date: date ?? Date())
         case .setSelectedDateEvents(let selectedDateEvents):
             newState.selectedDateEvents = selectedDateEvents
-        case .setYearMonth(let date):
-            newState.yearMonth = date
         }
         return newState
     }
@@ -184,5 +196,13 @@ class CalendarReactor: Reactor, Stepper {
         dateFormatter.dateFormat = "d일 EEEE"
         dateFormatter.locale = Locale(identifier: "ko_KR")
         return dateFormatter.string(from: date)
+    }
+    
+    private func fetchEventsForMonth(date: Date) -> Observable<[Event]> {
+        if UserDefaultsManager.shared.isLoggedIn() {
+            return eventUseCase.fetchCalendarEvents(forMonth: date.toString(format: "yyyy-MM"))
+        } else {
+            return eventLocalDBUseCase.fetchEvents(forMonth: date)
+        }
     }
 }

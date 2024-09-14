@@ -6,13 +6,15 @@ import RxFlow
 class DatailEventReactor: ReactorKit.Reactor, Stepper {
     let initialState: State
     var steps = PublishRelay<Step>()
-    private let eventLocalDBUseCase: EventLocalDBUseCase
+    let eventUseCase: EventUseCase
+    let eventLocalDBUseCase: EventLocalDBUseCase
     let addEventFlow: AddEventFlow
     var eventTypeRelay = PublishRelay<String>()
     var eventDateRelay = PublishRelay<String>()
     var eventRelationshipRelay = PublishRelay<String>()
     
-    init(eventLocalDBUseCase: EventLocalDBUseCase, addEventFlow: AddEventFlow, event: Event) {
+    init(eventUseCase: EventUseCase, eventLocalDBUseCase: EventLocalDBUseCase, addEventFlow: AddEventFlow, event: Event) {
+        self.eventUseCase = eventUseCase
         self.eventLocalDBUseCase = eventLocalDBUseCase
         self.addEventFlow = addEventFlow
         
@@ -34,7 +36,6 @@ class DatailEventReactor: ReactorKit.Reactor, Stepper {
             attributedText.append(wonText)
             formattedText = attributedText
         }
-        print(event.memo)
         self.initialState = State(id: event.id, name: event.name, phoneNumber: event.phoneNumber, eventType: event.eventType, date: event.date, relationship: event.relationship, amount: event.amount, formattedAmount: formattedText, memo: event.memo, eventAmounts: addEventFlow == .myEventSummary ? [10000, 50000, 100000, 500000, 1000000] : [-10000, -50000, -100000, -500000, -1000000])
     }
     
@@ -150,13 +151,28 @@ class DatailEventReactor: ReactorKit.Reactor, Stepper {
             self.steps.accept(EventHistoryStep.popViewController)
             return .empty()
         case .deleteButtonTapped:
-            return self.eventLocalDBUseCase.deleteEvent(id: currentState.id)
-                .andThen(Completable.create { completable in
-                    self.steps.accept(EventHistoryStep.popViewController)
-                    completable(.completed)
-                    return Disposables.create()
-                })
-                .andThen(.empty())
+            if UserDefaultsManager.shared.isLoggedIn() {
+                return self.eventUseCase.deleteEvent(id: currentState.id)
+                    .flatMap { [weak self] _ -> Observable<Mutation> in
+                        self?.steps.accept(EventHistoryStep.popViewController)
+                        return .empty()
+                    }
+                    .catch { [weak self] error in
+                        ErrorHandler.handle(error: error) { (step: EventHistoryStep) in
+                            self?.steps.accept(step)
+                        }
+                        return .empty()
+                    }
+            }
+            else {
+                return self.eventLocalDBUseCase.deleteEvent(id: currentState.id)
+                    .andThen(Completable.create { [weak self] completable in
+                        self?.steps.accept(EventHistoryStep.popViewController)
+                        completable(.completed)
+                        return Disposables.create()
+                    })
+                    .andThen(.empty())
+            }
         case .addEventButtonTapped:
             let event = Event(id: currentState.id,
                               name: currentState.name,
@@ -166,13 +182,28 @@ class DatailEventReactor: ReactorKit.Reactor, Stepper {
                               relationship: currentState.relationship,
                               amount: currentState.amount,
                               memo: currentState.memo)
-            return self.eventLocalDBUseCase.updateEvent(event: event)
-                .andThen(Completable.create { completable in
-                    self.steps.accept(EventHistoryStep.popViewController)
-                    completable(.completed)
-                    return Disposables.create()
-                })
-                .andThen(.empty())
+            if UserDefaultsManager.shared.isLoggedIn() {
+                return self.eventUseCase.updateEvent(event: event)
+                    .flatMap { [weak self] _ -> Observable<Mutation> in
+                        self?.steps.accept(EventHistoryStep.popViewController)
+                        return .empty()
+                    }
+                    .catch { [weak self] error in
+                        ErrorHandler.handle(error: error) { (step: EventHistoryStep) in
+                            self?.steps.accept(step)
+                        }
+                        return .empty()
+                    }
+            }
+            else {
+                return self.eventLocalDBUseCase.updateEvent(event: event)
+                    .andThen(Completable.create { completable in
+                        self.steps.accept(EventHistoryStep.popViewController)
+                        completable(.completed)
+                        return Disposables.create()
+                    })
+                    .andThen(.empty())
+            }
             
             // 이름 뷰
         case .nameViewTapped:

@@ -5,10 +5,12 @@ import RxFlow
 class AddNewEventTypeReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
-    private let eventLocalDBUseCase: EventLocalDBUseCase
+    let eventUseCase: EventUseCase
+    let eventLocalDBUseCase: EventLocalDBUseCase
     var filterRelay = PublishRelay<String>()
     
-    init(eventLocalDBUseCase: EventLocalDBUseCase) {
+    init(eventUseCase: EventUseCase, eventLocalDBUseCase: EventLocalDBUseCase) {
+        self.eventUseCase = eventUseCase
         self.eventLocalDBUseCase = eventLocalDBUseCase
     }
     
@@ -53,14 +55,28 @@ class AddNewEventTypeReactor: ReactorKit.Reactor, Stepper {
                 .just(.setEnableAddEventNameButton)
             ])
         case .addEventTypeButtonTapped:
-            return self.eventLocalDBUseCase.updateEventType(eventType: currentState.eventNameText, color: currentState.selectedColor)
-                .andThen(Completable.create { completable in
-                    self.steps.accept(EventHistoryStep.popViewController)
-                    completable(.completed)
-                    return Disposables.create()
-                })
-                .andThen(.empty())
-            
+            if UserDefaultsManager.shared.isLoggedIn() {
+                return self.eventUseCase.addEventType(eventType: currentState.eventNameText, color: currentState.selectedColor)
+                    .flatMap { [weak self] _ -> Observable<Mutation> in
+                        self?.steps.accept(EventHistoryStep.popViewController)
+                        return .empty()
+                    }
+                    .catch { [weak self] error in
+                        ErrorHandler.handle(error: error) { (step: EventHistoryStep) in
+                            self?.steps.accept(step)
+                        }
+                        return .empty()
+                    }
+            }
+            else {
+                return self.eventLocalDBUseCase.updateEventType(eventType: currentState.eventNameText, color: currentState.selectedColor)
+                    .andThen(Completable.create { completable in
+                        self.steps.accept(EventHistoryStep.popViewController)
+                        completable(.completed)
+                        return Disposables.create()
+                    })
+                    .andThen(.empty())
+            }
             // 텍스트 필드 입력
         case .inputEventNameText(let text):
             let nameLength = text.count

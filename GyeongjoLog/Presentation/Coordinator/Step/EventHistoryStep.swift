@@ -1,7 +1,7 @@
 import RxFlow
 import RxCocoa
 
-enum EventHistoryStep: Step {
+enum EventHistoryStep: Step, StepProtocol {
     // 푸시
     case navigateToHistoryViewController
     case navigateToMyEventSummaryViewController(eventType: String, date: String)
@@ -23,8 +23,14 @@ enum EventHistoryStep: Step {
     // 프레젠트 - 캘린더
     case presentToSelectCalendarDateViewController(eventDateRelay: PublishRelay<String>, initialDate: String?)
     
+    // 프레젠트 공통 알람
+    case presentToNetworkErrorAlertController
+    case presentToUnknownErrorAlertController
+    case presentToExpiredTokenErrorAlertController
+    
     // 뒤로가기
     case dismissSheetPresentationController
     case popViewController
+    case endFlow
 }
 

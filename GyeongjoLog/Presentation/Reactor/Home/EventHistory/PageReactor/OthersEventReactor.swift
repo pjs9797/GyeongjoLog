@@ -5,10 +5,12 @@ import RxFlow
 class OthersEventReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
-    private let eventLocalDBUseCase: EventLocalDBUseCase
+    let eventUseCase: EventUseCase
+    let eventLocalDBUseCase: EventLocalDBUseCase
     var filterRelay = PublishRelay<String>()
     
-    init(eventLocalDBUseCase: EventLocalDBUseCase) {
+    init(eventUseCase: EventUseCase, eventLocalDBUseCase: EventLocalDBUseCase) {
+        self.eventUseCase = eventUseCase
         self.eventLocalDBUseCase = eventLocalDBUseCase
     }
     
@@ -58,7 +60,7 @@ class OthersEventReactor: ReactorKit.Reactor, Stepper {
         case .sortButtonTapped:
             return .just(.setSortViewHidden)
         case .dateSortButtonTapped:
-            return self.eventLocalDBUseCase.searchAndFilterOtherEventSummaries(filterRelationship: currentState.filterTitle, sortBy: .date)
+            return self.fetchOthersEvents(filterRelationship: currentState.filterTitle, sortBy: .date)
                 .flatMap { events in
                     return Observable.concat([
                         .just(.setSortViewHidden),
@@ -66,8 +68,14 @@ class OthersEventReactor: ReactorKit.Reactor, Stepper {
                         .just(.setOthersEventSummary(events))
                     ])
                 }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: EventHistoryStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
         case .cntSortButtonTapped:
-            return self.eventLocalDBUseCase.searchAndFilterOtherEventSummaries(filterRelationship: currentState.filterTitle, sortBy: .amount)
+            return self.fetchOthersEvents(filterRelationship: currentState.filterTitle, sortBy: .amount)
                 .flatMap { events in
                     return Observable.concat([
                         .just(.setSortViewHidden),
@@ -75,14 +83,25 @@ class OthersEventReactor: ReactorKit.Reactor, Stepper {
                         .just(.setOthersEventSummary(events))
                     ])
                 }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: EventHistoryStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
         case .hideSortView:
             return .just(.setSortViewHidden)
             
             // 검색
         case .updateSearchTextField(let query):
-            return self.eventLocalDBUseCase.searchAndFilterOtherEventSummaries(query: query, filterRelationship: currentState.filterTitle, sortBy: currentState.sortOption)
+            return self.fetchOthersEvents(query: query, filterRelationship: currentState.filterTitle, sortBy: currentState.sortOption)
                 .map { .setOthersEventSummary($0) }
-            
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: EventHistoryStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
             // 컬렉션뷰셀 탭
         case .selectOthersEventSummary(let index):
             self.steps.accept(EventHistoryStep.navigateToDetailEventViewController(addEventFlow: .othersEventSummary, event: currentState.othersEventSummaries[index]))
@@ -90,15 +109,27 @@ class OthersEventReactor: ReactorKit.Reactor, Stepper {
             
             // 나의 경조사 컬렉션뷰 셀 데이터 처리
         case .loadOthersEventSummary:
-            return self.eventLocalDBUseCase.searchAndFilterOtherEventSummaries(filterRelationship: currentState.filterTitle, sortBy: currentState.sortOption)
+            return self.fetchOthersEvents(filterRelationship: currentState.filterTitle, sortBy: currentState.sortOption)
                 .map { .setOthersEventSummary($0) }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: EventHistoryStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
         case .loadFilteredOthersEventSummary(let filter):
-            return self.eventLocalDBUseCase.searchAndFilterOtherEventSummaries(query: currentState.searchQuery, filterRelationship: filter, sortBy: currentState.sortOption)
+            return self.fetchOthersEvents(query: currentState.searchQuery, filterRelationship: filter, sortBy: currentState.sortOption)
                 .flatMap { events in
                     return Observable.concat([
                         .just(.setFilterOption(filter)),
                         .just(.setOthersEventSummary(events))
                     ])
+                }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: EventHistoryStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
                 }
         }
     }
@@ -119,5 +150,13 @@ class OthersEventReactor: ReactorKit.Reactor, Stepper {
             newState.isHiddenSortView = !currentState.isHiddenSortView
         }
         return newState
+    }
+    
+    private func fetchOthersEvents(query: String? = nil, filterRelationship: String = "필터", sortBy: EventSummarySortOption = .date) -> Observable<[Event]> {
+        if UserDefaultsManager.shared.isLoggedIn() {
+            return self.eventUseCase.fetchOthersEventSummaries(query: query, filterRelationship: filterRelationship, sortBy: sortBy)
+        } else {
+            return eventLocalDBUseCase.searchAndFilterOtherEventSummaries(query: query, filterRelationship: filterRelationship, sortBy: sortBy)
+        }
     }
 }
