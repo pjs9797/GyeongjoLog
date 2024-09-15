@@ -27,20 +27,11 @@ class ErrorHandler {
                     
                 }
             case .statusCode(let response):
-                return
-//                if response.statusCode == 401 {
-//                    if let step = T.self as? SignupStep.Type {
-//                        stepsHandler(SignupStep.presentToUnauthorizedAlertController as! T)
-//                    } else if let step = T.self as? SigninStep.Type {
-//                        stepsHandler(SigninStep.presentToUnauthorizedAlertController as! T)
-//                    }
-//                } else {
-//                    if let step = T.self as? SignupStep.Type {
-//                        stepsHandler(SignupStep.presentToNetworkErrorAlertController as! T)
-//                    } else if let step = T.self as? SigninStep.Type {
-//                        stepsHandler(SigninStep.presentToNetworkErrorAlertController as! T)
-//                    }
-//                }
+                if response.statusCode == 401 {
+                    if let step = T.self as? AppStep.Type {
+                        stepsHandler(AppStep.presentToInvalidLoginInfoAlertController as! T)
+                    }
+                }
             default:
                 if let step = T.self as? AppStep.Type {
                     stepsHandler(AppStep.presentToUnknownErrorAlertController as! T)

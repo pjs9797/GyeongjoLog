@@ -18,20 +18,20 @@ extension EventService: TargetType {
         switch self {
         case .addEvent:
             return "add"
-        case .updateEvent(let eventId, _):
-            return "update?eventId=\(eventId)"
-        case .deleteEvent(let eventId):
-            return "delete?eventId=\(eventId)"
+        case .updateEvent:
+            return "update"
+        case .deleteEvent:
+            return "delete"
         case .fetchMyEvents:
             return "myEvents"
-        case .fetchMyEventsSummary(let eventType, let date):
-            return "myEvents/summary?eventType=\(eventType)&date=\(date)"
+        case .fetchMyEventsSummary:
+            return "myEvents/summary"
         case .fetchOthersEventsSummary:
             return "othersEvents/summary"
-        case .fetchSingleEvent(let eventId):
-            return "singleEvent?eventId=\(eventId)"
-        case .fetchCalendarEvents(let date):
-            return "yearMonth?date=\(date)"
+        case .fetchSingleEvent:
+            return "singleEvent"
+        case .fetchCalendarEvents:
+            return "yearMonth"
         }
     }
     
@@ -51,29 +51,53 @@ extension EventService: TargetType {
     var task: Task {
         switch self {
         case .addEvent(let event):
-            let parameters = ["event": event]
+            let parameters: [String: Any] = [
+                    "name": event.name,
+                    "phoneNumber": event.phoneNumber,
+                    "eventType": event.eventType,
+                    "date": event.date,
+                    "relationship": event.relationship,
+                    "amount": event.amount,
+                    "memo": event.memo ?? ""
+                ]
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
-        case .updateEvent(_, let event):
-            let parameters = ["event": event]
-            return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
-        case .deleteEvent:
-            return .requestPlain
+        case .updateEvent(let eventId, let event):
+            let parameters: [String: Any] = [
+                    "name": event.name,
+                    "phoneNumber": event.phoneNumber,
+                    "eventType": event.eventType,
+                    "date": event.date,
+                    "relationship": event.relationship,
+                    "amount": event.amount,
+                    "memo": event.memo ?? ""
+                ]
+            return .requestCompositeParameters(
+                bodyParameters: parameters,
+                bodyEncoding: JSONEncoding.default,
+                urlParameters: ["eventId": eventId]
+            )
+        case .deleteEvent(let eventId):
+            let parameters = ["eventId": eventId]
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         case .fetchMyEvents:
             return .requestPlain
-        case .fetchMyEventsSummary:
-            return .requestPlain
+        case .fetchMyEventsSummary(let eventType, let date):
+            let parameters = ["eventType": eventType, "date": date]
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         case .fetchOthersEventsSummary:
             return .requestPlain
-        case .fetchSingleEvent:
-            return .requestPlain
-        case .fetchCalendarEvents:
-            return .requestPlain
+        case .fetchSingleEvent(let eventId):
+            let parameters = ["eventId": eventId]
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
+        case .fetchCalendarEvents(let date):
+            let parameters = ["date": date]
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         }
     }
     
     var headers: [String : String]? {
         if let accessToken = TokenManager.shared.loadAccessToken(), let refreshToken = TokenManager.shared.loadRefreshToken() {
-            return ["Content-Type": "application/json", "Authorization": "Bearer \(accessToken)", "Authorization-refresh": "Bearer \(refreshToken)"]
+            return ["Content-Type": "application/json", "Authorization": "\(accessToken)", "Authorization-refresh": "\(refreshToken)"]
         }
         return ["Content-Type": "application/json"]
     }

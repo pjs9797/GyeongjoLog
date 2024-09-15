@@ -200,7 +200,7 @@ class CalendarReactor: Reactor, Stepper {
     
     private func fetchEventsForMonth(date: Date) -> Observable<[Event]> {
         if UserDefaultsManager.shared.isLoggedIn() {
-            return eventUseCase.fetchCalendarEvents(forMonth: date.toString(format: "yyyy-MM"))
+            return eventUseCase.fetchCalendarEvents(forMonth: date.toString(format: "yyyy.MM"))
         } else {
             return eventLocalDBUseCase.fetchEvents(forMonth: date)
         }

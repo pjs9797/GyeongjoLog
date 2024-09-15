@@ -15,11 +15,11 @@ extension UserService: TargetType {
     var path: String {
         switch self {
         case .checkDuplicateEmail:
-            return "emailCheck"
+            return "checkDuplicateEmail"
         case .sendAuthCode:
-            return "emailSend"
+            return "sendAuthCode"
         case .checkAuthCode:
-            return "emailAuthCheck"
+            return "checkAuthCode"
         case .saveNewPw:
             return "saveNewPw"
         case .join:

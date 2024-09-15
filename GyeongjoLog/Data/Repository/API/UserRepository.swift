@@ -72,6 +72,9 @@ class UserRepository: UserRepositoryInterface {
                     // 토큰 저장
                     TokenManager.shared.saveAccessToken(accessToken)
                     TokenManager.shared.saveRefreshToken(refreshToken)
+                    if let accessToken = TokenManager.shared.loadAccessToken(), let refreshToken = TokenManager.shared.loadRefreshToken() {
+                        print(["Authorization": "\(accessToken)", "Authorization-refresh": "\(refreshToken)"])
+                    }
                 }
             })
             .map(ResponseDTO.self)

@@ -71,6 +71,7 @@ class LoginReactor: ReactorKit.Reactor, Stepper {
             return self.userUseCase.login(email: currentState.email, password: currentState.password)
                 .flatMap { [weak self] resultCode -> Observable<Mutation> in
                     if resultCode == "200" {
+                        UserDefaultsManager.shared.setLoggedIn(true)
                         self?.steps.accept(AppStep.navigateToTabBarController)
                     }
                     else {

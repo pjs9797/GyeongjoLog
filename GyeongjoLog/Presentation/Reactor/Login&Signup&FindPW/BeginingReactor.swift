@@ -29,6 +29,7 @@ class BeginingReactor: ReactorKit.Reactor, Stepper {
             return .empty()
             
         case .startNotLoginButtonTapped:
+            UserDefaultsManager.shared.setLoggedIn(false)
             self.steps.accept(AppStep.navigateToTabBarController)
             return .empty()
         }
