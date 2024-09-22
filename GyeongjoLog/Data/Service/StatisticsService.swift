@@ -4,6 +4,7 @@ import Foundation
 enum StatisticsService {
     case fetchIndividualStatistics
     case fetchMonthlyStatistics
+    case fetchMostInteractedThisMonth
 }
 
 extension StatisticsService: TargetType {
@@ -14,21 +15,21 @@ extension StatisticsService: TargetType {
             return "individual"
         case .fetchMonthlyStatistics:
             return "monthly"
+        case .fetchMostInteractedThisMonth:
+            return "mostInteractedThisMonth"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .fetchIndividualStatistics, .fetchMonthlyStatistics:
+        case .fetchIndividualStatistics, .fetchMonthlyStatistics, .fetchMostInteractedThisMonth:
             return .get
         }
     }
     
     var task: Task {
         switch self {
-        case .fetchIndividualStatistics:
-            return .requestPlain
-        case .fetchMonthlyStatistics:
+        case .fetchIndividualStatistics, .fetchMonthlyStatistics, .fetchMostInteractedThisMonth:
             return .requestPlain
         }
     }

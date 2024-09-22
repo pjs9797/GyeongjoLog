@@ -1,7 +1,7 @@
 import RxFlow
 import RxCocoa
 
-enum StatisticsStep: Step {
+enum StatisticsStep: Step, StepProtocol {
     // 푸시
     case navigateToStatisticsViewController
     case navigateToDetailIndividualStatisticsViewController(individualStatistics: IndividualStatistics)

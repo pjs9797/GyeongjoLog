@@ -5,9 +5,11 @@ import RxFlow
 class IndividualStatisticsReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
-    private let statisticsLocalDBUseCase: StatisticsLocalDBUseCase
+    let statisticsUseCase: StatisticsUseCase
+    let statisticsLocalDBUseCase: StatisticsLocalDBUseCase
     
-    init(statisticsLocalDBUseCase: StatisticsLocalDBUseCase) {
+    init(statisticsUseCase: StatisticsUseCase, statisticsLocalDBUseCase: StatisticsLocalDBUseCase) {
+        self.statisticsUseCase = statisticsUseCase
         self.statisticsLocalDBUseCase = statisticsLocalDBUseCase
     }
     
@@ -40,18 +42,30 @@ class IndividualStatisticsReactor: ReactorKit.Reactor, Stepper {
         switch action {
             // 검색
         case .updateSearchTextField(let query):
-            return self.statisticsLocalDBUseCase.fetchIndividualStatistics(query: query, filterRelationship: currentState.selectedRelationship)
+            return self.self.fetchIndividualStatistics(query: query, filterRelationship: currentState.selectedRelationship)
                 .map{ .setIndividualStatistics($0) }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: StatisticsStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
             
             // 컬렉션뷰 셀 탭
         case .selectRelationship(let index):
             let filterRelationship = currentState.relationships[index]
-            return self.statisticsLocalDBUseCase.fetchIndividualStatistics(filterRelationship: filterRelationship)
+            return self.fetchIndividualStatistics(filterRelationship: filterRelationship)
                 .flatMap { individualStatistics in
                     Observable.concat([
                         .just(.setSelectRelationship(filterRelationship)),
                         .just(.setIndividualStatistics(individualStatistics))
                     ])
+                }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: StatisticsStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
                 }
         case .selectIndividualStatistics(let index):
             let individualStatistic = currentState.individualStatistics[index]
@@ -60,8 +74,14 @@ class IndividualStatisticsReactor: ReactorKit.Reactor, Stepper {
             
             // 개인별 통계 로드
         case .loadIndividualStatistics:
-            return self.statisticsLocalDBUseCase.fetchIndividualStatistics()
+            return self.fetchIndividualStatistics()
                 .map{ .setIndividualStatistics($0) }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: StatisticsStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
         }
     }
     
@@ -76,6 +96,14 @@ class IndividualStatisticsReactor: ReactorKit.Reactor, Stepper {
             newState.selectedRelationship = relationship
         }
         return newState
+    }
+    
+    private func fetchIndividualStatistics(query: String? = nil, filterRelationship: String = "전체") -> Observable<[IndividualStatistics]> {
+        if UserDefaultsManager.shared.isLoggedIn() {
+            return self.statisticsUseCase.fetchIndividualStatistics(query: query, filterRelationship: filterRelationship)
+        } else {
+            return self.statisticsLocalDBUseCase.fetchIndividualStatistics(query: query, filterRelationship: filterRelationship)
+        }
     }
 }
 

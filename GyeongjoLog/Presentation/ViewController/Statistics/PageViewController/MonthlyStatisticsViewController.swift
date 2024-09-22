@@ -33,7 +33,6 @@ class MonthlyStatisticsViewController: UIViewController, ReactorKit.View {
         monthlyStatisticsView.barChartView.delegate = self
         self.setTapGesture()
         self.reactor?.action.onNext(.loadMonthlyStatistics)
-        self.reactor?.action.onNext(.selectMonth(5))
         self.reactor?.action.onNext(.loadTopIndividualStatistics)
     }
     

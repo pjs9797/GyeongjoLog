@@ -69,3 +69,34 @@ struct MonthlyStatisticsDTO: Codable {
     let transactionCount: Int
     let eventTypeAmounts: [String: Int]
 }
+
+struct MostInteractedMonthStatisticsReponseDTO: Codable {
+    let resultCode: String
+    let resultMessage: String
+    let data: MostInteractedPersonDTO
+    
+    static func toMostInteractedPerson(dto: MostInteractedMonthStatisticsReponseDTO) -> (name: String?, statistics: IndividualStatistics?) {
+        let data = dto.data
+        let individualStatistics = data.statistics.map { stats in
+            IndividualStatistics(
+                name: stats.name,
+                phoneNumber: stats.phoneNumber,
+                relationship: stats.relationship,
+                totalInteractions: stats.totalInteractions,
+                totalAmount: stats.totalAmount,
+                totalReceivedAmount: stats.totalReceivedAmount,
+                totalSentAmount: stats.totalSentAmount,
+                eventDetails: stats.eventDetails.map{ details in
+                    EventDetail(name: details.name, date: details.date, eventType: details.eventType, amount: details.amount)
+                }
+            )
+        }
+        
+        return (name: data.name, statistics: individualStatistics)
+    }
+}
+
+struct MostInteractedPersonDTO: Codable {
+    let name: String?
+    let statistics: IndividualStatisticsDTO?
+}

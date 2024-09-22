@@ -17,11 +17,22 @@ class StatisticsRepository: StatisticsRepositoryInterface {
             }
     }
     
-    func fetchMonthlyStatistics() -> RxSwift.Observable<[MonthlyStatistics]> {
+    func fetchMonthlyStatistics() -> Observable<[MonthlyStatistics]> {
         return provider.rx.request(.fetchMonthlyStatistics)
             .filterSuccessfulStatusCodes()
             .map(MonthlyStatisticsReponseDTO.self)
             .map{ MonthlyStatisticsReponseDTO.toMonthlyStatistics(dto: $0) }
+            .asObservable()
+            .catch { error in
+                return Observable.error(error)
+            }
+    }
+    
+    func fetchMostInteractedThisMonth() -> Observable<(name: String?, statistics: IndividualStatistics?)> {
+        return provider.rx.request(.fetchMostInteractedThisMonth)
+            .filterSuccessfulStatusCodes()
+            .map(MostInteractedMonthStatisticsReponseDTO.self)
+            .map{ MostInteractedMonthStatisticsReponseDTO.toMostInteractedPerson(dto: $0) }
             .asObservable()
             .catch { error in
                 return Observable.error(error)

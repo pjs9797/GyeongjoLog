@@ -10,6 +10,7 @@ class AppFlow: Flow {
     private let statisticsLocalDBUseCase = StatisticsLocalDBUseCase(repository: StatisticsLocalDBRepository())
     private let userUseCase = UserUseCase(repository: UserRepository())
     private let eventUseCase = EventUseCase(repository: EventRepository(), eventTypeRepository: EventTypeRepository())
+    private let statisticsUseCase = StatisticsUseCase(repository: StatisticsRepository())
     
     lazy var rootViewController: UINavigationController = {
         let navigationController = UINavigationController()
@@ -86,7 +87,7 @@ class AppFlow: Flow {
         let phraseNavigationController = UINavigationController()
         let settingNavigationController = UINavigationController()
         let eventHistoryFlow = EventHistoryFlow(with: eventHistoryNavigationController, eventUseCase: self.eventUseCase, eventLocalDBUseCase: self.eventLocalDBUseCase)
-        let statisticsFlow = StatisticsFlow(with: statisticsNavigationController, statisticsLocalDBUseCase: self.statisticsLocalDBUseCase)
+        let statisticsFlow = StatisticsFlow(with: statisticsNavigationController, statisticsUseCase: self.statisticsUseCase, statisticsLocalDBUseCase: self.statisticsLocalDBUseCase)
         let phraseFlow = PhraseFlow(with: phraseNavigationController)
         let settingFlow = SettingFlow(with: settingNavigationController)
         

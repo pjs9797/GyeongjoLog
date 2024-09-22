@@ -142,7 +142,6 @@ class AddEventReactor: ReactorKit.Reactor, Stepper {
                               memo: currentState.memo)
             if UserDefaultsManager.shared.isLoggedIn() {
                 return self.eventUseCase.addEvent(event: event)
-                    .debug()
                     .flatMap { [weak self] _ -> Observable<Mutation> in
                         self?.steps.accept(EventHistoryStep.popViewController)
                         return .empty()

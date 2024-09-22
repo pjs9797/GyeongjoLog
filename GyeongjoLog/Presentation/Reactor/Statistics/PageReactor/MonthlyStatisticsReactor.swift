@@ -6,9 +6,11 @@ import RxFlow
 class MonthlyStatisticsReactor: ReactorKit.Reactor, Stepper {
     let initialState: State = State()
     var steps = PublishRelay<Step>()
-    private let statisticsLocalDBUseCase: StatisticsLocalDBUseCase
+    let statisticsUseCase: StatisticsUseCase
+    let statisticsLocalDBUseCase: StatisticsLocalDBUseCase
     
-    init(statisticsLocalDBUseCase: StatisticsLocalDBUseCase) {
+    init(statisticsUseCase: StatisticsUseCase, statisticsLocalDBUseCase: StatisticsLocalDBUseCase) {
+        self.statisticsUseCase = statisticsUseCase
         self.statisticsLocalDBUseCase = statisticsLocalDBUseCase
     }
     
@@ -52,13 +54,20 @@ class MonthlyStatisticsReactor: ReactorKit.Reactor, Stepper {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .loadTopIndividualStatistics:
-            return self.statisticsLocalDBUseCase.fetchTopIndividualForCurrentMonth()
+            return self.fetchTopIndividualForCurrentMonth()
                 .flatMap{
                     Observable.concat([
                         .just(.setTopName($0.name)),
                         .just(.setTopIndividualStatistic($0.statistics))
                     ])
                 }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: StatisticsStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
+                }
+            
         case .selectTopIndividual:
             if let topIndividualStatistic = currentState.topIndividualStatistic {
                 self.steps.accept(StatisticsStep.navigateToDetailIndividualStatisticsViewController(individualStatistics: topIndividualStatistic))
@@ -107,13 +116,19 @@ class MonthlyStatisticsReactor: ReactorKit.Reactor, Stepper {
             ])
             
         case .loadMonthlyStatistics:
-            return self.statisticsLocalDBUseCase.fetchMonthlyStatistics()
+            return self.fetchMonthlyStatistics()
                 .flatMap { monthlyStatistics -> Observable<Mutation> in
                     let isEmpty = monthlyStatistics.allSatisfy { $0.receivedAmount == 0 }
                     return Observable.concat([
                         .just(.setMonthlyStatistics(monthlyStatistics)),
                         .just(.setIsEmptyMonthlyStatistics(isEmpty))
                     ])
+                }
+                .catch { [weak self] error in
+                    ErrorHandler.handle(error: error) { (step: StatisticsStep) in
+                        self?.steps.accept(step)
+                    }
+                    return .empty()
                 }
         }
     }
@@ -125,7 +140,6 @@ class MonthlyStatisticsReactor: ReactorKit.Reactor, Stepper {
             newState.topName = name
         case .setTopIndividualStatistic(let individualStatistics):
             newState.topIndividualStatistic = individualStatistics
-            
         case .setMonthlyStatistics(let monthlyStatistics):
             newState.monthlyStatistics = monthlyStatistics
         case .setIsEmptyMonthlyStatistics(let isEmpty):
@@ -146,5 +160,21 @@ class MonthlyStatisticsReactor: ReactorKit.Reactor, Stepper {
             newState.pieChartDetails = details
         }
         return newState
+    }
+    
+    private func fetchTopIndividualForCurrentMonth() -> Observable<(name: String?, statistics: IndividualStatistics?)> {
+        if UserDefaultsManager.shared.isLoggedIn() {
+            return self.statisticsUseCase.fetchTopIndividualForCurrentMonth()
+        } else {
+            return self.statisticsLocalDBUseCase.fetchTopIndividualForCurrentMonth()
+        }
+    }
+    
+    private func fetchMonthlyStatistics() -> Observable<[MonthlyStatistics]> {
+        if UserDefaultsManager.shared.isLoggedIn() {
+            return self.statisticsUseCase.fetchMonthlyStatistics()
+        } else {
+            return self.statisticsLocalDBUseCase.fetchMonthlyStatistics()
+        }
     }
 }

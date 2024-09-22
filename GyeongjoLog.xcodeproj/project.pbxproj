@@ -117,7 +117,6 @@
 		3171547B2C9565C2007CCD6D /* StatisticsRepositoryInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171547A2C9565C2007CCD6D /* StatisticsRepositoryInterface.swift */; };
 		3171547D2C9565FC007CCD6D /* StatisticsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171547C2C9565FC007CCD6D /* StatisticsRepository.swift */; };
 		3171547F2C956914007CCD6D /* EventUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3171547E2C956914007CCD6D /* EventUseCase.swift */; };
-		317154812C95691C007CCD6D /* EventTypeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154802C95691C007CCD6D /* EventTypeUseCase.swift */; };
 		317154832C956928007CCD6D /* StatisticsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317154822C956928007CCD6D /* StatisticsUseCase.swift */; };
 		3194AAC82C7B07E300AC5A01 /* ToastMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3194AAC72C7B07E300AC5A01 /* ToastMessage.swift */; };
 		3194AACD2C7B1B5F00AC5A01 /* SettingStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3194AACC2C7B1B5F00AC5A01 /* SettingStep.swift */; };
@@ -347,7 +346,6 @@
 		3171547A2C9565C2007CCD6D /* StatisticsRepositoryInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsRepositoryInterface.swift; sourceTree = "<group>"; };
 		3171547C2C9565FC007CCD6D /* StatisticsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsRepository.swift; sourceTree = "<group>"; };
 		3171547E2C956914007CCD6D /* EventUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventUseCase.swift; sourceTree = "<group>"; };
-		317154802C95691C007CCD6D /* EventTypeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTypeUseCase.swift; sourceTree = "<group>"; };
 		317154822C956928007CCD6D /* StatisticsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsUseCase.swift; sourceTree = "<group>"; };
 		3194AAC72C7B07E300AC5A01 /* ToastMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessage.swift; sourceTree = "<group>"; };
 		3194AACC2C7B1B5F00AC5A01 /* SettingStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingStep.swift; sourceTree = "<group>"; };
@@ -946,7 +944,6 @@
 			children = (
 				317154522C91D3AA007CCD6D /* UserUseCase.swift */,
 				3171547E2C956914007CCD6D /* EventUseCase.swift */,
-				317154802C95691C007CCD6D /* EventTypeUseCase.swift */,
 				317154822C956928007CCD6D /* StatisticsUseCase.swift */,
 			);
 			path = API;
@@ -1653,7 +1650,6 @@
 				311E256D2C64AECA00C61202 /* AddEventReactor.swift in Sources */,
 				3194AAC82C7B07E300AC5A01 /* ToastMessage.swift in Sources */,
 				31FDB1BD2C6B689D0010F3EC /* AmountFilterOption.swift in Sources */,
-				317154812C95691C007CCD6D /* EventTypeUseCase.swift in Sources */,
 				317153FD2C859DE9007CCD6D /* EnterPasswordForSignupViewController.swift in Sources */,
 				31FDB1D32C6D985F0010F3EC /* EventRelationshipFilterView.swift in Sources */,
 				3171540D2C85C266007CCD6D /* EnterPasswordForFindPWReactor.swift in Sources */,

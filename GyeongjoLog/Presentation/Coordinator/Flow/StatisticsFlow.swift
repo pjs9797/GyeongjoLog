@@ -8,13 +8,15 @@ class StatisticsFlow: Flow {
     }
     
     private var rootViewController: UINavigationController
+    private let statisticsUseCase: StatisticsUseCase
     private let statisticsLocalDBUseCase: StatisticsLocalDBUseCase
     
-    init(with rootViewController: UINavigationController, statisticsLocalDBUseCase: StatisticsLocalDBUseCase) {
+    init(with rootViewController: UINavigationController, statisticsUseCase: StatisticsUseCase, statisticsLocalDBUseCase: StatisticsLocalDBUseCase) {
         self.rootViewController = rootViewController
+        self.statisticsUseCase = statisticsUseCase
+        self.statisticsLocalDBUseCase = statisticsLocalDBUseCase
         self.rootViewController.interactivePopGestureRecognizer?.delegate = nil
         self.rootViewController.interactivePopGestureRecognizer?.isEnabled = true
-        self.statisticsLocalDBUseCase = statisticsLocalDBUseCase
     }
     
     func navigate(to step: Step) -> FlowContributors {
@@ -44,10 +46,10 @@ class StatisticsFlow: Flow {
     
     // 푸시
     private func navigateToStatisticsViewController() -> FlowContributors {
-        let individualStatisticsReactor = IndividualStatisticsReactor(statisticsLocalDBUseCase: self.statisticsLocalDBUseCase)
+        let individualStatisticsReactor = IndividualStatisticsReactor(statisticsUseCase: self.statisticsUseCase, statisticsLocalDBUseCase: self.statisticsLocalDBUseCase)
         let individualStatisticsViewController = IndividualStatisticsViewController(with: individualStatisticsReactor)
 
-        let monthlyStatisticsReactor = MonthlyStatisticsReactor(statisticsLocalDBUseCase: self.statisticsLocalDBUseCase)
+        let monthlyStatisticsReactor = MonthlyStatisticsReactor(statisticsUseCase: self.statisticsUseCase, statisticsLocalDBUseCase: self.statisticsLocalDBUseCase)
         let monthlyStatisticsViewController = MonthlyStatisticsViewController(with: monthlyStatisticsReactor)
         
         let reactor = StatisticsReactor()
@@ -61,7 +63,7 @@ class StatisticsFlow: Flow {
     }
     
     private func navigateToDetailIndividualStatisticsViewController(individualStatistics: IndividualStatistics) -> FlowContributors {
-        let reactor = DetailIndividualStatisticsReactor(statisticsLocalDBUseCase: self.statisticsLocalDBUseCase, individualStatistics: individualStatistics)
+        let reactor = DetailIndividualStatisticsReactor(individualStatistics: individualStatistics)
         let viewController = DetailIndividualStatisticsViewController(with: reactor)
         viewController.hidesBottomBarWhenPushed = true
         self.rootViewController.pushViewController(viewController, animated: true)
