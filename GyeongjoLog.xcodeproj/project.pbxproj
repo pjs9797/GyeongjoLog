@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		31105E952CA97A3A00BFD195 /* StatisticsStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31105E942CA97A3A00BFD195 /* StatisticsStepper.swift */; };
+		31105E982CAA6A3200BFD195 /* SettingStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31105E972CAA6A3200BFD195 /* SettingStepper.swift */; };
+		31105E9A2CAA6A4200BFD195 /* EventHistoryStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31105E992CAA6A4200BFD195 /* EventHistoryStepper.swift */; };
 		311E24D92C634C2300C61202 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E24D82C634C2300C61202 /* AppDelegate.swift */; };
 		311E24DB2C634C2300C61202 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E24DA2C634C2300C61202 /* SceneDelegate.swift */; };
 		311E24E22C634C2500C61202 /* ImageAssets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 311E24E12C634C2500C61202 /* ImageAssets.xcassets */; };
@@ -245,6 +248,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		31105E942CA97A3A00BFD195 /* StatisticsStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsStepper.swift; sourceTree = "<group>"; };
+		31105E972CAA6A3200BFD195 /* SettingStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingStepper.swift; sourceTree = "<group>"; };
+		31105E992CAA6A4200BFD195 /* EventHistoryStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHistoryStepper.swift; sourceTree = "<group>"; };
 		311E24D52C634C2300C61202 /* GyeongjoLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GyeongjoLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		311E24D82C634C2300C61202 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		311E24DA2C634C2300C61202 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -480,6 +486,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		31105E962CAA6A0B00BFD195 /* Stepper */ = {
+			isa = PBXGroup;
+			children = (
+				31105E992CAA6A4200BFD195 /* EventHistoryStepper.swift */,
+				31105E942CA97A3A00BFD195 /* StatisticsStepper.swift */,
+				31105E972CAA6A3200BFD195 /* SettingStepper.swift */,
+			);
+			path = Stepper;
+			sourceTree = "<group>";
+		};
 		311E24CC2C634C2300C61202 = {
 			isa = PBXGroup;
 			children = (
@@ -678,6 +694,7 @@
 		311E25422C64757E00C61202 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
+				31105E962CAA6A0B00BFD195 /* Stepper */,
 				31FDB1E52C6F910E0010F3EC /* FlowState */,
 				311E25432C64758800C61202 /* Flow */,
 				311E25442C64758C00C61202 /* Step */,
@@ -1608,6 +1625,7 @@
 				3171545F2C92B66A007CCD6D /* FindPwFlow.swift in Sources */,
 				31FDB1942C68E41F0010F3EC /* OthersEventViewController.swift in Sources */,
 				31FDB20B2C7191C00010F3EC /* StatisticsFlow.swift in Sources */,
+				31105E9A2CAA6A4200BFD195 /* EventHistoryStepper.swift in Sources */,
 				317153D52C847784007CCD6D /* BeginingView.swift in Sources */,
 				3194AAD52C7B1C3200AC5A01 /* SettingView.swift in Sources */,
 				317154692C955797007CCD6D /* EventDTO.swift in Sources */,
@@ -1633,10 +1651,12 @@
 				31FDB1882C6866790010F3EC /* SelectRelationshipView.swift in Sources */,
 				31FDB17C2C67BA7D0010F3EC /* SelectEventDateViewController.swift in Sources */,
 				311E24D92C634C2300C61202 /* AppDelegate.swift in Sources */,
+				31105E982CAA6A3200BFD195 /* SettingStepper.swift in Sources */,
 				31FDB2392C745F6C0010F3EC /* DetailIndividualStatisticsReactor.swift in Sources */,
 				317153E02C848417007CCD6D /* PasswordTextFieldView.swift in Sources */,
 				3171544B2C91D18C007CCD6D /* UserRepository.swift in Sources */,
 				31FDB17E2C67BA840010F3EC /* SelectEventDateReactor.swift in Sources */,
+				31105E952CA97A3A00BFD195 /* StatisticsStepper.swift in Sources */,
 				31FDB1AC2C69F6010010F3EC /* Color+Extension.swift in Sources */,
 				317153DE2C847E67007CCD6D /* LoginView.swift in Sources */,
 				311E257C2C64E2C900C61202 /* EventAmountCollectionViewCell.swift in Sources */,

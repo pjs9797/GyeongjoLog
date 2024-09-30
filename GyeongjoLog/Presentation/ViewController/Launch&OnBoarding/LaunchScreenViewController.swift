@@ -36,7 +36,12 @@ class LaunchScreenViewController: UIViewController {
                 self?.window.makeKeyAndVisible()
             }
             if UserDefaultsManager.shared.getOnBoardingStarted() {
-                self?.coordinator.coordinate(flow: self?.appFlow ?? AppFlow(), with: OneStepper(withSingleStep: AppStep.navigateToBeginingViewController))
+                if UserDefaultsManager.shared.isLoggedIn() {
+                    self?.coordinator.coordinate(flow: self?.appFlow ?? AppFlow(), with: OneStepper(withSingleStep: AppStep.navigateToTabBarController))
+                }
+                else {
+                    self?.coordinator.coordinate(flow: self?.appFlow ?? AppFlow(), with: OneStepper(withSingleStep: AppStep.navigateToBeginingViewController))
+                }
             }
             else {
                 self?.coordinator.coordinate(flow: self?.appFlow ?? AppFlow(), with: OneStepper(withSingleStep: AppStep.navigateToOnBoardingViewController))

@@ -20,5 +20,7 @@ enum AppStep: Step, StepProtocol {
     
     case popToRootViewController
     case popViewController
+    
+    case resetFlowAndNavigateToBeginingViewController
 }
 

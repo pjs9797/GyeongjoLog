@@ -31,4 +31,12 @@ class UserUseCase {
     func login(email: String, password: String) -> Observable<String> {
         return repository.login(email: email, password: password)
     }
+    
+    func logout() -> Observable<String> {
+        return repository.logout()
+    }
+    
+    func withdraw() -> Observable<String> {
+        return repository.withdraw()
+    }
 }

@@ -36,7 +36,7 @@ extension StatisticsService: TargetType {
     
     var headers: [String : String]? {
         if let accessToken = TokenManager.shared.loadAccessToken(), let refreshToken = TokenManager.shared.loadRefreshToken() {
-            return ["Content-Type": "application/json", "Authorization": "\(accessToken)", "Authorization-refresh": "\(refreshToken)"]
+            return ["Content-Type": "application/json", "Authorization": "\(accessToken)", "Authorization-Refresh": "\(refreshToken)"]
         }
         return ["Content-Type": "application/json"]
     }

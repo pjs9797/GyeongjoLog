@@ -73,10 +73,32 @@ class UserRepository: UserRepositoryInterface {
                     TokenManager.shared.saveAccessToken(accessToken)
                     TokenManager.shared.saveRefreshToken(refreshToken)
                     if let accessToken = TokenManager.shared.loadAccessToken(), let refreshToken = TokenManager.shared.loadRefreshToken() {
-                        print(["Authorization": "\(accessToken)", "Authorization-refresh": "\(refreshToken)"])
+                        print(["Authorization": "\(accessToken)", "Authorization-Refresh": "\(refreshToken)"])
                     }
                 }
             })
+            .map(ResponseDTO.self)
+            .map{ ResponseDTO.toResultCode(dto: $0) }
+            .asObservable()
+            .catch { error in
+                return Observable.error(error)
+            }
+    }
+    
+    func logout() -> Observable<String> {
+        return provider.rx.request(.logout)
+            .filterSuccessfulStatusCodes()
+            .map(ResponseDTO.self)
+            .map{ ResponseDTO.toResultCode(dto: $0) }
+            .asObservable()
+            .catch { error in
+                return Observable.error(error)
+            }
+    }
+    func withdraw() -> Observable<String> {
+        return provider.rx.request(.withdraw)
+            .debug()
+            .filterSuccessfulStatusCodes()
             .map(ResponseDTO.self)
             .map{ ResponseDTO.toResultCode(dto: $0) }
             .asObservable()

@@ -10,11 +10,13 @@ class EventHistoryFlow: Flow {
     private var rootViewController: UINavigationController
     private let eventUseCase: EventUseCase
     private let eventLocalDBUseCase: EventLocalDBUseCase
+    private let stepper: EventHistoryStepper
     
-    init(with rootViewController: UINavigationController, eventUseCase: EventUseCase, eventLocalDBUseCase: EventLocalDBUseCase) {
+    init(with rootViewController: UINavigationController, eventUseCase: EventUseCase, eventLocalDBUseCase: EventLocalDBUseCase, stepper: EventHistoryStepper) {
         self.rootViewController = rootViewController
         self.eventUseCase = eventUseCase
         self.eventLocalDBUseCase = eventLocalDBUseCase
+        self.stepper = stepper
         self.rootViewController.interactivePopGestureRecognizer?.delegate = nil
         self.rootViewController.interactivePopGestureRecognizer?.isEnabled = true
     }
@@ -70,7 +72,7 @@ class EventHistoryFlow: Flow {
         case .popViewController:
             return popViewController()
         case .endFlow:
-            return .end(forwardToParentFlowWithStep: AppStep.navigateToBeginingViewController)
+            return .end(forwardToParentFlowWithStep: AppStep.resetFlowAndNavigateToBeginingViewController)
         }
     }
     
@@ -88,9 +90,7 @@ class EventHistoryFlow: Flow {
         self.rootViewController.pushViewController(viewController, animated: true)
         
         return .multiple(flowContributors: [
-            .contribute(withNextPresentable: viewController, withNextStepper: compositeStepper),
-//            .contribute(withNextPresentable: viewController, withNextStepper: reactor),
-//            .contribute(withNextPresentable: viewController.pageViewController, withNextStepper: compositeStepper)
+            .contribute(withNextPresentable: viewController, withNextStepper: compositeStepper)
         ])
     }
     
@@ -280,8 +280,9 @@ class EventHistoryFlow: Flow {
         let alertController = UIAlertController(title: "토큰 유효 기간 만료",
             message: "다시 로그인해주세요",
             preferredStyle: .alert)
+        
         let okAction = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
-            let _ = self?.navigate(to: EventHistoryStep.endFlow)
+            self?.stepper.resetFlow()
         }
         alertController.addAction(okAction)
         self.rootViewController.present(alertController, animated: true, completion: nil)

@@ -6,6 +6,11 @@ class AppFlow: Flow {
         return self.rootViewController
     }
     
+    var eventHistoryFlow: EventHistoryFlow?
+    var statisticsFlow: StatisticsFlow?
+    var phraseFlow: PhraseFlow?
+    var settingFlow: SettingFlow?
+    
     private let eventLocalDBUseCase = EventLocalDBUseCase(repository: EventLocalDBRepository())
     private let statisticsLocalDBUseCase = StatisticsLocalDBUseCase(repository: StatisticsLocalDBRepository())
     private let userUseCase = UserUseCase(repository: UserRepository())
@@ -29,8 +34,6 @@ class AppFlow: Flow {
         case .navigateToTabBarController:
             return navigateToTabBarController()
             
-        
-            
         case .goToSignupFlow:
             return goToSignupFlow()
         case .goToFindPwFlow:
@@ -52,6 +55,8 @@ class AppFlow: Flow {
             return popToRootViewController()
         case .popViewController:
             return popViewController()
+        case .resetFlowAndNavigateToBeginingViewController:
+            return resetFlowAndNavigateToBeginingViewController()
         }
     }
     
@@ -74,6 +79,7 @@ class AppFlow: Flow {
     private func navigateToLoginViewController() -> FlowContributors {
         let reactor = LoginReactor(userUseCase: self.userUseCase)
         let viewController = LoginViewController(with: reactor)
+        self.rootViewController.isNavigationBarHidden = false
         self.rootViewController.pushViewController(viewController, animated: true)
         
         return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
@@ -86,12 +92,17 @@ class AppFlow: Flow {
         let statisticsNavigationController = UINavigationController()
         let phraseNavigationController = UINavigationController()
         let settingNavigationController = UINavigationController()
-        let eventHistoryFlow = EventHistoryFlow(with: eventHistoryNavigationController, eventUseCase: self.eventUseCase, eventLocalDBUseCase: self.eventLocalDBUseCase)
-        let statisticsFlow = StatisticsFlow(with: statisticsNavigationController, statisticsUseCase: self.statisticsUseCase, statisticsLocalDBUseCase: self.statisticsLocalDBUseCase)
-        let phraseFlow = PhraseFlow(with: phraseNavigationController)
-        let settingFlow = SettingFlow(with: settingNavigationController)
         
-        Flows.use(eventHistoryFlow, statisticsFlow, phraseFlow, settingFlow, when: .created) { [weak self] (eventHistoryNavigationController, statisticsNavigationController, phraseNavigationController, settingNavigationController) in
+        let eventHistoryStepper = EventHistoryStepper(initialStep: EventHistoryStep.navigateToHistoryViewController)
+        let statisticsStepper = StatisticsStepper(initialStep: StatisticsStep.navigateToStatisticsViewController)
+        let settingStepper = SettingStepper(initialStep: SettingStep.navigateToSettingViewController)
+        
+        self.eventHistoryFlow = EventHistoryFlow(with: eventHistoryNavigationController, eventUseCase: self.eventUseCase, eventLocalDBUseCase: self.eventLocalDBUseCase, stepper: eventHistoryStepper)
+        self.statisticsFlow = StatisticsFlow(with: statisticsNavigationController, statisticsUseCase: self.statisticsUseCase, statisticsLocalDBUseCase: self.statisticsLocalDBUseCase, stepper: statisticsStepper)
+        self.phraseFlow = PhraseFlow(with: phraseNavigationController)
+        self.settingFlow = SettingFlow(with: settingNavigationController, userUseCase: self.userUseCase, stepper: settingStepper)
+        
+        Flows.use(eventHistoryFlow!, statisticsFlow!, phraseFlow!, settingFlow!, when: .created) { [weak self] (eventHistoryNavigationController, statisticsNavigationController, phraseNavigationController, settingNavigationController) in
             
             eventHistoryNavigationController.tabBarItem = UITabBarItem(title: "내역", image: ImageManager.icon_event_select?.withRenderingMode(.alwaysOriginal), tag: 0)
             statisticsNavigationController.tabBarItem = UITabBarItem(title: "통계", image: ImageManager.icon_statistics_deselect?.withRenderingMode(.alwaysOriginal), tag: 1)
@@ -101,12 +112,12 @@ class AppFlow: Flow {
             tabBarController.viewControllers = [eventHistoryNavigationController,statisticsNavigationController,phraseNavigationController,settingNavigationController]
             self?.rootViewController.setViewControllers([tabBarController], animated: false)
         }
-
+        
         return .multiple(flowContributors: [
-            .contribute(withNextPresentable: eventHistoryFlow, withNextStepper: OneStepper(withSingleStep: EventHistoryStep.navigateToHistoryViewController)),
-            .contribute(withNextPresentable: statisticsFlow, withNextStepper: OneStepper(withSingleStep: StatisticsStep.navigateToStatisticsViewController)),
-            .contribute(withNextPresentable: phraseFlow, withNextStepper: OneStepper(withSingleStep: PhraseStep.navigateToPhraseViewController)),
-            .contribute(withNextPresentable: settingFlow, withNextStepper: OneStepper(withSingleStep: SettingStep.navigateToSettingViewController)),
+            .contribute(withNextPresentable: eventHistoryFlow!, withNextStepper: eventHistoryStepper),
+            .contribute(withNextPresentable: statisticsFlow!, withNextStepper: statisticsStepper),
+            .contribute(withNextPresentable: phraseFlow!, withNextStepper: OneStepper(withSingleStep: PhraseStep.navigateToPhraseViewController)),
+            .contribute(withNextPresentable: settingFlow!, withNextStepper: settingStepper),
         ])
     }
     
@@ -166,5 +177,19 @@ class AppFlow: Flow {
         self.rootViewController.popViewController(animated: true)
         
         return .none
+    }
+    
+    private func resetFlowAndNavigateToBeginingViewController() -> FlowContributors {
+        
+//        self.eventHistoryFlow = nil
+//        self.statisticsFlow = nil
+//        self.phraseFlow = nil
+//        self.settingFlow = nil
+        
+        let reactor = BeginingReactor()
+        let viewController = BeginingViewController(with: reactor)
+        self.rootViewController.setViewControllers([viewController], animated: false)
+        
+        return .one(flowContributor: .contribute(withNextPresentable: viewController, withNextStepper: reactor))
     }
 }

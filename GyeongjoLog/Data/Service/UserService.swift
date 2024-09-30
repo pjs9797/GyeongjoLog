@@ -8,6 +8,8 @@ enum UserService {
     case saveNewPw(email: String, password: String)
     case join(email: String, password: String)
     case login(email: String, password: String)
+    case logout
+    case withdraw
 }
 
 extension UserService: TargetType {
@@ -26,6 +28,10 @@ extension UserService: TargetType {
             return "join"
         case .login:
             return "login"
+        case .logout:
+            return "logout"
+        case .withdraw:
+            return "withdraw"
         }
     }
     
@@ -33,6 +39,8 @@ extension UserService: TargetType {
         switch self {
         case .checkDuplicateEmail, .sendAuthCode, .checkAuthCode, .saveNewPw, .join, .login:
             return .post
+        case .logout, .withdraw:
+            return .get
         }
     }
     
@@ -56,10 +64,23 @@ extension UserService: TargetType {
         case .login(let email, let password):
             let parameters = ["email": email, "password": password]
             return .requestParameters(parameters: parameters, encoding: JSONEncoding.default)
+        case .logout, .withdraw:
+            return .requestPlain
         }
     }
     
     var headers: [String : String]? {
+        switch self {
+        case .logout, .withdraw:
+            if let accessToken = TokenManager.shared.loadAccessToken(), let refreshToken = TokenManager.shared.loadRefreshToken() {
+                return ["Content-Type": "application/json",
+                        "Authorization": "\(accessToken)",
+                        "Authorization-Refresh": "\(refreshToken)"]
+            }
+        default:
+            return ["Content-Type": "application/json"]
+        }
         return ["Content-Type": "application/json"]
     }
+
 }

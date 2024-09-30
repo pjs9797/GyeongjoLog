@@ -1,6 +1,7 @@
 import UIKit
 import RxFlow
 import RxCocoa
+import RxSwift
 
 class StatisticsFlow: Flow {
     var root: Presentable {
@@ -10,11 +11,13 @@ class StatisticsFlow: Flow {
     private var rootViewController: UINavigationController
     private let statisticsUseCase: StatisticsUseCase
     private let statisticsLocalDBUseCase: StatisticsLocalDBUseCase
+    private let stepper: StatisticsStepper
     
-    init(with rootViewController: UINavigationController, statisticsUseCase: StatisticsUseCase, statisticsLocalDBUseCase: StatisticsLocalDBUseCase) {
+    init(with rootViewController: UINavigationController, statisticsUseCase: StatisticsUseCase, statisticsLocalDBUseCase: StatisticsLocalDBUseCase, stepper: StatisticsStepper) {
         self.rootViewController = rootViewController
         self.statisticsUseCase = statisticsUseCase
         self.statisticsLocalDBUseCase = statisticsLocalDBUseCase
+        self.stepper = stepper
         self.rootViewController.interactivePopGestureRecognizer?.delegate = nil
         self.rootViewController.interactivePopGestureRecognizer?.isEnabled = true
     }
@@ -40,7 +43,7 @@ class StatisticsFlow: Flow {
         case .popViewController:
             return popViewController()
         case .endFlow:
-            return .end(forwardToParentFlowWithStep: AppStep.navigateToBeginingViewController)
+            return .end(forwardToParentFlowWithStep: AppStep.resetFlowAndNavigateToBeginingViewController)
         }
     }
     
@@ -99,7 +102,7 @@ class StatisticsFlow: Flow {
             message: "다시 로그인해주세요",
             preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인", style: .default) { [weak self] _ in
-            let _ = self?.navigate(to: EventHistoryStep.endFlow)
+            self?.stepper.resetFlow()
         }
         alertController.addAction(okAction)
         self.rootViewController.present(alertController, animated: true, completion: nil)
