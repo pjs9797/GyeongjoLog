@@ -7,7 +7,7 @@ enum EventTypeService {
 }
 
 extension EventTypeService: TargetType {
-    var baseURL: URL { return URL(string: "http://localhost:8080/evenTypes/")! }
+    var baseURL: URL { return URL(string: "http://\(ConfigManager.BaseURL)/evenTypes/")! }
     var path: String {
         switch self {
         case .fetchEventTypes:

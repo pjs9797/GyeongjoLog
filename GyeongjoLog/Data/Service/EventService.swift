@@ -13,7 +13,7 @@ enum EventService {
 }
 
 extension EventService: TargetType {
-    var baseURL: URL { return URL(string: "http://localhost:8080/events/")! }
+    var baseURL: URL { return URL(string: "http://\(ConfigManager.BaseURL)/events/")! }
     var path: String {
         switch self {
         case .addEvent:

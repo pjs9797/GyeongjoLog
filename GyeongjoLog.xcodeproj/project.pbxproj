@@ -63,6 +63,8 @@
 		311E25892C65021900C61202 /* EventHistoryStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311E25882C65021900C61202 /* EventHistoryStep.swift */; };
 		312A995C2C663F96001F5BB8 /* SetEventDetailTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312A995B2C663F96001F5BB8 /* SetEventDetailTextFieldView.swift */; };
 		312A995E2C663FCD001F5BB8 /* SetEventDetailButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312A995D2C663FCD001F5BB8 /* SetEventDetailButtonView.swift */; };
+		31647BFD2CAD34B200AF53CF /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 31647BFC2CAD34B200AF53CF /* Config.xcconfig */; };
+		31647BFF2CAD35DA00AF53CF /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31647BFE2CAD35DA00AF53CF /* ConfigManager.swift */; };
 		317153CF2C7B5C7D007CCD6D /* UIDevice+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317153CE2C7B5C7D007CCD6D /* UIDevice+Extension.swift */; };
 		317153D12C844DA6007CCD6D /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317153D02C844DA6007CCD6D /* LaunchScreenViewController.swift */; };
 		317153D52C847784007CCD6D /* BeginingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317153D42C847784007CCD6D /* BeginingView.swift */; };
@@ -298,6 +300,8 @@
 		311E25882C65021900C61202 /* EventHistoryStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHistoryStep.swift; sourceTree = "<group>"; };
 		312A995B2C663F96001F5BB8 /* SetEventDetailTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetEventDetailTextFieldView.swift; sourceTree = "<group>"; };
 		312A995D2C663FCD001F5BB8 /* SetEventDetailButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetEventDetailButtonView.swift; sourceTree = "<group>"; };
+		31647BFC2CAD34B200AF53CF /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		31647BFE2CAD35DA00AF53CF /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
 		317153CE2C7B5C7D007CCD6D /* UIDevice+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+Extension.swift"; sourceTree = "<group>"; };
 		317153D02C844DA6007CCD6D /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
 		317153D42C847784007CCD6D /* BeginingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeginingView.swift; sourceTree = "<group>"; };
@@ -522,6 +526,7 @@
 				311E24ED2C634C5400C61202 /* Presentation */,
 				311E24EC2C634C4F00C61202 /* Data */,
 				311E24E62C634C2500C61202 /* Info.plist */,
+				31647BFC2CAD34B200AF53CF /* Config.xcconfig */,
 			);
 			path = GyeongjoLog;
 			sourceTree = "<group>";
@@ -574,6 +579,7 @@
 				317154602C92CAED007CCD6D /* ErrorHandler.swift */,
 				317154622C93266D007CCD6D /* KeychainHelper.swift */,
 				317154642C93268B007CCD6D /* TokenManager.swift */,
+				31647BFE2CAD35DA00AF53CF /* ConfigManager.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -1578,6 +1584,7 @@
 				311E25182C63616A00C61202 /* Pretendard-Medium.otf in Resources */,
 				311E25172C63616A00C61202 /* Pretendard-Regular.otf in Resources */,
 				311E250A2C635F3900C61202 /* ColorAssets.xcassets in Resources */,
+				31647BFD2CAD34B200AF53CF /* Config.xcconfig in Resources */,
 				311E24E22C634C2500C61202 /* ImageAssets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1720,6 +1727,7 @@
 				3171546D2C95592C007CCD6D /* EventRepositoryInterface.swift in Sources */,
 				311E25102C6360E600C61202 /* ConstantsManager.swift in Sources */,
 				317153E22C8577A3007CCD6D /* ShowPasswordButton.swift in Sources */,
+				31647BFF2CAD35DA00AF53CF /* ConfigManager.swift in Sources */,
 				31FDB1702C6788700010F3EC /* SelectEventDateView.swift in Sources */,
 				31FDB21F2C71EBE80010F3EC /* Statistics.swift in Sources */,
 				317154072C85C1BE007CCD6D /* EnterEmailForFindPWReactor.swift in Sources */,
@@ -1800,6 +1808,7 @@
 /* Begin XCBuildConfiguration section */
 		311E24E72C634C2500C61202 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31647BFC2CAD34B200AF53CF /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1863,6 +1872,7 @@
 		};
 		311E24E82C634C2500C61202 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31647BFC2CAD34B200AF53CF /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1919,6 +1929,7 @@
 		};
 		311E24EA2C634C2500C61202 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31647BFC2CAD34B200AF53CF /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1950,6 +1961,7 @@
 		};
 		311E24EB2C634C2500C61202 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 31647BFC2CAD34B200AF53CF /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

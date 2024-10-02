@@ -181,10 +181,10 @@ class AppFlow: Flow {
     
     private func resetFlowAndNavigateToBeginingViewController() -> FlowContributors {
         
-//        self.eventHistoryFlow = nil
-//        self.statisticsFlow = nil
-//        self.phraseFlow = nil
-//        self.settingFlow = nil
+        self.eventHistoryFlow = nil
+        self.statisticsFlow = nil
+        self.phraseFlow = nil
+        self.settingFlow = nil
         
         let reactor = BeginingReactor()
         let viewController = BeginingViewController(with: reactor)

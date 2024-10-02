@@ -8,7 +8,7 @@ enum StatisticsService {
 }
 
 extension StatisticsService: TargetType {
-    var baseURL: URL { return URL(string: "http://localhost:8080/statistics/")! }
+    var baseURL: URL { return URL(string: "http://\(ConfigManager.BaseURL)/statistics/")! }
     var path: String {
         switch self {
         case .fetchIndividualStatistics:

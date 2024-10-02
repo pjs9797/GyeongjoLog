@@ -13,7 +13,7 @@ enum UserService {
 }
 
 extension UserService: TargetType {
-    var baseURL: URL { return URL(string: "http://localhost:8080/user/")! }
+    var baseURL: URL { return URL(string: "http://\(ConfigManager.BaseURL)/user/")! }
     var path: String {
         switch self {
         case .checkDuplicateEmail:
