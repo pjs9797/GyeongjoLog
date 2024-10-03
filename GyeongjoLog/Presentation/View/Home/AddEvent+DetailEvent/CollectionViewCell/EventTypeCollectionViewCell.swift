@@ -8,6 +8,9 @@ class EventTypeCollectionViewCell: UICollectionViewCell {
     let eventTypeLabel: UILabel = {
         let label = UILabel()
         label.font = FontManager.Body02
+        label.adjustsFontSizeToFitWidth = true
+        label.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        label.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return label
     }()
     

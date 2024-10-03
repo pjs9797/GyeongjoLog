@@ -8,6 +8,7 @@ class UserRepository: UserRepositoryInterface {
     
     func checkEmailIsExisted(email: String) -> Observable<String> {
         return provider.rx.request(.checkDuplicateEmail(email: email))
+            .debug()
             .filterSuccessfulStatusCodes()
             .map(ResponseDTO.self)
             .map{ ResponseDTO.toResultCode(dto: $0) }

@@ -46,6 +46,14 @@ class AddEventViewController: UIViewController, ReactorKit.View {
     
     private func setNavigationbar() {
         self.title = "내역추가"
+        switch self.reactor?.addEventFlow{
+        case .myEventSummary:
+            self.title = "나의 경조사 추가"
+        case .othersEventSummary:
+            self.title = "타인 경조사 추가"
+        case .none:
+            self.title = "내역추가"
+        }
         navigationItem.leftBarButtonItem = backButton
     }
     
